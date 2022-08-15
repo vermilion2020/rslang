@@ -1,3 +1,5 @@
+@import '../../view/base-styles.scss';
+
 .header-container {
   width: 1200px;
   margin: auto;
@@ -19,25 +21,30 @@ header {
 }
 
 .main-nav__item {
+  font-family: $rusFont;
   display: inline-block;
-  padding: 0.4rem 1rem;
+  padding: 1.5rem;
   text-decoration: none;
-  color: #FFFFFF;
-  background-color: #181e30;
-  border-radius: 0.5rem;
-  border: 2px solid #181e30;
-  box-shadow: 0.2rem 0.2rem 0.4rem -0.3rem #181e30;
+  color: $mainText;
+  opacity: 1;
   cursor: pointer;
 }
 
+.main-nav__item_disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .main-nav__item_active {
-  background-color: #cdd7f3;
-  color: #181e30;
+  color: $textActive;
+}
+
+.main-nav__item_disabled:hover {
+  text-decoration: none;
 }
 
 .main-nav__item:hover {
-  background-color: #455789;
-  color: #FFFFFF;
+  text-decoration: underline;
 }
 
 .main-nav {

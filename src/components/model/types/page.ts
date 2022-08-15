@@ -5,4 +5,5 @@ export interface Page {
 
 export interface PagesState {
   page: string,
+  loggedIn: boolean,
 }

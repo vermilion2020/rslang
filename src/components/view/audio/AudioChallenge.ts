@@ -1,8 +1,8 @@
-import { mainTemplate } from "./MainTemplate";
-import './Main.scss';
+import { audioTemplate } from "./AudioTemplate";
+import './AudioChallenge.scss';
 import { Page, PagesState } from "../../model/types/page";
 
-export class Main implements Page {
+export class AudioChallenge implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
@@ -10,8 +10,8 @@ export class Main implements Page {
   }
   
   async render() {
-    this.state.page = 'main';
-    const notFoundNode = <HTMLElement>mainTemplate.content.cloneNode(true);
+    this.state.page = 'audio';
+    const notFoundNode = <HTMLElement>audioTemplate.content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);

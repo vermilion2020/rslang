@@ -1,8 +1,8 @@
-import { mainTemplate } from "./MainTemplate";
-import './Main.scss';
+import { dictionaryTemplate } from "./DictionaryTemplate";
+import './Dictionary.scss';
 import { Page, PagesState } from "../../model/types/page";
 
-export class Main implements Page {
+export class Dictionary implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
@@ -10,8 +10,8 @@ export class Main implements Page {
   }
   
   async render() {
-    this.state.page = 'main';
-    const notFoundNode = <HTMLElement>mainTemplate.content.cloneNode(true);
+    this.state.page = 'dictionary';
+    const notFoundNode = <HTMLElement>dictionaryTemplate.content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);
