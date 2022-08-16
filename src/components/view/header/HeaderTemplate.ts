@@ -15,7 +15,7 @@ export const headerTemplate = (active: string, loggedIn: boolean): HTMLTemplateE
     menuBody += drawMenuItem(item, active, loggedIn);
   }
   header.innerHTML = `
-  <a href="/"><h1>RS Lang</h1></a>
+  <a href="/" class="logo"><span class="circle"></span><h1>RS Lang</h1></a>
   <nav class="main-nav" id="main-nav">
     ${menuBody}
   </nav>`;
