@@ -1,9 +1,19 @@
+@import 'base-styles.scss';
+
+body {
+  margin: 0;
+}
+
 .wrapper {
   width: 100%;
   box-sizing: border-box;
 }
 
-.main-container, footer, header {
+.gray {
+  background-color: $grayBg;
+}
+
+.main-container{
   width: 1240px;
   margin: auto;
 }
@@ -24,4 +34,14 @@ html {
 
 .hidden {
   display: none;
+}
+
+.button {
+  color: $buttonText;
+  background: $mainText;
+  padding: 0.5rem 0.8rem;
+  border: 0;
+  font-size: 0.9rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
 }

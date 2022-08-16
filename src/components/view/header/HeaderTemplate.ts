@@ -8,16 +8,27 @@ const drawMenuItem = (item: MenuItem, active: string, loggedIn: boolean): string
     </a>`;
 }
 
-export const headerTemplate = (active: string, loggedIn: boolean): HTMLTemplateElement => {
+export const headerTemplate = (active: string, loggedIn: boolean, userName: string): HTMLTemplateElement => {
   const header = document.createElement('template');
   let menuBody = '';
   for (let item of menuItems) {
     menuBody += drawMenuItem(item, active, loggedIn);
   }
+  const loggedOutBlock = `
+    <div class="logged-out">
+      <button class="button">Войти</button>
+    </div>`;
+  const loggedInBlock = `
+    <div class="logged-in">
+      <div class="user-name">${userName}</div>
+      <button class="button">Выход</button>
+    </div>`;
   header.innerHTML = `
-  <a href="/" class="logo"><span class="circle"></span><h1>RS Lang</h1></a>
+  <div class="logo"><a href="/" class="logo__link"><span class="circle"></span><h1>RS Lang</h1></a></div>
   <nav class="main-nav" id="main-nav">
     ${menuBody}
-  </nav>`;
+  </nav>
+  ${!loggedIn ? loggedOutBlock : loggedInBlock}
+  `;
   return header;
 } 

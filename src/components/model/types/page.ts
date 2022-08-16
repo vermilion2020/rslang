@@ -6,4 +6,8 @@ export interface Page {
 export interface PagesState {
   page: string,
   loggedIn: boolean,
+  token: string,
+  refreshToken: string,
+  userId: string;
+  userName: string;
 }

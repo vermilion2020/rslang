@@ -3,6 +3,9 @@
 .header-container {
   width: 1240px;
   margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h1 {
@@ -11,35 +14,46 @@ h1 {
   margin: 0;
 }
 
-.logo {
+.logo__link {
   text-decoration: none;
   color: $mainText;
   display: flex;
   gap: 0.3rem;
   align-items: center;
+
+  &:hover {
+    color: $textActive;
+  }
 }
 
-.logo:hover {
-  color: $textActive;
+.logged-in {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.user-name {
+  font-family: $rusFont;
+  font-size: 1.2rem;
+  color: $mainText;
+  cursor: pointer;
+
+  &:hover {
+    color: $textActive;
+    text-decoration: underline;
+  }
 }
 
 .circle {
-  height:0.5rem;
-  width:0.5rem;
-  border-radius: 0.3rem;
+  height:0.8rem;
+  width:0.8rem;
+  border-radius: 0.4rem;
   display: inline-block;
   background-color: $mainText;
 }
 
 .logo:hover .circle {
   background-color: $textActive;
-}
-
-header {
-  display: flex;
-  justify-content: flex-start;
-  gap: 50px;
-  align-items: center;
 }
 
 .main-nav__item {
@@ -50,23 +64,23 @@ header {
   color: $mainText;
   opacity: 1;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .main-nav__item_disabled {
   opacity: 0.5;
   cursor: not-allowed;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .main-nav__item_active {
   color: $textActive;
-}
-
-.main-nav__item_disabled:hover {
-  text-decoration: none;
-}
-
-.main-nav__item:hover {
-  text-decoration: underline;
 }
 
 .main-nav {
@@ -76,18 +90,10 @@ header {
 
 @media screen and (max-width: 1279px) {
   
-  .header-container {
-    width: 92%;
-    padding: 0 30px;
-  }
 
 }
 
 @media screen and (max-width: 767px) {
   
-  .header-container {
-    width: 94%;
-    padding: 0 10px;
-  }
 
 }

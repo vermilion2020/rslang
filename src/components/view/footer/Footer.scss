@@ -1,41 +1,44 @@
-footer {
-  height: 100px;
+@import '../base-styles.scss';
+
+.footer-container {
+  width: 1240px;
+  margin: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
+  justify-content: space-between;
 
-footer .copyright {
-  font-size: 14px;
-  color: #333333;
-  text-align: center;
-}
+  .copyright {
+    font-size: 1rem;
+    color: #333333;
+    text-align: center;
 
-footer .copyright a {
-  color: #444444;
-}
+    a {
+      color: #444444;
+    }
 
-footer .copyright a:hover {
-  color: #455789;
-  box-shadow: 0 0.5rem 0.5rem -0.4rem #CECECE;
-}
+    a:hover {
+      color: #455789;
+      box-shadow: 0 0.5rem 0.5rem -0.4rem #CECECE;
+    }
 
-footer .copyright:before {
-  content: '©';
+    &:before {
+      content: '©';
+    }
+  }
 }
 
 .rsschool {
   width: 83px;
   height: 30px;
   margin-left: 20px;
-}
 
-.rsschool:hover,
-.rsschool:focus {
-  box-shadow: 0 0.5rem 0.5rem -0.4rem #CECECE;
-}
+  &:hover,
+  &:focus {
+    box-shadow: 0 0.5rem 0.5rem -0.4rem #CECECE;
+  }
 
-.rsschool:hover path,
-.rsschool:focus path{
-  fill: #455789;
+  &:hover .rsschool-paint,
+  &:focus .rsschool-paint{
+    fill: $textActive;
+  }
 }
