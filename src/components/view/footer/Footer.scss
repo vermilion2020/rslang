@@ -9,16 +9,16 @@
 
   .copyright {
     font-size: 1rem;
-    color: #333333;
+    color: $mainText;
     text-align: center;
 
     a {
-      color: #444444;
+      color: $mainText;
+      text-decoration: none;
     }
 
     a:hover {
-      color: #455789;
-      box-shadow: 0 0.5rem 0.5rem -0.4rem #CECECE;
+      text-decoration: underline;
     }
 
     &:before {
