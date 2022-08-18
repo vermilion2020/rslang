@@ -24,7 +24,7 @@ export const headerTemplate = (active: string, loggedIn: boolean, userName: stri
       <button class="button">Выход</button>
     </div>`;
   header.innerHTML = `
-  <div class="logo"><a href="/" class="logo__link"><span class="circle"></span><h1>RS Lang</h1></a></div>
+  <div class="logo"><a href="/" class="logo__link"></span><h1>RS Lang</h1></a></div>
   <nav class="main-nav" id="main-nav">
     ${menuBody}
   </nav>

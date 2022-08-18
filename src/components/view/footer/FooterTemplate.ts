@@ -1,11 +1,13 @@
 export const footerTemplate: HTMLTemplateElement = document.createElement('template');
 footerTemplate.innerHTML = `
   <p class="copyright">
-    <a href="https://github.com/halina-k" class="github" title="Halina Kulakova" target="_blank">HK</a>
-    <a href="https://github.com/googray" class="github" title="Roman Shatrov" target="_blank">RS</a> 
-    <a href="https://github.com/vermilion2020" title="Militsa Tuseeva" class="github" target="_blank">TM</a>  2022 
+      2022 
   </p>
-  <a class="main-nav__item" href="/team" id="team-menu-item" title="О команде">О команде</a>
+  <div class="github-link">
+  <a href="https://github.com/halina-k" class="github" title="Halina Kulakova" target="_blank">HK</a>
+  <a href="https://github.com/googray" class="github" title="Roman Shatrov" target="_blank">RS</a> 
+  <a href="https://github.com/vermilion2020" title="Militsa Tuseeva" class="github" target="_blank">TM</a>
+  </div>
   <a href="https://rs.school/js/" class="link-rs">
     <svg class="rsschool" width="126" height="47" viewBox="0 0 126 47" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_3_103)">

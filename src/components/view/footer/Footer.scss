@@ -25,6 +25,15 @@
       content: '©';
     }
   }
+
+  .github-link {
+    display: flex;
+    gap: 16px;
+    a {
+      text-decoration: none;
+      color: $mainText;
+    }
+  }
 }
 
 .rsschool {

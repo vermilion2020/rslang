@@ -1,9 +1,9 @@
-import { headerTemplate } from "./HeaderTemplate";
+import { headerTemplate } from './HeaderTemplate';
 import './Header.scss';
-import { PagesState } from "../../model/types";
-import { route } from "../../controller/router";
-import { menuItems } from "../../model/menu-items";
-  
+import { PagesState } from '../../model/types';
+import { route } from '../../controller/router';
+import { menuItems } from '../../model/menu-items';
+
 export const renderHeader = (state: PagesState) => {
   const CONTAINER = document.querySelector('#header-container') as HTMLElement;
   CONTAINER.innerHTML = '';
@@ -14,7 +14,7 @@ export const renderHeader = (state: PagesState) => {
     if ((e.target as HTMLElement).tagName === 'A') {
       e.preventDefault();
       const newLocation = (e.target as HTMLLinkElement).href;
-      const menuItem = menuItems.filter(item => newLocation.includes(item.href))[0];
+      const menuItem = menuItems.filter((item) => newLocation.includes(item.href))[0];
       if (!state.loggedIn && menuItem.auth) {
         return;
       }

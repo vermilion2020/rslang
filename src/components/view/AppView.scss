@@ -1,5 +1,11 @@
 @import 'base-styles.scss';
 
+.button  {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
 body {
   margin: 0;
 }
@@ -9,8 +15,20 @@ body {
   box-sizing: border-box;
 }
 
+.header-wrapper{
+  border-bottom: 1px solid #535353;
+}
+
+.footer-wrapper {
+  border-top: 1px solid #535353;
+}
+
 .gray {
   background-color: $grayBg;
+}
+
+.white {
+  background-color: $grayWh;
 }
 
 .main-container{
@@ -42,6 +60,13 @@ html {
   padding: 0.5rem 0.8rem;
   border: 0;
   font-size: 0.9rem;
-  border-radius: 0.3rem;
+  border-radius: 2rem;
   cursor: pointer;
+}
+
+
+.button:hover {
+  background: $colorBtnHov;
+  outline: 1px solid $mainText;
+  color: $mainText;
 }
