@@ -1,0 +1,25 @@
+$fa-font-path: '../../assets/fonts/' !default;
+$rusFont: 'SuisseIntl';
+$mainText: #000;
+$textActive: #FF0000;
+$grayBg: #D9D9D9; 
+$grayWh: #ffffff; 
+$colorBtnHov: #E3FB8F; 
+$buttonText: #FFF;
+
+
+ @font-face {
+ 	font-family: 'SuisseIntl';
+ 	src: url('#{$fa-font-path}SuisseIntl-Regular.woff');
+ 	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Regular.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Regular.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Regular.svg') format('svg');
+ 	font-weight: normal;
+ 	font-style: 400;
+ }
+
+ @font-face {
+ 	font-family: 'SuisseIntl';
+ 	src: url('#{$fa-font-path}SuisseIntl-Book.woff');
+ 	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Book.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Book.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Book.svg') format('svg');
+ 	font-weight: medium;
+ 	font-style: 500;
+ }

@@ -1,0 +1,48 @@
+@import '../base-styles.scss';
+
+.footer-container {
+  width: 1240px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .copyright {
+    font-size: 1rem;
+    color: $mainText;
+    text-align: center;
+
+    a {
+      color: $mainText;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    &:before {
+      content: '©';
+    }
+  }
+
+  .github-link {
+    display: flex;
+    gap: 16px;
+    a {
+      text-decoration: none;
+      color: $mainText;
+    }
+  }
+}
+
+.rsschool {
+  width: 83px;
+  height: 30px;
+  margin-left: 20px;
+
+  &:hover .rsschool-paint,
+  &:focus .rsschool-paint{
+    fill: $textActive;
+  }
+}

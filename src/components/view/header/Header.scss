@@ -1,0 +1,99 @@
+@import '../../view/base-styles.scss';
+
+.header-container {
+  width: 1240px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-family: $rusFont;
+  font-size: 20px;
+  margin: 0;
+}
+
+.logo__link {
+  text-decoration: none;
+  color: $mainText;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+
+  &:hover {
+    color: $textActive;
+  }
+}
+
+.logged-in {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.user-name {
+  font-family: $rusFont;
+  font-size: 1.2rem;
+  color: $mainText;
+  cursor: pointer;
+
+  &:hover {
+    color: $textActive;
+    text-decoration: underline;
+  }
+}
+
+.circle {
+  height:0.8rem;
+  width:0.8rem;
+  border-radius: 0.4rem;
+  display: inline-block;
+  background-color: $mainText;
+}
+
+.logo:hover .circle {
+  background-color: $textActive;
+}
+
+.main-nav__item {
+  font-family: $rusFont;
+  display: inline-block;
+  padding: 1.2rem;
+  text-decoration: none;
+  color: $mainText;
+  opacity: 1;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.main-nav__item_disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.main-nav__item_active {
+  color: $textActive;
+}
+
+.main-nav {
+  display: flex;
+  gap: 15px;
+}
+
+@media screen and (max-width: 1279px) {
+  
+
+}
+
+@media screen and (max-width: 767px) {
+  
+
+}

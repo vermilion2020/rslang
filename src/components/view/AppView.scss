@@ -1,0 +1,72 @@
+@import 'base-styles.scss';
+
+.button  {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+body {
+  margin: 0;
+}
+
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-wrapper{
+  border-bottom: 1px solid #535353;
+}
+
+.footer-wrapper {
+  border-top: 1px solid #535353;
+}
+
+.gray {
+  background-color: $grayBg;
+}
+
+.white {
+  background-color: $grayWh;
+}
+
+.main-container{
+  width: 1240px;
+  margin: auto;
+}
+
+html {
+  font-size: 16px;
+}
+
+.shadow-overlay {
+  width: 100%;
+  height: 100%;
+  background: #181e30;
+  opacity: 0.6;
+  z-index: 90;
+  top: 0;
+  position: fixed;
+}
+
+.hidden {
+  display: none;
+}
+
+.button {
+  color: $buttonText;
+  background: $mainText;
+  padding: 0.5rem 0.8rem;
+  border: 0;
+  font-size: 0.9rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+
+.button:hover {
+  background: $colorBtnHov;
+  outline: 1px solid $mainText;
+  color: $mainText;
+}
