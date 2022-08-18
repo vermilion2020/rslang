@@ -1,14 +1,14 @@
-import { textbookTemplate } from "./TextbookTemplate";
+import textbookTemplate from './TextbookTemplate';
 import './Textbook.scss';
-import { Page, PagesState } from "../../model/types/page";
+import { Page, PagesState } from '../../model/types/page';
 
-export class Textbook implements Page {
+class Textbook implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
     this.state = state;
   }
-  
+
   async render() {
     this.state.page = 'textbook';
     const notFoundNode = <HTMLElement>textbookTemplate.content.cloneNode(true);
@@ -18,3 +18,5 @@ export class Textbook implements Page {
     return this.state;
   }
 }
+
+export default Textbook;

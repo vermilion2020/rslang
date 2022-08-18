@@ -1,14 +1,14 @@
-import { dictionaryTemplate } from "./DictionaryTemplate";
+import dictionaryTemplate from './DictionaryTemplate';
 import './Dictionary.scss';
-import { Page, PagesState } from "../../model/types/page";
+import { Page, PagesState } from '../../model/types/page';
 
-export class Dictionary implements Page {
+class Dictionary implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
     this.state = state;
   }
-  
+
   async render() {
     this.state.page = 'dictionary';
     const notFoundNode = <HTMLElement>dictionaryTemplate.content.cloneNode(true);
@@ -18,3 +18,5 @@ export class Dictionary implements Page {
     return this.state;
   }
 }
+
+export default Dictionary;

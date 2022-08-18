@@ -1,14 +1,14 @@
-import { mainTemplate } from "./MainTemplate";
+import mainTemplate from './MainTemplate';
 import './Main.scss';
-import { Page, PagesState } from "../../model/types/page";
+import { Page, PagesState } from '../../model/types/page';
 
-export class Main implements Page {
+class Main implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
     this.state = state;
   }
-  
+
   async render() {
     this.state.page = 'main';
     const notFoundNode = <HTMLElement>mainTemplate.content.cloneNode(true);
@@ -18,3 +18,5 @@ export class Main implements Page {
     return this.state;
   }
 }
+
+export default Main;

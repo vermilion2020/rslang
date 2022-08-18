@@ -1,14 +1,14 @@
-import { statsTemplate } from "./StatsTemplate";
+import statsTemplate from './StatsTemplate';
 import './Stats.scss';
-import { Page, PagesState } from "../../model/types/page";
+import { Page, PagesState } from '../../model/types/page';
 
-export class Stats implements Page {
+class Stats implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
     this.state = state;
   }
-  
+
   async render() {
     this.state.page = 'stats';
     const notFoundNode = <HTMLElement>statsTemplate.content.cloneNode(true);
@@ -18,3 +18,5 @@ export class Stats implements Page {
     return this.state;
   }
 }
+
+export default Stats;

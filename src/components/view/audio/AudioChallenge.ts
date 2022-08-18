@@ -1,14 +1,14 @@
-import { audioTemplate } from "./AudioTemplate";
+import audioTemplate from './AudioTemplate';
 import './AudioChallenge.scss';
-import { Page, PagesState } from "../../model/types/page";
+import { Page, PagesState } from '../../model/types/page';
 
-export class AudioChallenge implements Page {
+class AudioChallenge implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
     this.state = state;
   }
-  
+
   async render() {
     this.state.page = 'audio';
     const notFoundNode = <HTMLElement>audioTemplate.content.cloneNode(true);
@@ -18,3 +18,5 @@ export class AudioChallenge implements Page {
     return this.state;
   }
 }
+
+export default AudioChallenge;

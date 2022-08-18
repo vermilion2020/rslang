@@ -1,5 +1,5 @@
 export type MenuItem = {
-  name: string,
-  href: string,
-  auth: boolean,
+  name: string;
+  href: string;
+  auth: boolean;
 };

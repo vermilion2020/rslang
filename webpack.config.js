@@ -17,19 +17,19 @@ module.exports = {
     rules: [
       {
         test: /\.(s*)css$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'resolve-url-loader', 'sass-loader']
       },
       {
         test: /\.ts$/i,
         use: ['ts-loader'],
       },
       {
-        test: /\.(png|jpe?g|svg|ico)$/,
+        test: /\.(png|jpe?g|svg|ico|woff|woff2|eot|ttf|otf)$/,
+        exclude: /node_modules/,
         loader: 'file-loader',
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
+        options: {
+            name: '[path][name].[ext]'
+        }
       },
     ],
   },
