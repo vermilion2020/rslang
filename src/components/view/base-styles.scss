@@ -1,11 +1,49 @@
 $fa-font-path: '../../assets/fonts/' !default;
-$rusFont: 'SuisseIntl';
-$mainText: #000;
-$textActive: #FF0000;
-$grayBg: #D9D9D9; 
-$grayWh: #ffffff; 
+
+// шрифты
+$rusFont: 'SuisseIntl, Tahoma, sans-serif';
+$enFont: 'SuisseWorks, Georgia, Serif';
+
+// шрифты, основные размеры
+$textHeader: 50px;
+$textSubtitle: 35px;
+$textBasic: 24px;
+$textDescription: 20px;
+
+// цвета для иконок на карточка Сложное, Изученное
+$iconColorComplex: #FF0000;
+$iconColorStudied: #65D72F;
+
+// цвета активных кнопок в Словаре
+$btnColorUnit1: #E92D38;
+$btnColorUnit2: #F36F1E;
+$btnColorUnit3: #FDCA1F;
+$btnColorUnit4: #7AB63E;
+$btnColorUnit5: #35B4D0;
+$btnColorUnit6: #0855E4;
+
+// цвета активных фона карточек в Словаре
+$bgColorUnit1: #FFEAEB;
+$bgColorUnit2: #FFF0E7;
+$bgColorUnit3: #FFF8E1;
+$bgColorUnit4: #EEFDDE;
+$bgColorUnit5: #B9F2FF;
+$bgColorUnit6: #B2CAF9;
+
+// цвета фонов и текста на сайте
+$bgTColorWhite: #ffffff;
+$bgTColorGrey: #E9E9E9;
+$bgTColorBlack: #000000;
+
+// текст не активных элементов(разделы меню и тп)
+$TextNotActive: #898989;
+
+// цветные элементы используемые на сайте
+$elemColorGreen: #D7E977;
+$elemColorCian: #89FCFB;
+
+// кнопка по ховеру
 $colorBtnHov: #E3FB8F; 
-$buttonText: #FFF;
 
 
  @font-face {
@@ -23,3 +61,27 @@ $buttonText: #FFF;
  	font-weight: medium;
  	font-style: 500;
  }
+
+ @font-face {
+	font-family: 'SuisseIntl';
+	src: url('#{$fa-font-path}SuisseIntl-Bold.eot');
+	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Bold.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Bold.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Bold.svg') format('svg');
+	font-weight: bold;
+	font-style: 700;
+}
+
+ @font-face {
+	font-family: 'SuisseWorks';
+	src: url('#{$fa-font-path}SuisseWorks-Regular.eot');
+	src: local('☺'), url('#{$fa-font-path}SuisseWorks-Regular.woff') format('woff'), url('#{$fa-font-path}SuisseWorks-Regular.ttf') format('truetype'), url('#{$fa-font-path}SuisseWorks-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: 400;
+}
+
+@font-face {
+	font-family: 'SuisseWorks';
+	src: url('#{$fa-font-path}SuisseWorks-Book.eot');
+	src: local('☺'), url('#{$fa-font-path}SuisseWorks-Book.woff') format('woff'), url('#{$fa-font-path}SuisseWorks-Book.ttf') format('truetype'), url('#{$fa-font-path}SuisseWorks-Book.svg') format('svg');
+	font-weight: medium;
+	font-style: 500;
+}

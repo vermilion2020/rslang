@@ -16,13 +16,13 @@ h1 {
 
 .logo__link {
   text-decoration: none;
-  color: $mainText;
+  color: $bgTColorBlack;
   display: flex;
   gap: 0.3rem;
   align-items: center;
 
   &:hover {
-    color: $textActive;
+    color: $btnColorUnit4;
   }
 }
 
@@ -35,11 +35,11 @@ h1 {
 .user-name {
   font-family: $rusFont;
   font-size: 1.2rem;
-  color: $mainText;
+  color: $bgTColorBlack;
   cursor: pointer;
 
   &:hover {
-    color: $textActive;
+    color: $colorBtnHov;
     text-decoration: underline;
   }
 }
@@ -49,19 +49,16 @@ h1 {
   width:0.8rem;
   border-radius: 0.4rem;
   display: inline-block;
-  background-color: $mainText;
+  background-color: $bgTColorBlack;
 }
 
-.logo:hover .circle {
-  background-color: $textActive;
-}
 
 .main-nav__item {
   font-family: $rusFont;
   display: inline-block;
   padding: 1.2rem;
   text-decoration: none;
-  color: $mainText;
+  color: $bgTColorBlack;
   opacity: 1;
   cursor: pointer;
 
@@ -80,7 +77,7 @@ h1 {
 }
 
 .main-nav__item_active {
-  color: $textActive;
+  font-weight: bold;
 }
 
 .main-nav {
