@@ -1,6 +1,6 @@
 .main-page {
   background: white;
-  height: 85vh;
+  height: 83vh;
 
   .wrapper {
     display: flex;
@@ -42,10 +42,10 @@
       }
 
       .audio-main__subtitle {
-        margin-bottom: 20%;
+        margin-bottom: 15%;
       }
       .select-container {
-        margin-bottom: 10%;
+        margin-bottom: 5%;
 
         .select-level {
           &:hover {
@@ -53,6 +53,34 @@
           }
         }
       }
+
+      .block-btn__start {
+        margin-bottom: 5%;
+        .btn-start {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+.main-page__game {
+  background: white;
+  height: 83vh;
+
+  .header-game {
+    display: flex;
+    justify-content: space-between;
+
+    .voice-ico {
+      width: 100px;
+      height: 100px;
+      border: thick double 1px white;
+      border-radius: 50%;
+      background: url(../../../assets/images/png/up_volume_white.png);
+      background-size: cover;
     }
   }
 }

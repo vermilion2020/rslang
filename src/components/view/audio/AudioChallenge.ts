@@ -19,7 +19,7 @@ class AudioChallenge implements Page {
     container.append(notFoundNode);
     const selectLevelBox = document.querySelector('.select-container') as HTMLElement;
     if (selectLevelBox) {
-      docPrint;
+      selectLevelBox.addEventListener('click', docPrint);
     }
     return this.state;
   }
