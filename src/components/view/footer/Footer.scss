@@ -9,11 +9,11 @@
 
   .copyright {
     font-size: 1rem;
-    color: $mainText;
+    color: $bgTColorBlack;
     text-align: center;
 
     a {
-      color: $mainText;
+      color: $bgTColorBlack;
       text-decoration: none;
     }
 
@@ -31,7 +31,7 @@
     gap: 16px;
     a {
       text-decoration: none;
-      color: $mainText;
+      color: $bgTColorBlack;
     }
   }
 }
@@ -43,6 +43,6 @@
 
   &:hover .rsschool-paint,
   &:focus .rsschool-paint{
-    fill: $textActive;
+    fill: $colorBtnHov;
   }
 }
