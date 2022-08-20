@@ -1,15 +1,13 @@
 @import 'base-styles.scss';
 
-
 .button  {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
-h3 {
-  font-family: $enFont;
-  font-size: medium;
+html {
+  font-family: $rusFont;
 }
 
 body {

@@ -1,5 +1,40 @@
 @import '../../view/base-styles.scss';
 
-html {
-  font-family: $rusFont;
+
+.section-cover {
+  display: flex;
+  margin-top: 4vw;
+  justify-content: space-between;
+
+}
+
+.cover-text {
+  width: 500px;
+}
+
+.cover-rs{
+  font-family: $enFont;
+  font-size: 1.8rem;
+}
+
+.title {
+  font-size: $textHeader;
+  font-weight: normal;
+}
+
+.desc {
+  font-size: $textDescription;
+  font-weight: normal;
+}
+
+
+.cover-img {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  img {
+    height: 550px;
+  }
+
 }
