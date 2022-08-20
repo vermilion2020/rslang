@@ -1,6 +1,6 @@
 import NotFound from '../view/notFound/NotFound';
 import Main from '../view/main/Main';
-import { Page, PagesState } from '../model/types/page';
+import { Page, PagesState, Progress } from '../model/types/page';
 import Textbook from '../view/textbook/Textbook';
 import Dictionary from '../view/dictionary/Dictionary';
 import Sprint from '../view/sprint/Sprint';
@@ -10,12 +10,11 @@ import Stats from '../view/stats/Stats';
 const routes: { [key: string]: string } = {
   notFound: 'notFound',
   '/': 'main',
-  '/textbook': 'textbook',
-  '/dictionary': 'dictionary',
-  '/sprint': 'sprint',
-  '/audio': 'audio',
-  '/stats': 'stats',
-  '/team': 'team',
+  textbook: 'textbook',
+  dictionary: 'dictionary',
+  sprint: 'sprint',
+  audio: 'audio',
+  stats: 'stats',
 };
 
 const checkAuthState = async (state: PagesState): Promise<PagesState> => state;
@@ -23,9 +22,35 @@ const checkAuthState = async (state: PagesState): Promise<PagesState> => state;
 // TODO add auth logic
 // Add user data if exist token in localstorage and it is valid
 
+const rewriteUrl = () => {
+  const { hash } = window.location;
+  if (!hash) {
+    window.location.hash = `#${window.location.pathname}`;
+    window.location.pathname = '';
+  }
+};
+
+const setProgress = (queryStr: string[], textbook: Progress) => {
+  let { unit } = textbook;
+  let { page } = textbook;
+  if (queryStr[1] && queryStr[1].includes('unit')) {
+    unit = +queryStr[1].replace(/([a-zA-Z])+/, '') || 1;
+    if (queryStr[2]) {
+      page = +queryStr[2] || 1;
+    }
+  }
+  return { unit, page };
+};
+
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   checkAuthState(state);
-  const path = window.location.pathname;
+  rewriteUrl();
+  const queryStr = window.location.hash
+    .replace('/#', '')
+    .split('/')
+    .filter((item) => item !== '#' && item !== '');
+  console.log(queryStr);
+  const path = queryStr.length ? queryStr[0] : '/';
   const pageName = routes[path] || routes.notFound;
   let page: Page;
   let newState = state;
@@ -35,7 +60,8 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
     case 'textbook':
-      page = new Textbook(state);
+      newState.textbook = setProgress(queryStr, newState.textbook);
+      page = new Textbook(newState);
       newState = await page.render();
       break;
     case 'dictionary':
@@ -67,8 +93,6 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
   }
-  document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
-  document.querySelector(`#${state.page}-menu-item`)?.classList.add('main-nav__item_active');
   return newState;
 };
 

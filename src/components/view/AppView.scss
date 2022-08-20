@@ -23,12 +23,12 @@ body {
   border-top: 1px solid #535353;
 }
 
-.gray {
-  background-color: $grayBg;
-}
+// .gray {
+//   background-color: $grayBg;
+// }
 
 .white {
-  background-color: $grayWh;
+  background-color: $bgTColorWhite;
 }
 
 .main-container{
@@ -55,8 +55,8 @@ html {
 }
 
 .button {
-  color: $buttonText;
-  background: $mainText;
+  color: $bgTColorWhite;
+  background: $bgTColorBlack;
   padding: 0.5rem 0.8rem;
   border: 0;
   font-size: 0.9rem;
@@ -67,6 +67,6 @@ html {
 
 .button:hover {
   background: $colorBtnHov;
-  outline: 1px solid $mainText;
-  color: $mainText;
+  outline: 1px solid $bgTColorBlack;
+  color: $bgTColorBlack;
 }

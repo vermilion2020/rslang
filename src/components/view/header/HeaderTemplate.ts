@@ -2,7 +2,7 @@ import menuItems from '../../model/menu-items';
 import { MenuItem } from '../../model/types';
 
 const drawMenuItem = (item: MenuItem, active: string, loggedIn: boolean): string => `
-    <a href="/${item.href}" title="${!loggedIn && item.auth ? 'Log in to see this page' : item.name}"
+    <a href="/#/${item.href}" title="${!loggedIn && item.auth ? 'Log in to see this page' : item.name}"
     class="main-nav__item${active === item.href ? ' main-nav__item_active' : ''} ${
   !loggedIn && item.auth ? ' main-nav__item_disabled' : ''
 }" id="${item.href}-menu-item">${item.name}

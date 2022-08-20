@@ -11,13 +11,16 @@ const renderHeader = (state: PagesState) => {
   CONTAINER.appendChild(headerNode);
   const nav = <HTMLElement>CONTAINER.querySelector('nav');
   nav.addEventListener('click', (e: Event) => {
-    if ((e.target as HTMLElement).tagName === 'A') {
+    const target = e.target as HTMLLinkElement;
+    if (target.tagName === 'A') {
       e.preventDefault();
-      const newLocation = (e.target as HTMLLinkElement).href;
+      const newLocation = target.href;
       const menuItem = menuItems.find((item) => newLocation.includes(item.href));
       if (!state.loggedIn && menuItem?.auth) {
         return;
       }
+      document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
+      target.classList.add('main-nav__item_active');
       route(e, state);
     }
   });
