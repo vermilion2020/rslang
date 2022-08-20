@@ -1,13 +1,19 @@
-const audioTemplate: HTMLTemplateElement = document.createElement('template');
-audioTemplate.innerHTML = `
-  <div class="main-page">
-  <div class="wrapper">
-    <section class="header-audio">
-     <div class="close-audio">
-      <a href="/" class="close-audio__firstpage"><div class="close-crose__white"></div></a>
-     </div>
-    </section>
-    <section class="content">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main-page">
+      <section class="header-audio">
+        <div class="close-audio">
+          <a href="/"><img src="../../../assets/images/png/close-wite.png" alt="close white button" /></a>
+        </div>
+      </section>
+      <section class="content">
         <div class="audio-content__wrapper">
           <h2 class="audio-main__title">Аудиовызов</h2>
           <h4 class="audio-main__subtitle">Тренировка Аудиовызов улучшает Ваше восприятие речи на слух</h4>
@@ -29,7 +35,8 @@ audioTemplate.innerHTML = `
         </div>
       </section>
 
-  </div>
-  </div>`;
-
-export default audioTemplate;
+      <h2>Audio Page</h2>
+      <h3>Some Main Content</h3>
+    </div>
+  </body>
+</html>

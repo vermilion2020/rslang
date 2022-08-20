@@ -1,4 +1,6 @@
 import audioTemplate from './AudioTemplate';
+import AudioTemplateGame from './AudioTemplateGame';
+import docPrint from './AudioGame';
 import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
 
@@ -15,6 +17,10 @@ class AudioChallenge implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);
+    const selectLevelBox = document.querySelector('.select-container') as HTMLElement;
+    if (selectLevelBox) {
+      docPrint;
+    }
     return this.state;
   }
 }
