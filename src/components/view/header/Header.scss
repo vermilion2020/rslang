@@ -1,15 +1,22 @@
 @import '../../view/base-styles.scss';
 
+.logo__link  {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
 .header-container {
-  width: 1240px;
+  max-width: 1240px;
   margin: auto;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 h1 {
-  font-family: $rusFont;
+  font-family: $enFont;
   font-size: 20px;
   margin: 0;
 }
@@ -44,19 +51,10 @@ h1 {
   }
 }
 
-.circle {
-  height:0.8rem;
-  width:0.8rem;
-  border-radius: 0.4rem;
-  display: inline-block;
-  background-color: $bgTColorBlack;
-}
-
-
 .main-nav__item {
   font-family: $rusFont;
   display: inline-block;
-  padding: 1.2rem;
+  padding: 1.4rem 0.5rem; 
   text-decoration: none;
   color: $bgTColorBlack;
   opacity: 1;
