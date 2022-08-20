@@ -1,3 +1,8 @@
+export interface Progress {
+  unit: number;
+  page: number;
+}
+
 export interface PagesState {
   page: string;
   loggedIn: boolean;
@@ -5,6 +10,7 @@ export interface PagesState {
   refreshToken: string;
   userId: string;
   userName: string;
+  textbook: Progress;
 }
 
 export interface Page {
