@@ -3,13 +3,15 @@ import './Header.scss';
 import { PagesState } from '../../model/types';
 import { route } from '../../controller/router';
 import menuItems from '../../model/menu-items';
+import { renderAuthForm } from '../auth/Auth';
 
 const renderHeader = (state: PagesState) => {
-  const CONTAINER = document.querySelector('#header-container') as HTMLElement;
-  CONTAINER.innerHTML = '';
+  const container = document.querySelector('#header-container') as HTMLElement;
+  container.innerHTML = '';
   const headerNode = <HTMLElement>headerTemplate(state.page, state.loggedIn, state.userName).content.cloneNode(true);
-  CONTAINER.appendChild(headerNode);
-  const nav = <HTMLElement>CONTAINER.querySelector('nav');
+  container.appendChild(headerNode);
+  const nav = <HTMLElement>container.querySelector('nav');
+  const loginButton = <HTMLElement>container.querySelector('.logged-out');
   nav.addEventListener('click', (e: Event) => {
     const target = e.target as HTMLLinkElement;
     if (target.tagName === 'A') {
@@ -24,6 +26,11 @@ const renderHeader = (state: PagesState) => {
       route(e, state);
     }
   });
+  if (loginButton) {
+    loginButton.addEventListener('click', (e: Event) => {
+      renderAuthForm();
+    });
+  }
 };
 
 export default renderHeader;
