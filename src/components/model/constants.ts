@@ -1,2 +1,1 @@
-const CRYPTO_KEY = 'soMe_SeCreT';
-export default CRYPTO_KEY;
+export const apiBaseUrl = 'https://rslang-learn-words.herokuapp.com';

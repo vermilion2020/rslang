@@ -1,7 +1,7 @@
 import { authTemplate, registrationTemplate } from './AuthTemplate';
 import './Auth.scss';
-import * as crypto from 'crypto-ts';
-import CRYPTO_KEY from '../../model/constants';
+import { AutenticationData, RegistrationData } from '../../model/types';
+import { authUser, regNewUser } from '../../model/api/auth';
 
 export const renderRegForm = () => {
   const container = document.querySelector('#popup') as HTMLElement;
@@ -19,17 +19,6 @@ export const renderRegForm = () => {
     overlay.classList.add('hidden');
     form.reset();
   });
-/* 
-  (container.querySelector('#req-form') as HTMLFormElement).addEventListener('submit', (e) => {
-    e.preventDefault();
-    const target = e.target as HTMLFormElement;
-    const email = target.querySelector('[name="email"]') as HTMLInputElement;
-    const password = target.querySelector('[name="password"]') as HTMLInputElement;
-    const passwordHash = crypto.AES.encrypt(password.value, CRYPTO_KEY);
-    container.classList.add('hidden');
-    overlay.classList.add('hidden');
-    target.reset();
-  }); */
 }
 
 export const renderAuthForm = () => {
@@ -48,23 +37,33 @@ export const renderAuthForm = () => {
     form.reset();
   });
 
-  (container.querySelector('#auth-form') as HTMLFormElement).addEventListener('submit', (e) => {
-    e.preventDefault();
-    const target = e.target as HTMLFormElement;
-    const email = target.querySelector('[name="email"]') as HTMLInputElement;
-    const password = target.querySelector('[name="password"]') as HTMLInputElement;
-    const passwordHash = crypto.AES.encrypt(password.value, CRYPTO_KEY);
-    //container.classList.add('hidden');
-   //overlay.classList.add('hidden');
-   // target.reset();
-  });
-
-  container.addEventListener('click', (e) => {
+  container.addEventListener('click', async(e) => {
     e.preventDefault();
     const target = e.target as HTMLElement;
-    console.log(target.id);
     if(target.id === 'reg-button') {
       renderRegForm();
+    } else if (target.id === 'registration') {
+      const email = document.querySelector('[name="email"]') as HTMLInputElement;
+      const name = document.querySelector('[name="password"]') as HTMLInputElement;
+      const password = document.querySelector('[name="password"]') as HTMLInputElement;
+      const passwordConfirmation = document.querySelector('[name="password-confirm"]') as HTMLInputElement;
+      const data: RegistrationData = {
+        email: email.value,
+        name: name.value,
+        password: password.value
+      };
+      const registration = await regNewUser(data);
+      if(registration.status === 200) {
+        renderAuthForm();
+      }
+    } else if (target.id === 'auth-button') {
+      const email = document.querySelector('[name="email"]') as HTMLInputElement;
+      const password = document.querySelector('[name="password"]') as HTMLInputElement;
+      const data: AutenticationData = {
+        email: email.value,
+        password: password.value
+      };
+      console.log(await authUser(data));
     }
     
   });
