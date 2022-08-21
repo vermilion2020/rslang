@@ -49,7 +49,7 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
     .replace('/#', '')
     .split('/')
     .filter((item) => item !== '#' && item !== '');
-  console.log(queryStr);
+  // console.log(queryStr);
   const path = queryStr.length ? queryStr[0] : '/';
   const pageName = routes[path] || routes.notFound;
   let page: Page;

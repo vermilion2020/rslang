@@ -1,4 +1,4 @@
-const audioTemplateGame = (nextOr: string, correctWord: string, selectedWord: string): HTMLTemplateElement => {
+const audioTemplateGame = (nextOr?: string, correctWord?: string, selectedWord?: string): HTMLTemplateElement => {
   const gameBody = document.createElement('template');
   gameBody.innerHTML = `
 <div class="main-page__game">
@@ -29,9 +29,7 @@ const audioTemplateGame = (nextOr: string, correctWord: string, selectedWord: st
           </div>
         </div>
       </section>
-
 </div>
-
 </div>
 `;
   return gameBody;

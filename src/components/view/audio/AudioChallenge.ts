@@ -1,8 +1,8 @@
 import audioTemplate from './AudioTemplate';
-import AudioTemplateGame from './AudioTemplateGame';
-import docPrint from './AudioGame';
+// import docPrint from './AudioGame';
 import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
+import audioTemplateGame from './AudioTemplateGame';
 
 class AudioChallenge implements Page {
   state: PagesState;
@@ -18,10 +18,33 @@ class AudioChallenge implements Page {
     container.innerHTML = '';
     container.append(notFoundNode);
     const selectLevelBox = document.querySelector('.select-container') as HTMLElement;
+
+    //get nbr of choosen set of worlds
+    const docPrint = (e: Event) => {
+      const targetLi = e.target as HTMLLIElement;
+      const setNr = targetLi.dataset.set;
+      console.log('setNr: ', setNr);
+      return setNr;
+    };
     if (selectLevelBox) {
       selectLevelBox.addEventListener('click', docPrint);
     }
+
+    // render game page
+    const startAudioGameBtn = document.querySelector('.btn-start') as HTMLButtonElement;
+    startAudioGameBtn.addEventListener('click', this.renderGame);
+
     return this.state;
+  }
+
+  renderGame() {
+    // this.state.page = 'audiogame';
+    const notFoundNode = <HTMLElement>audioTemplateGame().cloneNode(true);
+    const container = document.querySelector('#main-container') as HTMLDivElement;
+    container.innerHTML = '';
+    container.append(notFoundNode);
+    console.log(container);
+    // return this.state;
   }
 }
 
