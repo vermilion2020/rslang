@@ -45,10 +45,16 @@ export const handleAuth = async (state: PagesState) => {
     email: email.value,
     password: password.value,
   };
-  const response = await authUser(authData);
-  if (response.status === 200) {
-    const resopseData = <SignInResponse>response.data;
-    newState = { ...updateStateOnAuth(newState, resopseData) };
+  try {
+    const response = await authUser(authData);
+    if (response.status === 200) {
+      const responseData = <SignInResponse>response.data;
+      newState = { ...updateStateOnAuth(newState, responseData) };
+    }
+  } catch(e) {
+    if((<string>e).includes('403')) {
+      alert('Логин или пароль не верны! Попробуйте снова!');
+    }
   }
   return newState;
 };
@@ -83,17 +89,25 @@ export const handleRegistration = async (state: PagesState) => {
     alert('Пароли должны совпадать!');
     return newState;
   }
+  try {
   const registration = await regNewUser(data);
-  if (registration.status === 200) {
-    const authData: AutenticationData = {
-      email: email.value,
-      password: password.value,
-    };
-    const response = await authUser(authData);
-    if (response.status === 200) {
-      const responseData = <SignInResponse>response.data;
-      newState = { ...updateStateOnAuth(newState, responseData) };
-    }
+  } catch(e) {
+      alert('Аккаунт с таким имейлом уже существует!');
   }
+    try {
+      const authData: AutenticationData = {
+        email: email.value,
+        password: password.value,
+      };
+      const response = await authUser(authData);
+      if (response.status === 200) {
+        const responseData = <SignInResponse>response.data;
+        newState = { ...updateStateOnAuth(newState, responseData) };
+      }
+    } catch(e) {
+      if((<string>e).includes('403')) {
+        alert('Логин или пароль не верны! Попробуйте снова!');
+      }
+    }
   return newState;
 };
