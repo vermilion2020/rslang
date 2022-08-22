@@ -17,7 +17,7 @@ mainTemplate.innerHTML = `
    </div>
     <div class="cover-img">
       <div class="img-block">
-      <img src="images/mock.jpg" alt="title-img" />
+        <img class="img-mock" src="images/mock.jpg" alt="title-img" />
       <svg class="icon-star8">
         <use xlink:href="./icons/sprite-mainpage.svg#star8"></use>
       </svg>
@@ -100,7 +100,7 @@ mainTemplate.innerHTML = `
             <div class="line">      <hr></div>
             <p class="title">Аудиовызов</p>
             <div class="desc">
-              <p>Название говорит само за себя. Мы говорим - ты угадываешь.<br>Как и в игре Спринт результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
+              <p>Название говорит само за себя. Мы говорим - ты угадываешь. Как и в игре Спринт результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
               <p>Удачи!</p>
             </div>
             <a href="https://rs.school/js/" target="_blank" class="link-arrow">

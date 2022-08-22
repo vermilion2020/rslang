@@ -17,19 +17,19 @@ p {
   display: grid;
   padding: 0 20px;
   grid-template-columns: 50% 50%;
-  margin-bottom: 7.5rem;
+  margin-bottom: 5.5rem;
   .cover-text {
     position: relative;
-    margin-top: 105px;
+    margin-top: 5rem;
       .cover-rs{
         font-family: $enFont;
-        font-size: 1.8rem;
+        font-size: $textSubtitle;
       }
       .title {
         font-size: 3.5rem;
         font-weight: normal;
-        margin-top: 70px;
-        margin-bottom: 45px;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
       }
       .desc {
         font-size: $textDescription;
@@ -52,11 +52,11 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 100px;
+    // margin-top: 100px;
       .img-block{
         position: relative;
-          img {
-            height: 500px;
+          .img-mock {
+            height: 450px;
             max-width: 100%;
           }
           .icon-star8 {
@@ -70,7 +70,7 @@ p {
           .icon-set {
             position: absolute;
             top: 4%;
-            left: 68%;
+            left: 55%;
             z-index: -1;
           }
       }
@@ -129,7 +129,7 @@ p {
         grid-row-gap: 2.2rem;
         padding-top: 90px;
         .title{
-          font-size: 1.875rem;
+          font-size: $textSubtitle;
           padding-bottom: 20px;
           line-height: 1.875rem;
         }
