@@ -69,7 +69,7 @@ export const handleLogout = (state: PagesState) => {
 export const handleRegistration = async (state: PagesState) => {
   let newState = {...state};
   const email = document.querySelector('[name="email"]') as HTMLInputElement;
-  const name = document.querySelector('[name="password"]') as HTMLInputElement;
+  const name = document.querySelector('[name="name"]') as HTMLInputElement;
   const password = document.querySelector('[name="password"]') as HTMLInputElement;
   const passwordConfirmation = document.querySelector('[name="password-confirm"]') as HTMLInputElement;
   const data: RegistrationData = {
