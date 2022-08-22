@@ -9,8 +9,11 @@ import { handleAuth, handleLogout, handleRegistration } from '../../controller/h
 
 class Header implements Page {
   state: PagesState;
+
   popupContainer = document.querySelector('#popup') as HTMLElement;
+
   overlay = document.querySelector('#overlay') as HTMLElement;
+
   form = this.popupContainer.querySelector('#auth-form') as HTMLFormElement;
 
   constructor(state: PagesState) {
@@ -49,10 +52,10 @@ class Header implements Page {
       this.clearPopup();
     });
 
-    this.popupContainer.addEventListener('click', async(e) => {
+    this.popupContainer.addEventListener('click', async (e) => {
       e.preventDefault();
       const target = e.target as HTMLElement;
-      if(target.id === 'reg-button') {
+      if (target.id === 'reg-button') {
         this.renderRegForm();
       } else if (target.id === 'registration') {
         this.state = await handleRegistration(this.state);
@@ -65,7 +68,7 @@ class Header implements Page {
           this.render();
         }
       }
-      if(this.state.loggedIn) {
+      if (this.state.loggedIn) {
         this.clearPopup();
         this.render();
       }
@@ -93,17 +96,17 @@ class Header implements Page {
     const headerNode = <HTMLElement>headerTemplate(
       this.state.page,
       this.state.loggedIn,
-      this.state.userName
+      this.state.userName,
     ).content.cloneNode(true);
     headerContainer.appendChild(headerNode);
     const nav = <HTMLElement>headerContainer.querySelector('nav');
     const loginButton = <HTMLElement>headerContainer.querySelector('#log-in');
     const logoutButton = <HTMLElement>headerContainer.querySelector('#log-out');
     nav.addEventListener('click', (e: Event) => {
-        this.handleItemClick(e);
-      });
+      this.handleItemClick(e);
+    });
     if (loginButton) {
-      loginButton.addEventListener('click', (e: Event) => {
+      loginButton.addEventListener('click', () => {
         this.renderAuthForm();
       });
     }
@@ -116,7 +119,7 @@ class Header implements Page {
       });
     }
     return this.state;
-  };
+  }
 }
 
 export default Header;

@@ -16,10 +16,12 @@
     "keywords": [],
     "license": "ISC",
     "homepage": "",
+    "dependencies": {
+        "axios": "^0.27.2"
+    },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.30.0",
         "@typescript-eslint/parser": "^5.29.0",
-        "axios": "^0.27.2",
         "bootstrap": "^5.2.0",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^7.0.0",

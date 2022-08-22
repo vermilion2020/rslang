@@ -42,8 +42,7 @@ const setProgress = (queryStr: string[], textbook: Progress) => {
 };
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
-  let newState: PagesState = {...await checkAuthState(state)};
-   console.log(newState);
+  let newState: PagesState = { ...await checkAuthState(state) };
   rewriteUrl();
   const queryStr = window.location.hash
     .replace('/#', '')
