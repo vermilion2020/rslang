@@ -38,13 +38,12 @@ class AudioChallenge implements Page {
   }
 
   renderGame() {
-    // this.state.page = 'audiogame';
-    const notFoundNode = <HTMLElement>audioTemplateGame().cloneNode(true);
+    const notFoundNode = <HTMLElement>audioTemplateGame().content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);
-    console.log(container);
-    // return this.state;
+    // const btnNext = document.querySelector('.btn-next');
+    // btnNext?.addEventListener('click', () => console.log('click btnNEXT'));
   }
 }
 
