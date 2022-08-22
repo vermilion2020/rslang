@@ -138,13 +138,63 @@
   }
 }
 
-// .main-page__game {
-//   background: white;
-//   height: 83vh;
+//Result popup
+.popup-container {
+  position: absolute;
+  z-index: 110;
+  width: 50vw;
+  height: 50vh;
+  right: calc(50% - 25vw);
+  top: calc(50% - 25vh);
+  background: gainsboro;
+  border-radius: 1rem;
+  border: 1px solid blue;
+}
+.popupAudio {
+  padding: 1rem;
+  width: 45vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
 
-//   .header-game {
-//     display: flex;
-//     justify-content: space-between;
+.result-correct {
+  list-style: none;
 
-//   }
-// }
+  .correct-item {
+    display: flex;
+    align-items: center;
+  }
+  .img-voice {
+    height: 20px;
+    width: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      cursor: pointer;
+      background-color: aliceblue;
+    }
+  }
+  span {
+    text-align: center;
+    margin: auto;
+  }
+
+  on-speak {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      cursor: pointer;
+      background-color: aliceblue;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import audioTemplate from './AudioTemplate';
 import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
 import audioTemplateGame from './AudioTemplateGame';
+import { renderAudioResultPop } from './AudioResult';
 
 class AudioChallenge implements Page {
   state: PagesState;
@@ -42,8 +43,8 @@ class AudioChallenge implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);
-    // const btnNext = document.querySelector('.btn-next');
-    // btnNext?.addEventListener('click', () => console.log('click btnNEXT'));
+    const btnNext = document.querySelector('.btn-next');
+    if (btnNext) btnNext?.addEventListener('click', (e: Event) => renderAudioResultPop());
   }
 }
 
