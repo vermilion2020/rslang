@@ -7,7 +7,7 @@ mainTemplate.innerHTML = `
       <p class="cover-rs">RS Lang</p>
       <p class="title">Изучай английский<br>с помощью игр
       </p>
-      <p class="desc">С RS Lang ты сможешь изучать английский легко, используя только самые простые и эффективные инструменты, занимаясь не больше часа в день."</p>
+      <p class="desc">С RS Lang ты сможешь изучать английский легко, используя только самые простые и эффективные инструменты, занимаясь не больше часа в день.</p>
       <svg class="icon-star4">
         <use xlink:href="./icons/sprite-mainpage.svg#star4"></use>
       </svg>
@@ -33,7 +33,7 @@ mainTemplate.innerHTML = `
         <p class="block-desc">слов<br>в приложении</p>
        </div>
       <div class="sec-block">
-        <p class="block-title">3,6k</p>
+        <p class="block-title">2</p>
         <p class="block-desc">крутейшие<br>игры</p>
       </div>
      <div class="sec-block">
@@ -112,13 +112,52 @@ mainTemplate.innerHTML = `
             </a>
             <div></div>
             <div class="line">      <hr></div>
-
-         
-
       </div>
     </div>
+   </section>
 
-  </section>
+   <section class="sec-4">
+    <div class="wrapper-sec-4">
+      <p class="sec-4-title">О команде</>
+      <hr>
+      <div class="main-block-sec-4">
+        <p class="number">1</p>
+        <div class="desc">
+          <p class="name">Мила</p>
+          <p class="position">Team-leader, frontend developer</p>
+          <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
+          <div class="git-block">
+            <a href="https://github.com/vermilion2020" target="_blank" class="git-link">Github: vermilion2020</a>
+          </div>
+          <img class="photo" src="images/photo-mila.png" alt="mila"/>
+        </div>
+        <div></div>
+        <div class="line-team">      <hr></div>
+        <p class="number">2</p>
+        <div class="desc">
+          <p class="name">Роман</p>
+          <p class="position">Frontend developer</p>
+          <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
+          <div class="git-block">
+            <a href="https://github.com/googray" target="_blank" class="git-link">Github: googray</a>
+          </div>
+          <img class="photo" src="images/photo-mila.png" alt="roman"/>
+        </div>
+        <div></div>
+        <div class="line-team">      <hr></div>
+        <p class="number">3</p>
+        <div class="desc">
+          <p class="name">Галина</p>
+          <p class="position">Frontend developer</p>
+          <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
+          <div class="git-block">
+            <a href="https://github.com/halina-k" target="_blank" class="git-link">Github:  halina-k</a>
+          </div>
+          <img class="photo" src="images/photo-mila.png" alt="halina"/>
+        </div>
+      </div>
+    </div>
+   </section>
   
   
   

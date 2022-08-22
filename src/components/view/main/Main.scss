@@ -17,7 +17,7 @@ p {
   display: grid;
   padding: 0 20px;
   grid-template-columns: 50% 50%;
-  margin-bottom: 9.125rem;
+  margin-bottom: 7.5rem;
   .cover-text {
     position: relative;
     margin-top: 105px;
@@ -28,8 +28,8 @@ p {
       .title {
         font-size: 3.5rem;
         font-weight: normal;
-        margin-top: 90px;
-        margin-bottom: 55px;
+        margin-top: 70px;
+        margin-bottom: 45px;
       }
       .desc {
         font-size: $textDescription;
@@ -56,7 +56,7 @@ p {
       .img-block{
         position: relative;
           img {
-            height: 550px;
+            height: 500px;
             max-width: 100%;
           }
           .icon-star8 {
@@ -115,7 +115,7 @@ p {
   background-color: $bgTColorGrey;
   padding: 0 20px;
   .wrapper-sec-2 {
-    padding-top: 150px;
+    padding-top: 105px;
     max-width: 1240px;
     margin: auto;
     width: 100%;
@@ -126,15 +126,15 @@ p {
         display: grid;
         grid-template-columns: 20% 1fr 20%;
         grid-column-gap: 1.25rem;
-        grid-row-gap: 3rem;
-        padding-top: 153px;
+        grid-row-gap: 2.2rem;
+        padding-top: 90px;
         .title{
           font-size: 1.875rem;
           padding-bottom: 20px;
           line-height: 1.875rem;
         }
         .desc {
-          font-size: $textDescription;
+          font-size: $textBasic;
           font-weight: normal;
           line-height: 1.875rem;
           p {
@@ -165,7 +165,7 @@ p {
           }
 
           &:hover .arrow {
-            background: #E3FB8F;
+            background: $colorBtnHov;
             outline: 1px solid #000000;
             color: #000000;
 
@@ -179,15 +179,6 @@ p {
   }
 }
 
-// .link-arrow:hover .arrow {
-//   background: #E3FB8F;
-//   outline: 1px solid #000000;
-//   color: #000000;
-// }
-
-
-
-
 hr {
   display: block;
   border: none;
@@ -196,17 +187,89 @@ hr {
   height: 1px;
  }
 
-// .sec-2-title:after {
-//   content: '';
-//   background-color: #535353;
-//   height: 1px;
-//   display: block;
-// }
 
-.line{
+.line {
   grid-column: 2/4;
 }
 
-br {
-  line-height: 50px;
+.sec-4 {
+  background-color: $bgTColorBlack;
+  padding: 0 20px;
+  color: $bgTColorWhite;
+  hr {
+    display: block;
+    border: none;
+    background-color: $bgTColorWhite;
+    color: $bgTColorWhite;
+    height: 1px;
+  }
+  .wrapper-sec-4 {
+    padding-top: 120px;
+    padding-bottom: 100px;
+    max-width: 1240px;
+    margin: auto;
+    width: 100%;
+    .sec-4-title{
+      font-size: $textHeader;
+    }
+    .main-block-sec-4 {
+      display: grid;
+      grid-template-columns: 20% 1fr;
+      grid-column-gap: 1.25rem;
+      grid-row-gap: 2.2rem;
+      padding-top: 90px;
+      .number {
+        font-size: $textSubtitle;
+      }
+      .desc {
+        &:hover {
+          .photo {
+            display: block;
+          }
+        }
+        position: relative;
+        .name {
+          font-size: $textSubtitle;
+        }
+        .position {
+          font-size: $textDescription;
+          font-family: $enFont;
+          margin-top: 0.6rem;
+        }
+        .position-desc {
+          font-size: $textBasic;
+          margin-top: 2.2rem;
+          margin-bottom: 2.2rem;
+        }
+        .git-block {
+          text-align: right;
+          .git-link {
+            text-decoration: none;
+            color: inherit;
+            font-family: $enFont;
+            font-size: $textDescription;
+          }
+          &:hover .git-link {
+            color: $colorBtnHov;
+          }
+        }
+        .photo {
+          position: absolute;
+          top: -2rem;
+          left: 17rem;
+          width: 10rem;
+          display: none;
+        }
+      }
+      .line-team {
+        hr {
+          display: block;
+          border: none;
+          background-color: $bgTColorWhite;
+          color: $bgTColorWhite;
+          height: 1px;
+         }
+      }
+    }
+  }
 }
