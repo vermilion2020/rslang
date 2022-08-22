@@ -14,11 +14,12 @@ body {
   margin: 0;
 }
 
-.wrapper {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 20px;
-}
+// .wrapper {
+//   width: 100%;
+//   box-sizing: border-box;
+//   padding: 0 20px;
+//   overflow: hidden;
+// }
 
 .header-wrapper{
   border-bottom: 1px solid #535353;
@@ -32,11 +33,17 @@ body {
   background-color: $bgTColorWhite;
 }
 
+// .main-container{
+//   max-width: 1240px;
+//   margin: auto;
+//   width: 100%;
+// }
+
 .main-container{
-  max-width: 1240px;
-  margin: auto;
   width: 100%;
-  // min-height: calc(100vh - 200px);
+  box-sizing: border-box;
+  // padding: 0 20px;
+  overflow: hidden;
 }
 
 html {

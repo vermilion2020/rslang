@@ -7,7 +7,7 @@
 }
 
 .footer-container {
-  max-width: 1240px;
+  max-width: 1280px;
   margin: auto;
   width: 100%;
   display: flex;
@@ -16,6 +16,7 @@
 
 
   .copyright {
+    padding-left: 20px;
     font-size: 1rem;
     font-family: $rusFont;
     color: $bgTColorBlack;
@@ -79,6 +80,7 @@
 }
 
 .link-rs {
+  padding-right: 20px;
   .icon-rs {
     height: 35px;
     width: 90px;
