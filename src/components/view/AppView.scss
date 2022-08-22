@@ -64,6 +64,12 @@ html {
   cursor: pointer;
 }
 
+.button_light {
+  background: $bgTColorWhite;
+  outline: 1px solid $bgTColorBlack;
+  color: $bgTColorBlack;
+}
+
 
 .button:hover {
   background: $colorBtnHov;

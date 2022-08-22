@@ -7,6 +7,7 @@ const getInitialState = (): PagesState => {
     loggedIn: false,
     page: 'main',
     refreshToken: localStorage.getItem('refreshToken') || '',
+    expire: Number(localStorage.getItem('expire')) || 0,
     token: localStorage.getItem('token') || '',
     userId: localStorage.getItem('userId') || '',
     userName: localStorage.getItem('userName') || '',

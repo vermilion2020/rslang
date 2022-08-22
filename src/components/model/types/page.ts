@@ -7,6 +7,7 @@ export interface PagesState {
   page: string;
   loggedIn: boolean;
   token: string;
+  expire: number;
   refreshToken: string;
   userId: string;
   userName: string;
