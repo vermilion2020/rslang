@@ -1,21 +1,21 @@
 @import '../../view/base-styles.scss';
 
-.logo__link  {
+.logo__link, .main-nav__item  {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
 .logo {
-  padding-left: 20px;
+  padding-left: $mainIndent;
 }
 
 .logged-out {
-  padding-right: 20px;
+  padding-right: $mainIndent;
 }
 
 .header-container {
-  max-width: 1280px;
+  max-width: 1320px;
   margin: auto;
   width: 100%;
   display: flex;
@@ -67,9 +67,11 @@ h1 {
   color: $bgTColorBlack;
   opacity: 1;
   cursor: pointer;
+  font-weight: 500;
 
   &:hover {
-    text-decoration: underline;
+    // text-decoration: underline;
+    color: $btnColorUnit4;
   }
 }
 
@@ -83,7 +85,7 @@ h1 {
 }
 
 .main-nav__item_active {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .main-nav {

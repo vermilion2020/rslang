@@ -55,38 +55,38 @@ $colorBtnHov: #E3FB8F;
  	font-family: 'SuisseIntl';
  	src: url('#{$fa-font-path}SuisseIntl-Regular.woff');
  	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Regular.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Regular.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Regular.svg') format('svg');
- 	font-weight: normal;
- 	font-style: 300;
+  font-weight: 300;
+ 	font-style: normal;
  }
 
  @font-face {
  	font-family: 'SuisseIntl';
  	src: url('#{$fa-font-path}SuisseIntl-Book.woff');
  	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Book.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Book.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Book.svg') format('svg');
- 	font-weight: medium;
- 	font-style: 500;
+  font-weight: 500;
+ 	font-style: medium;
  }
 
  @font-face {
 	font-family: 'SuisseIntl';
 	src: url('#{$fa-font-path}SuisseIntl-Bold.eot');
 	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Bold.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Bold.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Bold.svg') format('svg');
-	font-weight: bold;
-	font-style: 700;
+	font-weight: 700;
+	font-style: bold;
 }
 
  @font-face {
 	font-family: 'SuisseWorks';
 	src: url('#{$fa-font-path}SuisseWorks-Regular.eot');
 	src: local('☺'), url('#{$fa-font-path}SuisseWorks-Regular.woff') format('woff'), url('#{$fa-font-path}SuisseWorks-Regular.ttf') format('truetype'), url('#{$fa-font-path}SuisseWorks-Regular.svg') format('svg');
-	font-weight: normal;
-	font-style: 400;
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
 	font-family: 'SuisseWorks';
 	src: url('#{$fa-font-path}SuisseWorks-Book.eot');
 	src: local('☺'), url('#{$fa-font-path}SuisseWorks-Book.woff') format('woff'), url('#{$fa-font-path}SuisseWorks-Book.ttf') format('truetype'), url('#{$fa-font-path}SuisseWorks-Book.svg') format('svg');
-	font-weight: medium;
-	font-style: 500;
+	font-weight: 500;
+	font-style: medium;
 }

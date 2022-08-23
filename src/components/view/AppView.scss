@@ -8,6 +8,7 @@
 
 html {
   font-family: $rusFont;
+  font-weight: 300;
 }
 
 body {
@@ -67,7 +68,7 @@ html {
 .button {
   color: $bgTColorWhite;
   background: $bgTColorBlack;
-  padding: 0.5rem 0.8rem;
+  padding: 0.7rem 1.4rem;
   border: 0;
   font-size: 0.9rem;
   border-radius: 2rem;

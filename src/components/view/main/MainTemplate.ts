@@ -17,7 +17,7 @@ mainTemplate.innerHTML = `
    </div>
     <div class="cover-img">
       <div class="img-block">
-        <img class="img-mock" src="images/mock.jpg" alt="title-img" />
+        <img class="img-mock" src="images/mock.png" alt="title-img" />
       <svg class="icon-star8">
         <use xlink:href="./icons/sprite-mainpage.svg#star8"></use>
       </svg>

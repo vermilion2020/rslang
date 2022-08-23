@@ -15,26 +15,29 @@ p {
   margin: auto;
   width: 100%;
   display: grid;
-  padding: 0 20px;
+  padding: 0 $mainIndent;
   grid-template-columns: 50% 50%;
-  margin-bottom: 5.5rem;
+  margin-bottom: 2rem;
   .cover-text {
     position: relative;
-    margin-top: 5rem;
+    margin-top: 6rem;
       .cover-rs{
         font-family: $enFont;
         font-size: $textSubtitle;
       }
       .title {
         font-size: 3.5rem;
-        font-weight: normal;
-        margin-top: 3rem;
-        margin-bottom: 3rem;
+        font-weight: 300;
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+        line-height: 3.5rem;
       }
       .desc {
         font-size: $textDescription;
-        font-weight: normal;
+        font-weight: 300;
         line-height: 1.75rem;
+        max-width: 450px;
+        width: 100%;
       }
       .icon-star4 {
         width: 110px;
@@ -52,9 +55,9 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    // margin-top: 100px;
       .img-block{
         position: relative;
+        margin-right: 116px;
           .img-mock {
             height: 450px;
             max-width: 100%;
@@ -64,7 +67,7 @@ p {
             width: 250px;
             position: absolute;
             top: -15%;
-            left: -47%;
+            left: -57%;
             z-index: -1;
           }
           .icon-set {
@@ -80,7 +83,7 @@ p {
 .sec-1 {
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 $mainIndent;
   height: 240px;
   background-color: #D7E977;
   .wrapper-sec {
@@ -99,7 +102,7 @@ p {
         font-size: $textHeader;
       }
       .block-desc{
-        font-size: 1.125rem;
+        font-size: 1rem;
         margin: 0;
       }
     }
@@ -113,7 +116,7 @@ p {
 
 .sec-2 {
   background-color: $bgTColorGrey;
-  padding: 0 20px;
+  padding: 0 $mainIndent;
   .wrapper-sec-2 {
     padding-top: 105px;
     max-width: 1240px;
@@ -135,7 +138,7 @@ p {
         }
         .desc {
           font-size: $textBasic;
-          font-weight: normal;
+          font-weight: 300;
           line-height: 1.875rem;
           p {
             padding-top: 15px;
@@ -194,7 +197,7 @@ hr {
 
 .sec-4 {
   background-color: $bgTColorBlack;
-  padding: 0 20px;
+  padding: 0 $mainIndent;
   color: $bgTColorWhite;
   hr {
     display: block;
@@ -220,6 +223,7 @@ hr {
       padding-top: 90px;
       .number {
         font-size: $textSubtitle;
+          font-weight: 300;
       }
       .desc {
         &:hover {
@@ -240,6 +244,7 @@ hr {
           font-size: $textBasic;
           margin-top: 2.2rem;
           margin-bottom: 2.2rem;
+          font-weight: 300;
         }
         .git-block {
           text-align: right;
