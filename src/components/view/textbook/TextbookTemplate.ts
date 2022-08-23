@@ -10,7 +10,6 @@ export const textbookTemplate = (words: WordData[], currentPage: number): HTMLTe
   const cards = words.map((word) => drawCard(word)).join('');
   textbook.innerHTML = `
     <div class="main-page">
-      <h2>Textbook Page ${currentPage}</h2>
       <div class="cards-container">
         ${cards}
       </div>
