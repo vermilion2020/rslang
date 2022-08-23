@@ -18,9 +18,6 @@ const routes: { [key: string]: string } = {
   stats: 'stats',
 };
 
-// TODO add auth logic
-// Add user data if exist token in localstorage and it is valid
-
 const rewriteUrl = () => {
   const { hash } = window.location;
   if (!hash) {

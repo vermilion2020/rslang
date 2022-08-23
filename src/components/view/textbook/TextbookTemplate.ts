@@ -33,9 +33,9 @@ export const pagingTemplate = (countPages: number, currentPage: number): HTMLTem
     .join('');
   paging.innerHTML = `
     <div class="paging">
-      <button class="paging__prev button">Prev</button>
+      <button class="paging__prev button${currentPage === 1 ? ' disabled' : ''}">Prev</button>
       ${buttons}
-      <button class="paging__next button">Next</button>
+      <button class="paging__next button${currentPage === countPages ? ' disabled' : ''}">Next</button>
     </div>`;
   return paging;
 };
