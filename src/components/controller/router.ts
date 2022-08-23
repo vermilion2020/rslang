@@ -7,6 +7,7 @@ import Sprint from '../view/sprint/Sprint';
 import AudioChallenge from '../view/audio/AudioChallenge';
 import Stats from '../view/stats/Stats';
 import { checkAuthState } from './helpers/auth-helper';
+import menuItems from '../model/menu-items';
 
 const routes: { [key: string]: string } = {
   notFound: 'notFound',
@@ -37,6 +38,12 @@ const setProgress = (queryStr: string[], textbook: Progress) => {
   }
   return { unit, page };
 };
+
+const showPageTitle = (page: string) => {
+  const currentMenuItem = menuItems.find((item) => item.href === page);
+  const pageTitle = currentMenuItem ? currentMenuItem.name : 'RS Lang';
+  document.title = pageTitle;
+}
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   let newState: PagesState = { ...await checkAuthState(state) };
@@ -87,6 +94,7 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
   }
+  showPageTitle(newState.page);
   return newState;
 };
 
