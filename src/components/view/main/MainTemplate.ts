@@ -55,7 +55,7 @@ mainTemplate.innerHTML = `
       <hr>
       <div class="main-block-sec-2">
           <p class="title">Учебник</p>
-          <div class="desc">
+          <div class="desc-sec-2">
             <p>Учебник содержит 6 разделов, в каждом разделе по 600 слов. С каждым следующим разделом ты изучаешь все более сложные слова. Раздел имеет несколько страниц и на каждой по 20 слов.</p>
             <p>Начинай постепенно! Просматривая страницы ты можешь перейти в словарь и узнать более подробную информацию.</p>
             <p>Учебник имеет 7-ой раздел, он доступен только для зарегистрированных пользователей. В этот раздел ты можешь заносить наиболее трудные слова.</p>
@@ -70,7 +70,7 @@ mainTemplate.innerHTML = `
           <div></div>
           <div class="line">      <hr></div>
           <p class="title">Словарь</p>
-          <div class="desc">
+          <div class="desc-sec-2">
           <p>Словарь это продолжение учебника. В словаре ты можешь узнать применение слов в контексте, прослушать как оно звучит на английском языке.</p>
           <p>А также отметить слово как сложное или изуенное.</p>
           </div>
@@ -84,7 +84,7 @@ mainTemplate.innerHTML = `
            <div></div>
            <div class="line">      <hr></div>
           <p class="title">Спринт</p>
-          <div class="desc">
+          <div class="desc-sec-2">
             <p>Учись реагировать быстро, моментально понимая английскую речь. В этом тебе поможет наша игра.</p>
             <p>И еще  результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
           </div>
@@ -99,7 +99,7 @@ mainTemplate.innerHTML = `
             <div></div>
             <div class="line">      <hr></div>
             <p class="title">Аудиовызов</p>
-            <div class="desc">
+            <div class="desc-sec-2">
               <p>Название говорит само за себя. Мы говорим - ты угадываешь. Как и в игре Спринт результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
               <p>Удачи!</p>
             </div>
@@ -122,7 +122,7 @@ mainTemplate.innerHTML = `
       <hr>
       <div class="main-block-sec-4">
         <p class="number">1</p>
-        <div class="desc">
+        <div class="desc-sec-4">
           <p class="name">Мила</p>
           <p class="position">Team-leader, frontend developer</p>
           <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
@@ -134,7 +134,7 @@ mainTemplate.innerHTML = `
         <div></div>
         <div class="line-team">      <hr></div>
         <p class="number">2</p>
-        <div class="desc">
+        <div class="desc-sec-4">
           <p class="name">Роман</p>
           <p class="position">Frontend developer</p>
           <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
@@ -146,7 +146,7 @@ mainTemplate.innerHTML = `
         <div></div>
         <div class="line-team">      <hr></div>
         <p class="number">3</p>
-        <div class="desc">
+        <div class="desc-sec-4">
           <p class="name">Галина</p>
           <p class="position">Frontend developer</p>
           <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
