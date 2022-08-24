@@ -2,22 +2,23 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const miniCss = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.ts'),
   mode: 'development',
   devServer: {
     static: {
-       directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, 'dist'),
     },
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   devtool: 'inline-source-map',
   module: {
     rules: [
       {
         test: /\.(s*)css$/i,
-        use: ['style-loader', 'css-loader', 'resolve-url-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'resolve-url-loader', 'sass-loader'],
       },
       {
         test: /\.ts$/i,
@@ -28,7 +29,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {
-            name: '[path][name].[ext]'
+          name: '[path][name].[ext]'
         }
       },
     ],
@@ -49,5 +50,12 @@ module.exports = {
       filename: 'style.css',
     }),
     new CleanWebpackPlugin(),
+
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/assets/icons', to: 'icons' },
+        { from: 'src/assets/images', to: 'images' },
+      ],
+    }),
   ],
 };
