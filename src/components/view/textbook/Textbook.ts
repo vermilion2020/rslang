@@ -1,4 +1,4 @@
-import { pagingTemplate, textbookTemplate } from './TextbookTemplate';
+import { pagingTemplate, textbookTemplate, unitTemplate } from './TextbookTemplate';
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
 import getWords from '../../model/api/words';
@@ -22,7 +22,9 @@ class Textbook implements Page {
     const textbookNode = <HTMLElement>textbookTemplate(words, this.state.textbook.page).content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     const pagingNode = this.paging();
+    const unitNode = this.units();
     container.innerHTML = '';
+    container.append(unitNode);
     container.append(textbookNode);
     container.append(pagingNode);
     return this.state;
@@ -68,7 +70,6 @@ class Textbook implements Page {
   }
 
   paging() {
-
     // TODO contPages should be received from BE and calculated
     const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.page).content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
@@ -76,6 +77,15 @@ class Textbook implements Page {
       this.handlePagingClick(e);
     });
     return pagingNode;
+  }
+
+  units() {
+    const unitNode = <HTMLElement>unitTemplate(this.state.textbook.unit).content.cloneNode(true);
+    const units = <HTMLElement>unitNode.querySelector('.units');
+    units.addEventListener('click', async (e) => {
+      this.handlePagingClick(e);
+    });
+    return unitNode;
   }
 }
 

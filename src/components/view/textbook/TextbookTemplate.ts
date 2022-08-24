@@ -20,7 +20,20 @@ export const textbookTemplate = (words: WordData[], currentPage: number): HTMLTe
 
 export const unitTemplate = (currentUnit: number): HTMLTemplateElement => {
   const units = document.createElement('template');
-  const unitName = ['Раздел1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6', 'Сложное'];
+  const unitNames = ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6', 'Сложное'];
+  const buttons = unitNames.map(
+    (unit) => `
+    <button data-unit="${unit === 'сложое' ? 7 : unit.slice(-1)}"
+      class="unit-button ${(+unit.slice(-1) === +currentUnit || currentUnit === 7) && 'current-page'}">
+      ${unit}
+    </button>`,
+  )
+    .join('');
+  units.innerHTML = `
+    <div class="units">
+    ${buttons}
+    </div>`;
+  return units;
 }
 
 export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
