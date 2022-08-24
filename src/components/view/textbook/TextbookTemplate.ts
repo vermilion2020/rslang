@@ -1,8 +1,9 @@
 import WordData from '../../model/types/words';
 
 export const drawCard = (wordData: WordData): string => `
-    <div class="textbook-card">
-      <h5>${wordData.id}: ${wordData.name}</h5>
+    <div class="textbook-card" id="${wordData.id}">
+      <div>${wordData.word}</div>
+      <div>${wordData.wordTranslate}</div>
     </div>`;
 
 export const textbookTemplate = (words: WordData[], currentPage: number): HTMLTemplateElement => {
