@@ -1,6 +1,7 @@
 import mainTemplate from './MainTemplate';
 import './Main.scss';
 import { Page, PagesState } from '../../model/types/page';
+import { handleRoute } from '../../controller/router';
 
 class Main implements Page {
   state: PagesState;
@@ -9,13 +10,12 @@ class Main implements Page {
     this.state = state;
   }
 
-  addListener() {
+  addListener(state: PagesState) {
     const handleClick = (e: Event) => {
       e.preventDefault();
-      const target = <HTMLAnchorElement>(<HTMLElement>e.target).closest('.link-arrow');
-      const namePage: string = target.id.slice(5);
-      const metuItem = <HTMLElement>document.getElementById(`${namePage}-menu-item`);
-      metuItem.click();
+      const target = <HTMLLinkElement>(<HTMLElement>e.target).closest('.link-arrow');
+      window.history.pushState({}, '', target.href);
+      handleRoute(state);
     };
 
     const idLinks = ['link-textbook', 'link-dictionary', 'link-sprint', 'link-audio'];
@@ -32,7 +32,7 @@ class Main implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);
-    this.addListener();
+    this.addListener(this.state);
     return this.state;
   }
 }
