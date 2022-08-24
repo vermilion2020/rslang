@@ -70,6 +70,9 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
     case 'sprint':
+      if(+queryStr[1]) {
+        newState.sprint.level = +queryStr[1];
+      }
       page = new Sprint(newState);
       newState = await page.render();
       break;

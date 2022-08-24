@@ -12,6 +12,9 @@ export interface PagesState {
   userId: string;
   userName: string;
   textbook: Progress;
+  sprint: {
+    level?: number,
+  },
 }
 
 export interface Page {
