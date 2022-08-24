@@ -20,6 +20,9 @@ export const textbookTemplate = (words: WordData[], currentPage: number): HTMLTe
 
 export const pagingTemplate = (countPages: number, currentPage: number): HTMLTemplateElement => {
   const paging = document.createElement('template');
+  // const blockPages: number = Math.ceil(currentPage / 5);
+  // const overPages: number = (blockPages) * countPages + 1;
+
   // You need add some logic to calculate how much buttons should be here
   // just generating page numbers here
   const buttons = Array.from(Array(countPages).keys())
