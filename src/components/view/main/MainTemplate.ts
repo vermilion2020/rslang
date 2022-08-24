@@ -1,5 +1,4 @@
 const mainTemplate: HTMLTemplateElement = document.createElement('template');
-// const mainCoverTemplate: HTMLTemplateElement = document.createElement('template');
 
 mainTemplate.innerHTML = `
   <section class="section-cover">
@@ -60,7 +59,7 @@ mainTemplate.innerHTML = `
             <p>Начинай постепенно! Просматривая страницы ты можешь перейти в словарь и узнать более подробную информацию.</p>
             <p>Учебник имеет 7-ой раздел, он доступен только для зарегистрированных пользователей. В этот раздел ты можешь заносить наиболее трудные слова.</p>
           </div>
-          <a href="https://rs.school/js/" target="_blank" class="link-arrow">
+          <a href="/#/textbook" class="link-arrow" id="link-textbook">
             <div class="arrow">
               <svg class="icon-arrow">
                 <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
@@ -74,7 +73,7 @@ mainTemplate.innerHTML = `
           <p>Словарь это продолжение учебника. В словаре ты можешь узнать применение слов в контексте, прослушать как оно звучит на английском языке.</p>
           <p>А также отметить слово как сложное или изуенное.</p>
           </div>
-          <a href="https://rs.school/js/" target="_blank" class="link-arrow">
+          <a href="/#/dictionary" class="link-arrow" id="link-dictionary">
             <div class="arrow">
               <svg class="icon-arrow">
                 <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
@@ -89,7 +88,7 @@ mainTemplate.innerHTML = `
             <p>И еще  результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
           </div>
 
-          <a href="https://rs.school/js/" target="_blank" class="link-arrow">
+          <a href="/#/sprint" class="link-arrow" id="link-sprint">
             <div class="arrow">
               <svg class="icon-arrow">
                 <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
@@ -103,7 +102,7 @@ mainTemplate.innerHTML = `
               <p>Название говорит само за себя. Мы говорим - ты угадываешь. Как и в игре Спринт результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
               <p>Удачи!</p>
             </div>
-            <a href="https://rs.school/js/" target="_blank" class="link-arrow">
+            <a href="/#/audio" class="link-arrow" id="link-audio">
               <div class="arrow">
                 <svg class="icon-arrow">
                   <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
