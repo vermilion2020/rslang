@@ -18,15 +18,23 @@ export const textbookTemplate = (words: WordData[], currentPage: number): HTMLTe
   return textbook;
 };
 
-export const pagingTemplate = (countPages: number, currentPage: number): HTMLTemplateElement => {
-  const paging = document.createElement('template');
-  // const blockPages: number = Math.ceil(currentPage / 5);
-  // const overPages: number = (blockPages) * countPages + 1;
+export const unitTemplate = (currentUnit: number): HTMLTemplateElement => {
+  const units = document.createElement('template');
+  const unitName = ['Раздел1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6', 'Сложное'];
+}
 
-  // You need add some logic to calculate how much buttons should be here
-  // just generating page numbers here
+export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
+  const paging = document.createElement('template');
+  let overPages = 1;
+  const countPages = 5;
+  if ((currentPage + 2) >= 30) {
+    overPages = 26;
+  }
+  if ((currentPage + 2) < 30 && (currentPage - 2) > 1) {
+    overPages = currentPage - 2;
+  }
   const buttons = Array.from(Array(countPages).keys())
-    .map((num) => num + 1)
+    .map((num) => num + overPages)
     .map(
       (page) => `
         <button data-number="${page}" class="button ${page === currentPage && 'current-page'}">
@@ -36,9 +44,9 @@ export const pagingTemplate = (countPages: number, currentPage: number): HTMLTem
     .join('');
   paging.innerHTML = `
     <div class="paging">
-      <button class="paging__prev button${currentPage === 1 ? ' disabled' : ''}">Prev</button>
+      <button class="paging__prev button" ${currentPage <= 1 ? 'disabled="disabled"' : ''}>Prev</button>
       ${buttons}
-      <button class="paging__next button${currentPage === countPages ? ' disabled' : ''}">Next</button>
+      <button class="paging__next button" ${currentPage >= 30 ? 'disabled="disabled"' : ''}>Next</button>
     </div>`;
   return paging;
 };

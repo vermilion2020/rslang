@@ -1,3 +1,5 @@
+@import '../../view/base-styles.scss';
+
 .cards-container {
   width: 100%;
   display: flex;
@@ -19,4 +21,17 @@
 
 .paging {
   margin: 10px 0;
+}
+
+.paging__prev:disabled,
+.paging__next:disabled {
+  pointer-events: none; 
+  background-color: $bgTColorGrey;
+  color: $bgTColorBlack;
+  border: 1px solid $bgTColorBlack;
+}
+
+.button.current-page {
+  background-color: rgb(233, 138, 138);
+  pointer-events: none; 
 }
