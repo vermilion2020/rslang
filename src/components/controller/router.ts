@@ -36,6 +36,8 @@ const setProgress = (queryStr: string[], textbook: Progress) => {
       page = +queryStr[2] || 1;
     }
   }
+  if (!unit) { unit = 1; }
+  if (!page) { page = 1; }
   return { unit, page };
 };
 
