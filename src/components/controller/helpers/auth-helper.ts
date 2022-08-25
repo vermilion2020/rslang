@@ -18,6 +18,7 @@ export const checkAuthState = async (state: PagesState): Promise<PagesState> => 
       localStorage.setItem('expire', `${newState.expire}`);
       localStorage.setItem('token', newState.token);
     }
+    // TODO: add validation for other response statuses
   } else {
     newState.loggedIn = true;
   }
@@ -37,6 +38,7 @@ export const updateStateOnAuth = (state: PagesState, data: SignInResponse) => {
   localStorage.setItem('token', data.token);
   localStorage.setItem('userId', data.userId);
   localStorage.setItem('userName', data.name);
+  console.log(newState);
   return newState;
 };
 
