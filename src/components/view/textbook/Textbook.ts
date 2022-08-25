@@ -45,12 +45,12 @@ class Textbook implements Page {
       if (this.state.textbook.page >= countPages) {
         this.state.textbook.page = countPages;
         last = true;
-      } else {
+      } else  {
         ++this.state.textbook.page;
       }
     }
     this.handleButtonsState(first, last);
-    if (!first && !last) {
+    if(!first && !last) {
       await this.changeCurrentPage(1, this.state.textbook.page);
     }
   }
