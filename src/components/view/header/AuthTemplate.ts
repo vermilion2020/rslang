@@ -23,8 +23,8 @@ authTemplate.innerHTML = `
     <input class="popup__input" required name="email" type="email" placeHolder="Электронная почта">
     <input class="popup__input" required minlength="8" name="password" type="password" placeHolder="Пароль">
     <div class="popup__buttons">
-      <button id="auth-button" class="button button">Вход</button>
-      <button type="submit" id="reg-button" class="button button_light">Регистрация</button>
+      <button type="submit" id="auth-button" class="button">Вход</button>
+      <button id="reg-button" class="button button_light">Регистрация</button>
     </div>
     <span class="popup__copyright">© Все права защищены — 2022 г. RS Lang</span>
     </form>`;

@@ -3,18 +3,37 @@ import {
   AutenticationData, PagesState, RegistrationData, SignInResponse,
 } from '../../model/types';
 
+export const handleLogout = (state: PagesState) => {
+  const newState = { ...state };
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('expire');
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userName');
+  newState.loggedIn = false;
+  newState.token = '';
+  newState.refreshToken = '';
+  newState.userId = '';
+  newState.userName = '';
+  return newState;
+};
+
 export const checkAuthState = async (state: PagesState): Promise<PagesState> => {
   if (!state.token) {
     return state;
   }
-  const newState = { ...state };
-  if (Date.now() > state.expire) {
+  let newState = { ...state };
+  const refreshDead = state.expire + 16200000;
+  const now = Date.now();
+  if (now > state.expire && now < refreshDead) {
     const response = await getToken(newState.userId, state.refreshToken);
     if (response.status === 200) {
       newState.expire = Date.now() + 7200000;
       newState.refreshToken = response.data.refreshToken;
       newState.token = response.data.token;
     }
+  } else if (now >= refreshDead) {
+    newState = { ...handleLogout(newState) };
   } else {
     newState.loggedIn = true;
   }
@@ -51,26 +70,9 @@ export const handleAuth = async (state: PagesState) => {
       const responseData = <SignInResponse>response.data;
       newState = { ...updateStateOnAuth(newState, responseData) };
     }
-  } catch(e) {
-    if((<string>e).includes('403')) {
-      alert('Логин или пароль не верны! Попробуйте снова!');
-    }
+  } catch (e) {
+    alert('Логин или пароль не верны! Попробуйте снова!');
   }
-  return newState;
-};
-
-export const handleLogout = (state: PagesState) => {
-  const newState = { ...state };
-  localStorage.removeItem('refreshToken');
-  localStorage.removeItem('expire');
-  localStorage.removeItem('token');
-  localStorage.removeItem('userId');
-  localStorage.removeItem('userName');
-  newState.loggedIn = false;
-  newState.token = '';
-  newState.refreshToken = '';
-  newState.userId = '';
-  newState.userName = '';
   return newState;
 };
 
@@ -90,24 +92,22 @@ export const handleRegistration = async (state: PagesState) => {
     return newState;
   }
   try {
-  const registration = await regNewUser(data);
-  } catch(e) {
-      alert('Аккаунт с таким имейлом уже существует!');
+    await regNewUser(data);
+  } catch (e) {
+    alert('Аккаунт с таким имейлом уже существует!');
   }
-    try {
-      const authData: AutenticationData = {
-        email: email.value,
-        password: password.value,
-      };
-      const response = await authUser(authData);
-      if (response.status === 200) {
-        const responseData = <SignInResponse>response.data;
-        newState = { ...updateStateOnAuth(newState, responseData) };
-      }
-    } catch(e) {
-      if((<string>e).includes('403')) {
-        alert('Логин или пароль не верны! Попробуйте снова!');
-      }
+  try {
+    const authData: AutenticationData = {
+      email: email.value,
+      password: password.value,
+    };
+    const response = await authUser(authData);
+    if (response.status === 200) {
+      const responseData = <SignInResponse>response.data;
+      newState = { ...updateStateOnAuth(newState, responseData) };
     }
+  } catch (e) {
+    alert('Логин или пароль не верны! Попробуйте снова!');
+  }
   return newState;
 };
