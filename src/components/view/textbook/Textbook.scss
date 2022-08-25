@@ -1,21 +1,168 @@
+@import '../../view/base-styles.scss';
+
+.main-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section-word {
+  padding: 0 2.5rem;
+}
+
+.wrapper-sec-word {
+  padding-top: 105px;
+  max-width: 1240px;
+  margin: auto;
+  width: 100%;
+}
+
+.title-sec {
+  font-size: 2.5rem;
+}
+
+.units {
+  margin: 2rem 0;
+
+  .button {
+    color: $bgTColorWhite;
+    background: $bgTColorBlack;
+    padding: 0.6rem 1rem;
+    border: 0;
+    font-size: 0.9rem;
+    border-radius: 2rem;
+    cursor: pointer;
+  }
+}
+
+.paging {
+
+  .button {
+    color: $bgTColorBlack;
+    background: $bgTColorWhite;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+
+    border: 1px solid $bgTColorBlack;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  // .paging__next {
+  //   background-image: url('./icons/sprite-words.svg#arrow-right');
+  // }
+}
+
+
 .cards-container {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px
 }
 
 .textbook-card {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: center;
-  width: 200px;
-  height: 60px;
-  background: rgb(233, 138, 138);
-  border: 1px solid red;
+  // width: 200px;
+  height: 100px;
+  border-radius: 7px;
 }
+
+.unit-1 {
+  .textbook-card {
+    background: $bgColorUnit1;
+  }
+  .unit-button.current-unit,
+  .current-page {
+    background-color: $btnColorUnit1;
+    pointer-events: none; 
+    color: $bgTColorWhite;
+    border: 1px solid $btnColorUnit1;
+  }
+}
+
+.unit-2 {
+  .textbook-card {
+    background: $bgColorUnit2;
+  }
+  .unit-button.current-unit,
+  .current-page  {
+    background-color: $btnColorUnit2;
+    pointer-events: none; 
+  }
+}
+
+.unit-3 {
+  .textbook-card {
+    background: $bgColorUnit3;
+  }
+  .unit-button.current-unit,
+  .current-page  {
+    background-color: $btnColorUnit3;
+    pointer-events: none; 
+  }
+}
+
+.unit-4 {
+  .textbook-card {
+    background: $bgColorUnit4;
+  }
+  .unit-button.current-unit,
+  .current-page  {
+    background-color: $btnColorUnit4;
+    pointer-events: none; 
+  }
+}
+
+.unit-5{
+  .textbook-card {
+    background: $bgColorUnit5;
+  }
+  .unit-button.current-unit,
+  .current-page  {
+    background-color: $btnColorUnit5;
+    pointer-events: none; 
+  }
+}
+
+.unit-6{
+  .textbook-card {
+    background: $bgColorUnit6;
+  }
+  .unit-button.current-unit,
+  .current-page  {
+    background-color: $btnColorUnit6;
+    pointer-events: none; 
+  }
+}
+
 
 .paging {
   margin: 10px 0;
 }
+
+.paging__prev:disabled,
+.paging__next:disabled {
+  pointer-events: none; 
+  background-color: $bgTColorGrey;
+  color: $bgTColorBlack;
+  border: 1px solid $bgTColorBlack;
+}
+
+.difficulty {
+  width: 30px;
+  height: 40px;
+  background-color: white;
+}
+
+.difficulty.hard {
+  background-color: $iconColorComplex;
+}
+
+.difficulty.easy {
+  background-color: $iconColorStudied;
+}
+

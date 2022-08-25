@@ -1,7 +1,9 @@
-import { pagingTemplate, textbookTemplate } from './TextbookTemplate';
+import { pagingTemplate, textbookTemplate, unitTemplate, sectionWords, titleTemplate } from './TextbookTemplate';
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
-import words from '../../model/mock-words-data';
+// import { getWords, getUserWords } from '../../model/api/words';
+import loadWords from '../../controller/helpers/word-helper';
+// import { WordData, UserWords } from '../../model/types/words';
 
 class Textbook implements Page {
   state: PagesState;
@@ -12,51 +14,34 @@ class Textbook implements Page {
 
   async render() {
     this.state.page = 'textbook';
-    const textbookNode = <HTMLElement>textbookTemplate(words, this.state.textbook.page).content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
-    const pagingNode = this.paging();
+    const sectionWord = await this.createSectionWords();
     container.innerHTML = '';
-    container.append(textbookNode);
-    container.append(pagingNode);
+    container.append(sectionWord);
     return this.state;
   }
 
-  handleButtonsState(first: boolean, last: boolean) {
-    const prev = <HTMLElement>document.querySelector('.paging__prev');
-    const next = <HTMLElement>document.querySelector('.paging__next');
-    first ? prev.classList.add('disabled') : prev.classList.remove('disabled');
-    last ? next.classList.add('disabled') : next.classList.remove('disabled');
-  }
-
-  async handlePagingClick(e: Event, countPages: number) {
+  async handlePagingClick(e: Event) {
     const target = e.target as HTMLElement;
-    let last = false;
-    let first = false;
     if (target.dataset.number) {
       this.state.textbook.page = +target.dataset.number;
     } else if (target.classList.contains('paging__prev')) {
-      if (this.state.textbook.page <= 1) {
-        this.state.textbook.page = 1;
-        first = true;
-      } else {
-        --this.state.textbook.page;
-      }
+      this.state.textbook.page -= 1;
     } else if (target.classList.contains('paging__next')) {
-      if (this.state.textbook.page >= countPages) {
-        this.state.textbook.page = countPages;
-        last = true;
-      } else  {
-        ++this.state.textbook.page;
-      }
+      this.state.textbook.page += 1;
     }
-    this.handleButtonsState(first, last);
-    if(!first && !last) {
-      await this.changeCurrentPage(1, this.state.textbook.page);
+    await this.changeCurrentPage(this.state.textbook.unit, this.state.textbook.page);
+  }
+
+  async handleUnitClick(e: Event) {
+    const target = <HTMLElement>e.target;
+    if (target.dataset.unit) {
+      this.state.textbook.unit = +target.dataset.unit;
     }
+    await this.changeCurrentPage(this.state.textbook.unit, this.state.textbook.page);
   }
 
   async changeCurrentPage(unit: number, page: number) {
-    // TODO add units paging here also and save together
     window.location.hash = `/${this.state.page}/unit${unit}/${page}`;
     const textbookProgress = { unit: this.state.textbook.unit, page: this.state.textbook.page };
     const textbook = JSON.stringify(textbookProgress);
@@ -64,15 +49,40 @@ class Textbook implements Page {
     await this.render();
   }
 
+  async createSectionWords() {
+    // const sectionNode = <HTMLElement>sectionWords(this.state.textbook.unit);
+    const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.textbook.unit);
+    const titleNode = <HTMLElement>titleTemplate('Учебник').content.cloneNode(true);
+    const words = await loadWords(this.state);
+    const textbookNode = <HTMLElement>textbookTemplate(words).content.cloneNode(true);
+    const pagingNode = this.paging();
+    const unitNode = this.units();
+
+    wrapper.innerHTML = '';
+    wrapper.append(titleNode);
+    wrapper.append(unitNode);
+    wrapper.append(textbookNode);
+    wrapper.append(pagingNode);
+    return section;
+  }
+
   paging() {
     // TODO contPages should be received from BE and calculated
-    const countPages = 5;
-    const pagingNode = <HTMLElement>pagingTemplate(countPages, this.state.textbook.page).content.cloneNode(true);
+    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.page).content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
-      this.handlePagingClick(e, countPages);
+      this.handlePagingClick(e);
     });
     return pagingNode;
+  }
+
+  units() {
+    const unitNode = <HTMLElement>unitTemplate(this.state.textbook.unit).content.cloneNode(true);
+    const units = <HTMLElement>unitNode.querySelector('.units');
+    units.addEventListener('click', async (e) => {
+      this.handleUnitClick(e);
+    });
+    return unitNode;
   }
 }
 
