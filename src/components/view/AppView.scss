@@ -6,14 +6,21 @@
   transition: all 0.3s ease;
 }
 
+html {
+  font-family: $rusFont;
+  font-weight: 300;
+}
+
 body {
   margin: 0;
 }
 
-.wrapper {
-  width: 100%;
-  box-sizing: border-box;
-}
+// .wrapper {
+//   width: 100%;
+//   box-sizing: border-box;
+//   padding: 0 20px;
+//   overflow: hidden;
+// }
 
 .header-wrapper{
   border-bottom: 1px solid #535353;
@@ -23,17 +30,21 @@ body {
   border-top: 1px solid #535353;
 }
 
-// .gray {
-//   background-color: $grayBg;
-// }
-
 .white {
   background-color: $bgTColorWhite;
 }
 
+// .main-container{
+//   max-width: 1240px;
+//   margin: auto;
+//   width: 100%;
+// }
+
 .main-container{
-  width: 1240px;
-  margin: auto;
+  width: 100%;
+  box-sizing: border-box;
+  // padding: 0 20px;
+  overflow: hidden;
 }
 
 html {
@@ -57,7 +68,7 @@ html {
 .button {
   color: $bgTColorWhite;
   background: $bgTColorBlack;
-  padding: 0.5rem 0.8rem;
+  padding: 0.7rem 1.4rem;
   border: 0;
   font-size: 0.9rem;
   border-radius: 2rem;
