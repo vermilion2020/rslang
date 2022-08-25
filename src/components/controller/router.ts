@@ -43,19 +43,16 @@ const showPageTitle = (page: string) => {
   const currentMenuItem = menuItems.find((item) => item.href === page);
   const pageTitle = currentMenuItem ? currentMenuItem.name : 'RS Lang';
   document.title = pageTitle;
-}
+};
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
-  let newState: PagesState = { ...await checkAuthState(state) };
+  let newState: PagesState = { ...(await checkAuthState(state)) };
   rewriteUrl();
   const queryStr = window.location.hash
     .replace('/#', '')
     .split('/')
     .filter((item) => item !== '#' && item !== '');
-<<<<<<< HEAD
-  // console.log(queryStr);
-=======
->>>>>>> develop
+
   const path = queryStr.length ? queryStr[0] : '/';
   const pageName = routes[path] || routes.notFound;
   let page: Page;
