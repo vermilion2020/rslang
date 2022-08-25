@@ -11,10 +11,10 @@ class Stats implements Page {
 
   async render() {
     this.state.page = 'stats';
-    const notFoundNode = <HTMLElement>statsTemplate.content.cloneNode(true);
+    const statsNode = <HTMLElement>statsTemplate.content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
-    container.append(notFoundNode);
+    container.append(statsNode);
     return this.state;
   }
 }

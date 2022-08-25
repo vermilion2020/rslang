@@ -1,18 +1,19 @@
 import { handleRoute } from '../controller/router';
 import { PagesState } from '../model/types';
-import renderHeader from './header/Header';
 import renderFooter from './footer/Footer';
 import getInitialState from '../controller/state';
 import './AppView.scss';
+import Header from './header/Header';
 
 const AppView = async () => {
   let state: PagesState = getInitialState();
-  state = await handleRoute(state);
-  renderHeader(state);
-  renderFooter();
-  document.addEventListener('hashchange', () => {
-    handleRoute(state);
+  document.addEventListener('hashchange', async () => {
+    state = await handleRoute(state);
   });
+  state = await handleRoute(state);
+  const header = new Header(state);
+  state = await header.render();
+  renderFooter();
 };
 
 export default AppView;

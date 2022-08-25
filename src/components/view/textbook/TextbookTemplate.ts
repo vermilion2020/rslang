@@ -10,7 +10,6 @@ export const textbookTemplate = (words: WordData[], currentPage: number): HTMLTe
   const cards = words.map((word) => drawCard(word)).join('');
   textbook.innerHTML = `
     <div class="main-page">
-      <h2>Textbook Page ${currentPage}</h2>
       <div class="cards-container">
         ${cards}
       </div>
@@ -33,9 +32,9 @@ export const pagingTemplate = (countPages: number, currentPage: number): HTMLTem
     .join('');
   paging.innerHTML = `
     <div class="paging">
-      <button class="paging__prev button">Prev</button>
+      <button class="paging__prev button${currentPage === 1 ? ' disabled' : ''}">Prev</button>
       ${buttons}
-      <button class="paging__next button">Next</button>
+      <button class="paging__next button${currentPage === countPages ? ' disabled' : ''}">Next</button>
     </div>`;
   return paging;
 };

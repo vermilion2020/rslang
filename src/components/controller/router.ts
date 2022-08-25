@@ -6,6 +6,8 @@ import Dictionary from '../view/dictionary/Dictionary';
 import Sprint from '../view/sprint/Sprint';
 import AudioChallenge from '../view/audio/AudioChallenge';
 import Stats from '../view/stats/Stats';
+import { checkAuthState } from './helpers/auth-helper';
+import menuItems from '../model/menu-items';
 
 const routes: { [key: string]: string } = {
   notFound: 'notFound',
@@ -16,11 +18,6 @@ const routes: { [key: string]: string } = {
   audio: 'audio',
   stats: 'stats',
 };
-
-const checkAuthState = async (state: PagesState): Promise<PagesState> => state;
-
-// TODO add auth logic
-// Add user data if exist token in localstorage and it is valid
 
 const rewriteUrl = () => {
   const { hash } = window.location;
@@ -42,21 +39,29 @@ const setProgress = (queryStr: string[], textbook: Progress) => {
   return { unit, page };
 };
 
+const showPageTitle = (page: string) => {
+  const currentMenuItem = menuItems.find((item) => item.href === page);
+  const pageTitle = currentMenuItem ? currentMenuItem.name : 'RS Lang';
+  document.title = pageTitle;
+}
+
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
-  checkAuthState(state);
+  let newState: PagesState = { ...await checkAuthState(state) };
   rewriteUrl();
   const queryStr = window.location.hash
     .replace('/#', '')
     .split('/')
     .filter((item) => item !== '#' && item !== '');
+<<<<<<< HEAD
   // console.log(queryStr);
+=======
+>>>>>>> develop
   const path = queryStr.length ? queryStr[0] : '/';
   const pageName = routes[path] || routes.notFound;
   let page: Page;
-  let newState = state;
   switch (pageName) {
     case 'main':
-      page = new Main(state);
+      page = new Main(newState);
       newState = await page.render();
       break;
     case 'textbook':
@@ -65,34 +70,35 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
     case 'dictionary':
-      page = new Dictionary(state);
+      page = new Dictionary(newState);
       newState = await page.render();
       break;
     case 'sprint':
-      page = new Sprint(state);
+      page = new Sprint(newState);
       newState = await page.render();
       break;
     case 'audio':
-      page = new AudioChallenge(state);
+      page = new AudioChallenge(newState);
       newState = await page.render();
       break;
     case 'stats':
-      if (!state.loggedIn) {
+      if (!newState.loggedIn) {
         window.location.pathname = '/';
-        handleRoute(state);
+        handleRoute(newState);
       }
-      page = new Stats(state);
+      page = new Stats(newState);
       newState = await page.render();
       break;
     case 'notFound':
-      page = new NotFound(state);
+      page = new NotFound(newState);
       newState = await page.render();
       break;
     default:
-      page = new Main(state);
+      page = new Main(newState);
       newState = await page.render();
       break;
   }
+  showPageTitle(newState.page);
   return newState;
 };
 

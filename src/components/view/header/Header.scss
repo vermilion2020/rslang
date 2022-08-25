@@ -1,15 +1,30 @@
 @import '../../view/base-styles.scss';
 
+.logo__link, .main-nav__item  {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.logo {
+  padding-left: $mainIndent;
+}
+
+.logged-out {
+  padding-right: $mainIndent;
+}
+
 .header-container {
-  width: 1240px;
+  max-width: 1320px;
   margin: auto;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 h1 {
-  font-family: $rusFont;
+  font-family: $enFont;
   font-size: 20px;
   margin: 0;
 }
@@ -44,26 +59,19 @@ h1 {
   }
 }
 
-.circle {
-  height:0.8rem;
-  width:0.8rem;
-  border-radius: 0.4rem;
-  display: inline-block;
-  background-color: $bgTColorBlack;
-}
-
-
 .main-nav__item {
   font-family: $rusFont;
   display: inline-block;
-  padding: 1.2rem;
+  padding: 1.4rem 0.5rem; 
   text-decoration: none;
   color: $bgTColorBlack;
   opacity: 1;
   cursor: pointer;
+  font-weight: 500;
 
   &:hover {
-    text-decoration: underline;
+    // text-decoration: underline;
+    color: $btnColorUnit4;
   }
 }
 
@@ -77,7 +85,7 @@ h1 {
 }
 
 .main-nav__item_active {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .main-nav {
