@@ -1,10 +1,20 @@
 import { WordData } from '../../model/types/words';
 
-export const sectionWords = (currentUnit: number): HTMLElement => {
+export const sectionWords = (currentUnit: number): Record<string, HTMLElement> => {
   const section = document.createElement('section');
-
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('wrapper-sec-word');
   section.classList.add('section-word', `unit-${currentUnit}`);
-  return section;
+  section.append(wrapper);
+
+  return { section, wrapper };
+};
+
+export const titleTemplate = (titleName: string) => {
+  const titleBlock = document.createElement('template');
+  titleBlock.innerHTML = `
+  <p class="title-sec">${titleName}</p>`;
+  return titleBlock;
 };
 
 export const drawCard = (wordData: WordData): string => {

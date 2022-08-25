@@ -1,4 +1,4 @@
-import { pagingTemplate, textbookTemplate, unitTemplate, sectionWords } from './TextbookTemplate';
+import { pagingTemplate, textbookTemplate, unitTemplate, sectionWords, titleTemplate } from './TextbookTemplate';
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
 // import { getWords, getUserWords } from '../../model/api/words';
@@ -42,8 +42,6 @@ class Textbook implements Page {
   }
 
   async changeCurrentPage(unit: number, page: number) {
-    // TODO add units paging here also and save together
-
     window.location.hash = `/${this.state.page}/unit${unit}/${page}`;
     const textbookProgress = { unit: this.state.textbook.unit, page: this.state.textbook.page };
     const textbook = JSON.stringify(textbookProgress);
@@ -52,17 +50,20 @@ class Textbook implements Page {
   }
 
   async createSectionWords() {
-    const sectionNode = <HTMLElement>sectionWords(this.state.textbook.unit);
+    // const sectionNode = <HTMLElement>sectionWords(this.state.textbook.unit);
+    const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.textbook.unit);
+    const titleNode = <HTMLElement>titleTemplate('Учебник').content.cloneNode(true);
     const words = await loadWords(this.state);
     const textbookNode = <HTMLElement>textbookTemplate(words).content.cloneNode(true);
     const pagingNode = this.paging();
     const unitNode = this.units();
 
-    sectionNode.innerHTML = '';
-    sectionNode.append(unitNode);
-    sectionNode.append(textbookNode);
-    sectionNode.append(pagingNode);
-    return sectionNode;
+    wrapper.innerHTML = '';
+    wrapper.append(titleNode);
+    wrapper.append(unitNode);
+    wrapper.append(textbookNode);
+    wrapper.append(pagingNode);
+    return section;
   }
 
   paging() {
