@@ -1,12 +1,22 @@
 import { WordData } from '../../model/types/words';
 
-export const drawCard = (wordData: WordData): string => `
-    <div class="textbook-card" id="${wordData.id}">
-      <div>${wordData.word}</div>
-      <div>${wordData.wordTranslate}</div>
-    </div>`;
+export const sectionWords = (currentUnit: number): HTMLElement => {
+  const section = document.createElement('section');
 
-export const textbookTemplate = (words: WordData[], currentPage: number): HTMLTemplateElement => {
+  section.classList.add('section-word', `unit-${currentUnit}`);
+  return section;
+};
+
+export const drawCard = (wordData: WordData): string => {
+  const card = `<div class="textbook-card" id="${wordData.id}">
+    <div>${wordData.word}</div>
+    <div>${wordData.wordTranslate}</div>
+    <div class="difficulty ${wordData.difficulty ? wordData.difficulty : ''}"></div>
+  </div>`;
+  return card;
+};
+
+export const textbookTemplate = (words: WordData[]): HTMLTemplateElement => {
   const textbook = document.createElement('template');
   const cards = words.map((word) => drawCard(word)).join('');
   textbook.innerHTML = `

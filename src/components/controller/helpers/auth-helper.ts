@@ -15,6 +15,7 @@ export const checkAuthState = async (state: PagesState): Promise<PagesState> => 
       newState.refreshToken = response.data.refreshToken;
       newState.token = response.data.token;
     }
+    // TODO: add validation for other response statuses
   } else {
     newState.loggedIn = true;
   }
