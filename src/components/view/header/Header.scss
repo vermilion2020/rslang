@@ -52,6 +52,11 @@ h1 {
   font-size: 1.2rem;
   color: $bgTColorBlack;
   cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 12rem;
+  white-space: nowrap;
+  text-align: right;
 
   &:hover {
     color: $colorBtnHov;
@@ -70,7 +75,6 @@ h1 {
   font-weight: 500;
 
   &:hover {
-    // text-decoration: underline;
     color: $btnColorUnit4;
   }
 }
@@ -81,6 +85,7 @@ h1 {
 
   &:hover {
     text-decoration: none;
+    color: $bgTColorBlack;
   }
 }
 
