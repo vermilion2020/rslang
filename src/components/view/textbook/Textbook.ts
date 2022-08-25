@@ -1,24 +1,22 @@
 import { pagingTemplate, textbookTemplate, unitTemplate } from './TextbookTemplate';
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
-import getWords from '../../model/api/words';
-import WordData from '../../model/types/words';
-// import words from '../../model/mock-words-data';
+import { getWords, getUserWords } from '../../model/api/words';
+import loadWords from '../../controller/helpers/word-helper';
+import { WordData, UserWords } from '../../model/types/words';
 
 class Textbook implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
     this.state = state;
+    console.log(this.state);
   }
 
   async render() {
     this.state.page = 'textbook';
-    let words: WordData[] = [];
-    const response = await getWords(this.state.textbook.unit - 1, this.state.textbook.page - 1);
-    if (response.status === 200) {
-      words = <WordData[]>response.data;
-    }
+    const words = await loadWords(this.state);
+    console.log(words);
     const textbookNode = <HTMLElement>textbookTemplate(words, this.state.textbook.page).content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     const pagingNode = this.paging();
@@ -27,23 +25,33 @@ class Textbook implements Page {
     container.append(unitNode);
     container.append(textbookNode);
     container.append(pagingNode);
+    console.log(this.state);
     return this.state;
   }
 
-  // handleButtonsState(first: boolean, last: boolean) {
-  //   const prev = <HTMLElement>document.querySelector('.paging__prev');
-  //   const next = <HTMLElement>document.querySelector('.paging__next');
-  //   prev.setAttribute('disabled', 'disabled');
-  //   if (first) {
-  //     prev.setAttribute('disabled', 'disabled');
-  //   } else {
-  //     prev.removeAttribute('disabled');
+  // async loadWords() {
+  //   let words: WordData[] = [];
+  //   const response = await getWords(this.state.textbook.unit - 1, this.state.textbook.page - 1);
+  //   if (response.status === 200) {
+  //     words = <WordData[]>response.data;
   //   }
-  //   if (last) {
-  //     next.setAttribute('disabled', 'disabled');
-  //   } else {
-  //     next.removeAttribute('disabled');
+  //   if (this.state.loggedIn) {
+  //     const responseUser = await getUserWords(this.state.userId, this.state.token);
+  //     if (response.status === 200) {
+  //       const userWords = <UserWords[] | []>responseUser.data;
+  //       if (userWords.length) {
+  //         const includWords = words.map((word) => {
+  //           const incl = userWords.find((userWord) => word.id === userWord.wordId);
+  //           if (incl) {
+  //             return { ...word, difficulty: incl.difficulty, optional: incl.optional };
+  //           }
+  //           return word;
+  //         });
+  //         words = includWords;
+  //       }
+  //     }
   //   }
+  //   return words;
   // }
 
   async handlePagingClick(e: Event) {
@@ -55,8 +63,15 @@ class Textbook implements Page {
     } else if (target.classList.contains('paging__next')) {
       this.state.textbook.page += 1;
     }
-    await this.changeCurrentPage(1, this.state.textbook.page);
-    console.log(this.state);
+    await this.changeCurrentPage(this.state.textbook.unit, this.state.textbook.page);
+  }
+
+  async handleUnitClick(e: Event) {
+    const target = <HTMLElement>e.target;
+    if (target.dataset.unit) {
+      this.state.textbook.unit = +target.dataset.unit;
+    }
+    await this.changeCurrentPage(this.state.textbook.unit, this.state.textbook.page);
   }
 
   async changeCurrentPage(unit: number, page: number) {
@@ -83,7 +98,7 @@ class Textbook implements Page {
     const unitNode = <HTMLElement>unitTemplate(this.state.textbook.unit).content.cloneNode(true);
     const units = <HTMLElement>unitNode.querySelector('.units');
     units.addEventListener('click', async (e) => {
-      this.handlePagingClick(e);
+      this.handleUnitClick(e);
     });
     return unitNode;
   }

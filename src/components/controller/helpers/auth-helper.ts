@@ -34,6 +34,7 @@ export const updateStateOnAuth = (state: PagesState, data: SignInResponse) => {
   localStorage.setItem('token', data.token);
   localStorage.setItem('userId', data.userId);
   localStorage.setItem('userName', data.name);
+  console.log(newState);
   return newState;
 };
 

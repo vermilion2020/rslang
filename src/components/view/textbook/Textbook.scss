@@ -31,7 +31,8 @@
   border: 1px solid $bgTColorBlack;
 }
 
-.button.current-page {
+.button.current-page,
+.button.current-unit {
   background-color: rgb(233, 138, 138);
   pointer-events: none; 
 }

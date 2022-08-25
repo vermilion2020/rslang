@@ -1,4 +1,4 @@
-interface WordData {
+export interface WordData {
   id: string,
   group: number,
   page: number,
@@ -12,7 +12,19 @@ interface WordData {
   transcription: string,
   wordTranslate: string,
   textMeaningTranslate: string,
-  textExampleTranslate: string
+  textExampleTranslate: string,
+  difficulty?: string;
+  optional?: {
+      vic: number;
+      loss: number;
+  };
 }
-
-export default WordData;
+export interface UserWords {
+  id: string,
+  difficulty: string,
+  optional: {
+      vic: number,
+      loss: number
+  },
+  wordId: string
+}
