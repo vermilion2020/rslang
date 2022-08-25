@@ -14,6 +14,9 @@ export const checkAuthState = async (state: PagesState): Promise<PagesState> => 
       newState.expire = Date.now() + 7200000;
       newState.refreshToken = response.data.refreshToken;
       newState.token = response.data.token;
+      localStorage.setItem('refreshToken', newState.refreshToken);
+      localStorage.setItem('expire', `${newState.expire}`);
+      localStorage.setItem('token', newState.token);
     }
   } else {
     newState.loggedIn = true;
