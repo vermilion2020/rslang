@@ -50,8 +50,52 @@
           }
         }
       }
-    }
+      ///round dio
+      .out {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: yellowgreen;
+      }
 
+      .container {
+        width: 90px;
+        height: 90px;
+        padding: 2px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .progress-circular {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: conic-gradient(yellowgreen 0deg, #ededed 0deg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .progress-circular::after {
+        position: absolute;
+        content: '';
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: #fff;
+      }
+
+      .value {
+        color: progress-circular;
+        z-index: 101;
+      }
+      /////
+    }
     .audio-content__wrapper,
     .game-wrapper {
       max-width: 50vw;
@@ -155,9 +199,6 @@
   width: 45vw;
   height: 100%;
   margin: 0 auto;
-  // display: flex;
-  // flex-direction: column;
-  // align-items: stretch;
 
   .wrapper {
     height: 90%;
@@ -221,6 +262,7 @@
   .img-voice {
     height: 20px;
     width: 20px;
+
     &:hover {
       cursor: pointer;
     }
@@ -234,7 +276,7 @@
     margin: auto;
   }
 
-  on-speak {
+  .on-speak {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -242,11 +284,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    &:hover {
-      cursor: pointer;
-    }
+
     &:active {
-      cursor: pointer;
       background-color: aliceblue;
     }
   }

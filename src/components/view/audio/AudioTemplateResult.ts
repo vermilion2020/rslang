@@ -1,3 +1,6 @@
+import voiceIcon from '../../../assets/images/png/up_volume.png';
+import './AudioChallenge.scss';
+
 export const audioTemplateResult: HTMLTemplateElement = document.createElement('template');
 audioTemplateResult.innerHTML = `
   <form id="page-result" class="popupAudio">
@@ -8,7 +11,13 @@ audioTemplateResult.innerHTML = `
     </div>
     <div class="result-info">
       <p class="result-description">Процент правильно изученных слов</p>
-      <p class="result-digit">{procentData}%</p>
+      <div class="out">
+  <div class="container"> 
+    <div class="progress-circular">
+      <span class="value">0%</span>
+    </div>
+     </div>
+</div>
     </div>
     <div class="footer-result">
       <button class="result-repeat">Повторить</button>
@@ -27,10 +36,12 @@ audioTemplateWords.innerHTML = `
           <h3 id="result-words" class="result-words">Посмотреть слова</h3>
         </div>
         <div class="result-info">
+        <p>Выученные слова - {numAccept}</p>
           <ul class="result-correct">
-          <li class="correct-item"><div class="on-speak"><img class='img-voice' src="../../../assets/images/png/up_volume.png" alt="img voice"></div><span class="eng-word"> - {englishWord}</span><span class="rus-word"> - {russianWord}</span></li>
+          <li class="correct-item"><div class="on-speak"><img class='img-voice' src="${voiceIcon}" alt="img voice"></div>  <span class="eng-word"> {  -  englishWord}</span> <span class="rus-word"> {  -  russianWord}</span></li>
           </ul>
           <hr class="hr-line">
+          <p>Не выученные слова - {numLose}</p>
           <ul class="result-incorrect">
             <li class="incorrect-item"></li>
           </ul>

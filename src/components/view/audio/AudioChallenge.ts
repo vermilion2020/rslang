@@ -4,6 +4,7 @@ import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
 import audioTemplateGame from './AudioTemplateGame';
 import { renderAudioResultPop } from './AudioResult';
+import { getWords } from './AudioGameApi';
 
 class AudioChallenge implements Page {
   state: PagesState;
@@ -44,7 +45,11 @@ class AudioChallenge implements Page {
     container.innerHTML = '';
     container.append(notFoundNode);
     const btnNext = document.querySelector('.btn-next');
-    if (btnNext) btnNext?.addEventListener('click', (e: Event) => renderAudioResultPop());
+    if (btnNext)
+      btnNext?.addEventListener('click', (e: Event) => {
+        renderAudioResultPop();
+        getWords(1, 1);
+      });
   }
 }
 

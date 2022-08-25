@@ -8,7 +8,13 @@ const audioTemplateGame = (nextOr?: string, correctWord?: string, selectedWord?:
 <div class="main-page__game">
 <div class="wrapper">
 <section class="header-game">
-<div class="indicator">Индикатор ответов</div>
+<div class="out">
+  <div class="container">
+    <div class="progress-circular">
+      <span class="value">0%</span>
+    </div>
+     </div>
+</div>
      <div class="close-audio__game">
       <a href="/" class="close-audio__gamepage"><div class="close-crose__white"></div></a>
      </div>
