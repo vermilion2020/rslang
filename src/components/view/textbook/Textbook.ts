@@ -2,7 +2,8 @@ import { pagingTemplate, textbookTemplate, unitTemplate, sectionWords, titleTemp
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
 // import { getWords, getUserWords } from '../../model/api/words';
-import loadWords from '../../controller/helpers/word-helper';
+import { loadWords, loadWordsHard } from '../../controller/helpers/word-helper';
+
 // import { WordData, UserWords } from '../../model/types/words';
 
 class Textbook implements Page {
@@ -18,7 +19,6 @@ class Textbook implements Page {
     const sectionWord = await this.createSectionWords();
     container.innerHTML = '';
     container.append(sectionWord);
-    // this.addSvg();
     return this.state;
   }
 
@@ -51,11 +51,12 @@ class Textbook implements Page {
   }
 
   async createSectionWords() {
-    // const sectionNode = <HTMLElement>sectionWords(this.state.textbook.unit);
     const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.textbook.unit);
     const titleNode = <HTMLElement>titleTemplate('Учебник').content.cloneNode(true);
-    const words = await loadWords(this.state);
-    console.log(words);
+    let words = await loadWords(this.state);
+    if (this.state.textbook.unit === 7) {
+      words = await loadWordsHard(this.state);
+    }
     const textbookNode = <HTMLElement>textbookTemplate(words).content.cloneNode(true);
     const pagingNode = this.paging();
     const unitNode = this.units();
@@ -65,17 +66,10 @@ class Textbook implements Page {
     wrapper.append(unitNode);
     wrapper.append(textbookNode);
     wrapper.append(pagingNode);
-
     return section;
   }
 
-  addSvg() {
-    const next = <HTMLButtonElement>document.querySelector('.paging__next');
-    next.style.background = "url('./icons/sprite-words.svg#arrow-right')";
-  }
-
   paging() {
-    // TODO contPages should be received from BE and calculated
     const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.page).content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
@@ -85,7 +79,7 @@ class Textbook implements Page {
   }
 
   units() {
-    const unitNode = <HTMLElement>unitTemplate(this.state.textbook.unit).content.cloneNode(true);
+    const unitNode = <HTMLElement>unitTemplate(this.state.textbook.unit, this.state.loggedIn).content.cloneNode(true);
     const units = <HTMLElement>unitNode.querySelector('.units');
     units.addEventListener('click', async (e) => {
       this.handleUnitClick(e);

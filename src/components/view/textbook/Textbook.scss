@@ -1,6 +1,10 @@
 @import '../../view/base-styles.scss';
 
-.button-pag {
+.section-word {
+  margin-bottom: 50px;
+}
+
+.button-pag, .btn-to-menu {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -30,6 +34,7 @@
   margin: 2rem 0;
 
   .button {
+    position: relative;
     color: $bgTColorWhite;
     background: $bgTColorBlack;
     padding: 0.6rem 1rem;
@@ -43,18 +48,28 @@
 .wrapper-paging {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .btn-to-menu {
   text-align: left;
+  padding-left: 15px;
   height: 40px;
-  width: 80px;
+  width: 125px;
   background-image: url('../../../assets/icons/arrow-right.svg');
   border: 1px solid $bgTColorBlack;
   background-color: $bgTColorWhite;
   background-size: 20px;
-  background-position:  calc(100% - 4px);
+  background-position:  calc(100% - 11px);
   background-repeat: no-repeat;
+  font-size: 0.9rem;
+  border-radius: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $colorBtnHov;
+  }
 }
 
 .paging {
@@ -126,9 +141,9 @@
     width: 20px;
     height: 20px;
     -webkit-mask: url('../../../assets/icons/icon-dif.svg') no-repeat;
+    -webkit-mask-size: auto 20px;
     top: 0px;
     right: 10%;
-    -webkit-mask-size: auto 20px;
   }
   .label.hard {
     background-color: $iconColorComplex;
@@ -170,6 +185,19 @@
   }
 }
 
+
+.lable-btn {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../../assets/icons/icon-dif-btn.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  top: -6px;
+  right: 18%;
+}
+
+
 .unit-1 {
   .textbook-card {
     background: $bgColorUnit1;
@@ -191,6 +219,8 @@
   .current-page  {
     background-color: $btnColorUnit2;
     pointer-events: none; 
+    color: $bgTColorWhite;
+    border: 1px solid $btnColorUnit2;
   }
 }
 
@@ -202,6 +232,8 @@
   .current-page  {
     background-color: $btnColorUnit3;
     pointer-events: none; 
+    color: $bgTColorWhite;
+    border: 1px solid $btnColorUnit3;
   }
 }
 
@@ -213,10 +245,12 @@
   .current-page  {
     background-color: $btnColorUnit4;
     pointer-events: none; 
+    color: $bgTColorWhite;
+    border: 1px solid $btnColorUnit4;
   }
 }
 
-.unit-5{
+.unit-5 {
   .textbook-card {
     background: $bgColorUnit5;
   }
@@ -224,10 +258,12 @@
   .current-page  {
     background-color: $btnColorUnit5;
     pointer-events: none; 
+    color: $bgTColorWhite;
+    border: 1px solid $btnColorUnit5;
   }
 }
 
-.unit-6{
+.unit-6 {
   .textbook-card {
     background: $bgColorUnit6;
   }
@@ -235,7 +271,29 @@
   .current-page  {
     background-color: $btnColorUnit6;
     pointer-events: none; 
+    color: $bgTColorWhite;
+    border: 1px solid $btnColorUnit6;
   }
+}
+
+.unit-7 {
+    .textbook-card {
+      background: $bgColorUnit7;
+      border: 1px solid $bgTColorBlack;
+    }
+    .label, .paging {
+      display: none;
+    }
+    .unit-button.current-unit {
+      background-color: $bgTColorWhite;
+      pointer-events: none; 
+      border: 1px solid $bgTColorBlack;
+      color: $bgTColorBlack;
+
+      .lable-btn {
+        background-image: url('../../../assets/icons/icon-dif.svg');
+      }
+    }
 }
 
 
@@ -244,13 +302,10 @@
 }
 
 .paging__prev:disabled,
-.paging__next:disabled {
+.paging__next:disabled,
+button[data-unit="7"]:disabled {
   pointer-events: none; 
-  background-color: $bgTColorGrey;
+  background-color: $colorBtnDisab;
   color: $bgTColorBlack;
   border: 1px solid $bgTColorBlack;
 }
-
-
-
-

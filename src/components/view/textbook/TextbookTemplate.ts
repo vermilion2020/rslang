@@ -17,7 +17,6 @@ export const titleTemplate = (titleName: string) => {
   return titleBlock;
 };
 
-
 export const drawCard = (wordData: WordData): string => {
   const card = `<div class="textbook-card" id="${wordData.id}">
     <div class="wordEn">${wordData.word[0].toUpperCase() + wordData.word.slice(1)}</div>
@@ -43,14 +42,17 @@ export const textbookTemplate = (words: WordData[]): HTMLTemplateElement => {
   return textbook;
 };
 
-export const unitTemplate = (currentUnit: number): HTMLTemplateElement => {
+export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTemplateElement => {
   const units = document.createElement('template');
-  const unitNames = ['раздел 1', 'раздел 2', 'раздел 3', 'раздел 4', 'раздел 5', 'раздел 6', 'сложное'];
+  const unitNames = [1, 2, 3, 4, 5, 6, 7];
   const buttons = unitNames.map(
     (unit) => `
-    <button data-unit="${unit === 'Сложное' ? 7 : unit.slice(-1)}"
-      class="button unit-button ${(+unit.slice(-1) === +currentUnit || currentUnit === 7) && 'current-unit'}">
-      ${unit}
+    <button data-unit="${unit}"
+      class="button unit-button ${unit === currentUnit ? 'current-unit' : ''}"
+      ${unit === 7 && loggedIn === false ? 'disabled="disabled"' : ''}
+      >
+      ${unit === 7 ? 'сложное' : `раздел ${unit}`}
+      ${unit === 7 ? '<div class="lable-btn"></div>' : ''}
     </button>`,
   )
     .join('');
@@ -59,7 +61,7 @@ export const unitTemplate = (currentUnit: number): HTMLTemplateElement => {
     ${buttons}
     </div>`;
   return units;
-}
+};
 
 export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
   const paging = document.createElement('template');
