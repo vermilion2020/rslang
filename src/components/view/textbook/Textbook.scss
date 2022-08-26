@@ -1,5 +1,11 @@
 @import '../../view/base-styles.scss';
 
+.button-pag {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
 .main-container {
   width: 100%;
   box-sizing: border-box;
@@ -34,23 +40,54 @@
   }
 }
 
-.paging {
+.wrapper-paging {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .button {
+.btn-to-menu {
+  text-align: left;
+  height: 40px;
+  width: 80px;
+  background-image: url('../../../assets/icons/arrow-right.svg');
+  border: 1px solid $bgTColorBlack;
+  background-color: $bgTColorWhite;
+  background-size: 20px;
+  background-position:  calc(100% - 4px);
+  background-repeat: no-repeat;
+}
+
+.paging {
+  display: flex;
+  gap: 7px;
+
+  .button-pag {
     color: $bgTColorBlack;
     background: $bgTColorWhite;
     width: 2rem;
     height: 2rem;
     padding: 0;
-
     border: 1px solid $bgTColorBlack;
     font-size: 0.9rem;
     border-radius: 0.5rem;
     cursor: pointer;
   }
-  // .paging__next {
-  //   background-image: url('./icons/sprite-words.svg#arrow-right');
-  // }
+  .paging__next {
+    background-image: url('../../../assets/icons/arrow-right.svg');
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .paging__prev {
+    background-image: url('../../../assets/icons/arrow-left.svg');
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.button-pag:hover {
+  background-color: $colorBtnHov;
 }
 
 
@@ -62,13 +99,75 @@
 }
 
 .textbook-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  // width: 200px;
-  height: 100px;
+  height: 80px;
   border-radius: 7px;
+  padding: 12px 7px 7px 12px;
+  display: flex;
+  justify-content: start;
+
+  .wordEn {
+    font-family: $enFont;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+  .wordRu {
+    font-family: $rusFont;
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+
+  .label {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    -webkit-mask: url('../../../assets/icons/icon-dif.svg') no-repeat;
+    top: 0px;
+    right: 10%;
+    -webkit-mask-size: auto 20px;
+  }
+  .label.hard {
+    background-color: $iconColorComplex;
+  }
+  .label.easy {
+    background-color: $iconColorStudied;
+  }
+}
+
+.wrapper-difficulty {
+  display: flex;
+  gap: 7px;
+  margin-left: auto;
+  margin-top: auto;
+  .difficulty {
+    width: 30px;
+    padding: 4px;
+    font-size: 0.8rem;
+    padding: 2px 4px 2px 4px;
+    border-radius: 25px;
+    border: 1px solid $bgTColorBlack;
+    background-color: $bgTColorWhite;
+    background-size: 12px;
+    background-position:  calc(100% - 4px);
+    background-repeat: no-repeat;
+    display: none;
+  }
+  .vic {
+    background-image: url('../../../assets/icons/icon-vic.svg');
+  }
+  .loss {
+    background-image: url('../../../assets/icons/icon-loss.svg');
+  }
+  .difficulty.vic.play {
+    display: block;
+  }
+  .difficulty.loss.play {
+    display: block;
+  }
 }
 
 .unit-1 {
@@ -152,17 +251,6 @@
   border: 1px solid $bgTColorBlack;
 }
 
-.difficulty {
-  width: 30px;
-  height: 40px;
-  background-color: white;
-}
 
-.difficulty.hard {
-  background-color: $iconColorComplex;
-}
 
-.difficulty.easy {
-  background-color: $iconColorStudied;
-}
 

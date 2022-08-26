@@ -18,6 +18,7 @@ class Textbook implements Page {
     const sectionWord = await this.createSectionWords();
     container.innerHTML = '';
     container.append(sectionWord);
+    // this.addSvg();
     return this.state;
   }
 
@@ -54,6 +55,7 @@ class Textbook implements Page {
     const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.textbook.unit);
     const titleNode = <HTMLElement>titleTemplate('Учебник').content.cloneNode(true);
     const words = await loadWords(this.state);
+    console.log(words);
     const textbookNode = <HTMLElement>textbookTemplate(words).content.cloneNode(true);
     const pagingNode = this.paging();
     const unitNode = this.units();
@@ -63,7 +65,13 @@ class Textbook implements Page {
     wrapper.append(unitNode);
     wrapper.append(textbookNode);
     wrapper.append(pagingNode);
+
     return section;
+  }
+
+  addSvg() {
+    const next = <HTMLButtonElement>document.querySelector('.paging__next');
+    next.style.background = "url('./icons/sprite-words.svg#arrow-right')";
   }
 
   paging() {

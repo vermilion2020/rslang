@@ -17,11 +17,16 @@ export const titleTemplate = (titleName: string) => {
   return titleBlock;
 };
 
+
 export const drawCard = (wordData: WordData): string => {
   const card = `<div class="textbook-card" id="${wordData.id}">
-    <div>${wordData.word}</div>
-    <div>${wordData.wordTranslate}</div>
-    <div class="difficulty ${wordData.difficulty ? wordData.difficulty : ''}"></div>
+    <div class="wordEn">${wordData.word[0].toUpperCase() + wordData.word.slice(1)}</div>
+    <div ckass="wordRu">${wordData.wordTranslate[0].toUpperCase() + wordData.wordTranslate.slice(1)}</div>
+    <div class="wrapper-difficulty">
+      <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${wordData.optional?.vic}</div>
+      <div class="difficulty loss ${wordData.optional && +wordData.optional.loss !== 0 ? 'play' : ''}">${wordData.optional?.loss}</div>
+    </div>
+    <div class="label ${wordData.difficulty ? wordData.difficulty : ''}"></div>
   </div>`;
   return card;
 };
@@ -40,7 +45,7 @@ export const textbookTemplate = (words: WordData[]): HTMLTemplateElement => {
 
 export const unitTemplate = (currentUnit: number): HTMLTemplateElement => {
   const units = document.createElement('template');
-  const unitNames = ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6', 'Сложное'];
+  const unitNames = ['раздел 1', 'раздел 2', 'раздел 3', 'раздел 4', 'раздел 5', 'раздел 6', 'сложное'];
   const buttons = unitNames.map(
     (unit) => `
     <button data-unit="${unit === 'Сложное' ? 7 : unit.slice(-1)}"
@@ -70,16 +75,19 @@ export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
     .map((num) => num + overPages)
     .map(
       (page) => `
-        <button data-number="${page}" class="button ${page === currentPage && 'current-page'}">
+        <button data-number="${page}" class="button-pag ${page === currentPage && 'current-page'}">
           ${page}
         </button>`,
     )
     .join('');
   paging.innerHTML = `
+  <div class="wrapper-paging">
+    <button class="btn-to-menu">в словарь</button>
     <div class="paging">
-      <button class="paging__prev button" ${currentPage <= 1 ? 'disabled="disabled"' : ''}>Prev</button>
+      <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}
-      <button class="paging__next button" ${currentPage >= 30 ? 'disabled="disabled"' : ''}>Next</button>
+      <button class="paging__next button-pag" ${currentPage >= 30 ? 'disabled="disabled"' : ''}></button>
+    </div>
     </div>`;
   return paging;
 };
