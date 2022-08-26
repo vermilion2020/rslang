@@ -1,3 +1,4 @@
+import { randomResult } from "../../controller/helpers/sprint-helper";
 import { GameWordData } from "../../model/types";
 
 export const sprintStartTemplate = (levelId?: string): HTMLTemplateElement => {
@@ -21,21 +22,19 @@ export const sprintStartTemplate = (levelId?: string): HTMLTemplateElement => {
 
 export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
   const sprintCard = document.createElement('template');
-  const result = !!Math.round(Math.random());
-  let translate = '';
-  translate = result ? word.translates[0] : word.wordTranslate;
+  const { result, translate } = randomResult(word);
   sprintCard.innerHTML = `
-    <div class="card-sprint" data-word-id="${word.id}">
+    <div class="card-sprint" id="card-sprint" data-word="${word.id}" data-result="${result}">
       <div class="point-multiplier" data-count="1">
         <div class="circle" data-value="1"></div>
         <div class="circle" data-value="2"></div>
         <div class="circle" data-value="3"></div>
       </div>
-      <h3>${word.word}</h3>
-      <h4>${translate}</h4>
-      <div class="decision-buttons">
-        <button>НЕВЕРНО</button>
-        <button>ВЕРНО</button>
+      <h3 id="card-word">${word.word}</h3>
+      <h4 id="card-translate">${translate}</h4>
+      <div class="decision">
+        <button class="decision_button decision_button__false" data-value="0">НЕВЕРНО</button>
+        <button class="decision_button decision_button__true" data-value="1">ВЕРНО</button>
       </div>
     </div>`;
   return sprintCard;

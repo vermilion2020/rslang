@@ -3,13 +3,15 @@ import './Sprint.scss';
 import { Page, PagesState } from '../../model/types/page';
 import startTimer from '../../controller/timer';
 import { countPages } from '../../model/constants';
-import { getWords, getWordTranslates } from '../../model/api/words';
-import { GameWordData, WordData } from '../../model/types';
+import { getWords } from '../../model/api/words';
+import { WordData } from '../../model/types';
+import { getNewWord, randomResult } from '../../controller/helpers/sprint-helper';
 
 class Sprint implements Page {
   state: PagesState;
   container = document.querySelector('#main-container') as HTMLDivElement;
   startCountDown = false;
+  words: WordData[] = [];
 
   constructor(state: PagesState) {
     this.state = state;
@@ -41,25 +43,38 @@ class Sprint implements Page {
     return this.state;
   }
 
-  async getNewWord(words: WordData[]) {
-    const wordIndex = Math.floor(Math.random() * words.length);
-    const response = await getWordTranslates(words[wordIndex].id, 1);
-    const word = <GameWordData>response.data;
-    const updatedWords = words.filter((_, index) => index !== wordIndex);
-    return { word, updatedWords };
+  async updateCard() {
+    const card = <HTMLElement>this.container.querySelector('#card-sprint');
+    const cardWord = <HTMLElement>this.container.querySelector('#card-word');
+    const cardTranslate = <HTMLElement>this.container.querySelector('#card-translate');
+    const results = await getNewWord(this.words);
+    this.words = [ ...results.updatedWords ];
+    const { result, translate } = randomResult(results.word);
+    card.dataset.result = `${result}`;
+    card.dataset.words = results.word.id;
+    cardWord.innerHTML = results.word.word;
+    cardTranslate.innerHTML = translate;
+
   }
 
   async renderGame(level = 1, page?: number) {
     let currPage = !page 
       ? Math.floor(Math.random() * countPages) + 1
       : page;
-    
-    const words: WordData[] = (await getWords(level, currPage)).data;
-    const { word, updatedWords } = await this.getNewWord(words);
-    const sprintNode = <HTMLElement>sprintCardTemplate(word).content.cloneNode(true);
+    this.words = (await getWords(level, currPage)).data;
+    const { word, updatedWords } = await getNewWord(this.words);
+    this.words = [ ...updatedWords ];
+    const sprintCardNode = <HTMLElement>sprintCardTemplate(word).content.cloneNode(true);
     this.container.innerHTML = '';
-    this.container.append(sprintNode);
-    this.container.addEventListener('click', (e: Event) => { this.handleLevelSelect(e) });
+    this.container.append(sprintCardNode);
+    this.container.addEventListener('click', async (e: Event) => { 
+      const target = <HTMLElement>e.target;
+      if (target.classList.contains('level-select__button')) {
+        this.handleLevelSelect(e);
+      } else if (target.classList.contains('decision_button')) {
+        await this.updateCard();
+      }
+    });
   }
 
   async renderResults() {
