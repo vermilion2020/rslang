@@ -14,6 +14,8 @@ export interface PagesState {
   textbook: Progress;
   sprint: {
     level?: number,
+    page?: number,
+    fromTextbook: boolean;
   },
 }
 

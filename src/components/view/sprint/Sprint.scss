@@ -1,13 +1,20 @@
 @import '../base-styles.scss';
 
 .start-sprint,
-.card-sprint {
+.card-sprint,
+.results-sprint {
   width: 400px;
   height: 250px;
   border-radius: 1rem;
   padding: 1rem;
   text-align: center;
   margin: 1rem auto 1rem;
+}
+
+.results-sprint {
+  overflow: scroll;
+  text-align: left;
+  border: 1px solid $btnColorUnit1;
 }
 
 .level-select {
@@ -54,4 +61,35 @@
 .level-6 {
   background: $bgColorUnit6;
   border: 1px solid $btnColorUnit6;  
+}
+
+.decision_button {
+  color: $bgTColorWhite;
+  padding: 0.7rem 1.4rem;
+  border: 0;
+  font-size: 0.9rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.decision_button__false {
+  background: $iconColorComplex;
+}
+
+.decision_button__true {
+  background: $iconColorStudied;
+}
+
+.start-countdown {
+  margin-top: 1rem;
+}
+
+.decision {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-evenly;
+}
+
+.play-again {
+  margin-top: 10px;
 }

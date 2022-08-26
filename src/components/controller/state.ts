@@ -15,7 +15,9 @@ const getInitialState = (): PagesState => {
       unit: 1,
       page: 1,
     },
-    sprint: {}
+    sprint: {
+      fromTextbook: false
+    }
   };
 };
 
