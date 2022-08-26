@@ -1,15 +1,10 @@
-const main = 'https://rslang-learn-words.herokuapp.com';
+// import { getWords } from '../../../components/model/api/words';
+// import loadWords from '../../controller/helpers/word-helper';
+// import {renderAudioResultPop} from './AudioResult'
 
-const words = `${main}/words`;
-interface IArrWord {
-  word: string;
-}
-let arrWords: string[];
-export const getWords = async (group: number, page: number) => {
-  const response = await fetch(`${words}?group=${group}&page=${page}`);
-  const letWord = await response.json();
-  arrWords = letWord.map((el: IArrWord) => el.word);
-  console.log(arrWords);
-  return arrWords;
-};
-// getWords(1, 1);
+// repeatBtn.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   console.log('click', e.target);
+//   console.log('GETW: ', getWords);
+//   console.log('LWORds: ', loadWords);
+// });

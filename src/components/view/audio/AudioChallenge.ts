@@ -1,10 +1,9 @@
 import audioTemplate from './AudioTemplate';
-// import docPrint from './AudioGame';
 import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
 import audioTemplateGame from './AudioTemplateGame';
 import { renderAudioResultPop } from './AudioResult';
-import { getWords } from './AudioGameApi';
+// import { getWords } from './AudioGameApi';
 
 class AudioChallenge implements Page {
   state: PagesState;
@@ -48,7 +47,7 @@ class AudioChallenge implements Page {
     if (btnNext)
       btnNext?.addEventListener('click', (e: Event) => {
         renderAudioResultPop();
-        getWords(1, 1);
+        // getWords(1, 1);
       });
   }
 }

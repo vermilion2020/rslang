@@ -11,13 +11,13 @@ audioTemplateResult.innerHTML = `
     </div>
     <div class="result-info">
       <p class="result-description">Процент правильно изученных слов</p>
-      <div class="out">
-  <div class="container"> 
-    <div class="progress-circular">
-      <span class="value">0%</span>
-    </div>
-     </div>
-</div>
+      <div class="out-pop">
+        <div class="container-pop"> 
+         <div class="progress-circular__pop">
+           <span class="value-pop">0%</span>
+         </div>
+        </div>
+      </div>
     </div>
     <div class="footer-result">
       <button class="result-repeat">Повторить</button>
