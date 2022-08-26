@@ -45,7 +45,7 @@ const showPageTitle = (page: string) => {
   const currentMenuItem = menuItems.find((item) => item.href === page);
   const pageTitle = currentMenuItem ? currentMenuItem.name : 'RS Lang';
   document.title = pageTitle;
-}
+};
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   let newState: PagesState = { ...await checkAuthState(state) };
@@ -84,8 +84,7 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       break;
     case 'stats':
       if (!newState.loggedIn) {
-        window.location.pathname = '/';
-        handleRoute(newState);
+        window.location.href = '/';
       }
       page = new Stats(newState);
       newState = await page.render();
