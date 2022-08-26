@@ -1,4 +1,4 @@
-function startTimer(duration: number, container: HTMLElement) {
+async function startTimer(duration: number, container: HTMLElement) {
   var timer = duration;
   const interval = setInterval(function () {
       container.innerText = `${timer}`;

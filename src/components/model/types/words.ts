@@ -19,6 +19,9 @@ export interface WordData {
       loss: number;
   };
 }
+
+export type GameWordData = WordData & { translates: string[]}
+
 export interface UserWords {
   id: string,
   difficulty: string,
