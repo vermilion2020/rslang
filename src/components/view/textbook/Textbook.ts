@@ -3,7 +3,7 @@ import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
 // import { getWords, getUserWords } from '../../model/api/words';
 import { loadWords, loadWordsHard } from '../../controller/helpers/word-helper';
-import { route } from '../../controller/router';
+import { handleRoute } from '../../controller/router';
 
 // import { WordData, UserWords } from '../../model/types/words';
 
@@ -102,8 +102,8 @@ class Textbook implements Page {
       e.preventDefault();
       const target = <HTMLLinkElement>(<HTMLElement>e.target);
       const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);
-      // window.history.pushState({}, '', target.href);
-      route(e, state);
+      window.history.pushState({}, '', `/#/dictionary${target.dataset.id}`);
+      handleRoute(state);
       document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
       menuItem.classList.add('main-nav__item_active');
     };
