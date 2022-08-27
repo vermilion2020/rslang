@@ -1,22 +1,19 @@
 @import '../../view/base-styles.scss';
 
-.section-word {
-  margin-bottom: 50px;
-}
-
-.button-pag, .btn-to-menu {
+.button-pag, .btn-to-menu, .btn-game {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
+.section-word {
+  margin-bottom: 50px;
+  padding: 0 2.5rem;
+}
+
 .main-container {
   width: 100%;
   box-sizing: border-box;
-}
-
-.section-word {
-  padding: 0 2.5rem;
 }
 
 .wrapper-sec-word {
@@ -141,7 +138,7 @@
     width: 20px;
     height: 20px;
     -webkit-mask: url('../../../assets/icons/icon-dif.svg') no-repeat;
-    -webkit-mask-size: auto 20px;
+    -webkit-mask-size: auto 16px;
     top: 0px;
     right: 10%;
   }
@@ -308,4 +305,109 @@ button[data-unit="7"]:disabled {
   background-color: $colorBtnDisab;
   color: $bgTColorBlack;
   border: 1px solid $bgTColorBlack;
+}
+
+.section-game{
+  padding: 0 2.5rem;
+  background-color: $bgTColorGrey;
+}
+
+.desc {
+  width: 30rem;
+  position: relative;
+  z-index: 1;
+}
+
+.wrapper-game {
+  padding-top: 105px;
+  padding-bottom: 105px;
+  max-width: 1240px;
+  margin: auto;
+  width: 100%;
+}
+
+.wrapper-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+}
+
+.wrapper-sprint {
+  position: relative;
+  margin-top: 5rem;
+  .icon-bg-sprint {
+    background-image: url('../../../assets/icons/star-sprint.svg');
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: -21%;
+    right: 41%;
+    background-size: 100%;
+  }
+
+}
+
+.wrapper-audio {
+  position: relative;
+  .icon-bg-audio {
+    background-image: url('../../../assets/icons/line-audio.svg');
+    position: absolute;
+    width: 140%;
+    height: 170%;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: -52%;
+    right: -17%;
+    background-size: 80%; 
+  }
+
+  .icon-star-audio {
+    background-image: url('../../../assets/icons/star4-audio.svg');
+    position: absolute;
+    width: 21%;
+    height: 21%;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 86%;
+    left: 115%;
+    background-size: 100%;
+  }
+}
+
+
+
+.btn-game {
+  position: relative;
+  z-index: 1;
+  background-color: $bgTColorWhite;
+  border: 1px solid $bgTColorBlack;
+  background-image: url('../../../assets/icons/arrow-right.svg');
+  background-size: 30px;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-color: $colorBtnHov;
+    cursor: pointer;
+  }
+}
+
+.btn-sprint {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 10rem;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 2.1rem;
+  background-position: center calc(100% - 3rem);
+}
+.btn-audio {
+  width: 25rem;
+  height: 25rem;
+  border-radius: 20rem;
+  font-size: 2.3rem;
+  font-weight: 300;
+  background-position: center calc(100% - 3rem);
 }

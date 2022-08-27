@@ -84,7 +84,7 @@ export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
     .join('');
   paging.innerHTML = `
   <div class="wrapper-paging">
-    <button class="btn-to-menu">в словарь</button>
+    <button class="btn-to-menu" data-id="dictionary">в словарь</button>
     <div class="paging">
       <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}
@@ -93,3 +93,26 @@ export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
     </div>`;
   return paging;
 };
+
+export const playTemplate = () => {
+  const playPart = document.createElement('template');
+  playPart.innerHTML = `
+  <section class="section-game">
+    <div class="wrapper-game">
+      <p class="title-sec">Игры</p>
+      <p class="desc">Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.</p>
+      <div class="wrapper-btn">
+        <div class="wrapper-sprint">
+          <button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button>
+          <div class="icon-bg-sprint"></div>
+        </div>
+        <div class="wrapper-audio">
+          <button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button>
+          <div class="icon-bg-audio"></div>
+          <div class="icon-star-audio"></div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+  return playPart;
+}

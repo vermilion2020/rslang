@@ -1,8 +1,9 @@
-import { pagingTemplate, textbookTemplate, unitTemplate, sectionWords, titleTemplate } from './TextbookTemplate';
+import { pagingTemplate, textbookTemplate, unitTemplate, sectionWords, titleTemplate, playTemplate} from './TextbookTemplate';
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
 // import { getWords, getUserWords } from '../../model/api/words';
 import { loadWords, loadWordsHard } from '../../controller/helpers/word-helper';
+import { route } from '../../controller/router';
 
 // import { WordData, UserWords } from '../../model/types/words';
 
@@ -17,8 +18,11 @@ class Textbook implements Page {
     this.state.page = 'textbook';
     const container = document.querySelector('#main-container') as HTMLDivElement;
     const sectionWord = await this.createSectionWords();
+    const sectionPlay = this.createSectionPlay();
     container.innerHTML = '';
     container.append(sectionWord);
+    container.append(sectionPlay);
+    this.addListener(this.state);
     return this.state;
   }
 
@@ -85,6 +89,31 @@ class Textbook implements Page {
       this.handleUnitClick(e);
     });
     return unitNode;
+  }
+
+  createSectionPlay() {
+    const playNode = <HTMLElement>playTemplate().content.cloneNode(true);
+    return playNode;
+  }
+
+  addListener(state: PagesState) {
+    const handleClick = (e: Event) => {
+      console.log(e.target);
+      e.preventDefault();
+      const target = <HTMLLinkElement>(<HTMLElement>e.target);
+      const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);
+      // window.history.pushState({}, '', target.href);
+      route(e, state);
+      document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
+      menuItem.classList.add('main-nav__item_active');
+    };
+
+    const classBtn = ['.btn-audio', '.btn-sprint', '.btn-to-menu'];
+
+    classBtn.forEach((el: string) => {
+      const elem = <HTMLElement>document.querySelector(el);
+      elem.addEventListener('click', handleClick);
+    });
   }
 }
 
