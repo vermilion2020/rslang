@@ -68,6 +68,7 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
     case 'dictionary':
+      newState.dictionary = setProgress(queryStr, newState.dictionary);
       page = new Dictionary(newState);
       newState = await page.render();
       break;
