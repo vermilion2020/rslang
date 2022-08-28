@@ -13,7 +13,7 @@ export interface PagesState {
   userName: string;
   textbook: Progress;
   sprint: {
-    level?: number,
+    unit?: number,
     page?: number,
     fromTextbook: boolean;
   },

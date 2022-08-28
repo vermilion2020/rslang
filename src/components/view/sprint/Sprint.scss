@@ -37,7 +37,7 @@
   border: 1px solid $btnColorUnit1;
 }
 
-.level-select {
+.unit-select {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -45,7 +45,7 @@
   margin-top: 1rem;
 }
 
-.level-select__button {
+.unit-select__button {
   display: block;
   padding: 0.6rem 1rem;
   text-decoration: none;
@@ -53,32 +53,32 @@
   color: $bgTColorBlack;
 }
 
-.level-1 {
+.unit-1 {
   background: $bgColorUnit1;
   border: 1px solid $btnColorUnit1;  
 }
 
-.level-2 {
+.unit-2 {
   background: $bgColorUnit2;
   border: 1px solid $btnColorUnit2;  
 }
 
-.level-3 {
+.unit-3 {
   background: $bgColorUnit3;
   border: 1px solid $btnColorUnit3;  
 }
 
-.level-4 {
+.unit-4 {
   background: $bgColorUnit4;
   border: 1px solid $btnColorUnit4;  
 }
 
-.level-5 {
+.unit-5 {
   background: $bgColorUnit5;
   border: 1px solid $btnColorUnit5;  
 }
 
-.level-6 {
+.unit-6 {
   background: $bgColorUnit6;
   border: 1px solid $btnColorUnit6;  
 }

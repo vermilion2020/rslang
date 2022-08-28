@@ -13,7 +13,7 @@ class Sprint implements Page {
   container: HTMLElement;
   successInRope: number = 0;
   countForSuccess: number = 10;
-  level: number = 1;
+  unit: number = 1;
   page: number;
   startCountDown = false;
   currentWord: GameWordData | null;
@@ -27,40 +27,23 @@ class Sprint implements Page {
     this.currentWord = null;
     this.container.addEventListener('click', async (e: Event) => { 
       const target = <HTMLElement>e.target;
-      const cardContainer = <HTMLElement>this.container.querySelector('#card-sprint');
-      const trueButton = <HTMLElement>this.container.querySelector('.decision_button__true');
-      const falseButton = <HTMLElement>this.container.querySelector('.decision_button__false');
-      if (target.classList.contains('level-select__button')) {
-        this.handleLevelSelect(e);
-      } else if (target.classList.contains('decision_button')) {
-        trueButton.setAttribute('disabled', 'disabled');
-        falseButton.setAttribute('disabled', 'disabled');
-        const decision = +<string>target.dataset.value;
-        const result = +<string>cardContainer.dataset.result === decision;
-        if(result) {
-          cardContainer.classList.add('spec');
-        } else {
-          cardContainer.classList.add('spec-false');
-        }
-        if(this.currentWord) {
-          await this.saveResult(this.currentWord, result);
-        }
-        await this.updateCard();
+      if (target.classList.contains('unit-select__button')) {
+        this.handleUnitSelect(e);
       }
     });
   }
 
-  async handleLevelSelect(e: Event) {
+  async handleUnitSelect(e: Event) {
     const target = <HTMLElement>e.target;
-      const levelSelect = <HTMLElement>document.querySelector('.start-sprint');
-      if(target.classList.contains('level-select__button') && !this.startCountDown) {
-        const previousLevelId = levelSelect.dataset.id;
+      const unitSelect = <HTMLElement>document.querySelector('.start-sprint');
+      if(target.classList.contains('unit-select__button') && !this.startCountDown) {
+        const previousunitId = unitSelect.dataset.id;
         const timerContainer = <HTMLElement>document.querySelector('#start-countdown');
-        const levelId = target.dataset.id;
-        this.level = +<string>levelId;
-        levelSelect.dataset.id = levelId;
-        levelSelect.classList.remove(`level-${previousLevelId}`);
-        levelSelect.classList.add(`level-${levelId}`);
+        const unitId = target.dataset.id;
+        this.unit = +<string>unitId;
+        unitSelect.dataset.id = unitId;
+        unitSelect.classList.remove(`unit-${previousunitId}`);
+        unitSelect.classList.add(`unit-${unitId}`);
         document.querySelector('.start-countdown')?.classList.remove('hidden');
         this.startCountDown = true;
         await startTimer(2, timerContainer, async () => { await this.renderGame()});
@@ -72,7 +55,7 @@ class Sprint implements Page {
     const sprintNode = <HTMLElement>sprintStartTemplate().content.cloneNode(true);
     this.container.innerHTML = '';
     this.container.append(sprintNode);
-    this.container.addEventListener('click', (e: Event) => { this.handleLevelSelect(e) });
+    this.container.addEventListener('click', (e: Event) => { this.handleUnitSelect(e) });
     return this.state;
   }
 
@@ -80,7 +63,7 @@ class Sprint implements Page {
     const card = <HTMLElement>this.container.querySelector('#card-sprint');
     const cardWord = <HTMLElement>this.container.querySelector('#card-word');
     const cardTranslate = <HTMLElement>this.container.querySelector('#card-translate');
-    const { word, updatedWords } = await getNewWord(this.words, this.level, this. page);
+    const { word, updatedWords } = await getNewWord(this.words, this.unit, this. page);
     this.words = [ ...updatedWords ];
     this.currentWord = { ...word };
     const { result, translate } = randomResult(word);
@@ -149,17 +132,35 @@ class Sprint implements Page {
     this.score = 0;
     this.countForSuccess = 10;
     this.page = this.state.sprint.page ? this.state.sprint.page : this.page;
-    this.level = this.state.sprint.level ? this.state.sprint.level : this.level;
-    this.words = (await getWords(this.level, this.page)).data;
-    const { word, updatedWords } = await getNewWord(this.words, this.level, this.page);
+    this.unit = this.state.sprint.unit ? this.state.sprint.unit : this.unit;
+    this.words = (await getWords(this.unit, this.page)).data;
+    const { word, updatedWords } = await getNewWord(this.words, this.unit, this.page);
     this.words = [ ...updatedWords ];
     this.currentWord = { ...word };
     const sprintCardNode = <HTMLElement>sprintCardTemplate(word).content.cloneNode(true);
     this.container.innerHTML = '';
     this.container.append(sprintCardNode);
-    const cardContainer = <HTMLElement>this.container.querySelector('#card-sprint');
     const timerContainer = <HTMLElement>this.container.querySelector('#start-countdown');
     await startTimer(58, timerContainer, async () => { await this.renderResults()});
+    const cardContainer = <HTMLElement>this.container.querySelector('#card-sprint');
+    const trueButton = <HTMLElement>this.container.querySelector('.decision_button__true');
+    const falseButton = <HTMLElement>this.container.querySelector('.decision_button__false');
+    cardContainer.addEventListener('click', async (e: Event) => {
+      const target = <HTMLElement>e.target;
+      trueButton.setAttribute('disabled', 'disabled');
+      falseButton.setAttribute('disabled', 'disabled');
+      const decision = +<string>target.dataset.value;
+      const result = +<string>cardContainer.dataset.result === decision;
+      if(result) {
+        cardContainer.classList.add('spec');
+      } else {
+        cardContainer.classList.add('spec-false');
+      }
+      if(this.currentWord) {
+        await this.saveResult(this.currentWord, result);
+      }
+      await this.updateCard();
+    }); 
     cardContainer.addEventListener('animationend', () => {
       cardContainer.classList.remove('spec');
       cardContainer.classList.remove('spec-false');
