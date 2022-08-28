@@ -2,14 +2,16 @@ import { getUserWords, getWords, getWordsHard } from '../../model/api/words';
 import { WordData, UserWords, WordHardData } from '../../model/types/words';
 import { PagesState } from '../../model/types/page';
 
-export const loadWords = async (state: PagesState): Promise<WordData[]> => {
+export const loadWords = async (unit: number, page: number, loggedIn: boolean): Promise<WordData[]> => {
   let words: WordData[] = [];
-  const response = await getWords(state.textbook.unit - 1, state.textbook.page - 1);
+  const response = await getWords(unit - 1, page - 1);
   if (response.status === 200) {
     words = <WordData[]>response.data;
   }
-  if (state.loggedIn) {
-    const responseUser = await getUserWords(state.userId, state.token);
+  if (loggedIn) {
+    const userId = localStorage.getItem('userId') || '';
+    const token = localStorage.getItem('token') || '';
+    const responseUser = await getUserWords(userId, token);
     if (response.status === 200) {
       const userWords = <UserWords[] | []>responseUser.data;
       if (userWords.length) {
@@ -41,5 +43,3 @@ export const loadWordsHard = async (state: PagesState): Promise<WordData[]> => {
   }
   return words;
 };
-
-export default loadWords;
