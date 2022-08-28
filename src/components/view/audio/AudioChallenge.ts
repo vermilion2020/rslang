@@ -16,15 +16,6 @@ class AudioChallenge implements Page {
   }
 
   // get nbr of choosen set of worlds
-  async docPrint(e: Event) {
-    const targetLi = e.target as HTMLLIElement;
-    const setNr = targetLi.dataset.set;
-    const wordsContent = (await getWords(Math.floor(Math.random() * 6), +setNr!)).data;
-    const wordsArr = wordsContent.map((el: WordData) => el.word);
-
-    console.log('WA: ', wordsContent);
-    return wordsContent;
-  }
 
   async render() {
     this.state.page = 'audio';
@@ -43,6 +34,20 @@ class AudioChallenge implements Page {
     startAudioGameBtn.addEventListener('click', this.renderGame);
 
     return this.state;
+  }
+
+  async docPrint(e: Event) {
+    const targetLi = e.target as HTMLLIElement;
+    const setNr = targetLi.dataset.set;
+    const wordsContent = (await getWords(Math.floor(Math.random() * 6), +setNr!)).data;
+    const wordsArr = wordsContent.map((el: WordData) => el.word);
+    this.renderWords(wordsContent);
+    console.log('WA: ', wordsContent);
+    return wordsContent;
+  }
+
+  renderWords(list: WordData) {
+    console.log('WWW: ', list.word);
   }
 
   renderGame() {
