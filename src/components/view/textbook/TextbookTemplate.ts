@@ -62,7 +62,7 @@ export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTempla
   return units;
 };
 
-export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
+export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTemplateElement => {
   const paging = document.createElement('template');
   let overPages = 1;
   const countPages = 5;
@@ -83,7 +83,7 @@ export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
     .join('');
   paging.innerHTML = `
   <div class="wrapper-paging">
-    <button class="btn-to-menu" data-id="dictionary">в словарь</button>
+  <a href="/#/dictionary/unit${currentUnit}/${currentPage}"><button class="btn-to-menu" data-id="dictionary">в словарь</button></a>
     <div class="paging">
       <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}
@@ -93,7 +93,7 @@ export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
   return paging;
 };
 
-export const playTemplate = () => {
+export const playTemplate = (page: number, unit: number) => {
   const playPart = document.createElement('template');
   playPart.innerHTML = `
   <section class="section-game">
@@ -102,11 +102,11 @@ export const playTemplate = () => {
       <p class="desc">Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.</p>
       <div class="wrapper-btn">
         <div class="wrapper-sprint">
-          <button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button>
+          <a href="/#/sprint/${unit}/${page}/textbook"><button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button></a>
           <div class="icon-bg-sprint"></div>
         </div>
         <div class="wrapper-audio">
-          <button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button>
+          <a href="/#/audio/${unit}/${page}/textbook"><button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button></a>
           <div class="icon-bg-audio"></div>
           <div class="icon-star-audio"></div>
         </div>
