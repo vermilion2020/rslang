@@ -1,11 +1,8 @@
 import { pagingTemplate, textbookTemplate, unitTemplate, sectionWords, titleTemplate, playTemplate} from './TextbookTemplate';
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
-// import { getWords, getUserWords } from '../../model/api/words';
 import { loadWords, loadWordsHard } from '../../controller/helpers/word-helper';
 import { handleRoute } from '../../controller/router';
-
-// import { WordData, UserWords } from '../../model/types/words';
 
 class Textbook implements Page {
   state: PagesState;

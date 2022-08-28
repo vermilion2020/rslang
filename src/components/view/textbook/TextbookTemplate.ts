@@ -6,7 +6,6 @@ export const sectionWords = (currentUnit: number): Record<string, HTMLElement> =
   wrapper.classList.add('wrapper-sec-word');
   section.classList.add('section-word', `unit-${currentUnit}`);
   section.append(wrapper);
-
   return { section, wrapper };
 };
 
