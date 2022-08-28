@@ -50,6 +50,7 @@ const showPageTitle = (page: string) => {
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   let newState: PagesState = { ...await checkAuthState(state) };
   rewriteUrl();
+  window.scrollTo(0, 0);
   const queryStr = window.location.hash
     .replace('/#', '')
     .split('/')
