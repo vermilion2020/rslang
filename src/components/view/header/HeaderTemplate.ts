@@ -23,11 +23,11 @@ const headerTemplate = (
     </div>`;
   const loggedInBlock = `
     <div class="logged-in">
-      <div class="user-name">${userName}</div>
+      <div class="user-name" title="${userName}">${userName}</div>
       <button class="button" id="log-out">Выход</button>
     </div>`;
   header.innerHTML = `
-  <div class="logo"><a href="/" class="logo__link"></span><h1>RS Lang</h1></a></div>
+  <div class="logo"><a href="/#/" class="logo__link"></span><h1>RS Lang</h1></a></div>
   <nav class="main-nav" id="main-nav">
     ${menuBody}
   </nav>

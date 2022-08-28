@@ -82,8 +82,7 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       break;
     case 'stats':
       if (!newState.loggedIn) {
-        window.location.pathname = '/';
-        handleRoute(newState);
+        window.location.href = '/';
       }
       page = new Stats(newState);
       newState = await page.render();

@@ -10,20 +10,41 @@ import { handleAuth, handleLogout, handleRegistration } from '../../controller/h
 class Header implements Page {
   state: PagesState;
 
-  popupContainer = document.querySelector('#popup') as HTMLElement;
+  popupContainer: HTMLElement;
 
   overlay = document.querySelector('#overlay') as HTMLElement;
 
-  form = this.popupContainer.querySelector('#auth-form') as HTMLFormElement;
+  form = document.querySelector('#auth-form') as HTMLFormElement;
 
   constructor(state: PagesState) {
     this.state = state;
+    this.popupContainer = document.querySelector('#popup') as HTMLElement;
+    this.popupContainer.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const target = e.target as HTMLElement;
+      if (target.id === 'reg-button') {
+        this.renderRegForm();
+      } else if (target.id === 'registration') {
+        this.state = await handleRegistration(this.state);
+        if (this.state.loggedIn) {
+          this.render();
+        }
+      } else if (target.id === 'auth-button') {
+        this.state = await handleAuth(this.state);
+        if (this.state.loggedIn) {
+          this.render();
+        }
+      }
+      if (this.state.loggedIn) {
+        this.clearPopup();
+        this.render();
+      }
+    });
   }
 
   clearPopup() {
     this.popupContainer.classList.add('hidden');
     this.overlay.classList.add('hidden');
-    this.form.reset();
   }
 
   showPopup() {
@@ -50,28 +71,6 @@ class Header implements Page {
     this.popupContainer.querySelector('.popup__cross-button')?.addEventListener('click', (e) => {
       e.preventDefault();
       this.clearPopup();
-    });
-
-    this.popupContainer.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const target = e.target as HTMLElement;
-      if (target.id === 'reg-button') {
-        this.renderRegForm();
-      } else if (target.id === 'registration') {
-        this.state = await handleRegistration(this.state);
-        if (this.state.loggedIn) {
-          this.render();
-        }
-      } else if (target.id === 'auth-button') {
-        this.state = await handleAuth(this.state);
-        if (this.state.loggedIn) {
-          this.render();
-        }
-      }
-      if (this.state.loggedIn) {
-        this.clearPopup();
-        this.render();
-      }
     });
   }
 
@@ -114,7 +113,7 @@ class Header implements Page {
       logoutButton.addEventListener('click', () => {
         this.state = handleLogout(this.state);
         if (!this.state.loggedIn) {
-          this.render();
+          window.location.reload();
         }
       });
     }
