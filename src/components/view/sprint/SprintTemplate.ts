@@ -15,7 +15,7 @@ export const sprintStartTemplate = (levelId?: string): HTMLTemplateElement => {
         <a href="#/sprint/5/" data-id="5" class="level-select__button level-5">Раздел 5</a>
         <a href="#/sprint/6/" data-id="6" class="level-select__button level-6">Раздел 6</a>
       </div>
-      <p class="start-countdown hidden">Приготовьтесь!: <span id="start-countdown">5</span></p>
+      <p class="start-countdown hidden">Приготовьтесь!: <span id="start-countdown">3</span></p>
     </div>`;
   return sprintStart;
 } 

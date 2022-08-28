@@ -95,7 +95,6 @@ class Textbook implements Page {
 
   addListener(state: PagesState) {
     const handleClick = (e: Event) => {
-      console.log(e.target);
       e.preventDefault();
       const target = <HTMLLinkElement>(<HTMLElement>e.target);
       const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);

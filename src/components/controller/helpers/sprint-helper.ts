@@ -25,7 +25,6 @@ export const getNewWord = async (words: WordData[], level: number, currPage: num
     }
     const newWords = (await getWords(level, currPage)).data;
     updatedWords = [...updatedWords, ...newWords];
-    console.log(updatedWords);
   }
   return { word, updatedWords };
 }

@@ -18,6 +18,7 @@ export interface WordData {
       vic: number;
       loss: number;
   };
+  used?: boolean;
 }
 
 export interface CheckedWord {
@@ -34,6 +35,14 @@ export interface CheckedWord {
 
 export type GameWordData = WordData & { translates: string[]}
 
+export interface UserWord {
+  difficulty: string,
+  optional: {
+      vic: number,
+      loss: number
+  }
+}
+
 export interface WordHardData {
   id: string,
   group: number,
@@ -49,13 +58,7 @@ export interface WordHardData {
   wordTranslate: string,
   textMeaningTranslate: string,
   textExampleTranslate: string,
-  userWord?: {
-    difficulty: string;
-    optional: {
-      vic: number;
-      loss: number;
-  };
-  }
+  userWord?: UserWord
 }
 
 export interface UserWords {

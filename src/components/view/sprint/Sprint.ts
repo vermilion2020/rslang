@@ -3,14 +3,14 @@ import './Sprint.scss';
 import { Page, PagesState } from '../../model/types/page';
 import startTimer from '../../controller/timer';
 import { countPages, maxScorePerWord, minScorePerWord } from '../../model/constants';
-import { getWords } from '../../model/api/words';
-import { CheckedWord, GameWordData, WordData } from '../../model/types';
+import { addUserWord, getWords, updateUserWord } from '../../model/api/words';
+import { CheckedWord, GameWordData, UserWord, WordData } from '../../model/types';
 import { getNewWord, randomResult } from '../../controller/helpers/sprint-helper';
 
 class Sprint implements Page {
   state: PagesState;
-  container = document.querySelector('#main-container') as HTMLDivElement;
   score: number = 0;
+  container: HTMLElement;
   successInRope: number = 0;
   countForSuccess: number = 10;
   level: number = 1;
@@ -21,9 +21,33 @@ class Sprint implements Page {
   checkedWords: CheckedWord[] = [];
 
   constructor(state: PagesState) {
+    this.container = document.querySelector('#main-container') as HTMLDivElement;
     this.state = state;
     this.page = Math.floor(Math.random() * countPages) + 1;
     this.currentWord = null;
+    this.container.addEventListener('click', async (e: Event) => { 
+      const target = <HTMLElement>e.target;
+      const cardContainer = <HTMLElement>this.container.querySelector('#card-sprint');
+      const trueButton = <HTMLElement>this.container.querySelector('.decision_button__true');
+      const falseButton = <HTMLElement>this.container.querySelector('.decision_button__false');
+      if (target.classList.contains('level-select__button')) {
+        this.handleLevelSelect(e);
+      } else if (target.classList.contains('decision_button')) {
+        trueButton.setAttribute('disabled', 'disabled');
+        falseButton.setAttribute('disabled', 'disabled');
+        const decision = +<string>target.dataset.value;
+        const result = +<string>cardContainer.dataset.result === decision;
+        if(result) {
+          cardContainer.classList.add('spec');
+        } else {
+          cardContainer.classList.add('spec-false');
+        }
+        if(this.currentWord) {
+          await this.saveResult(this.currentWord, result);
+        }
+        await this.updateCard();
+      }
+    });
   }
 
   async handleLevelSelect(e: Event) {
@@ -39,7 +63,7 @@ class Sprint implements Page {
         levelSelect.classList.add(`level-${levelId}`);
         document.querySelector('.start-countdown')?.classList.remove('hidden');
         this.startCountDown = true;
-        await startTimer(4, timerContainer, async () => { await this.renderGame()});
+        await startTimer(2, timerContainer, async () => { await this.renderGame()});
       }
   }
 
@@ -64,6 +88,10 @@ class Sprint implements Page {
     card.dataset.word = word.id;
     cardWord.innerHTML = word.word;
     cardTranslate.innerHTML = translate;
+    const trueButton = <HTMLElement>this.container.querySelector('.decision_button__true');
+    const falseButton = <HTMLElement>this.container.querySelector('.decision_button__false');
+    trueButton.removeAttribute('disabled');
+    falseButton.removeAttribute('disabled');
   }
 
   async saveResult(word: GameWordData, result: boolean) {
@@ -77,6 +105,34 @@ class Sprint implements Page {
     this.countForSuccess = this.countForSuccess > maxScorePerWord ? maxScorePerWord : this.countForSuccess;
     (<HTMLElement>document.querySelector('#success-count')).innerText = `${this.countForSuccess}`;
     (<HTMLElement>document.querySelector('#score')).innerText = `${this.score}`;
+    if(this.state.loggedIn) {
+      let loss = word.optional?.loss || 0;
+      let vic = word.optional?.vic || 0;
+      let difficulty = word.difficulty || 'base';
+      result ? vic += 1 : loss += 1;
+      if (!result && difficulty === 'easy') {
+        difficulty = 'base';
+        loss = 0;
+        vic = 0;
+      }
+      if (vic >= 3 && difficulty === 'base' || vic >= 5 && difficulty === 'hard') {
+        difficulty = 'easy';
+        loss = 0;
+        vic = 0;
+      } 
+      const data: UserWord = {
+        difficulty,
+        optional: {
+          vic, 
+          loss
+        }
+      };
+      if (word.used) {
+        await updateUserWord(this.state.userId, word.id, data, this.state.token);
+      } else {
+        await addUserWord(this.state.userId, word.id, data, this.state.token);
+      }
+    }
     const checked: CheckedWord = {
       wordId: word.id,
       word: word.word,
@@ -105,27 +161,8 @@ class Sprint implements Page {
     const timerContainer = <HTMLElement>this.container.querySelector('#start-countdown');
     await startTimer(58, timerContainer, async () => { await this.renderResults()});
     cardContainer.addEventListener('animationend', () => {
-      console.log(1);
       cardContainer.classList.remove('spec');
       cardContainer.classList.remove('spec-false');
-    });
-    this.container.addEventListener('click', async (e: Event) => { 
-      const target = <HTMLElement>e.target;
-      if (target.classList.contains('level-select__button')) {
-        this.handleLevelSelect(e);
-      } else if (target.classList.contains('decision_button')) {
-        const decision = +<string>target.dataset.value;
-        const result = +<string>cardContainer.dataset.result === decision;
-        if(result) {
-          cardContainer.classList.add('spec');
-        } else {
-          cardContainer.classList.add('spec-false');
-        }
-        if(this.currentWord) {
-          await this.saveResult(this.currentWord, result);
-        }
-        await this.updateCard();
-      }
     });
   }
 
