@@ -11,6 +11,16 @@
   margin: 1rem auto 1rem;
 }
 
+.spec {
+  outline: 5px solid $iconColorStudied;
+  transition: all 0.5s ease;
+}
+
+.spec-false {
+  outline: 5px solid $iconColorComplex;
+  transition: all 0.5s ease;
+}
+
 .results-sprint {
   overflow: scroll;
   text-align: left;
@@ -63,17 +73,30 @@
   border: 1px solid $btnColorUnit6;  
 }
 
+.arrow {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: url(../../../assets/icons/arrow-right.svg);
+}
+
 .decision_button {
   color: $bgTColorWhite;
-  padding: 0.7rem 1.4rem;
+  padding: 0.1rem 0.8rem;
   border: 0;
   font-size: 0.9rem;
   border-radius: 2rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .decision_button__false {
   background: $iconColorComplex;
+
+  .arrow {
+    transform: rotate(180deg);
+  }
 }
 
 .decision_button__true {
@@ -92,4 +115,16 @@
 
 .play-again {
   margin-top: 10px;
+}
+
+.results-line {
+  display: flex;
+}
+
+.results-audio {
+  width: 24px;
+  height: 24px;
+  background: url(../../../assets/icons/audio.svg) ;
+  background-size: cover;
+  cursor: pointer;
 }

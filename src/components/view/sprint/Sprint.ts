@@ -2,7 +2,7 @@ import { sprintCardTemplate, sprintResultsTemplate, sprintStartTemplate } from '
 import './Sprint.scss';
 import { Page, PagesState } from '../../model/types/page';
 import startTimer from '../../controller/timer';
-import { countPages } from '../../model/constants';
+import { countPages, maxScorePerWord, minScorePerWord } from '../../model/constants';
 import { getWords } from '../../model/api/words';
 import { CheckedWord, GameWordData, WordData } from '../../model/types';
 import { getNewWord, randomResult } from '../../controller/helpers/sprint-helper';
@@ -66,15 +66,17 @@ class Sprint implements Page {
     cardTranslate.innerHTML = translate;
   }
 
-  async saveResult(word: GameWordData, decision: number, answer: number) {
-    const result = decision === answer;
+  async saveResult(word: GameWordData, result: boolean) {
     if(result) {
       this.successInRope += 1;
-      this.score += this.countForSuccess * 10;
-      this.countForSuccess = Math.floor(this.successInRope / 3);
+      this.score += this.countForSuccess;
     } else {
       this.successInRope = 0;
     }
+    this.countForSuccess = minScorePerWord + Math.floor(this.successInRope / 3) * minScorePerWord;
+    this.countForSuccess = this.countForSuccess > maxScorePerWord ? maxScorePerWord : this.countForSuccess;
+    (<HTMLElement>document.querySelector('#success-count')).innerText = `${this.countForSuccess}`;
+    (<HTMLElement>document.querySelector('#score')).innerText = `${this.score}`;
     const checked: CheckedWord = {
       wordId: word.id,
       word: word.word,
@@ -102,15 +104,25 @@ class Sprint implements Page {
     const cardContainer = <HTMLElement>this.container.querySelector('#card-sprint');
     const timerContainer = <HTMLElement>this.container.querySelector('#start-countdown');
     await startTimer(58, timerContainer, async () => { await this.renderResults()});
+    cardContainer.addEventListener('animationend', () => {
+      console.log(1);
+      cardContainer.classList.remove('spec');
+      cardContainer.classList.remove('spec-false');
+    });
     this.container.addEventListener('click', async (e: Event) => { 
       const target = <HTMLElement>e.target;
       if (target.classList.contains('level-select__button')) {
         this.handleLevelSelect(e);
       } else if (target.classList.contains('decision_button')) {
-        const result = +<string>cardContainer.dataset.result;
         const decision = +<string>target.dataset.value;
+        const result = +<string>cardContainer.dataset.result === decision;
+        if(result) {
+          cardContainer.classList.add('spec');
+        } else {
+          cardContainer.classList.add('spec-false');
+        }
         if(this.currentWord) {
-          await this.saveResult(this.currentWord, decision, result);
+          await this.saveResult(this.currentWord, result);
         }
         await this.updateCard();
       }

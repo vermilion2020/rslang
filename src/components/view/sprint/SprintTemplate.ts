@@ -30,13 +30,14 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
         <div class="circle" data-value="2"></div>
         <div class="circle" data-value="3"></div>
       </div>
+      <p>Всего очков: <span id="score">0</span></p>
       <span id="start-countdown">59</span>
       <p>+<span id="success-count">10</span> очков за правильный ответ</p>
       <h3 id="card-word">${word.word}</h3>
       <h4 id="card-translate">${translate}</h4>
       <div class="decision">
-        <button class="decision_button decision_button__false" data-value="0">НЕВЕРНО</button>
-        <button class="decision_button decision_button__true" data-value="1">ВЕРНО</button>
+        <button class="decision_button decision_button__false" data-value="0"><span class="arrow"></span> НЕВЕРНО</button>
+        <button class="decision_button decision_button__true" data-value="1">ВЕРНО <span class="arrow"></span></button>
       </div>
     </div>`;
   return sprintCard;
@@ -45,10 +46,10 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
 export const drawResultLine = (checkedWord: CheckedWord): string => {
   return `
     <div class="results-line">
-      <span class="audio"></span>
-      <span class="word">${checkedWord.word}</span>
-      <span class="transcription">${checkedWord.transcription}</span> - 
-      <span class="translate">${checkedWord.wordTranslate}</span>
+      <div class="results-audio"></div>
+      <div class="word">${checkedWord.word}</div>
+      <div class="transcription">${checkedWord.transcription}</div> - 
+      <div class="translate">${checkedWord.wordTranslate}</div>
     </div>`;
 }
 
