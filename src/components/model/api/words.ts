@@ -14,3 +14,9 @@ export const getUserWords = async (userId: string, token: string) => axios.get(`
     Authorization: `Bearer ${token}`,
   },
 });
+
+export const getWordsHard = async (userId: string, token: string) => axios.get(`${apiBaseUrl}/users/${userId}/aggregatedWords?filter={"userWord.difficulty":"hard"}`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});

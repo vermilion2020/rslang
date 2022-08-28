@@ -6,7 +6,6 @@ export const sectionWords = (currentUnit: number): Record<string, HTMLElement> =
   wrapper.classList.add('wrapper-sec-word');
   section.classList.add('section-word', `unit-${currentUnit}`);
   section.append(wrapper);
-
   return { section, wrapper };
 };
 
@@ -19,9 +18,13 @@ export const titleTemplate = (titleName: string) => {
 
 export const drawCard = (wordData: WordData): string => {
   const card = `<div class="textbook-card" id="${wordData.id}">
-    <div>${wordData.word}</div>
-    <div>${wordData.wordTranslate}</div>
-    <div class="difficulty ${wordData.difficulty ? wordData.difficulty : ''}"></div>
+    <div class="wordEn">${wordData.word[0].toUpperCase() + wordData.word.slice(1)}</div>
+    <div ckass="wordRu">${wordData.wordTranslate[0].toUpperCase() + wordData.wordTranslate.slice(1)}</div>
+    <div class="wrapper-difficulty">
+      <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${wordData.optional?.vic}</div>
+      <div class="difficulty loss ${wordData.optional && +wordData.optional.loss !== 0 ? 'play' : ''}">${wordData.optional?.loss}</div>
+    </div>
+    <div class="label ${wordData.difficulty ? wordData.difficulty : ''}"></div>
   </div>`;
   return card;
 };
@@ -38,14 +41,17 @@ export const textbookTemplate = (words: WordData[]): HTMLTemplateElement => {
   return textbook;
 };
 
-export const unitTemplate = (currentUnit: number): HTMLTemplateElement => {
+export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTemplateElement => {
   const units = document.createElement('template');
-  const unitNames = ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4', 'Раздел 5', 'Раздел 6', 'Сложное'];
+  const unitNames = [1, 2, 3, 4, 5, 6, 7];
   const buttons = unitNames.map(
     (unit) => `
-    <button data-unit="${unit === 'Сложное' ? 7 : unit.slice(-1)}"
-      class="button unit-button ${(+unit.slice(-1) === +currentUnit || currentUnit === 7) && 'current-unit'}">
-      ${unit}
+    <button data-unit="${unit}"
+      class="button unit-button ${unit === currentUnit ? 'current-unit' : ''}"
+      ${unit === 7 && loggedIn === false ? 'disabled="disabled"' : ''}
+      >
+      ${unit === 7 ? 'сложное' : `раздел ${unit}`}
+      ${unit === 7 ? '<div class="lable-btn"></div>' : ''}
     </button>`,
   )
     .join('');
@@ -54,7 +60,7 @@ export const unitTemplate = (currentUnit: number): HTMLTemplateElement => {
     ${buttons}
     </div>`;
   return units;
-}
+};
 
 export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
   const paging = document.createElement('template');
@@ -70,16 +76,42 @@ export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
     .map((num) => num + overPages)
     .map(
       (page) => `
-        <button data-number="${page}" class="button ${page === currentPage && 'current-page'}">
+        <button data-number="${page}" class="button-pag ${page === currentPage && 'current-page'}">
           ${page}
         </button>`,
     )
     .join('');
   paging.innerHTML = `
+  <div class="wrapper-paging">
+    <button class="btn-to-menu" data-id="dictionary">в словарь</button>
     <div class="paging">
-      <button class="paging__prev button" ${currentPage <= 1 ? 'disabled="disabled"' : ''}>Prev</button>
+      <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}
-      <button class="paging__next button" ${currentPage >= 30 ? 'disabled="disabled"' : ''}>Next</button>
+      <button class="paging__next button-pag" ${currentPage >= 30 ? 'disabled="disabled"' : ''}></button>
+    </div>
     </div>`;
   return paging;
 };
+
+export const playTemplate = () => {
+  const playPart = document.createElement('template');
+  playPart.innerHTML = `
+  <section class="section-game">
+    <div class="wrapper-game">
+      <p class="title-sec">Игры</p>
+      <p class="desc">Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.</p>
+      <div class="wrapper-btn">
+        <div class="wrapper-sprint">
+          <button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button>
+          <div class="icon-bg-sprint"></div>
+        </div>
+        <div class="wrapper-audio">
+          <button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button>
+          <div class="icon-bg-audio"></div>
+          <div class="icon-star-audio"></div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+  return playPart;
+}
