@@ -3,6 +3,7 @@ import './AudioChallenge.scss';
 
 import { getWords } from '../../../components/model/api/words';
 import loadWords from '../../controller/helpers/word-helper';
+import { WordData } from '../../../components/model/types/';
 
 export const renderAudioResultPop = () => {
   const container = document.querySelector('#popup-audio') as HTMLElement;
@@ -14,13 +15,16 @@ export const renderAudioResultPop = () => {
   const resultPopNode = <HTMLElement>audioTemplateResult.content.cloneNode(true);
   container.appendChild(resultPopNode);
 
-  const repeatBtn = <HTMLElement>document.querySelector('.result-repeat');
-  repeatBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log('click', e.target);
-    console.log('GETW: ', getWords);
-    console.log('LWORds: ', loadWords);
-  });
+  // const repeatBtn = <HTMLElement>document.querySelector('.result-repeat');
+  // repeatBtn.addEventListener('click', async (e) => {
+  //   e.preventDefault();
+  //   console.log('click', e.target);
+  //   console.log('GETW: ', getWords(1, 1));
+  //   console.log('LWORds: ', loadWords);
+  //   const wordsContent = (await getWords(1, 1)).data;
+  //   const wordsArr = wordsContent.map((el: WordData) => el.word);
+  //   console.log('WA: ', wordsArr);
+  // });
 
   container.querySelector('.result-exit')?.addEventListener('click', (e) => {
     e.preventDefault();

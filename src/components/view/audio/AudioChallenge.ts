@@ -3,13 +3,27 @@ import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
 import audioTemplateGame from './AudioTemplateGame';
 import { renderAudioResultPop } from './AudioResult';
-// import { getWords } from './AudioGameApi';
+
+import { getWords } from '../../../components/model/api/words';
+import loadWords from '../../controller/helpers/word-helper';
+import { WordData } from '../../../components/model/types/';
 
 class AudioChallenge implements Page {
   state: PagesState;
 
   constructor(state: PagesState) {
     this.state = state;
+  }
+
+  // get nbr of choosen set of worlds
+  async docPrint(e: Event) {
+    const targetLi = e.target as HTMLLIElement;
+    const setNr = targetLi.dataset.set;
+    const wordsContent = (await getWords(Math.floor(Math.random() * 6), +setNr!)).data;
+    const wordsArr = wordsContent.map((el: WordData) => el.word);
+
+    console.log('WA: ', wordsContent);
+    return wordsContent;
   }
 
   async render() {
@@ -20,15 +34,8 @@ class AudioChallenge implements Page {
     container.append(notFoundNode);
     const selectLevelBox = document.querySelector('.select-container') as HTMLElement;
 
-    //get nbr of choosen set of worlds
-    const docPrint = (e: Event) => {
-      const targetLi = e.target as HTMLLIElement;
-      const setNr = targetLi.dataset.set;
-      console.log('setNr: ', setNr);
-      return setNr;
-    };
     if (selectLevelBox) {
-      selectLevelBox.addEventListener('click', docPrint);
+      selectLevelBox.addEventListener('click', this.docPrint);
     }
 
     // render game page
