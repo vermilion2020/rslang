@@ -54,7 +54,7 @@ class Textbook implements Page {
   async createSectionWords() {
     const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.textbook.unit);
     const titleNode = <HTMLElement>titleTemplate('Учебник').content.cloneNode(true);
-    let words = await loadWords(this.state);
+    let words = await loadWords(this.state.textbook.unit, this.state.textbook.page, this.state.loggedIn);
     if (this.state.textbook.unit === 7) {
       words = await loadWordsHard(this.state);
     }
