@@ -17,6 +17,7 @@ export interface PagesState {
     page?: number,
     fromTextbook: boolean;
   },
+  dictionary: Progress;
 }
 
 export interface Page {

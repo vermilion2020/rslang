@@ -36,8 +36,8 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
       <h3 id="card-word">${word.word}</h3>
       <h4 id="card-translate">${translate}</h4>
       <div class="decision">
-        <button class="decision_button decision_button__false" data-value="0"><span class="arrow"></span> НЕВЕРНО</button>
-        <button class="decision_button decision_button__true" data-value="1">ВЕРНО <span class="arrow"></span></button>
+        <button class="decision_button decision_button__false" data-value="0"><span class="arr"></span> НЕВЕРНО</button>
+        <button class="decision_button decision_button__true" data-value="1">ВЕРНО <span class="arr"></span></button>
       </div>
     </div>`;
   return sprintCard;
