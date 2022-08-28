@@ -31,7 +31,7 @@ class Main implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);
-   // this.addListener();
+    this.addListener();
     return this.state;
   }
 }

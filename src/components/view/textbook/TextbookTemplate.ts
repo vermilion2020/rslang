@@ -93,7 +93,7 @@ export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTe
   return paging;
 };
 
-export const playTemplate = () => {
+export const playTemplate = (page: number, unit: number) => {
   const playPart = document.createElement('template');
   playPart.innerHTML = `
   <section class="section-game">
@@ -102,11 +102,11 @@ export const playTemplate = () => {
       <p class="desc">Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.</p>
       <div class="wrapper-btn">
         <div class="wrapper-sprint">
-          <button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button>
+        <a href="/#/sprint/${unit}/${page}/textbook"><button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button></a>
           <div class="icon-bg-sprint"></div>
         </div>
         <div class="wrapper-audio">
-          <button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button>
+          <a href="/#/audio/${unit}/${page}/textbook"><button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button></a>
           <div class="icon-bg-audio"></div>
           <div class="icon-star-audio"></div>
         </div>

@@ -19,7 +19,6 @@ class Textbook implements Page {
     container.innerHTML = '';
     container.append(sectionWord);
     container.append(sectionPlay);
-    this.addListener(this.state);
     return this.state;
   }
 
@@ -89,27 +88,8 @@ class Textbook implements Page {
   }
 
   createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate().content.cloneNode(true);
+    const playNode = <HTMLElement>playTemplate(this.state.textbook.unit, this.state.textbook.page).content.cloneNode(true);
     return playNode;
-  }
-
-  addListener(state: PagesState) {
-    const handleClick = (e: Event) => {
-      e.preventDefault();
-      const target = <HTMLLinkElement>(<HTMLElement>e.target);
-      const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);
-      window.history.pushState({}, '', `/#/dictionary${target.dataset.id}`);
-      handleRoute(state);
-      document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
-      menuItem.classList.add('main-nav__item_active');
-    };
-
-    const classBtn = ['.btn-audio', '.btn-sprint'];
-
-    classBtn.forEach((el: string) => {
-      const elem = <HTMLElement>document.querySelector(el);
-      elem.addEventListener('click', handleClick);
-    });
   }
 }
 
