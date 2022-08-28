@@ -62,7 +62,7 @@ export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTempla
   return units;
 };
 
-export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
+export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTemplateElement => {
   const paging = document.createElement('template');
   let overPages = 1;
   const countPages = 5;
@@ -83,7 +83,7 @@ export const pagingTemplate = (currentPage: number): HTMLTemplateElement => {
     .join('');
   paging.innerHTML = `
   <div class="wrapper-paging">
-    <button class="btn-to-menu" data-id="dictionary">в словарь</button>
+    <a href="/#/dictionary/unit${currentUnit}/${currentPage}"><button class="btn-to-menu" data-id="dictionary">в словарь</button>
     <div class="paging">
       <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}

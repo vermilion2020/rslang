@@ -7,13 +7,13 @@ import Header from './header/Header';
 
 const AppView = async () => {
   let state: PagesState = getInitialState();
+  document.addEventListener('hashchange', async () => {
+    state = { ...await handleRoute(state) };
+  });
   state = await handleRoute(state);
   const header = new Header(state);
   state = await header.render();
   renderFooter();
-  document.addEventListener('hashchange', async () => {
-    state = { ...await handleRoute(state) };
-  });
 };
 
 export default AppView;

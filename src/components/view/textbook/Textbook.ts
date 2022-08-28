@@ -71,7 +71,7 @@ class Textbook implements Page {
   }
 
   paging() {
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.page).content.cloneNode(true);
+    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.unit, this.state.textbook.page).content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
       this.handlePagingClick(e);
@@ -95,7 +95,6 @@ class Textbook implements Page {
 
   addListener(state: PagesState) {
     const handleClick = (e: Event) => {
-      console.log(e.target);
       e.preventDefault();
       const target = <HTMLLinkElement>(<HTMLElement>e.target);
       const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);
@@ -105,7 +104,7 @@ class Textbook implements Page {
       menuItem.classList.add('main-nav__item_active');
     };
 
-    const classBtn = ['.btn-audio', '.btn-sprint', '.btn-to-menu'];
+    const classBtn = ['.btn-audio', '.btn-sprint'];
 
     classBtn.forEach((el: string) => {
       const elem = <HTMLElement>document.querySelector(el);
