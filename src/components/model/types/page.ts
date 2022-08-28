@@ -12,6 +12,7 @@ export interface PagesState {
   userId: string;
   userName: string;
   textbook: Progress;
+  dictionary: Progress;
 }
 
 export interface Page {
