@@ -27,11 +27,11 @@ const audioTemplateGame = (nextOr?: string, correctWord?: string, selectedWord?:
         <p class="select-offer">${correctWord}</p>
         </div>
           <div class="select-container__game">
-            <button class="select-word" data-word="1">${selectedWord}</button>
-            <button class="select-word" data-word="2">${selectedWord}</button>
-            <button class="select-word" data-word="3">${selectedWord}</button>
-            <button class="select-word" data-word="3">${selectedWord}</button>
-            <button class="select-word" data-word="4">${selectedWord}</button>
+            <button class="select-word" data-word="1" value>${selectedWord}</button>
+            <button class="select-word" data-word="2" value>${selectedWord}</button>
+            <button class="select-word" data-word="3" value>${selectedWord}</button>
+            <button class="select-word" data-word="3" value>${selectedWord}</button>
+            <button class="select-word" data-word="4" value>${selectedWord}</button>
             
             </div>
           <div class="block-btn__next">

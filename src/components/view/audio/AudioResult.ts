@@ -2,7 +2,7 @@ import { audioTemplateResult, audioTemplateWords } from './AudioTemplateResult';
 import './AudioChallenge.scss';
 
 import { getWords } from '../../../components/model/api/words';
-import loadWords from '../../controller/helpers/word-helper';
+import { loadWords } from '../../controller/helpers/word-helper';
 import { WordData } from '../../../components/model/types/';
 
 export const renderAudioResultPop = () => {
