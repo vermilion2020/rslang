@@ -13,7 +13,7 @@ class Sprint implements Page {
   container: HTMLElement;
   successInRope: number = 0;
   countForSuccess: number = 10;
-  unit: number = 1;
+  unit: number;
   page: number;
   startCountDown = false;
   currentWord: GameWordData | null;
@@ -24,6 +24,7 @@ class Sprint implements Page {
     this.container = document.querySelector('#main-container') as HTMLDivElement;
     this.state = state;
     this.page = Math.floor(Math.random() * countPages) + 1;
+    this.unit = 1;
     this.currentWord = null;
     this.container.addEventListener('click', async (e: Event) => { 
       const target = <HTMLElement>e.target;
@@ -55,7 +56,16 @@ class Sprint implements Page {
     const sprintNode = <HTMLElement>sprintStartTemplate().content.cloneNode(true);
     this.container.innerHTML = '';
     this.container.append(sprintNode);
-    this.container.addEventListener('click', (e: Event) => { this.handleUnitSelect(e) });
+    console.log(this.state);
+    if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
+      this.unit = this.state.sprint.unit;
+      this.page = this.state.sprint.page;
+      this.startCountDown = true;
+      document.querySelector('.start-countdown')?.classList.remove('hidden');
+      const timerContainer = <HTMLElement>document.querySelector('#start-countdown');
+      await startTimer(2, timerContainer, async () => { await this.renderGame()});
+    }
+    this.container.addEventListener('click', (e: Event) => { this.handleUnitSelect(e); });
     return this.state;
   }
 
@@ -131,8 +141,10 @@ class Sprint implements Page {
     this.successInRope = 0;
     this.score = 0;
     this.countForSuccess = 10;
-    this.page = this.state.sprint.page ? this.state.sprint.page : this.page;
-    this.unit = this.state.sprint.unit ? this.state.sprint.unit : this.unit;
+    this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
+    this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
+    console.log(this.page);
+    console.log(this.unit);
     this.words = (await getWords(this.unit, this.page)).data;
     const { word, updatedWords } = await getNewWord(this.words, this.unit, this.page);
     this.words = [ ...updatedWords ];

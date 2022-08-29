@@ -10,6 +10,7 @@ export const randomResult = (word: GameWordData) => {
 
 export const getNewWord = async (words: WordData[], level: number, currPage: number) => {
   const wordIndex = Math.floor(Math.random() * words.length);
+  console.log(words);
   const response = await getWordTranslates(words[wordIndex].id, 1);
   const word = <GameWordData>response.data;
   let updatedWords = words.filter((_, index) => index !== wordIndex);
