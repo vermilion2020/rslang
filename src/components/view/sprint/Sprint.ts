@@ -2,10 +2,18 @@ import { sprintCardTemplate, sprintResultsTemplate, sprintStartTemplate } from '
 import './Sprint.scss';
 import { Page, PagesState } from '../../model/types/page';
 import startTimer from '../../controller/timer';
-import { countPages, maxScorePerWord, minScorePerWord } from '../../model/constants';
-import { addUserWord, getWords, updateUserWord } from '../../model/api/words';
-import { CheckedWord, GameWordData, UserWord, WordData } from '../../model/types';
-import { getNewWord, randomResult } from '../../controller/helpers/sprint-helper';
+import { countPages } from '../../model/constants';
+import { CheckedWord, GameWordData, WordData } from '../../model/types';
+import { 
+  disableDecisionButtons,
+  getDecisionResult,
+  getNewWord,
+  unitSelect,
+  updateCardContent,
+  updateScoreParameters,
+  updateWordData,
+  loadWords
+} from '../../controller/helpers';
 
 class Sprint implements Page {
   state: PagesState;
@@ -36,19 +44,12 @@ class Sprint implements Page {
 
   async handleUnitSelect(e: Event) {
     const target = <HTMLElement>e.target;
-      const unitSelect = <HTMLElement>document.querySelector('.start-sprint');
-      if(target.classList.contains('unit-select__button') && !this.startCountDown) {
-        const previousunitId = unitSelect.dataset.id;
-        const timerContainer = <HTMLElement>document.querySelector('#start-countdown');
-        const unitId = target.dataset.id;
-        this.unit = +<string>unitId;
-        unitSelect.dataset.id = unitId;
-        unitSelect.classList.remove(`unit-${previousunitId}`);
-        unitSelect.classList.add(`unit-${unitId}`);
-        document.querySelector('.start-countdown')?.classList.remove('hidden');
-        this.startCountDown = true;
-        await startTimer(2, timerContainer, async () => { await this.renderGame()});
-      }
+    if(target.classList.contains('unit-select__button') && !this.startCountDown) {
+      this.startCountDown = true;
+      this.unit = await unitSelect(target); 
+      const timerContainer = <HTMLElement>document.querySelector('#start-countdown');
+      await startTimer(2, timerContainer, async () => { await this.renderGame()});
+    }
   }
 
   async render() {
@@ -56,7 +57,6 @@ class Sprint implements Page {
     const sprintNode = <HTMLElement>sprintStartTemplate().content.cloneNode(true);
     this.container.innerHTML = '';
     this.container.append(sprintNode);
-    console.log(this.state);
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
       this.unit = this.state.sprint.unit;
       this.page = this.state.sprint.page;
@@ -70,61 +70,20 @@ class Sprint implements Page {
   }
 
   async updateCard() {
-    const card = <HTMLElement>this.container.querySelector('#card-sprint');
-    const cardWord = <HTMLElement>this.container.querySelector('#card-word');
-    const cardTranslate = <HTMLElement>this.container.querySelector('#card-translate');
     const { word, updatedWords } = await getNewWord(this.words, this.unit, this. page);
     this.words = [ ...updatedWords ];
     this.currentWord = { ...word };
-    const { result, translate } = randomResult(word);
-    card.dataset.result = `${result}`;
-    card.dataset.word = word.id;
-    cardWord.innerHTML = word.word;
-    cardTranslate.innerHTML = translate;
-    const trueButton = <HTMLElement>this.container.querySelector('.decision_button__true');
-    const falseButton = <HTMLElement>this.container.querySelector('.decision_button__false');
-    trueButton.removeAttribute('disabled');
-    falseButton.removeAttribute('disabled');
+    updateCardContent(this.currentWord);
   }
 
   async saveResult(word: GameWordData, result: boolean) {
-    if(result) {
-      this.successInRope += 1;
-      this.score += this.countForSuccess;
-    } else {
-      this.successInRope = 0;
-    }
-    this.countForSuccess = minScorePerWord + Math.floor(this.successInRope / 3) * minScorePerWord;
-    this.countForSuccess = this.countForSuccess > maxScorePerWord ? maxScorePerWord : this.countForSuccess;
-    (<HTMLElement>document.querySelector('#success-count')).innerText = `${this.countForSuccess}`;
-    (<HTMLElement>document.querySelector('#score')).innerText = `${this.score}`;
+    const scoreUpdates = updateScoreParameters(result, this.successInRope, this.countForSuccess, this.score);
+    this.score = scoreUpdates.totalSore;
+    this.successInRope = scoreUpdates.successCount;
+    this.countForSuccess = scoreUpdates.successReward;
+
     if(this.state.loggedIn) {
-      let loss = word.optional?.loss || 0;
-      let vic = word.optional?.vic || 0;
-      let difficulty = word.difficulty || 'base';
-      result ? vic += 1 : loss += 1;
-      if (!result && difficulty === 'easy') {
-        difficulty = 'base';
-        loss = 0;
-        vic = 0;
-      }
-      if (vic >= 3 && difficulty === 'base' || vic >= 5 && difficulty === 'hard') {
-        difficulty = 'easy';
-        loss = 0;
-        vic = 0;
-      } 
-      const data: UserWord = {
-        difficulty,
-        optional: {
-          vic, 
-          loss
-        }
-      };
-      if (word.used) {
-        await updateUserWord(this.state.userId, word.id, data, this.state.token);
-      } else {
-        await addUserWord(this.state.userId, word.id, data, this.state.token);
-      }
+      await updateWordData(result, word, this.state.userId, this.state.token);
     }
     const checked: CheckedWord = {
       wordId: word.id,
@@ -137,45 +96,38 @@ class Sprint implements Page {
     this.checkedWords.push(checked);
   }
 
-  async renderGame() {
+  setInitialValues() {
     this.successInRope = 0;
     this.score = 0;
     this.countForSuccess = 10;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
-    console.log(this.page);
-    console.log(this.unit);
-    this.words = (await getWords(this.unit, this.page)).data;
+  }
+
+  async handleDecision(e: Event, container: HTMLElement) {
+    const target = <HTMLElement>e.target;
+    disableDecisionButtons();
+    const result = getDecisionResult(container, target);
+    if(this.currentWord) {
+      await this.saveResult(this.currentWord, result);
+    }
+    await this.updateCard();
+  }
+
+  async renderGame() {
+    this.setInitialValues();
+    this.words = await loadWords(this.unit, this.page, this.state.loggedIn);
     const { word, updatedWords } = await getNewWord(this.words, this.unit, this.page);
     this.words = [ ...updatedWords ];
     this.currentWord = { ...word };
     const sprintCardNode = <HTMLElement>sprintCardTemplate(word).content.cloneNode(true);
     this.container.innerHTML = '';
     this.container.append(sprintCardNode);
+    const cardContainer = <HTMLElement>document.querySelector('#card-sprint');
     const timerContainer = <HTMLElement>this.container.querySelector('#start-countdown');
     await startTimer(58, timerContainer, async () => { await this.renderResults()});
-    const cardContainer = <HTMLElement>this.container.querySelector('#card-sprint');
-    const trueButton = <HTMLElement>this.container.querySelector('.decision_button__true');
-    const falseButton = <HTMLElement>this.container.querySelector('.decision_button__false');
     cardContainer.addEventListener('click', async (e: Event) => {
-      const target = <HTMLElement>e.target;
-      trueButton.setAttribute('disabled', 'disabled');
-      falseButton.setAttribute('disabled', 'disabled');
-      const decision = +<string>target.dataset.value;
-      const result = +<string>cardContainer.dataset.result === decision;
-      if(result) {
-        cardContainer.classList.add('spec');
-      } else {
-        cardContainer.classList.add('spec-false');
-      }
-      if(this.currentWord) {
-        await this.saveResult(this.currentWord, result);
-      }
-      await this.updateCard();
-    }); 
-    cardContainer.addEventListener('animationend', () => {
-      cardContainer.classList.remove('spec');
-      cardContainer.classList.remove('spec-false');
+      await this.handleDecision(e, cardContainer);
     });
   }
 
