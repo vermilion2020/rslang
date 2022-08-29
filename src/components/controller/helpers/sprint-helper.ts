@@ -32,11 +32,12 @@ export const getNewWord = async (words: WordData[], level: number, currPage: num
 
 export const unitSelect = async (target: HTMLElement) => {
   const unitSelect = <HTMLElement>document.querySelector('.start-sprint');
+  const sprintContainer = <HTMLElement>document.querySelector('.sprint-container');
   const previousUnitId = unitSelect.dataset.id;
   const unitId = <string>target.dataset.id;
   unitSelect.dataset.id = unitId;
-  unitSelect.classList.remove(`unit-${previousUnitId}`);
-  unitSelect.classList.add(`unit-${unitId}`);
+  sprintContainer.classList.remove(`unit-sprint-${previousUnitId}`);
+  sprintContainer.classList.add(`unit-sprint-${unitId}`);
   document.querySelector('.start-countdown')?.classList.remove('hidden');
   return +unitId;
 }

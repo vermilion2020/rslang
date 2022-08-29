@@ -1,9 +1,16 @@
 @import '../base-styles.scss';
 
-.start-sprint,
+.sprint-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
 .card-sprint,
+.start-sprint,
 .results-sprint {
   width: 400px;
+  background: #FFF;
   height: 250px;
   border-radius: 1rem;
   padding: 1rem;
@@ -53,34 +60,28 @@
   color: $bgTColorBlack;
 }
 
-.unit-1 {
-  background: $bgColorUnit1;
-  border: 1px solid $btnColorUnit1;  
+.unit-sprint-1 {
+  background: linear-gradient(70deg, $bgColorUnit1, $btnColorUnit1); 
 }
 
-.unit-2 {
-  background: $bgColorUnit2;
-  border: 1px solid $btnColorUnit2;  
+.unit-sprint-2 {
+  background: linear-gradient(70deg, $bgColorUnit2, $btnColorUnit2); 
 }
 
-.unit-3 {
-  background: $bgColorUnit3;
-  border: 1px solid $btnColorUnit3;  
+.unit-sprint-3 {
+  background: linear-gradient(70deg, $bgColorUnit3, $btnColorUnit3);  
 }
 
-.unit-4 {
-  background: $bgColorUnit4;
-  border: 1px solid $btnColorUnit4;  
+.unit-sprint-4 {
+  background: linear-gradient(70deg, $bgColorUnit4, $btnColorUnit4); 
 }
 
-.unit-5 {
-  background: $bgColorUnit5;
-  border: 1px solid $btnColorUnit5;  
+.unit-sprint-5 {
+  background: linear-gradient(70deg, $bgColorUnit5, $btnColorUnit5);  
 }
 
-.unit-6 {
-  background: $bgColorUnit6;
-  border: 1px solid $btnColorUnit6;  
+.unit-sprint-6 {
+  background: linear-gradient(70deg, $bgColorUnit6, $btnColorUnit6);  
 }
 
 .arr {
