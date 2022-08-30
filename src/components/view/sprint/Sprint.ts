@@ -80,7 +80,12 @@ class Sprint implements Page {
   }
 
   async updateCard() {
-    const { word, updatedWords } = await getNewWord(this.words, this.unit, this. page);
+    const { word, updatedWords } = await getNewWord(
+      this.words,
+      this.unit,
+      this. page,
+      this.state.loggedIn
+    );
     this.words = [ ...updatedWords ];
     this.currentWord = { ...word };
     updateCardContent(this.currentWord);
@@ -132,8 +137,12 @@ class Sprint implements Page {
 
   async renderGame() {
     this.setInitialValues();
-    this.words = await loadWords(this.unit, this.page, this.state.loggedIn);
-    const { word, updatedWords } = await getNewWord(this.words, this.unit, this.page);
+    this.words = await loadWords(
+      this.unit,
+      this.page,
+      this.state.loggedIn
+    );
+    const { word, updatedWords } = await getNewWord(this.words, this.unit, this.page, this.state.loggedIn);
     this.words = [ ...updatedWords ];
     this.currentWord = { ...word };
     const sprintCardNode = <HTMLElement>sprintCardTemplate(word).content.cloneNode(true);
@@ -149,10 +158,12 @@ class Sprint implements Page {
       } 
     });
     document.addEventListener('keydown', async (e: KeyboardEvent) => {
-      const key = e.key;
-      if(key === 'ArrowRight' || key === 'ArrowLeft') {
-        this.handleDecision(e, cardContainer);
-      } 
+      if (cardContainer) {
+        const key = e.key;
+        if(key === 'ArrowRight' || key === 'ArrowLeft') {
+          this.handleDecision(e, cardContainer);
+        } 
+      }
     });
   }
 

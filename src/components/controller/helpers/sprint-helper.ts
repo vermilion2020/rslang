@@ -1,6 +1,7 @@
 import { addUserWord, getWords, getWordTranslates, updateUserWord } from "../../model/api/words";
 import { maxScorePerWord, minScorePerWord, scoreStep } from "../../model/constants";
 import { GameWordData, UserWord, WordData } from "../../model/types";
+import { loadWords } from "./word-helper";
 
 export const randomResult = (word: GameWordData) => {
   const result = Math.round(Math.random());
@@ -9,22 +10,23 @@ export const randomResult = (word: GameWordData) => {
   return { result, translate };
 }
 
-export const getNewWord = async (words: WordData[], level: number, currPage: number) => {
+export const getNewWord = async (words: WordData[], unit: number, currPage: number, loggedIn: boolean) => {
   const wordIndex = Math.floor(Math.random() * words.length);
   const response = await getWordTranslates(words[wordIndex].id, 1);
-  const word = <GameWordData>response.data;
+  const translates = (<GameWordData>response.data).translates;
+  const word = {...words[wordIndex], translates};
   let updatedWords = words.filter((_, index) => index !== wordIndex);
   if (updatedWords.length < 3) {
     if (currPage > 1) {
       currPage -= 1;
-    } else if (level > 1){
-      level -= 1;
+    } else if (unit > 1){
+      unit -= 1;
       currPage = 30;
     } else {
       currPage = 0;
-      level = 0;
+      unit = 0;
     }
-    const newWords = (await getWords(level, currPage)).data;
+    const newWords = await loadWords(unit, currPage, loggedIn);
     updatedWords = [...updatedWords, ...newWords];
   }
   return { word, updatedWords };
