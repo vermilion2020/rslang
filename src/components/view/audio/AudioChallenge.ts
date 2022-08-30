@@ -67,10 +67,11 @@ class AudioChallenge implements Page {
     console.log('words: ', this.words);
     const offerWords = [...document.querySelectorAll('.select-word')];
     const guessWord = document.querySelector('.select-offer') as HTMLElement;
-    console.log('OW: ', offerWords);
-    console.log('QW: ', guessWord);
+    // console.log('OW: ', offerWords);
+    // console.log('QW: ', guessWord);
 
-    const arr = ['qq', 'ww', 'ee', 'rr', 'tt'];
+    // const arr = ['qq', 'ww', 'ee', 'rr', 'tt'];
+    const arr = this.words;
     guessWord.innerHTML = `${arr[2]}`;
     offerWords.map((el, i) => {
       el.innerHTML = `${arr[i]}`;
