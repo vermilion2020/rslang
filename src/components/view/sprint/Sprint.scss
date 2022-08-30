@@ -3,100 +3,154 @@
 .sprint-container {
   width: 100%;
   height: 100%;
+  min-height: calc(100vh - 130px);
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $bgColorGames;
 }
 
 .card-sprint,
 .start-sprint,
 .results-sprint {
-  width: 400px;
+  width: 700px;
   background: #FFF;
-  height: 250px;
+  height: 350px;
   border-radius: 1rem;
   padding: 1rem;
   text-align: center;
-  margin: 1rem auto 1rem;
+  margin: 10vh auto 1rem;
+  border: 1px solid $bgTColorBlack;
+}
 
-  h4 {
-    text-transform: capitalize;
-    font-family: $rusFont;
+.card-translate {
+  text-transform: capitalize;
+  font-family: $rusFont;
+  font-size: 1.3rem;
+  margin: 0.6rem 0 1.2rem;
+}
+
+.card-word {
+  text-transform: capitalize;
+  font-family: $enFont;
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.point-multiplier {
+  display: flex;
+  width: 70px;
+  gap: 0.5rem;
+  margin: 1rem auto 0.5rem;
+
+  .circle {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 0.5rem;
+    background: $circleBgColor;
   }
 
-  h3 {
-    text-transform: capitalize;
-    font-family: $enFont;
+  .circle__active {
+    background: $circleActBgColor;
   }
 }
 
-.spec {
-  outline: 5px solid $iconColorStudied;
-  transition: all 0.5s ease;
+.success-count {
+  font-size: 0.9rem;
 }
 
-.spec-false {
-  outline: 5px solid $iconColorComplex;
+#score {
+  font-size: 1.8rem;
+  font-family: $enFont;
+}
+
+.border-true {
+  outline: 5px solid $trueColorGames;
   transition: all 0.5s ease;
+  opacity: 0.8;
+}
+
+.border-false {
+  outline: 5px solid $falseColorGames;
+  transition: all 0.5s ease;
+  opacity: 0.8;
+}
+
+.start-sprint {
+  p {
+    margin: 1rem 0;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .select-label {
+    margin-top: 3rem;
+  }
 }
 
 .results-sprint {
   overflow: scroll;
   text-align: left;
-  border: 1px solid $btnColorUnit1;
+
+  hr {
+    background: #CECECE;
+  }
 }
 
 .unit-select {
   display: flex;
   flex-wrap: wrap;
+  width: 55%;
   justify-content: space-evenly;
-  gap: 1rem 1rem;
-  margin-top: 1rem;
+  gap: 1rem 0rem;
+  margin: 2rem auto;
 }
 
 .unit-select__button {
   display: block;
   padding: 0.6rem 1rem;
   text-decoration: none;
-  border-radius: 0.3rem;
-  color: $bgTColorBlack;
+  border-radius: 2rem;
+  color: $bgTColorWhite;
 }
 
 .unit-sprint-1 {
-  background: linear-gradient(70deg, $bgColorUnit1, $btnColorUnit1); 
+  background: $btnColorUnit1;
 }
 
 .unit-sprint-2 {
-  background: linear-gradient(70deg, $bgColorUnit2, $btnColorUnit2); 
+  background: $btnColorUnit2; 
 }
 
 .unit-sprint-3 {
-  background: linear-gradient(70deg, $bgColorUnit3, $btnColorUnit3);  
+  background: $btnColorUnit3;  
 }
 
 .unit-sprint-4 {
-  background: linear-gradient(70deg, $bgColorUnit4, $btnColorUnit4); 
+  background: $btnColorUnit4; 
 }
 
 .unit-sprint-5 {
-  background: linear-gradient(70deg, $bgColorUnit5, $btnColorUnit5);  
+  background: $btnColorUnit5;  
 }
 
 .unit-sprint-6 {
-  background: linear-gradient(70deg, $bgColorUnit6, $btnColorUnit6);  
+  background: $btnColorUnit6;  
 }
 
 .arr {
   display: block;
   width: 25px;
   height: 15px;
-  background: url(../../../assets/icons/arrow-right.svg);
-  background-repeat: no-repeat;
 }
 
 .decision_button {
-  color: $bgTColorWhite;
+  background: $bgTColorWhite;
   padding: 0.6rem 1.2rem;
   border: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   border-radius: 2rem;
   cursor: pointer;
   display: flex;
@@ -104,19 +158,29 @@
 }
 
 .decision_button__false {
-  background: $iconColorComplex;
+  color: $falseColorGames;
+  border: 2px solid $falseColorGames;
 
   .arr {
     transform: rotate(180deg);
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  use {
+    fill: $falseColorGames;
   }
 }
 
 .decision_button__true {
-  background: $iconColorStudied;
+  color: $trueColorGames;
+  border: 2px solid $trueColorGames;
 
   .arr {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+  }
+
+  use {
+    fill: $trueColorGames;
   }
 }
 
@@ -131,11 +195,13 @@
 }
 
 .play-again {
-  margin-top: 10px;
+  margin-top: 0.8rem;
 }
 
 .results-line {
   display: flex;
+  gap: 0.6rem;
+  align-items: center;
 }
 
 .results-audio {

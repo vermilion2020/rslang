@@ -4,10 +4,12 @@ import { CheckedWord, GameWordData } from "../../model/types";
 export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
   const sprintStart = document.createElement('template');
   sprintStart.innerHTML = `
-    <div class="sprint-container unit-sprint-${unitId || 1}">
+    <div class="sprint-container">
       <div class="start-sprint" data-id="${unitId || 1}">
         <h1>Спринт</h1>
+        <p>Правила игры:</p>
         <p>Выберите соответсвует ли перевод предложенному слову</p>
+        <p class="select-label">Выберите раздел:</p>
         <div class="unit-select">
           <a href="#/sprint/1/" data-id="1" class="unit-select__button unit-sprint-1">Раздел 1</a>
           <a href="#/sprint/2/" data-id="2" class="unit-select__button unit-sprint-2">Раздел 2</a>
@@ -28,19 +30,37 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
   sprintCard.innerHTML = `
     <div class="sprint-container">
       <div class="card-sprint" id="card-sprint" data-word="${word.id}" data-result="${result}">
-        <div class="point-multiplier" data-count="1">
+        <p id="score">0</p>
+        <span id="start-countdown" class="hidden">59</span>
+        <p class="success-count">+<span id="success-count">10</span> очков за правильный ответ</p>
+        <div class="point-multiplier">
           <div class="circle" data-value="1"></div>
           <div class="circle" data-value="2"></div>
           <div class="circle" data-value="3"></div>
         </div>
-        <p>Всего очков: <span id="score">0</span></p>
-        <span id="start-countdown">59</span>
-        <p>+<span id="success-count">10</span> очков за правильный ответ</p>
-        <h3 id="card-word">${word.word}</h3>
-        <h4 id="card-translate">${translate}</h4>
+        <h3 id="card-word" class="card-word">${word.word}</h3>
+        <h4 id="card-translate" class="card-translate">${translate}</h4>
         <div class="decision">
-          <button class="decision_button decision_button__false" data-value="0"><span class="arr"></span> НЕВЕРНО</button>
-          <button class="decision_button decision_button__true" data-value="1">ВЕРНО <span class="arr"></span></button>
+          <button class="decision_button decision_button__false" data-value="0"> 
+          <svg class="arr">
+            <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
+          </svg>
+           Неверно</button>
+          <button class="decision_button decision_button__true" data-value="1">Верно 
+          <svg class="arr">
+            <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
+          </svg>
+          </button>
+        </div>
+      </div>
+      <div class="diagram timer" data-seconds="59">
+        <div class="piece left"></div>
+        <div class="piece right"></div>
+        <div class="text">
+          <div>
+            <b>59</b>
+            <span>SECONDS</span>
+          </div>
         </div>
       </div>
     </div>`;
@@ -66,12 +86,12 @@ export const sprintResultsTemplate = (successWords: CheckedWord[], failedWords: 
       <div class="results-sprint" id="results-sprint">
         <h3 id="heading">Набрано очков: ${score}</h3>
         <hr>
-        <h3 id="heading">Знаю слова: ${successWords.length}</h3>
+        <h3 id="heading">Знаю слова:  ${successWords.length}</h3>
         <div class="success-words">
           ${successLines}
         </div>
         <hr>
-        <h3 id="heading">Не знаю слова: ${failedWords.length}</h3>
+        <h3 id="heading">Не знаю слова:  ${failedWords.length}</h3>
         <div class="failed-words">
           ${failedLines}
         </div>

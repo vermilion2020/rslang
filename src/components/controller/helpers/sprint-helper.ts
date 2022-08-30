@@ -1,5 +1,5 @@
 import { addUserWord, getWords, getWordTranslates, updateUserWord } from "../../model/api/words";
-import { maxScorePerWord, minScorePerWord } from "../../model/constants";
+import { maxScorePerWord, minScorePerWord, scoreStep } from "../../model/constants";
 import { GameWordData, UserWord, WordData } from "../../model/types";
 
 export const randomResult = (word: GameWordData) => {
@@ -32,12 +32,8 @@ export const getNewWord = async (words: WordData[], level: number, currPage: num
 
 export const unitSelect = async (target: HTMLElement) => {
   const unitSelect = <HTMLElement>document.querySelector('.start-sprint');
-  const sprintContainer = <HTMLElement>document.querySelector('.sprint-container');
-  const previousUnitId = unitSelect.dataset.id;
   const unitId = <string>target.dataset.id;
   unitSelect.dataset.id = unitId;
-  sprintContainer.classList.remove(`unit-sprint-${previousUnitId}`);
-  sprintContainer.classList.add(`unit-sprint-${unitId}`);
   document.querySelector('.start-countdown')?.classList.remove('hidden');
   return +unitId;
 }
@@ -61,14 +57,21 @@ export const updateScoreParameters = (result: boolean, successInRope: number, co
   let successCount = successInRope;
   let successReward = countForSuccess;
   let totalSore = score;
+  let stepNumber = 0;
   if(result) {
     successCount += 1;
+    stepNumber = successCount % scoreStep;
     totalSore += successReward;
+    document.querySelector(`.circle[data-value="${stepNumber}"]`)?.classList.add('circle__active');
   } else {
     successCount = 0;
+    document.querySelectorAll(`.circle`).forEach(el => el.classList.remove('circle__active'));
   }
-  successReward = minScorePerWord + Math.floor(successInRope / 3) * minScorePerWord;
+  successReward = minScorePerWord + Math.floor(successCount / scoreStep) * minScorePerWord;
   successReward = successReward > maxScorePerWord ? maxScorePerWord : successReward;
+  if(stepNumber === 0) {
+    document.querySelectorAll(`.circle`).forEach(el => el.classList.remove('circle__active'));
+  }
   (<HTMLElement>document.querySelector('#success-count')).innerText = `${successReward}`;
   (<HTMLElement>document.querySelector('#score')).innerText = `${totalSore}`;
   return { successCount, successReward, totalSore}
@@ -114,9 +117,11 @@ export const getDecisionResult = (container: HTMLElement, target: HTMLElement) =
   const decision = +<string>target.dataset.value;
   const result = +<string>container.dataset.result === decision;
   if(result) {
-    container.classList.add('spec');
+    container.classList.add('border-true');
+    setTimeout(() => { container.classList.remove('border-true');},1000);
   } else {
-    container.classList.add('spec-false');
+    container.classList.add('border-false');
+    setTimeout(() => { container.classList.remove('border-false');},1000);
   }
   return result;
 }
