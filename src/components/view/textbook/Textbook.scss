@@ -1,124 +1,12 @@
 @import '../../view/base-styles.scss';
 
-.button-pag, .btn-to-menu, .btn-game {
-  -webkit-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
+// .main-container {
+//   width: 100%;
+//   box-sizing: border-box;
+// }
 
-.section-word {
-  margin-bottom: 90px;
-  padding: 0 2.5rem;
-}
 
-.main-container {
-  width: 100%;
-  box-sizing: border-box;
-}
 
-.wrapper-sec-word {
-  padding-top: 80px;
-  max-width: 1240px;
-  margin: auto;
-  width: 100%;
-}
-
-.title-sec {
-  font-size: 2.5rem;
-  padding-bottom: 1rem;
-}
-
-.units {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin: 2rem 0;
-
-  .button {
-    position: relative;
-    color: $bgTColorWhite;
-    background: $bgTColorBlack;
-    padding: 0.6rem 1rem;
-    border: 0;
-    font-size: 0.9rem;
-    border-radius: 2rem;
-    cursor: pointer;
-  }
-}
-
-.wrapper-paging {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.btn-to-menu {
-  text-align: left;
-  padding-left: 15px;
-  height: 40px;
-  width: 125px;
-  background-image: url('../../../assets/icons/arrow-right.svg');
-  border: 1px solid $bgTColorBlack;
-  background-color: $bgTColorWhite;
-  background-size: 20px;
-  background-position:  calc(100% - 11px);
-  background-repeat: no-repeat;
-  font-size: 0.9rem;
-  border-radius: 2rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $colorBtnHov;
-  }
-}
-
-.paging {
-  display: flex;
-  gap: 7px;
-
-  .button-pag {
-    color: $bgTColorBlack;
-    background: $bgTColorWhite;
-    width: 2rem;
-    height: 2rem;
-    padding: 0;
-    border: 1px solid $bgTColorBlack;
-    font-size: 0.9rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-  }
-  .paging__next {
-    background-image: url('../../../assets/icons/arrow-right.svg');
-    background-size: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  .paging__prev {
-    background-image: url('../../../assets/icons/arrow-left.svg');
-    background-size: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-}
-
-.paging .button-pag.paging__next:hover {
-  background-color: $colorBtnHov;
-  background-image: url('../../../assets/icons/arrow-right.svg');
-  border: 1px solid $bgTColorBlack;
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.paging .button-pag.paging__prev:hover {
-  background-color: $colorBtnHov;
-  background-image: url('../../../assets/icons/arrow-left.svg');
-  border: 1px solid $bgTColorBlack;
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 .cards-container {
   width: 100%;
@@ -200,33 +88,11 @@
   }
 }
 
-.lable-btn {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-image: url('../../../assets/icons/icon-dif-btn.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  top: -6px;
-  right: 18%;
-}
+
 
 .unit-1 {
   .textbook-card {
     background: $bgColorUnit1;
-  }
-  .unit-button.current-unit,
-  .current-page {
-    background-color: $btnColorUnit1;
-    pointer-events: none; 
-    color: $bgTColorWhite;
-    border: none;
-  }
-  .button-pag:hover {
-    background: $btnColorUnit1;
-    color: $bgTColorWhite;
-    outline: none;
-    border: none;
   }
 }
 
@@ -234,37 +100,11 @@
   .textbook-card {
     background: $bgColorUnit2;
   }
-  .unit-button.current-unit,
-  .current-page  {
-    background-color: $btnColorUnit2;
-    pointer-events: none; 
-    color: $bgTColorWhite;
-    border: none;
-  }
-  .button-pag:hover {
-    background: $btnColorUnit2;
-    color: $bgTColorWhite;
-    outline: none;
-    border: none;
-  }
 }
 
 .unit-3 {
   .textbook-card {
     background: $bgColorUnit3;
-  }
-  .unit-button.current-unit,
-  .current-page  {
-    background-color: $btnColorUnit3;
-    pointer-events: none; 
-    color: $bgTColorWhite;
-    border: none;
-  }
-  .button-pag:hover {
-    background: $btnColorUnit3;
-    color: $bgTColorWhite;
-    outline: none;
-    border: none;
   }
 }
 
@@ -272,56 +112,17 @@
   .textbook-card {
     background: $bgColorUnit4;
   }
-  .unit-button.current-unit,
-  .current-page  {
-    background-color: $btnColorUnit4;
-    pointer-events: none; 
-    color: $bgTColorWhite;
-    border: none;
-  }
-  .button-pag:hover {
-    background: $btnColorUnit4;
-    color: $bgTColorWhite;
-    outline: none;
-    border: none;
-  }
 }
 
 .unit-5 {
   .textbook-card {
     background: $bgColorUnit5;
   }
-  .unit-button.current-unit,
-  .current-page  {
-    background-color: $btnColorUnit5;
-    pointer-events: none; 
-    color: $bgTColorWhite;
-    border: none;
-  }
-  .button-pag:hover {
-    background: $btnColorUnit5;
-    color: $bgTColorWhite;
-    outline: none;
-    border: none;
-  }
 }
 
 .unit-6 {
   .textbook-card {
     background: $bgColorUnit6;
-  }
-  .unit-button.current-unit,
-  .current-page  {
-    background-color: $btnColorUnit6;
-    pointer-events: none; 
-    color: $bgTColorWhite;
-    border: none;
-  }
-  .button-pag:hover {
-    background: $btnColorUnit6;
-    color: $bgTColorWhite;
-    outline: none;
-    border: none;
   }
 }
 
@@ -330,190 +131,5 @@
       background: $bgColorUnit7;
       border: 1px solid $bgTColorBlack;
     }
-    .label, .paging {
-      display: none;
-    }
-    .unit-button.current-unit {
-      background: $bgTColorWhite;
-      pointer-events: none; 
-      border: 1px solid $bgTColorBlack;
-      color: $bgTColorBlack;
-      .lable-btn {
-        background-image: url('../../../assets/icons/icon-dif.svg');
-      }
-    }
 }
 
-button[data-unit="1"] {
-  &:hover {
-    background: $btnColorUnit1;
-    color: $bgTColorWhite;
-    outline: none;
-  }
-}
-button[data-unit="2"] {
-  &:hover {
-    background: $btnColorUnit2;
-    color: $bgTColorWhite;
-    outline: none;
-  }
-}
-button[data-unit="3"] {
-  &:hover {
-    background: $btnColorUnit3;
-    color: $bgTColorWhite;
-    outline: none;
-  }
-}
-button[data-unit="4"] {
-  &:hover {
-    background: $btnColorUnit4;
-    color: $bgTColorWhite;
-    outline: none;
-  }
-}
-button[data-unit="5"] {
-  &:hover {
-    background: $btnColorUnit5;
-    color: $bgTColorWhite;
-    outline: none;
-  }
-}
-button[data-unit="6"] {
-  &:hover {
-    background: $btnColorUnit6;
-    color: $bgTColorWhite;
-    outline: none;
-  }
-}
-button[data-unit="7"] {
-  &:hover {
-    background: $bgTColorWhite;
-    outline: 1px solid $bgTColorBlack;
-    color: $bgTColorBlack;
-    .lable-btn {
-      background-image: url('../../../assets/icons/icon-dif.svg');
-    }
-  }
-}
-
-
-.paging {
-  margin: 10px 0;
-}
-
-.paging__prev:disabled,
-.paging__next:disabled,
-button[data-unit="7"]:disabled {
-  pointer-events: none; 
-  background-color: $colorBtnDisab;
-  color: $bgTColorBlack;
-  border: 1px solid $bgTColorBlack;
-}
-
-.section-game{
-  padding: 0 2.5rem;
-  background-color: $bgTColorGrey;
-}
-
-.desc {
-  font-size: 1.125rem;
-  font-weight: 300;
-  line-height: 1.75rem;
-  max-width: 450px;
-  width: 30rem;
-  position: relative;
-  z-index: 1;
-}
-
-.wrapper-game {
-  padding-top: 105px;
-  padding-bottom: 105px;
-  max-width: 1240px;
-  margin: auto;
-  width: 100%;
-}
-
-.wrapper-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8rem;
-}
-
-.wrapper-sprint {
-  position: relative;
-  margin-top: 5rem;
-  .icon-bg-sprint {
-    background-image: url('../../../assets/icons/star-sprint.svg');
-    position: absolute;
-    width: 90%;
-    height: 90%;
-    background-repeat: no-repeat;
-    background-position: center;
-    top: -21%;
-    right: 41%;
-    background-size: 100%;
-  }
-}
-
-.wrapper-audio {
-  position: relative;
-  .icon-bg-audio {
-    background-image: url('../../../assets/icons/line-audio.svg');
-    position: absolute;
-    width: 140%;
-    height: 170%;
-    background-repeat: no-repeat;
-    background-position: center;
-    top: -52%;
-    right: -17%;
-    background-size: 80%; 
-  }
-
-  .icon-star-audio {
-    background-image: url('../../../assets/icons/star4-audio.svg');
-    position: absolute;
-    width: 21%;
-    height: 21%;
-    background-repeat: no-repeat;
-    background-position: center;
-    top: 86%;
-    left: 115%;
-    background-size: 100%;
-  }
-}
-
-.btn-game {
-  position: relative;
-  z-index: 1;
-  background-color: $bgTColorWhite;
-  border: 1px solid $bgTColorBlack;
-  background-image: url('../../../assets/icons/arrow-right.svg');
-  background-size: 30px;
-  background-repeat: no-repeat;
-
-  &:hover {
-    background-color: $colorBtnHov;
-    cursor: pointer;
-  }
-}
-
-.btn-sprint {
-  width: 20rem;
-  height: 20rem;
-  border-radius: 10rem;
-  font-size: 2rem;
-  font-weight: 300;
-  line-height: 2.1rem;
-  background-position: center calc(100% - 3rem);
-}
-
-.btn-audio {
-  width: 25rem;
-  height: 25rem;
-  border-radius: 20rem;
-  font-size: 2.3rem;
-  font-weight: 300;
-  background-position: center calc(100% - 3rem);
-}
