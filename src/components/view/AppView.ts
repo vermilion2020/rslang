@@ -11,8 +11,8 @@ const AppView = async () => {
   const header = new Header(state);
   state = await header.render();
   renderFooter();
-  document.addEventListener('hashchange', async () => {
-    state = { ...await handleRoute(state) };
+  window.addEventListener('hashchange', async () => {
+    state = await handleRoute(state) ;
   });
 };
 
