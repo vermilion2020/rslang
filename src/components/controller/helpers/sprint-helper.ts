@@ -113,8 +113,7 @@ export const disableDecisionButtons = () => {
   falseButton.setAttribute('disabled', 'disabled');
 }
 
-export const getDecisionResult = (container: HTMLElement, target: HTMLElement) => {
-  const decision = +<string>target.dataset.value;
+export const getDecisionResult = (container: HTMLElement, decision: number) => {
   const result = +<string>container.dataset.result === decision;
   if(result) {
     container.classList.add('border-true');

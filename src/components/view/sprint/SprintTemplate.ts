@@ -1,6 +1,18 @@
 import { randomResult } from "../../controller/helpers/sprint-helper";
 import { CheckedWord, GameWordData } from "../../model/types";
 
+const timerNode = (seconds: number, visible: string) => `
+<div class="diagram timer${visible}" data-seconds="${seconds}">
+<div class="piece left"></div>
+<div class="piece right"></div>
+<div class="text">
+  <div>
+    <b>${seconds}</b>
+    <span>SECONDS</span>
+  </div>
+</div>
+</div>`;
+
 export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
   const sprintStart = document.createElement('template');
   sprintStart.innerHTML = `
@@ -11,14 +23,14 @@ export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
         <p>Выберите соответсвует ли перевод предложенному слову</p>
         <p class="select-label">Выберите раздел:</p>
         <div class="unit-select">
-          <a href="#/sprint/1/" data-id="1" class="unit-select__button unit-sprint-1">Раздел 1</a>
-          <a href="#/sprint/2/" data-id="2" class="unit-select__button unit-sprint-2">Раздел 2</a>
-          <a href="#/sprint/3/" data-id="3" class="unit-select__button unit-sprint-3">Раздел 3</a>
-          <a href="#/sprint/4/" data-id="4" class="unit-select__button unit-sprint-4">Раздел 4</a>
-          <a href="#/sprint/5/" data-id="5" class="unit-select__button unit-sprint-5">Раздел 5</a>
-          <a href="#/sprint/6/" data-id="6" class="unit-select__button unit-sprint-6">Раздел 6</a>
+          <button data-id="1" class="unit-select__button unit-sprint-1">Раздел 1</button>
+          <button data-id="2" class="unit-select__button unit-sprint-2">Раздел 2</button>
+          <button data-id="3" class="unit-select__button unit-sprint-3">Раздел 3</button>
+          <button data-id="4" class="unit-select__button unit-sprint-4">Раздел 4</button>
+          <button data-id="5" class="unit-select__button unit-sprint-5">Раздел 5</button>
+          <button data-id="6" class="unit-select__button unit-sprint-6">Раздел 6</button>
         </div>
-        <p class="start-countdown hidden">Приготовьтесь!: <span id="start-countdown">3</span></p>
+        ${timerNode(3, ' hidden unit-diagram')}
       </div>
     </div>`;
   return sprintStart;
@@ -53,16 +65,7 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
           </button>
         </div>
       </div>
-      <div class="diagram timer" data-seconds="59">
-        <div class="piece left"></div>
-        <div class="piece right"></div>
-        <div class="text">
-          <div>
-            <b>59</b>
-            <span>SECONDS</span>
-          </div>
-        </div>
-      </div>
+      ${timerNode(59, ' card-diagram')}
     </div>`;
   return sprintCard;
 } 
@@ -70,7 +73,9 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
 export const drawResultLine = (checkedWord: CheckedWord): string => {
   return `
     <div class="results-line">
-      <div class="results-audio"></div>
+      <svg class="results-audio" data-id="${checkedWord.wordId}">
+        <use class="results-audio" data-id="${checkedWord.wordId}" xlink:href="./icons/audio.svg#audio-inner"></use>
+      </svg>
       <div class="word">${checkedWord.word}</div>
       <div class="transcription">${checkedWord.transcription}</div> - 
       <div class="translate">${checkedWord.wordTranslate}</div>
@@ -84,18 +89,21 @@ export const sprintResultsTemplate = (successWords: CheckedWord[], failedWords: 
   sprintResult.innerHTML = `
     <div class="sprint-container">
       <div class="results-sprint" id="results-sprint">
-        <h3 id="heading">Набрано очков: ${score}</h3>
+        <h1 class="heading-h1">Результаты игры</h1>
+        <h3 class="heading-h3">Вы набрали ${score} очков</h3>
         <hr>
-        <h3 id="heading">Знаю слова:  ${successWords.length}</h3>
-        <div class="success-words">
-          ${successLines}
+        <div class="result-scroll">
+          <h3 class="heading-h3">Угадано слов: <span class="results-success">${successWords.length}</span> </h3>
+          <div class="success-words">
+            ${successLines}
+          </div>
+          <hr>
+          <h3 class="heading-h3">Не угадано слов: <span class="results-fail">${failedWords.length}</span></h3>
+          <div class="failed-words">
+            ${failedLines}
+          </div>
+          <button class="play-again button" id="play-again">Попробовать еще раз</button>
         </div>
-        <hr>
-        <h3 id="heading">Не знаю слова:  ${failedWords.length}</h3>
-        <div class="failed-words">
-          ${failedLines}
-        </div>
-        <button class="play-again button" id="play-again">Попробовать еще раз</button>
       </div>
     </div>`;
   return sprintResult;
