@@ -58,6 +58,9 @@ class Sprint implements Page {
 
   async render() {
     this.state.page = 'sprint';
+    if(this.state.gameStarted) {
+      window.location.reload();
+    }
     const sprintNode = <HTMLElement>sprintStartTemplate().content.cloneNode(true);
     this.container.innerHTML = '';
     this.container.append(sprintNode);
@@ -114,6 +117,7 @@ class Sprint implements Page {
   setInitialValues() {
     this.successInRope = 0;
     this.score = 0;
+    this.state.gameStarted = true;
     this.countForSuccess = 10;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;

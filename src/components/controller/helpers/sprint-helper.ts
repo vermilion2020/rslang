@@ -16,16 +16,17 @@ export const getNewWord = async (words: WordData[], unit: number, currPage: numb
   const translates = (<GameWordData>response.data).translates;
   const word = {...words[wordIndex], translates};
   let updatedWords = words.filter((_, index) => index !== wordIndex);
-  if (updatedWords.length < 3) {
+  if (updatedWords.length < 2) {
     if (currPage > 1) {
       currPage -= 1;
     } else if (unit > 1){
       unit -= 1;
       currPage = 30;
     } else {
-      currPage = 0;
-      unit = 0;
+      currPage = -1;
+      unit = -1;
     }
+    // TODO stop game beforehand of  1 page and 1 unit
     const newWords = await loadWords(unit, currPage, loggedIn);
     updatedWords = [...updatedWords, ...newWords];
   }
@@ -101,6 +102,7 @@ export const updateWordData = async (result: boolean, word: GameWordData, userId
       loss
     }
   };
+  console.log(word);
   if (word.used) {
     await updateUserWord(userId, word.id, data, token);
   } else {
