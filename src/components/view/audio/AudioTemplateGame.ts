@@ -1,8 +1,14 @@
 // interface ITemplateGame {
 //     nextOr?: string, correctWord?: string, selectedWord?: string
 // }
-
-const audioTemplateGame = (nextOr?: string, correctWord?: string, selectedWord?: string): HTMLTemplateElement => {
+import voiceIcon from '../../../assets/images/png/up_volume.png';
+const audioTemplateGame = (
+  nextOr?: string,
+  correctWord?: string,
+  selectedWord?: string,
+  counterUp: number = 2,
+  counterSet = 10
+): HTMLTemplateElement => {
   const gameBody = document.createElement('template');
   gameBody.innerHTML = `
 <div class="main-page__game">
@@ -11,7 +17,9 @@ const audioTemplateGame = (nextOr?: string, correctWord?: string, selectedWord?:
 <div class="out">
   <div class="container">
     <div class="progress-circular">
-      <span class="value">0%</span>
+    <div class="inside-progress">
+    <span class="value-correct">${counterUp}</span> / <span class="value-total">${counterSet}</span>    
+    </div>
     </div>
      </div>
 </div>
@@ -22,9 +30,14 @@ const audioTemplateGame = (nextOr?: string, correctWord?: string, selectedWord?:
     <section class="content">
         <div class="game-wrapper">
         <div class="visualisation">
-        <div class="voice-ico__block"><div class="voice-ico"></div></div>
-
+        <div class="voice-ico__block">
+        <div class="voice-ico"></div>
+        <div class="image-word"></div>
+        </div>
+        <div class="repeat-word">
+        <div class="speaker-ico"><img class='img-voice' src="${voiceIcon}" alt="img voice"></div>
         <p class="select-offer">${correctWord}</p>
+        </div>
         </div>
           <div class="select-container__game">
             <button class="select-word" data-word="1" value>${selectedWord}</button>

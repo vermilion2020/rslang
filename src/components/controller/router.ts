@@ -10,21 +10,10 @@ import { checkAuthState } from './helpers/auth-helper';
 import { parseQueryString, rewriteUrl, setGameInitial, setProgress, showPageTitle } from './helpers/router-helper';
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
-<<<<<<< HEAD
-  let newState: PagesState = { ...(await checkAuthState(state)) };
-  rewriteUrl();
-  const queryStr = window.location.hash
-    .replace('/#', '')
-    .split('/')
-    .filter((item) => item !== '#' && item !== '');
-
-  const path = queryStr.length ? queryStr[0] : '/';
-  const pageName = routes[path] || routes.notFound;
-=======
   let newState: PagesState = await checkAuthState(state);
   rewriteUrl();
   const { queryStr, pageName } = parseQueryString();
->>>>>>> develop
+
   let page: Page;
   switch (pageName) {
     case 'main':
