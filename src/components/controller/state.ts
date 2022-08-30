@@ -17,16 +17,6 @@ const getInitialState = (): PagesState => {
       unit: 1,
       page: 1,
     },
-    sprint: {
-      unit: -1,
-      page: -1,
-      source: '',
-    },
-    audio: {
-      unit: -1,
-      page: -1,
-      source: '',
-    },
     dictionary: dictionaryProgress ?? {
       unit: 1,
       page: 1,

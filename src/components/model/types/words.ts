@@ -18,29 +18,6 @@ export interface WordData {
       vic: number;
       loss: number;
   };
-  used?: boolean;
-}
-
-export interface CheckedWord {
-  wordId: string;
-  word: string;
-  wordTranslate: string;
-  transcription: string,
-  audio: string;
-  result: boolean;
-  difficulty?: '' | 'hard' | 'easy',
-  vic?: number;
-  loss?: number;
-}
-
-export type GameWordData = WordData & { translates: string[]}
-
-export interface UserWord {
-  difficulty: string,
-  optional: {
-      vic: number,
-      loss: number
-  }
 }
 
 export interface WordHardData {
@@ -58,9 +35,14 @@ export interface WordHardData {
   wordTranslate: string,
   textMeaningTranslate: string,
   textExampleTranslate: string,
-  userWord?: UserWord
+  userWord?: {
+    difficulty: string;
+    optional: {
+      vic: number;
+      loss: number;
+  };
+  }
 }
-
 export interface UserWords {
   id: string,
   difficulty: string,

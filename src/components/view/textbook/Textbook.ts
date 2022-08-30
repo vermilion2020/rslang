@@ -36,7 +36,6 @@ class Textbook implements Page {
   }
 
   async handleUnitClick(e: Event) {
-    console.log(this.state);
     const target = <HTMLElement>e.target;
     if (target.dataset.unit) {
       this.state.textbook.unit = +target.dataset.unit;
@@ -45,7 +44,7 @@ class Textbook implements Page {
   }
 
   async changeCurrentPage(unit: number, page: number) {
-    window.location.hash = `/#/${this.state.page}/unit${unit}/${page}`;
+    window.location.hash = `/${this.state.page}/unit${unit}/${page}`;
     const textbookProgress = { unit: this.state.textbook.unit, page: this.state.textbook.page };
     const textbook = JSON.stringify(textbookProgress);
     localStorage.setItem('textbook', textbook);
