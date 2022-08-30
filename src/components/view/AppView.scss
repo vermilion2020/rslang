@@ -29,6 +29,7 @@ body {
 
 .main-container{
   width: 100%;
+  min-height: calc(100vh - 130px);
   box-sizing: border-box;
   overflow: hidden;
 }

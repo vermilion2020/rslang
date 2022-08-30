@@ -26,11 +26,16 @@ export const checkAuthState = async (state: PagesState): Promise<PagesState> => 
   const refreshDead = state.expire + 16200000;
   const now = Date.now();
   if (now > state.expire && now < refreshDead) {
-    const response = await getToken(newState.userId, state.refreshToken);
-    if (response.status === 200) {
+    try {
+      const response = await getToken(newState.userId, state.refreshToken);
       newState.expire = Date.now() + 7200000;
       newState.refreshToken = response.data.refreshToken;
       newState.token = response.data.token;
+      localStorage.setItem('refreshToken', newState.refreshToken);
+      localStorage.setItem('expire', `${newState.expire}`);
+      localStorage.setItem('token', newState.token);
+    } catch {
+      newState = { ...handleLogout(newState) };
     }
   } else if (now >= refreshDead) {
     newState = { ...handleLogout(newState) };
@@ -49,12 +54,12 @@ export const updateStateOnAuth = (state: PagesState, data: SignInResponse) => {
   newState.userId = data.userId;
   newState.userName = data.name;
   const dateExpire = Date.now() + 7200000;
+  newState.expire = dateExpire;
   localStorage.setItem('refreshToken', data.refreshToken);
   localStorage.setItem('expire', `${dateExpire}`);
   localStorage.setItem('token', data.token);
   localStorage.setItem('userId', data.userId);
   localStorage.setItem('userName', data.name);
-  console.log(newState);
   return newState;
 };
 
@@ -71,6 +76,7 @@ export const handleAuth = async (state: PagesState) => {
     if (response.status === 200) {
       const responseData = <SignInResponse>response.data;
       newState = { ...updateStateOnAuth(newState, responseData) };
+      window.location.reload();
     }
   } catch (e) {
     alert('Логин или пароль не верны! Попробуйте снова!');

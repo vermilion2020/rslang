@@ -1,53 +1,16 @@
 import NotFound from '../view/notFound/NotFound';
 import Main from '../view/main/Main';
-import { Page, PagesState, Progress } from '../model/types/page';
+import { Page, PagesState } from '../model/types/page';
 import Textbook from '../view/textbook/Textbook';
 import Dictionary from '../view/dictionary/Dictionary';
 import Sprint from '../view/sprint/Sprint';
 import AudioChallenge from '../view/audio/AudioChallenge';
 import Stats from '../view/stats/Stats';
 import { checkAuthState } from './helpers/auth-helper';
-import menuItems from '../model/menu-items';
-
-const routes: { [key: string]: string } = {
-  notFound: 'notFound',
-  '/': 'main',
-  textbook: 'textbook',
-  dictionary: 'dictionary',
-  sprint: 'sprint',
-  audio: 'audio',
-  stats: 'stats',
-};
-
-const rewriteUrl = () => {
-  const { hash } = window.location;
-  if (!hash) {
-    window.location.hash = `#${window.location.pathname}`;
-    window.location.pathname = '';
-  }
-};
-
-const setProgress = (queryStr: string[], textbook: Progress) => {
-  let { unit } = textbook;
-  let { page } = textbook;
-  if (queryStr[1] && queryStr[1].includes('unit')) {
-    unit = +queryStr[1].replace(/([a-zA-Z])+/, '') || 1;
-    if (queryStr[2]) {
-      page = +queryStr[2] || 1;
-    }
-  }
-  if (!unit) { unit = 1; }
-  if (!page) { page = 1; }
-  return { unit, page };
-};
-
-const showPageTitle = (page: string) => {
-  const currentMenuItem = menuItems.find((item) => item.href === page);
-  const pageTitle = currentMenuItem ? currentMenuItem.name : 'RS Lang';
-  document.title = pageTitle;
-};
+import { parseQueryString, rewriteUrl, setGameInitial, setProgress, showPageTitle } from './helpers/router-helper';
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
+<<<<<<< HEAD
   let newState: PagesState = { ...(await checkAuthState(state)) };
   rewriteUrl();
   const queryStr = window.location.hash
@@ -57,6 +20,11 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
 
   const path = queryStr.length ? queryStr[0] : '/';
   const pageName = routes[path] || routes.notFound;
+=======
+  let newState: PagesState = await checkAuthState(state);
+  rewriteUrl();
+  const { queryStr, pageName } = parseQueryString();
+>>>>>>> develop
   let page: Page;
   switch (pageName) {
     case 'main':
@@ -74,10 +42,12 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
     case 'sprint':
+      newState.sprint = setGameInitial(queryStr);
       page = new Sprint(newState);
       newState = await page.render();
       break;
     case 'audio':
+      newState.audio = setGameInitial(queryStr);
       page = new AudioChallenge(newState);
       newState = await page.render();
       break;

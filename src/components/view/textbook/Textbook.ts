@@ -36,6 +36,7 @@ class Textbook implements Page {
   }
 
   async handleUnitClick(e: Event) {
+    console.log(this.state);
     const target = <HTMLElement>e.target;
     if (target.dataset.unit) {
       this.state.textbook.unit = +target.dataset.unit;
@@ -44,7 +45,7 @@ class Textbook implements Page {
   }
 
   async changeCurrentPage(unit: number, page: number) {
-    window.location.hash = `/${this.state.page}/unit${unit}/${page}`;
+    window.location.hash = `/#/${this.state.page}/unit${unit}/${page}`;
     const textbookProgress = { unit: this.state.textbook.unit, page: this.state.textbook.page };
     const textbook = JSON.stringify(textbookProgress);
     localStorage.setItem('textbook', textbook);
@@ -71,7 +72,7 @@ class Textbook implements Page {
   }
 
   paging() {
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.page).content.cloneNode(true);
+    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.unit, this.state.textbook.page).content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
       this.handlePagingClick(e);
@@ -89,18 +90,14 @@ class Textbook implements Page {
   }
 
   createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate().content.cloneNode(true);
+    const playNode = <HTMLElement>playTemplate(this.state.textbook.unit, this.state.textbook.page).content.cloneNode(true);
     return playNode;
   }
 
   addListener(state: PagesState) {
     const handleClick = (e: Event) => {
-      console.log(e.target);
-      e.preventDefault();
       const target = <HTMLLinkElement>(<HTMLElement>e.target);
       const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);
-      window.history.pushState({}, '', `/#/dictionary${target.dataset.id}`);
-      handleRoute(state);
       document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
       menuItem.classList.add('main-nav__item_active');
     };

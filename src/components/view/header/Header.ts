@@ -83,10 +83,10 @@ class Header implements Page {
       if (!this.state.loggedIn && menuItem?.auth) {
         return;
       }
-      document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
-      target.classList.add('main-nav__item_active');
       route(e, this.state);
     }
+    document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
+    target.classList.add('main-nav__item_active');
   }
 
   async render() {
@@ -99,10 +99,14 @@ class Header implements Page {
     ).content.cloneNode(true);
     headerContainer.appendChild(headerNode);
     const nav = <HTMLElement>headerContainer.querySelector('nav');
+    const logo = <HTMLElement>headerContainer.querySelector('.logo__link');
     const loginButton = <HTMLElement>headerContainer.querySelector('#log-in');
     const logoutButton = <HTMLElement>headerContainer.querySelector('#log-out');
-    nav.addEventListener('click', (e: Event) => {
-      this.handleItemClick(e);
+
+    [ nav, logo ].forEach(el => {
+      el.addEventListener('click', (e: Event) => {
+        this.handleItemClick(e);
+      });
     });
     if (loginButton) {
       loginButton.addEventListener('click', () => {
