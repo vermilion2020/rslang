@@ -18,7 +18,7 @@ export const loadWords = async (unit: number, page: number, loggedIn: boolean): 
         const includWords = words.map((word) => {
           const incl = userWords.find((userWord) => word.id === userWord.wordId);
           if (incl) {
-            return { ...word, difficulty: incl.difficulty, optional: incl.optional };
+            return { ...word, difficulty: incl.difficulty, optional: incl.optional, used: true };
           }
           return word;
         });
@@ -35,7 +35,6 @@ export const loadWordsHard = async (state: PagesState): Promise<WordData[]> => {
   if (response.status === 200) {
     const dataServ: WordHardData[] = response.data[0].paginatedResults;
     words = dataServ.map((word: WordHardData) => {
-      console.log(word);
       const newWord = { ...word, difficulty: word.userWord?.difficulty, optional: word.userWord?.optional };
       delete newWord.userWord;
       return newWord;

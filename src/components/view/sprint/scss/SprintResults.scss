@@ -1,0 +1,96 @@
+.results-sprint {
+  text-align: left;
+  overflow: hidden;
+
+  hr {
+    background: $TextNotActive;
+  }
+}
+
+.result-scroll {
+  width: 700px;
+  height: 260px;
+  overflow: auto;
+}
+
+.result-scroll::-webkit-scrollbar {
+  width: 12px; 
+  height: 90%;
+}
+
+.result-scroll::-webkit-scrollbar-track {
+  background: $bgTColorWhite;    
+  z-index: -1;
+  
+}
+
+.result-scroll::-webkit-scrollbar-thumb {
+  background-color: $TextNotActive; 
+  border-radius: 20px;    
+  cursor: pointer; 
+  border: 3px solid $bgTColorWhite; 
+}
+
+.heading-h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.heading-h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0.7rem 0;
+}
+
+.results-success {
+  padding: 0.3rem 0.7rem;
+  margin-left: 1rem;
+  color: $bgTColorWhite;
+  background: $trueColorGames;
+  border-radius: 1rem;
+}
+
+.results-fail {
+  padding: 0.3rem 0.7rem;
+  margin-left: 1rem;
+  color: $bgTColorWhite;
+  background: $falseColorGames;
+  border-radius: 1rem;
+}
+
+.play-again {
+  margin-top: 0.8rem;
+}
+
+.results-line {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+
+  .word {
+    font-family: $enFont;
+    text-transform: capitalize;
+  }
+
+  .translate {
+    text-transform: capitalize;
+  }
+}
+
+.results-audio {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.success-words {
+  use {
+    fill: $trueColorGames;
+  }
+}
+
+.failed-words {
+  use {
+    fill: $falseColorGames;
+  }
+}
