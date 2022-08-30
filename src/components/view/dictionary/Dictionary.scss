@@ -1,8 +1,156 @@
 @import '../../view/base-styles.scss';
 
-.wrapper-sec-word {
+.btn-audio-diction, .icon-audio-diction {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.section-dic {
+  background-color: $bgTColorGrey;
+  padding: 0 2.5rem;
+}
+
+.wrapper-sec-dic {
   padding-top: 80px;
   max-width: 1240px;
   margin: auto;
   width: 100%;
 }
+
+.dictionary-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  margin-top: 30px;
+}
+
+.dictionary-card {
+  background-color: $bgTColorWhite;
+  border-radius: 15px;
+  display: grid;
+  grid-gap: 20px;
+  height: 250px;
+  grid-template-columns: 30% 1fr;
+  // grid-template-columns: 1fr 1fr;
+}
+
+.diction-meta {
+  overflow: hidden;
+}
+
+.diction-meta-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px 0 0 15px;
+}
+
+.btn-audio-wrapper {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+}
+
+.diction-desc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  .wordEn {
+    font-family: $enFont;
+    font-size: $textBasic;
+    font-weight: 700;
+  }
+
+  .wordRu {
+    font-family: $rusFont;
+    font-size: $textBasic;
+    font-weight: 500;
+  }
+
+  .text-meaning,
+  .text-example {
+    font-family: $enFont;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .text-meaning-trn,
+  .text-example-trn {
+    font-family: $rusFont;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}
+
+.wrapper-btn-diction {
+  display: flex;
+  gap: 7px;
+}
+
+.sec-btn-diction {
+  display: flex;
+}
+
+.label {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  -webkit-mask: url('../../../assets/icons/icon-dif.svg') no-repeat;
+  -webkit-mask-size: auto 16px;
+  top: 0px;
+  right: 10%;
+}
+.label.hard {
+  background-color: $iconColorComplex;
+}
+.label.easy {
+  background-color: $iconColorStudied;
+}
+
+.btn-audio-diction {
+  height: 45px;
+  width: 45px;
+  border-radius: 3rem;
+  background-color: $bgTColorBlack;
+  border: 1px solid $bgTColorBlack;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $colorBtnHov;
+    border: 1px solid $bgTColorBlack;
+    .icon-audio-diction {
+      background-color: $bgTColorBlack;
+    }
+  }
+}
+
+.icon-audio-diction {
+  cursor: pointer;
+  position: absolute;
+  background-color: $bgTColorWhite;
+  width: 25px;
+  height: 25px;
+  -webkit-mask: url('../../../assets/icons/icon-audio.svg') no-repeat;
+  -webkit-mask-size: auto 25px;
+  top: 21%;
+  right: 13%;
+  }
+
+
+// position: absolute;
+// width: 20px;
+// height: 20px;
+// -webkit-mask: url('../../../assets/icons/icon-dif.svg') no-repeat;
+// -webkit-mask-size: auto 16px;
+// top: 0px;
+// right: 10%;
+
+
+

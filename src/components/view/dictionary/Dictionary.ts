@@ -1,7 +1,8 @@
 import './Dictionary.scss';
 import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
-import { pagingTemplate, unitTemplate, sectionWords, titleTemplate} from './DictionaryTemplate';
+import { pagingTemplate, unitTemplate, sectionWords, titleTemplate, dictionaryTemplate} from './DictionaryTemplate';
+import { playTemplate} from '../textbook/TextbookTemplate';
 import { loadWords, loadWordsHard } from '../../controller/helpers/word-helper';
 import { handleRoute } from '../../controller/router';
 
@@ -16,9 +17,10 @@ class Dictionary implements Page {
     this.state.page = 'dictionary';
     const container = document.querySelector('#main-container') as HTMLDivElement;
     const sectionDictionary = await this.createSectionDiction();
-    // const sectionPlay = this.createSectionPlay();
+    const sectionPlay = this.createSectionPlay();
     container.innerHTML = '';
     container.append(sectionDictionary);
+    container.append(sectionPlay);
     return this.state;
   }
 
@@ -29,15 +31,16 @@ class Dictionary implements Page {
     if (this.state.dictionary.unit === 7) {
       words = await loadWordsHard(this.state);
     }
-    // const textbookNode = <HTMLElement>dictionaryTemplate(words).content.cloneNode(true);
+    console.log(words);
+    const dictionaryNode = <HTMLElement>dictionaryTemplate(words).content.cloneNode(true);
     const pagingNode = this.paging();
     const unitNode = this.units();
   
     wrapper.innerHTML = '';
     wrapper.append(titleNode);
     wrapper.append(unitNode);
-    // wrapper.append(textbookNode);
     wrapper.append(pagingNode);
+    wrapper.append(dictionaryNode);
     return section;
   }
 
@@ -62,8 +65,6 @@ class Dictionary implements Page {
     }
     await this.changeCurrentPage(this.state.dictionary.unit, this.state.dictionary.page);
   }
-
-
 
   units() {
     const unitNode = <HTMLElement>unitTemplate(this.state.dictionary.unit, this.state.loggedIn).content.cloneNode(true);
@@ -91,7 +92,15 @@ class Dictionary implements Page {
     await this.render();
   }
 
+  createSectionPlay() {
+    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page)
+      .content.cloneNode(true);
+    return playNode;
+  }
+
 }
+
+
 
 
 export default Dictionary;
