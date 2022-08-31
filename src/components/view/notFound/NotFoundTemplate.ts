@@ -1,8 +1,12 @@
 const notFoundTemplate: HTMLTemplateElement = document.createElement('template');
 notFoundTemplate.innerHTML = `
-  <div class="not-found-container">
-    <h2>Nothing is found</h2>
-    <h3>Use navigation to open apllication pages</h3>
-    <div class="not-found-container__img"></div>
-  </div>`;
+  <section class="sec-not-found">
+    <div class="not-found-container">
+
+      <img class="icon-404" src="icons/404.svg" alt="title-img" />
+      <p class="sec-not-found-title">Nothing is found</p>
+      <p class="sec-not-found-desc">По вашему запросу ничего не найдено.</p>
+    </div>
+  </section>`;
+
 export default notFoundTemplate;
