@@ -35,6 +35,7 @@ export const sprintResultsTemplate = (
             ${failedLines}
           </div>
         </div>
+        <hr>
         <button class="play-again button" id="play-again">Попробовать еще раз</button>
       </div>
     </div>`;

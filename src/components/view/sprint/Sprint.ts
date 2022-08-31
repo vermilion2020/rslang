@@ -56,6 +56,7 @@ class Sprint implements Page {
   }
 
   async handleUnitSelect(e: Event) {
+    this.state.gameStarted = true;
     const target = <HTMLElement>e.target;
     if (target.classList.contains('unit-select__button') && !this.startCountDown) {
       this.startCountDown = true;
@@ -79,6 +80,7 @@ class Sprint implements Page {
       this.unit = this.state.sprint.unit;
       this.page = this.state.sprint.page;
       this.startCountDown = true;
+      this.state.gameStarted = true;
       document.querySelector('.unit-select')?.classList.add('hidden');
       document.querySelector('.diagram')?.classList.remove('hidden');
       timerCard(3, 'unit-diagram');
@@ -95,7 +97,7 @@ class Sprint implements Page {
 
   async updateCard() {
     if (this.words.length === 0) {
-      await this.renderResults();
+      return await this.renderResults();
     }
     const { word, updatedWords } = await getNewWord(
       this.words,
@@ -131,7 +133,6 @@ class Sprint implements Page {
   setInitialValues() {
     this.successInRope = 0;
     this.score = 0;
-    this.state.gameStarted = true;
     this.countForSuccess = 10;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;

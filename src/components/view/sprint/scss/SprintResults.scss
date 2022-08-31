@@ -1,7 +1,13 @@
 .results-sprint {
-  text-align: left;
   overflow: hidden;
   height: 400px;
+  width: 700px;
+  background: $bgTColorWhite;
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+  margin: 10vh auto 1rem;
+  border: 1px solid $bgTColorBlack;
 
   hr {
     background: $TextNotActive;
@@ -75,6 +81,10 @@
 
   .translate {
     text-transform: capitalize;
+  }
+
+  .transcription {
+    color: $TextNotActive;
   }
 }
 
