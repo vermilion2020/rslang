@@ -80,14 +80,17 @@ export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTe
 export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
   let btnHardAction = 'to-hard';
   let btnEasyAction = 'to-easy';
+  let statusInp = '';
   let textBtnHard = 'сделать сложным';
   let textBtnEasy = 'сделать изученным';
   if (wordData.difficulty) {
     if (wordData.difficulty === 'hard') {
+      statusInp = 'hard';
       btnHardAction = 'to-base';
       textBtnHard = 'удалить из сложного';
     }
     if (wordData.difficulty === 'easy') {
+      statusInp = 'easy';
       btnEasyAction = 'to-base';
       textBtnEasy = 'удалить из изученного';
     }
@@ -113,14 +116,16 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
     <div class="sec-btn-diction">
       <div class="wrapper-btn-diction">
         <input type="radio" 
+          class="radio-dif"
           onMouseDown="this.isChecked=this.checked;" 
           onClick="this.checked=!this.isChecked;" 
-          name="status" value="1" checked="checked"/>сложное<br>
+          name="${wordData.id}" value="hard" ${wordData.difficulty === 'hard' ? 'checked' : ''}/>сложное<br>
     
         <input type="radio"
+        class="radio-dif"
           onMouseDown="this.isChecked=this.checked;" 
           onClick="this.checked=!this.isChecked;" 
-          name="status" value="2"/>изученное<br>
+          name="${wordData.id}" value="easy" ${wordData.difficulty === 'easy' ? 'checked' : ''}/>изученное<br>
 
       </div>
       <div class="wrapper-difficulty">

@@ -3,7 +3,7 @@ import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
 import { pagingTemplate, unitTemplate, sectionWords, titleTemplate, dictionaryTemplate } from './DictionaryTemplate';
 import { playTemplate } from '../textbook/TextbookTemplate';
-import { loadWords, loadWordsHard } from '../../controller/helpers/word-helper';
+import { loadWords, loadWordsHard, addWordData } from '../../controller/helpers/word-helper';
 import { handleRoute } from '../../controller/router';
 
 class Dictionary implements Page {
@@ -100,12 +100,37 @@ class Dictionary implements Page {
   }
 
   addListener(state: PagesState) {
-    const changeRadio = (e: Event) => {
+    const changeRadio = async (e: Event) => {
+      const cardId = (<HTMLInputElement>e.target).name;
+      const lebelEl = document.getElementById(cardId)?.querySelector('.label');
+      const inputValue = (<HTMLInputElement>e.target).value;
+      const inputChecked = (<HTMLInputElement>e.target).checked;
+
+      console.log(lebelEl);
       console.log((<HTMLInputElement>e.target).checked);
-    }
+      if (inputValue === 'hard') {
+        if (inputChecked) {
+          lebelEl?.classList.add('hard');
+          lebelEl?.classList.remove('easy');
+          await addWordData(state.userId, cardId, state.token, 'hard');
+        } else {
+          lebelEl?.classList.remove('hard');
+          await addWordData(state.userId, cardId, state.token, 'base');
+        }
+      } 
+      if (inputValue === 'easy') {
+        if (inputChecked) {
+          lebelEl?.classList.add('easy');
+          lebelEl?.classList.remove('hard');
+          await addWordData(state.userId, cardId, state.token, 'easy');
+        } else {
+          lebelEl?.classList.remove('easy');
+          await addWordData(state.userId, cardId, state.token, 'base');
+        }
+      }
+    };
 
-    const radios: HTMLInputElement[] = Array.from(document.querySelectorAll('input[name="status"]'));
-
+    const radios = document.querySelectorAll('.radio-dif');
     radios.forEach((r) => r.addEventListener('click', changeRadio));
   }
 }

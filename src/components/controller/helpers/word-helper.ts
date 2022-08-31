@@ -1,6 +1,8 @@
-import { getUserWords, getWords, getWordsHard } from '../../model/api/words';
-import { WordData, UserWords, WordHardData } from '../../model/types/words';
+import { getUserWords, getUserWord, getWords, getWordsHard, addUserWord, updateUserWord } from '../../model/api/words';
+import { WordData, UserWords, WordHardData, UserWord } from '../../model/types/words';
 import { PagesState } from '../../model/types/page';
+import axios from 'axios';
+
 
 export const loadWords = async (unit: number, page: number, loggedIn: boolean): Promise<WordData[]> => {
   let words: WordData[] = [];
@@ -41,4 +43,33 @@ export const loadWordsHard = async (state: PagesState): Promise<WordData[]> => {
     });
   }
   return words;
+};
+
+export const addWordData = async (userId: string, wordId: string, token: string, status: string) => {
+  let word;
+  try {
+    const response = await getUserWord(userId, wordId, token);
+    if (response.status === 200) {
+      word = <UserWord>response.data;
+      console.log(word);
+      const wordData = {
+        difficulty: `${status}`,
+        optional: {
+          vic: word.optional.vic,
+          loss: word.optional.loss,
+        },
+      };
+      updateUserWord(userId, wordId, wordData, token);
+    }
+  } catch {
+    const wordData = {
+      difficulty: `${status}`,
+      optional: {
+        vic: 0,
+        loss: 0,
+      },
+    };
+    addUserWord(userId, wordId, wordData, token);
+    console.log('jjj');
+  }
 };
