@@ -77,13 +77,27 @@ export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTe
   return paging;
 };
 
-export const drawCard = (wordData: WordData): string => {
+export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
+  let btnHardAction = 'to-hard';
+  let btnEasyAction = 'to-easy';
+  let textBtnHard = 'сделать сложным';
+  let textBtnEasy = 'сделать изученным';
+  if (wordData.difficulty) {
+    if (wordData.difficulty === 'hard') {
+      btnHardAction = 'to-base';
+      textBtnHard = 'удалить из сложного';
+    }
+    if (wordData.difficulty === 'easy') {
+      btnEasyAction = 'to-base';
+      textBtnEasy = 'удалить из изученного';
+    }
+  }
   const card = `<div class="dictionary-card" id="${wordData.id}">
   <div class="diction-meta">
     <img class="diction-meta-photo" src="https://rslang-learn-words.herokuapp.com/${wordData.image}">
   </div>
   
-  <div class="diction-desc">
+  <div class="diction-desc ${loggedIn ? 'loggedin' : ''}">
 
     <div class="block-en">
       <div class="wordEn">${wordData.word[0].toUpperCase() + wordData.word.slice(1)}</div>
@@ -98,12 +112,16 @@ export const drawCard = (wordData: WordData): string => {
     <div class="label ${wordData.difficulty ? wordData.difficulty : ''}"></div>
     <div class="sec-btn-diction">
       <div class="wrapper-btn-diction">
-        <button class="button btn-hard">
-          сделать сложным
-        </button>
-        <button class="button btn-easy">
-          сделать изученным
-        </button>
+        <input type="radio" 
+          onMouseDown="this.isChecked=this.checked;" 
+          onClick="this.checked=!this.isChecked;" 
+          name="status" value="1" checked="checked"/>сложное<br>
+    
+        <input type="radio"
+          onMouseDown="this.isChecked=this.checked;" 
+          onClick="this.checked=!this.isChecked;" 
+          name="status" value="2"/>изученное<br>
+
       </div>
       <div class="wrapper-difficulty">
         <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${wordData.optional?.vic}</div>
@@ -124,9 +142,9 @@ export const drawCard = (wordData: WordData): string => {
   return card;
 };
 
-export const dictionaryTemplate = (words: WordData[]): HTMLTemplateElement => {
+export const dictionaryTemplate = (words: WordData[], loggedIn: boolean): HTMLTemplateElement => {
   const textbook = document.createElement('template');
-  const cards = words.map((word) => drawCard(word)).join('');
+  const cards = words.map((word) => drawCard(word, loggedIn)).join('');
   textbook.innerHTML = `
     <div class="main-page">
       <div class="dictionary-container">

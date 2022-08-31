@@ -1,8 +1,8 @@
 import './Dictionary.scss';
 import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
-import { pagingTemplate, unitTemplate, sectionWords, titleTemplate, dictionaryTemplate} from './DictionaryTemplate';
-import { playTemplate} from '../textbook/TextbookTemplate';
+import { pagingTemplate, unitTemplate, sectionWords, titleTemplate, dictionaryTemplate } from './DictionaryTemplate';
+import { playTemplate } from '../textbook/TextbookTemplate';
 import { loadWords, loadWordsHard } from '../../controller/helpers/word-helper';
 import { handleRoute } from '../../controller/router';
 
@@ -21,6 +21,7 @@ class Dictionary implements Page {
     container.innerHTML = '';
     container.append(sectionDictionary);
     container.append(sectionPlay);
+    this.addListener(this.state);
     return this.state;
   }
 
@@ -32,10 +33,10 @@ class Dictionary implements Page {
       words = await loadWordsHard(this.state);
     }
     console.log(words);
-    const dictionaryNode = <HTMLElement>dictionaryTemplate(words).content.cloneNode(true);
+    const dictionaryNode = <HTMLElement>dictionaryTemplate(words, this.state.loggedIn).content.cloneNode(true);
     const pagingNode = this.paging();
     const unitNode = this.units();
-  
+
     wrapper.innerHTML = '';
     wrapper.append(titleNode);
     wrapper.append(unitNode);
@@ -98,9 +99,15 @@ class Dictionary implements Page {
     return playNode;
   }
 
+  addListener(state: PagesState) {
+    const changeRadio = (e: Event) => {
+      console.log((<HTMLInputElement>e.target).checked);
+    }
+
+    const radios: HTMLInputElement[] = Array.from(document.querySelectorAll('input[name="status"]'));
+
+    radios.forEach((r) => r.addEventListener('click', changeRadio));
+  }
 }
-
-
-
 
 export default Dictionary;

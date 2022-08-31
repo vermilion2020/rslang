@@ -57,7 +57,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-right: 20px;
@@ -88,14 +89,31 @@
   }
 }
 
+.sec-btn-diction {
+
+  display: none;
+}
+
+.diction-desc.loggedin {
+  justify-content: space-between;
+
+  .sec-btn-diction {
+    display: flex;
+  }
+}
+
 .wrapper-btn-diction {
   display: flex;
   gap: 7px;
 }
 
-.sec-btn-diction {
-  display: flex;
+.wrapper-btn-diction.loggedin {
+
+
 }
+
+
+
 
 .label {
   position: absolute;

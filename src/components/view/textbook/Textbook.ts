@@ -72,7 +72,8 @@ class Textbook implements Page {
   }
 
   paging() {
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.unit, this.state.textbook.page).content.cloneNode(true);
+    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.unit, this.state.textbook.page)
+      .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
       this.handlePagingClick(e);
@@ -90,7 +91,8 @@ class Textbook implements Page {
   }
 
   createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate(this.state.textbook.unit, this.state.textbook.page).content.cloneNode(true);
+    const playNode = <HTMLElement>playTemplate(this.state.textbook.unit, this.state.textbook.page)
+      .content.cloneNode(true);
     return playNode;
   }
 
