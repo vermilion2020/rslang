@@ -104,6 +104,8 @@ class Sprint implements Page {
       this.unit,
       this.page,
       this.state.loggedIn,
+      1,
+      this.state.sprint.source
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
@@ -161,7 +163,17 @@ class Sprint implements Page {
       this.page,
       this.state.loggedIn,
     );
-    const { word, updatedWords } = await getNewWord(this.words, this.unit, this.page, this.state.loggedIn);
+    if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
+      this.words = this.words.filter(word => word.difficulty !== 'easy');
+    }
+    const { word, updatedWords } = await getNewWord(
+      this.words,
+      this.unit,
+      this.page,
+      this.state.loggedIn,
+      1,
+      this.state.sprint.source
+    );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
     const sprintCardNode = <HTMLElement>sprintCardTemplate(word).content.cloneNode(true);

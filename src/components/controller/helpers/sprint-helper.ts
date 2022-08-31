@@ -12,11 +12,18 @@ export const randomResult = (word: GameWordData) => {
   return { result, translate };
 };
 
-export const getNewWord = async (words: WordData[], unit: number, currPage: number, loggedIn: boolean) => {
+export const getNewWord = async (
+  words: WordData[],
+  unit: number,
+  currPage: number,
+  loggedIn: boolean,
+  translateCounts: number, 
+  source: string
+) => {
   let currentPage = currPage;
   let currentUnit = unit;
   const wordIndex = Math.floor(Math.random() * words.length);
-  const response = await getWordTranslates(words[wordIndex].id, 1);
+  const response = await getWordTranslates(words[wordIndex].id, translateCounts);
   const { translates } = <GameWordData>response.data;
   const word = { ...words[wordIndex], translates };
   let updatedWords = words.filter((_, index) => index !== wordIndex);
@@ -32,7 +39,10 @@ export const getNewWord = async (words: WordData[], unit: number, currPage: numb
     }
 
     if (currentPage !== -1) {
-      const newWords = await loadWords(currentUnit, currentPage, loggedIn);
+      let newWords = await loadWords(currentUnit, currentPage, loggedIn);
+      if (source === 'textbook' || source === 'dictionary') {
+        newWords = newWords.filter(word => word.difficulty !== 'easy');
+      }
       updatedWords = [...updatedWords, ...newWords];
     }
   }
