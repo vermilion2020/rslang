@@ -3,14 +3,21 @@ export interface Progress {
   page: number;
 }
 
+export type GameInitial = Progress & { source: string };
+
 export interface PagesState {
   page: string;
   loggedIn: boolean;
   token: string;
+  expire: number;
   refreshToken: string;
   userId: string;
   userName: string;
   textbook: Progress;
+  sprint: GameInitial,
+  audio: GameInitial,
+  dictionary: Progress;
+  gameStarted?: boolean;
 }
 
 export interface Page {

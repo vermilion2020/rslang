@@ -6,13 +6,13 @@
   transition: all 0.3s ease;
 }
 
-body {
-  margin: 0;
+html {
+  font-family: $rusFont;
+  font-weight: 300;
 }
 
-.wrapper {
-  width: 100%;
-  box-sizing: border-box;
+body {
+  margin: 0;
 }
 
 .header-wrapper{
@@ -23,17 +23,15 @@ body {
   border-top: 1px solid #535353;
 }
 
-// .gray {
-//   background-color: $grayBg;
-// }
-
 .white {
   background-color: $bgTColorWhite;
 }
 
 .main-container{
-  width: 1240px;
-  margin: auto;
+  width: 100%;
+  min-height: calc(100vh - 130px);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 html {
@@ -57,11 +55,17 @@ html {
 .button {
   color: $bgTColorWhite;
   background: $bgTColorBlack;
-  padding: 0.5rem 0.8rem;
+  padding: 0.7rem 1.4rem;
   border: 0;
   font-size: 0.9rem;
   border-radius: 2rem;
   cursor: pointer;
+}
+
+.button_light {
+  background: $bgTColorWhite;
+  outline: 1px solid $bgTColorBlack;
+  color: $bgTColorBlack;
 }
 
 

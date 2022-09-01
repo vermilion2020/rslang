@@ -1,62 +1,24 @@
 import NotFound from '../view/notFound/NotFound';
 import Main from '../view/main/Main';
-import { Page, PagesState, Progress } from '../model/types/page';
+import { Page, PagesState } from '../model/types/page';
 import Textbook from '../view/textbook/Textbook';
 import Dictionary from '../view/dictionary/Dictionary';
 import Sprint from '../view/sprint/Sprint';
 import AudioChallenge from '../view/audio/AudioChallenge';
 import Stats from '../view/stats/Stats';
-
-const routes: { [key: string]: string } = {
-  notFound: 'notFound',
-  '/': 'main',
-  textbook: 'textbook',
-  dictionary: 'dictionary',
-  sprint: 'sprint',
-  audio: 'audio',
-  stats: 'stats',
-};
-
-const checkAuthState = async (state: PagesState): Promise<PagesState> => state;
-
-// TODO add auth logic
-// Add user data if exist token in localstorage and it is valid
-
-const rewriteUrl = () => {
-  const { hash } = window.location;
-  if (!hash) {
-    window.location.hash = `#${window.location.pathname}`;
-    window.location.pathname = '';
-  }
-};
-
-const setProgress = (queryStr: string[], textbook: Progress) => {
-  let { unit } = textbook;
-  let { page } = textbook;
-  if (queryStr[1] && queryStr[1].includes('unit')) {
-    unit = +queryStr[1].replace(/([a-zA-Z])+/, '') || 1;
-    if (queryStr[2]) {
-      page = +queryStr[2] || 1;
-    }
-  }
-  return { unit, page };
-};
+import { checkAuthState } from './helpers/auth-helper';
+import {
+  parseQueryString, rewriteUrl, setGameInitial, setProgress, showPageTitle,
+} from './helpers/router-helper';
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
-  checkAuthState(state);
-  rewriteUrl();
-  const queryStr = window.location.hash
-    .replace('/#', '')
-    .split('/')
-    .filter((item) => item !== '#' && item !== '');
-  // console.log(queryStr);
-  const path = queryStr.length ? queryStr[0] : '/';
-  const pageName = routes[path] || routes.notFound;
+  let newState: PagesState = await checkAuthState(state);
+  rewriteUrl(state);
+  const { queryStr, pageName } = parseQueryString();
   let page: Page;
-  let newState = state;
   switch (pageName) {
     case 'main':
-      page = new Main(state);
+      page = new Main(newState);
       newState = await page.render();
       break;
     case 'textbook':
@@ -65,34 +27,37 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       newState = await page.render();
       break;
     case 'dictionary':
-      page = new Dictionary(state);
+      newState.dictionary = setProgress(queryStr, newState.dictionary);
+      page = new Dictionary(newState);
       newState = await page.render();
       break;
     case 'sprint':
-      page = new Sprint(state);
+      newState.sprint = setGameInitial(queryStr);
+      page = new Sprint(newState);
       newState = await page.render();
       break;
     case 'audio':
-      page = new AudioChallenge(state);
+      newState.audio = setGameInitial(queryStr);
+      page = new AudioChallenge(newState);
       newState = await page.render();
       break;
     case 'stats':
-      if (!state.loggedIn) {
-        window.location.pathname = '/';
-        handleRoute(state);
+      if (!newState.loggedIn) {
+        window.location.href = '/';
       }
-      page = new Stats(state);
+      page = new Stats(newState);
       newState = await page.render();
       break;
     case 'notFound':
-      page = new NotFound(state);
+      page = new NotFound(newState);
       newState = await page.render();
       break;
     default:
-      page = new Main(state);
+      page = new Main(newState);
       newState = await page.render();
       break;
   }
+  showPageTitle(newState.page);
   return newState;
 };
 

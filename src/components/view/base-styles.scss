@@ -1,34 +1,38 @@
 $fa-font-path: '../../assets/fonts/' !default;
 
 // шрифты
-$rusFont: 'SuisseIntl, Tahoma, sans-serif';
-$enFont: 'SuisseWorks, Georgia, Serif';
+$rusFont: 'SuisseIntl';
+$enFont: 'SuisseWorks';
+
+//расстояние от края экрана
+$mainIndent: 2.5rem;
 
 // шрифты, основные размеры
-$textHeader: 3rem;
-$textSubtitle: 2rem;
-$textBasic: 1.5rem;
-$textDescription: 1.25rem;
+$textHeader: 2.5rem;
+$textSubtitle: 1.6rem;
+$textBasic: 1.25rem;
+$textDescription: 1.125rem;
 
 // цвета для иконок на карточка Сложное, Изученное
 $iconColorComplex: #FF0000;
 $iconColorStudied: #65D72F;
 
 // цвета активных кнопок в Словаре
-$btnColorUnit1: #E92D38;
-$btnColorUnit2: #F36F1E;
-$btnColorUnit3: #FDCA1F;
-$btnColorUnit4: #7AB63E;
-$btnColorUnit5: #35B4D0;
-$btnColorUnit6: #0855E4;
+$btnColorUnit1: #930a12;
+$btnColorUnit2: #b14300;
+$btnColorUnit3: #b79300;
+$btnColorUnit4: #458506;
+$btnColorUnit5: #0a7890;
+$btnColorUnit6: #0f45a7;
 
 // цвета активных фона карточек в Словаре
-$bgColorUnit1: #FFEAEB;
-$bgColorUnit2: #FFF0E7;
-$bgColorUnit3: #FFF8E1;
-$bgColorUnit4: #EEFDDE;
-$bgColorUnit5: #B9F2FF;
-$bgColorUnit6: #B2CAF9;
+$bgColorUnit1: #fdf8f8;
+$bgColorUnit2: #fff9f5;
+$bgColorUnit3: #fbf8ef;;
+$bgColorUnit4: #f0f5eb;
+$bgColorUnit5: #eff5f6;
+$bgColorUnit6: #f0f4fb;
+$bgColorUnit7: #FAFAFA;
 
 // цвета фонов и текста на сайте
 $bgTColorWhite: #ffffff;
@@ -43,45 +47,58 @@ $elemColorGreen: #D7E977;
 $elemColorCian: #89FCFB;
 
 // кнопка по ховеру
-$colorBtnHov: #E3FB8F; 
+$colorBtnHov: #E3FB8F;
+
+// кнопка disabled
+$colorBtnDisab: #E9E9E9;
+
+// форма регистрации, входа
+$bgColorInput: #F1F1F1;
+
+// игра фон
+$bgColorGames: #F5F5F5;
+$trueColorGames: #34A100;
+$falseColorGames: #B00;
+$circleBgColor: #D9D9D9;
+$circleActBgColor: #9D0606;
 
 
  @font-face {
  	font-family: 'SuisseIntl';
  	src: url('#{$fa-font-path}SuisseIntl-Regular.woff');
  	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Regular.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Regular.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Regular.svg') format('svg');
- 	font-weight: normal;
- 	font-style: 400;
+  font-weight: 300;
+ 	font-style: normal;
  }
 
  @font-face {
  	font-family: 'SuisseIntl';
  	src: url('#{$fa-font-path}SuisseIntl-Book.woff');
  	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Book.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Book.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Book.svg') format('svg');
- 	font-weight: medium;
- 	font-style: 500;
+  font-weight: 500;
+ 	font-style: medium;
  }
 
  @font-face {
 	font-family: 'SuisseIntl';
 	src: url('#{$fa-font-path}SuisseIntl-Bold.eot');
 	src: local('☺'), url('#{$fa-font-path}SuisseIntl-Bold.woff') format('woff'), url('#{$fa-font-path}SuisseIntl-Bold.ttf') format('truetype'), url('#{$fa-font-path}SuisseIntl-Bold.svg') format('svg');
-	font-weight: bold;
-	font-style: 700;
+	font-weight: 700;
+	font-style: bold;
 }
 
  @font-face {
 	font-family: 'SuisseWorks';
 	src: url('#{$fa-font-path}SuisseWorks-Regular.eot');
 	src: local('☺'), url('#{$fa-font-path}SuisseWorks-Regular.woff') format('woff'), url('#{$fa-font-path}SuisseWorks-Regular.ttf') format('truetype'), url('#{$fa-font-path}SuisseWorks-Regular.svg') format('svg');
-	font-weight: normal;
-	font-style: 400;
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
 	font-family: 'SuisseWorks';
 	src: url('#{$fa-font-path}SuisseWorks-Book.eot');
 	src: local('☺'), url('#{$fa-font-path}SuisseWorks-Book.woff') format('woff'), url('#{$fa-font-path}SuisseWorks-Book.ttf') format('truetype'), url('#{$fa-font-path}SuisseWorks-Book.svg') format('svg');
-	font-weight: medium;
-	font-style: 500;
+	font-weight: 500;
+	font-style: medium;
 }
