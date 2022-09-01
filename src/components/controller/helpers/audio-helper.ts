@@ -1,6 +1,6 @@
-import { addUserWord, getWords, getWordTranslates, updateUserWord } from '../../model/api/words';
-import { maxScorePerWord, minScorePerWord, scoreStep } from '../../model/constants';
-import { GameWordData, UserWord, WordData } from '../../model/types';
+import { getWords} from '../../model/api/words';
+import { apiBaseUrl, countWords } from '../../model/constants';
+import { GameWordData, WordData } from '../../model/types';
 import { loadWords } from '../../controller/helpers';
 
 export const unitSelect = async (target: HTMLElement) => {
@@ -8,6 +8,51 @@ export const unitSelect = async (target: HTMLElement) => {
   const unitId = <string>target.dataset.sett;
   unitSelectContainer.dataset.sett = unitId;
   return +unitId;
+};
+
+const setSelectClass = (dataAttr: number, className: string) => {
+  (<HTMLElement>document.querySelector(`[data-word="${dataAttr}"]`)).classList.add(className);
+}
+
+export const showCorrectAnswer = (word: GameWordData, result: boolean, valueResult: number) => {
+  // TODO set scc styles for classes incorrect, correct, guessed
+  const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
+  const correct = +<string>gameCard.dataset.result;
+  document.querySelector('.btn-dont-know')?.classList.add('hidden');
+  document.querySelector('.btn-next')?.classList.remove('hidden');
+  const imgSrc = `${apiBaseUrl}/${word.image}`;
+  const picture = <HTMLElement>document.querySelector('#word-picture');
+  picture.setAttribute('src', imgSrc);
+  picture.classList.remove('hidden');
+  const audio = <HTMLElement>document.querySelector('.speaker-ico');
+  audio.classList.remove('hidden');
+  if (!result ) {
+    if (valueResult !== -1) {
+      setSelectClass(valueResult, 'incorrect');
+    }
+    setSelectClass(correct, 'correct');
+  } else {
+    setSelectClass(correct, 'guessed');
+  }
+  (<HTMLElement>document.querySelector('.select-offer')).innerText = <string>word.word;
+}
+
+export const resetCardsContent = () => {
+  const picture = <HTMLElement>document.querySelector('#word-picture');
+  picture.setAttribute('src', '');
+  picture.classList.add('hidden');
+  const offer = <HTMLElement>document.querySelector('.select-offer');
+  offer.innerText = '';
+  document.querySelector('.btn-dont-know')?.classList.remove('hidden');
+  document.querySelector('.btn-next')?.classList.add('hidden');
+  (<HTMLElement>document.querySelector('.speaker-ico')).classList.add('hidden');
+}
+
+export const randomTranslates = (word: GameWordData) => {
+  let result = Math.round(Math.random() * countWords);
+  let translates = word.translates;
+  translates.splice(result, 0, word.wordTranslate);
+  return { result, translates };
 };
 
 export const randomResultAu = (word: GameWordData) => {

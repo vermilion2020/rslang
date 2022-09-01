@@ -8,4 +8,5 @@ export const minScorePerWord = 10;
 export const scoreStep = 4;
 
 // audio game
-export const countAttempts = 10;
+export const countAttempts = 20;
+export const countWords = 5;
