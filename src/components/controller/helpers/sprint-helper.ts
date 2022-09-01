@@ -26,7 +26,7 @@ export const getNewWord = async (
   const response = await getWordTranslates(words[wordIndex].id, translateCounts);
   const { translates } = <GameWordData>response.data;
   const word = { ...words[wordIndex], translates };
-  let updatedWords = words.filter((_, index) => index !== wordIndex);
+  let updatedWords  = [...words.slice(0, wordIndex), ...words.slice(wordIndex + 1, words.length)];
   if (updatedWords.length < 1) {
     if (currentPage > 1) {
       currentPage -= 1;

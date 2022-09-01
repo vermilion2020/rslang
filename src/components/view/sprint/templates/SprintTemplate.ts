@@ -53,16 +53,8 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
         <h3 id="card-word" class="card-word">${word.word}</h3>
         <h4 id="card-translate" class="card-translate">${translate}</h4>
         <div class="decision">
-          <button class="decision_button decision_button__false" data-value="0"> 
-          <svg class="arr">
-            <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
-          </svg>
-           Неверно</button>
-          <button class="decision_button decision_button__true" data-value="1">Верно 
-          <svg class="arr">
-            <use xlink:href="./icons/sprite-mainpage.svg#arrow"></use>
-          </svg>
-          </button>
+          <button class="decision_button decision_button__false" data-value="0">Неверно</button>
+          <button class="decision_button decision_button__true" data-value="1">Верно</button>
         </div>
       </div>
       ${timerNode(59, ' card-diagram')}

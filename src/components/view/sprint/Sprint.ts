@@ -165,6 +165,9 @@ class Sprint implements Page {
     );
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
       this.words = this.words.filter(word => word.difficulty !== 'easy');
+      if (!this.words.length) {
+        window.location.href = '/#/sprint';
+      }
     }
     const { word, updatedWords } = await getNewWord(
       this.words,
@@ -192,7 +195,7 @@ class Sprint implements Page {
       if (cardContainer) {
         const { key } = e;
         const trueButton = <HTMLElement>document.querySelector('.decision_button__true');
-        if ((key === 'ArrowRight' || key === 'ArrowLeft') && !trueButton.getAttribute('disabled')) {
+        if ((key === 'ArrowRight' || key === 'ArrowLeft') && trueButton && !trueButton.getAttribute('disabled')) {
           await this.handleDecision(e, cardContainer);
         }
       }
