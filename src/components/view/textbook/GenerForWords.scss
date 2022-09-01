@@ -87,6 +87,29 @@
   }
 }
 
+.icon-super {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+  background-image: url('../../../assets/icons/icon-super.svg');
+  background-size: 25px;
+  background-repeat: no-repeat;
+  top: -12px;
+  left: -7px;
+}
+
+.wrapper-btn-pag {
+  position: relative;
+}
+
+.wrapper-btn-pag.super{
+  .icon-super {
+    display: block;
+  }
+}
+
 .paging .button-pag.paging__next:hover {
   background-color: $colorBtnHov;
   background-image: url('../../../assets/icons/arrow-right.svg');

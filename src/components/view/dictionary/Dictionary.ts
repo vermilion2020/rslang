@@ -3,7 +3,7 @@ import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
 import { pagingTemplate, unitTemplate, sectionWords, titleTemplate, dictionaryTemplate } from './DictionaryTemplate';
 import { playTemplate } from '../textbook/TextbookTemplate';
-import { loadWords, loadWordsHard, addWordData } from '../../controller/helpers/word-helper';
+import { loadWords, loadWordsHard, addWordData, addDataPerPage } from '../../controller/helpers/word-helper';
 import { handleRoute } from '../../controller/router';
 
 class Dictionary implements Page {
@@ -34,7 +34,7 @@ class Dictionary implements Page {
     }
     console.log(words);
     const dictionaryNode = <HTMLElement>dictionaryTemplate(words, this.state.loggedIn).content.cloneNode(true);
-    const pagingNode = this.paging();
+    const pagingNode = await this.paging();
     const unitNode = this.units();
 
     wrapper.innerHTML = '';
@@ -45,8 +45,23 @@ class Dictionary implements Page {
     return section;
   }
 
-  paging() {
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page)
+  async paging() {
+    let overPages = 1;
+    const currentPage = this.state.dictionary.page;
+    if ((currentPage + 2) >= 30) {
+      overPages = 26;
+    }
+    if ((currentPage + 2) < 30 && (currentPage - 2) > 1) {
+      overPages = currentPage - 2;
+    }
+
+    const dataPerPage = await addDataPerPage(
+      this.state.userId,
+      this.state.token,
+      this.state.dictionary.unit,
+      overPages,
+    );
+    const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page, dataPerPage)
       .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
@@ -77,7 +92,6 @@ class Dictionary implements Page {
   }
 
   async handleUnitClick(e: Event) {
-    console.log(this.state);
     const target = <HTMLElement>e.target;
     if (target.dataset.unit) {
       this.state.dictionary.unit = +target.dataset.unit;
@@ -107,7 +121,6 @@ class Dictionary implements Page {
       const lebelEl = document.getElementById(cardId)?.querySelector('.label');
       const inputValue = (<HTMLInputElement>e.target).value;
       const inputChecked = (<HTMLInputElement>e.target).checked;
-      console.log(state)
       if (inputValue === 'hard') {
         if (inputChecked) {
           lebelEl?.classList.add('hard');
@@ -118,16 +131,16 @@ class Dictionary implements Page {
           await addWordData(state.userId, cardId, state.token, 'base');
           if (state.dictionary.unit === 7) {
             if (card.parentNode) { card.parentNode.removeChild(card); }
-          };
+          }
         }
-      };
+      }
       if (inputValue === 'easy') {
         if (inputChecked) {
           lebelEl?.classList.add('easy');
           lebelEl?.classList.remove('hard');
           if (state.dictionary.unit === 7) {
             if (card.parentNode) { card.parentNode.removeChild(card); }
-          };
+          }
           await addWordData(state.userId, cardId, state.token, 'easy');
         } else {
           lebelEl?.classList.remove('easy');

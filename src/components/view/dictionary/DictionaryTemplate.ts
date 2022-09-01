@@ -46,8 +46,13 @@ export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTempla
   return units;
 };
 
-export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTemplateElement => {
+export const pagingTemplate = (
+  currentUnit: number,
+  currentPage: number,
+  dataPerPage: boolean[],
+): HTMLTemplateElement => {
   const paging = document.createElement('template');
+  console.log(dataPerPage);
   let overPages = 1;
   const countPages = 5;
   if ((currentPage + 2) >= 30) {
@@ -59,10 +64,15 @@ export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTe
   const buttons = Array.from(Array(countPages).keys())
     .map((num) => num + overPages)
     .map(
-      (page) => `
-        <button data-number="${page}" class="button-pag ${page === currentPage && 'current-page'}">
+      (page, i) => `
+      <div class="wrapper-btn-pag ${dataPerPage[i] ? 'super' : ''}">
+        <button
+        data-number="${page}"
+        class="button-pag ${page === currentPage && 'current-page'}">
           ${page}
-        </button>`,
+        </button>
+        <div class="icon-super"></div>
+        </div>`,
     )
     .join('');
   paging.innerHTML = `

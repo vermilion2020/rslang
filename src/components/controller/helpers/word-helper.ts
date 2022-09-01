@@ -1,4 +1,4 @@
-import { getUserWords, getUserWord, getWords, getWordsHard, addUserWord, updateUserWord } from '../../model/api/words';
+import { getUserWords, getUserWord, getWords, getWordsHard, addUserWord, updateUserWord, checkData } from '../../model/api/words';
 import { WordData, UserWords, WordHardData, UserWord } from '../../model/types/words';
 import { PagesState } from '../../model/types/page';
 import axios from 'axios';
@@ -76,4 +76,19 @@ export const addWordData = async (userId: string, wordId: string, token: string,
     };
     addUserWord(userId, wordId, wordData, token);
   }
+};
+
+export const addDataPerPage = async (userId: string, token: string, unit: number, page: number) => {
+  let data;
+  try {
+    const response = await checkData(userId, token, unit - 1, page - 1);
+    if (response.status === 200) {
+      data = response.data;
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
+  return data;
 };

@@ -37,3 +37,9 @@ export const updateUserWord = async (userId: string, wordId: string, data: UserW
     'content-type': 'application/json',
   },
 });
+
+export const checkData = async (userId: string, token: string, unit: number, page: number) => axios.get(`${apiBaseUrl}/users/${userId}/aggregatedWords/pages/${page}?filter={"$or":[{"userWord.difficulty":"easy"},{"userWord.difficulty":"hard"}]}&group=${unit}`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
