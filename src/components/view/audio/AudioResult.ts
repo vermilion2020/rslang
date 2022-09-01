@@ -1,8 +1,12 @@
-import { audioTemplateResult, audioTemplateWords } from './AudioTemplateResult';
+import { audioTemplateResult, audioTemplateWords } from './templates/AudioTemplateResult';
 import './AudioChallenge.scss';
 
+import { getWords } from '../../../components/model/api/words';
+import { loadWords } from '../../controller/helpers/word-helper';
+import { WordData } from '../../../components/model/types/';
+
 export const renderAudioResultPop = () => {
-  const container = document.querySelector('#popup') as HTMLElement;
+  const container = document.querySelector('#popup-audio') as HTMLElement;
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const formResu = container.querySelector('#page-result') as HTMLFormElement;
   container.innerHTML = '';
@@ -10,6 +14,17 @@ export const renderAudioResultPop = () => {
   overlay.classList.remove('hidden');
   const resultPopNode = <HTMLElement>audioTemplateResult.content.cloneNode(true);
   container.appendChild(resultPopNode);
+
+  // const repeatBtn = <HTMLElement>document.querySelector('.result-repeat');
+  // repeatBtn.addEventListener('click', async (e) => {
+  //   e.preventDefault();
+  //   console.log('click', e.target);
+  //   console.log('GETW: ', getWords(1, 1));
+  //   console.log('LWORds: ', loadWords);
+  //   const wordsContent = (await getWords(1, 1)).data;
+  //   const wordsArr = wordsContent.map((el: WordData) => el.word);
+  //   console.log('WA: ', wordsArr);
+  // });
 
   container.querySelector('.result-exit')?.addEventListener('click', (e) => {
     e.preventDefault();
@@ -26,7 +41,7 @@ export const renderAudioResultPop = () => {
 };
 
 export const renderAudioWordsPop = () => {
-  const container = document.querySelector('#popup') as HTMLElement;
+  const container = document.querySelector('#popup-audio') as HTMLElement;
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const formWords = container.querySelector('#page-words') as HTMLFormElement;
   container.innerHTML = '';

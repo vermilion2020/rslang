@@ -13,6 +13,15 @@ const timerNode = (seconds: number, visible: string) => `
 </div>
 </div>`;
 
+const drawUnits = () => {
+  let units = '';
+  for (let i = 0; i < 6; i += 1) {
+    const counter = i + 1;
+    units += `<button data-id="${counter}" class="unit-select__button unit-sprint-${counter}">Раздел ${counter}</button>`;
+  }
+  return units;
+};
+
 export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
   const sprintStart = document.createElement('template');
   sprintStart.innerHTML = `
@@ -23,12 +32,7 @@ export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
         <p>Выберите соответсвует ли перевод предложенному слову</p>
         <p class="select-label">Выберите раздел:</p>
         <div class="unit-select">
-          <button data-id="1" class="unit-select__button unit-sprint-1">Раздел 1</button>
-          <button data-id="2" class="unit-select__button unit-sprint-2">Раздел 2</button>
-          <button data-id="3" class="unit-select__button unit-sprint-3">Раздел 3</button>
-          <button data-id="4" class="unit-select__button unit-sprint-4">Раздел 4</button>
-          <button data-id="5" class="unit-select__button unit-sprint-5">Раздел 5</button>
-          <button data-id="6" class="unit-select__button unit-sprint-6">Раздел 6</button>
+          ${drawUnits()}
         </div>
         ${timerNode(3, ' hidden unit-diagram')}
       </div>
