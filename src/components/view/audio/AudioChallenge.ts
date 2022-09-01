@@ -5,16 +5,17 @@ import audioTemplateGame from './AudioTemplateGame';
 import { renderAudioResultPop } from './AudioResult';
 
 import { loadWords } from '../../controller/helpers';
-import { getNewWord, updateWordData } from '../../controller/helpers/sprint-helper';
-import { levelSelect, updateGameContent } from '../../controller/helpers/audio-helper';
+import { updateWordData } from '../../controller/helpers/sprint-helper';
+import { levelSelect, randomResultAu, getNewWord } from '../../controller/helpers/audio-helper';
 import { CheckedWord, GameWordData, WordData } from '../../model/types';
 import { apiBaseUrl, countPages } from '../../model/constants';
 
-import { getWords } from '../../../components/model/api/words';
+import { getWords, getWordTranslates } from '../../../components/model/api/words';
 
 class AudioChallenge implements Page {
   state: PagesState;
   container: HTMLElement;
+  player = <HTMLAudioElement>document.querySelector('.voice-ico');
   score: number = 0;
   successProbe: number = 0;
   countForSuccess: number = 10;
@@ -22,6 +23,7 @@ class AudioChallenge implements Page {
   page: number;
   currentWord: GameWordData | null;
   words: WordData[] = [];
+  selectedWords: string[] = [];
   checkedWords: CheckedWord[] = [];
   counterUp = 0;
   counterSet = 10;
@@ -33,6 +35,7 @@ class AudioChallenge implements Page {
     this.page = Math.floor(Math.random() * countPages) + 1;
     this.unit = 1;
     this.currentWord = null;
+    this.selectedWords = [];
   }
 
   // get nbr of choosen set of worlds
@@ -40,7 +43,6 @@ class AudioChallenge implements Page {
     const target = <HTMLElement>e.target;
     if (target.classList.contains('select-level')) {
       this.unit = await levelSelect(target);
-      console.log('unit: ', this.unit);
     }
   }
 
@@ -67,28 +69,54 @@ class AudioChallenge implements Page {
     // render game page
     const startAudioGameBtn = document.querySelector('.btn-start') as HTMLButtonElement;
     startAudioGameBtn.addEventListener('click', async (e: Event) => {
-      // this.words = await this.docPrint(e);
       this.renderGame();
+      this.updateCard();
     });
     return this.state;
   }
 
   async updateCard() {
-    const { word, updatedWords } = await getNewWord(this.words, this.unit, this.page);
-    this.words = [...updatedWords];
-    this.currentWord = { ...word };
-    updateGameContent(this.currentWord);
+    //working part
+    this.words = await loadWords(this.unit, this.page, this.state.loggedIn);
+
+    const wordIndex = Math.floor(Math.random() * (this.words.length - 5));
+    const selected = this.words.slice(wordIndex, wordIndex + 5);
+    const quessWord = selected[Math.floor(Math.random() * 6)];
+
+    this.selectedWords = selected.map((el) => el.wordTranslate);
+    /// - possible to change on getNewWord
+
+    //
+
+    this.updateGameContent(this.selectedWords, quessWord);
   }
 
-  /// get nr of select btn
-  // async docPrint(e: Event) {
-  //   const targetLi = e.target as HTMLLIElement;
-  //   const setNr = +(<string>targetLi.dataset.sett);
-  //   const wordsContent = await getWords(Math.floor(Math.random() * countPages), setNr).data;
-  //   const wordsArr = wordsContent.map((el: WordData) => el.word);
+  updateGameContent = async (words: string[], quessWord: WordData) => {
+    const content = <HTMLElement>document.querySelector('.content');
+    const voiceIco = <HTMLDivElement>document.querySelector('.voice-ico');
+    const speakerIco = <HTMLDivElement>document.querySelector('.speaker-ico');
+    const selectContainer = <HTMLDivElement>document.querySelector('.select-container__game');
+    const offerWords = [...document.querySelectorAll('.select-word')];
+    const guessWord = document.querySelector('.select-offer') as HTMLElement;
+    // const { result, translate } = randomResultAu(words);
+    // guessWord.innerHTML = `${this.currentWord?.word}`;
 
-  //   // console.log('WA: ', wordsArr);
-  //   return wordsArr;
+    offerWords.map((el, i) => {
+      el.innerHTML = `${this.selectedWords[i]}`;
+    });
+
+    guessWord.innerHTML = `${quessWord.word}`;
+  };
+
+  /////////////audioplayer
+  // playWordAudio(target: HTMLElement) {
+  //   const wordId = <string>target.dataset.id;
+  //   const wordAudio = <string>this.checkedWords.find(item => item.wordId === wordId)?.audio;
+  //   if(wordAudio) {
+  //     this.player.src = `${apiBaseUrl}/${wordAudio}`;
+  //     this.player.currentTime = 0;
+  //     this.player.play();
+  //   }
   // }
 
   renderGame() {
@@ -96,21 +124,9 @@ class AudioChallenge implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(notFoundNode);
-    // console.log('words: ', this.words);
-    const offerWords = [...document.querySelectorAll('.select-word')];
-    const guessWord = document.querySelector('.select-offer') as HTMLElement;
+    this.updateCard();
 
-    const arr = this.words;
-    guessWord.innerHTML = `${arr[2]}`;
-    offerWords.map((el, i) => {
-      el.innerHTML = `${arr[i]}`;
-    });
-
-    // console.log('OOW: ', offerWords[2].innerHTML === guessWord.innerHTML ? true : false);
-
-    container.addEventListener('click', (e: Event) => {
-      // console.log(e.target);
-    });
+    container.addEventListener('click', (e: Event) => {});
 
     const btnNext = document.querySelector('.btn-next');
     if (btnNext)
