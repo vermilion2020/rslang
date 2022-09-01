@@ -29,7 +29,7 @@ export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
       <div class="start-sprint" data-id="${unitId || 1}">
         <h1>Спринт</h1>
         <p>Правила игры:</p>
-        <p>Выберите соответсвует ли перевод предложенному слову</p>
+        <p>Выберите, соответствует ли перевод предложенному слову?</p>
         <p class="select-label">Выберите раздел:</p>
         <div class="unit-select">
           ${drawUnits()}

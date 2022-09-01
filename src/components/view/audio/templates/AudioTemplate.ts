@@ -17,14 +17,14 @@ audioTemplate.innerHTML = `
             <li class="control-explanation__item">Используйте enter - чтобы пропустить вопрос</li>
           </ul>
 
-          <p class="select-offer">Выберите уровень</p>
+          <p class="select-offer">Выберите уровень:</p>
           <div class="select-container">
-            <button class="select-level" data-sett="1">Раздел 1</button>
-            <button class="select-level" data-sett="2">Раздел 2</button>
-            <button class="select-level" data-sett="3">Раздел 3</button>
-            <button class="select-level" data-sett="4">Раздел 4</button>
-            <button class="select-level" data-sett="5">Раздел 5</button>
-            <button class="select-level" data-sett="6">Раздел 6</button>
+            <button class="select-level level-one" data-sett="1">Раздел 1</button>
+            <button class="select-level level-two" data-sett="2">Раздел 2</button>
+            <button class="select-level level-three" data-sett="3">Раздел 3</button>
+            <button class="select-level level-four" data-sett="4">Раздел 4</button>
+            <button class="select-level level-five" data-sett="5">Раздел 5</button>
+            <button class="select-level level-six" data-sett="6">Раздел 6</button>
           </div>
           <div class="block-btn__start">
           <button class="btn-start">Начать</button>

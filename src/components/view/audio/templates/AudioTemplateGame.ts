@@ -1,6 +1,3 @@
-// interface ITemplateGame {
-//     nextOr?: string, correctWord?: string, selectedWord?: string
-// }
 import voiceIcon from '../../../../assets/images/png/up_volume.png';
 import { countAttempts } from '../../../model/constants';
 import { GameWordData } from '../../../model/types';
@@ -13,11 +10,7 @@ export const drawTranslates = (translates: string[]) => {
   return translatesButtons;
 };
 
-const audioTemplateGame = (
-  word: GameWordData,
-  counterUp: number = 2,
-  counterSet = 10
-): HTMLTemplateElement => {
+const audioTemplateGame = (word: GameWordData, counterUp: number = 2, counterSet = 10): HTMLTemplateElement => {
   const gameBody = document.createElement('template');
   gameBody.innerHTML = `
 <div class="main-page__game">
