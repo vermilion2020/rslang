@@ -102,10 +102,12 @@ class Dictionary implements Page {
   addListener(state: PagesState) {
     const changeRadio = async (e: Event) => {
       const cardId = (<HTMLInputElement>e.target).name;
+      const card = <HTMLElement>document.getElementById(cardId);
+      console.log(card);
       const lebelEl = document.getElementById(cardId)?.querySelector('.label');
       const inputValue = (<HTMLInputElement>e.target).value;
       const inputChecked = (<HTMLInputElement>e.target).checked;
-
+      console.log(state)
       if (inputValue === 'hard') {
         if (inputChecked) {
           lebelEl?.classList.add('hard');
@@ -114,12 +116,18 @@ class Dictionary implements Page {
         } else {
           lebelEl?.classList.remove('hard');
           await addWordData(state.userId, cardId, state.token, 'base');
+          if (state.dictionary.unit === 7) {
+            if (card.parentNode) { card.parentNode.removeChild(card); }
+          };
         }
       };
       if (inputValue === 'easy') {
         if (inputChecked) {
           lebelEl?.classList.add('easy');
           lebelEl?.classList.remove('hard');
+          if (state.dictionary.unit === 7) {
+            if (card.parentNode) { card.parentNode.removeChild(card); }
+          };
           await addWordData(state.userId, cardId, state.token, 'easy');
         } else {
           lebelEl?.classList.remove('easy');

@@ -44,7 +44,7 @@ export interface UserWord {
 }
 
 export interface WordHardData {
-  id: string,
+  _id: string,
   group: number,
   page: number,
   word: string,

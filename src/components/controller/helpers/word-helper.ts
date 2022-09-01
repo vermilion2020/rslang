@@ -37,7 +37,13 @@ export const loadWordsHard = async (state: PagesState): Promise<WordData[]> => {
   if (response.status === 200) {
     const dataServ: WordHardData[] = response.data[0].paginatedResults;
     words = dataServ.map((word: WordHardData) => {
-      const newWord = { ...word, difficulty: word.userWord?.difficulty, optional: word.userWord?.optional };
+      const id = '_id';
+      const newWord = {
+        ...word,
+        difficulty: word.userWord?.difficulty,
+        optional: word.userWord?.optional,
+        id: word[id],
+      };
       delete newWord.userWord;
       return newWord;
     });
@@ -51,7 +57,6 @@ export const addWordData = async (userId: string, wordId: string, token: string,
     const response = await getUserWord(userId, wordId, token);
     if (response.status === 200) {
       word = <UserWord>response.data;
-      console.log(word);
       const wordData = {
         difficulty: `${status}`,
         optional: {
@@ -70,6 +75,5 @@ export const addWordData = async (userId: string, wordId: string, token: string,
       },
     };
     addUserWord(userId, wordId, wordData, token);
-    console.log('jjj');
   }
 };
