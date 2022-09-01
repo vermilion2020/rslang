@@ -114,4 +114,4 @@ export const playTemplate = (unit: number, page: number) => {
     </div>
   </section>`;
   return playPart;
-}
+};

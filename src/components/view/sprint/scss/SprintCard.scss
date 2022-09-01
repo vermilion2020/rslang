@@ -1,3 +1,5 @@
+$icons-path: '../../../../assets/icons/';
+
 .card-translate {
   text-transform: capitalize;
   font-family: $rusFont;
@@ -59,7 +61,6 @@
 
 .decision_button {
   background: $bgTColorWhite;
-  padding: 0.6rem 1.2rem;
   border: 0;
   font-size: 1rem;
   border-radius: 2rem;
@@ -71,28 +72,21 @@
 .decision_button__false {
   color: $falseColorGames;
   border: 2px solid $falseColorGames;
-
-  .arr {
-    transform: rotate(180deg);
-    margin-right: 0.5rem;
-  }
-
-  use {
-    fill: $falseColorGames;
-  }
+  background-image: url('#{$icons-path}arrow-left-red.svg');
+  padding: 0.6rem 1rem 0.6rem 3rem;
+  background-size: 20px;
+  background-position: bottom 0.8rem left 1rem;
+  background-repeat: no-repeat;
 }
 
 .decision_button__true {
   color: $trueColorGames;
   border: 2px solid $trueColorGames;
-
-  .arr {
-    margin-left: 0.5rem;
-  }
-
-  use {
-    fill: $trueColorGames;
-  }
+  background-image: url('#{$icons-path}arrow-right-green.svg');
+  padding: 0.6rem 3rem 0.6rem 1rem;
+  background-size: 20px;
+  background-position: bottom 0.8rem right 1rem;
+  background-repeat: no-repeat;
 }
 
 .decision {

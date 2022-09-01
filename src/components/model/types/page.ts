@@ -17,6 +17,7 @@ export interface PagesState {
   sprint: GameInitial,
   audio: GameInitial,
   dictionary: Progress;
+  gameStarted?: boolean;
 }
 
 export interface Page {
