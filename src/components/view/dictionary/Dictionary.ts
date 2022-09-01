@@ -106,8 +106,6 @@ class Dictionary implements Page {
       const inputValue = (<HTMLInputElement>e.target).value;
       const inputChecked = (<HTMLInputElement>e.target).checked;
 
-      console.log(lebelEl);
-      console.log((<HTMLInputElement>e.target).checked);
       if (inputValue === 'hard') {
         if (inputChecked) {
           lebelEl?.classList.add('hard');
@@ -117,7 +115,7 @@ class Dictionary implements Page {
           lebelEl?.classList.remove('hard');
           await addWordData(state.userId, cardId, state.token, 'base');
         }
-      } 
+      };
       if (inputValue === 'easy') {
         if (inputChecked) {
           lebelEl?.classList.add('easy');
@@ -132,7 +130,35 @@ class Dictionary implements Page {
 
     const radios = document.querySelectorAll('.radio-dif');
     radios.forEach((r) => r.addEventListener('click', changeRadio));
+    const audioBtn = document.querySelectorAll('.btn-audio-diction');
+    audioBtn.forEach((a) => a.addEventListener('click', this.playAudio));
   }
+
+  playAudio(e: Event) {
+    const target = (<HTMLElement>e.target)?.closest('.btn-audio-diction');
+    target?.setAttribute('disabled', 'disabled');
+    const playlist: string[] = [
+      target?.getAttribute('data-audio') || '',
+      target?.getAttribute('data-audioMeaning') || '',
+      target?.getAttribute('data-audioExample') || '',
+    ];
+    const audio = new Audio();
+    let treck = 0;
+
+    audio.onended = function () {
+      treck += 1;
+      if (treck < 3) {
+        audio.src = `https://rslang-learn-words.herokuapp.com/${playlist[treck]}`;
+        audio.play();
+      } else {
+        target?.removeAttribute('disabled');
+      }
+    };
+
+    audio.src = `https://rslang-learn-words.herokuapp.com/${playlist[0]}`;
+    audio.play();
+  };
+
 }
 
 export default Dictionary;

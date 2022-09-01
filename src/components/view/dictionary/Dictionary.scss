@@ -107,14 +107,6 @@
   gap: 7px;
 }
 
-.wrapper-btn-diction.loggedin {
-
-
-}
-
-
-
-
 .label {
   position: absolute;
   width: 20px;
@@ -147,7 +139,15 @@
       background-color: $bgTColorBlack;
     }
   }
+  &:disabled {
+    pointer-events: none; 
+    background-color: $colorBtnDisab;
+    .icon-audio-diction {
+      background-color: $bgTColorBlack;
+    }
+  }
 }
+
 
 .icon-audio-diction {
   cursor: pointer;

@@ -78,23 +78,7 @@ export const pagingTemplate = (currentUnit: number, currentPage: number): HTMLTe
 };
 
 export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
-  let btnHardAction = 'to-hard';
-  let btnEasyAction = 'to-easy';
-  let statusInp = '';
-  let textBtnHard = 'сделать сложным';
-  let textBtnEasy = 'сделать изученным';
-  if (wordData.difficulty) {
-    if (wordData.difficulty === 'hard') {
-      statusInp = 'hard';
-      btnHardAction = 'to-base';
-      textBtnHard = 'удалить из сложного';
-    }
-    if (wordData.difficulty === 'easy') {
-      statusInp = 'easy';
-      btnEasyAction = 'to-base';
-      textBtnEasy = 'удалить из изученного';
-    }
-  }
+
   const card = `<div class="dictionary-card" id="${wordData.id}">
   <div class="diction-meta">
     <img class="diction-meta-photo" src="https://rslang-learn-words.herokuapp.com/${wordData.image}">
@@ -135,9 +119,13 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
     </div>
     
     <div class="btn-audio-wrapper">
-      <div class="btn-audio-diction">
+      <button class="btn-audio-diction" 
+      data-audio="${wordData.audio}"
+      data-audioMeaning="${wordData.audioMeaning}"
+      data-audioExample="${wordData.audioExample}"
+      >
         <div class="icon-audio-diction"> </div>
-      </div>
+      </button>
     </div>
 
 
