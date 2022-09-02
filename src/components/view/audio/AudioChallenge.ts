@@ -6,11 +6,9 @@ import { renderAudioResultPop } from './AudioResult';
 
 import { loadWords } from '../../controller/helpers';
 import { updateWordData, getNewWord } from '../../controller/helpers/sprint-helper';
-import { unitSelect, randomResultAu, randomTranslates, showCorrectAnswer, resetCardsContent } from '../../controller/helpers/audio-helper';
+import { unitSelect, randomTranslates, showCorrectAnswer, resetCardsContent, disableDecisionButtons } from '../../controller/helpers/audio-helper';
 import { CheckedWord, GameWordData, WordData } from '../../model/types';
-import { apiBaseUrl, countAttempts, countPages } from '../../model/constants';
-
-import { getWords, getWordTranslates } from '../../../components/model/api/words';
+import { answers, apiBaseUrl, countAttempts, countPages, units } from '../../model/constants';
 
 class AudioChallenge implements Page {
   state: PagesState;
@@ -25,8 +23,6 @@ class AudioChallenge implements Page {
   words: WordData[] = [];
   selectedWords: string[] = [];
   checkedWords: CheckedWord[] = [];
-  counterUp = 0;
-  counterSet = 10;
 
   constructor(state: PagesState) {
     this.container = document.querySelector('#main-container') as HTMLDivElement;
@@ -37,14 +33,16 @@ class AudioChallenge implements Page {
     this.currentWord = null;
     this.successTotal = 0;
     this.selectedWords = [];
-  }
-
-  // get nbr of choosen set of worlds
-  async handleSelectLevel(e: Event) {
-    const target = <HTMLElement>e.target;
-    if (target.classList.contains('select-level')) {
-      this.unit = await unitSelect(target);
-    }
+      document.addEventListener('keydown', async (e: KeyboardEvent) => {
+        const { key } = e;
+        const keyNum = Number.parseInt(key, 10);
+        const btnStart = document.querySelector('.btn-start');
+        if (units.includes(keyNum) && btnStart) {
+          this.unit = await unitSelect(e);
+        } else if ((key === 'Enter') && btnStart) {
+          this.renderGame();
+        }
+      });
   }
 
   async render() {
@@ -63,7 +61,7 @@ class AudioChallenge implements Page {
       selectLevelBox.addEventListener('click', (e: Event) => {
         const targetLi = e.target as HTMLLIElement;
         if (targetLi.classList.contains('select-level')) {
-          this.handleSelectLevel(e);
+          unitSelect(e);
         }
       });
     }
@@ -81,7 +79,6 @@ class AudioChallenge implements Page {
     if (this.checkedWords.length > countAttempts) {
       renderAudioResultPop();
     }
-    console.log(this.checkedWords);
     const { word, updatedWords } = await getNewWord(
       this.words,
       this.unit,
@@ -156,10 +153,10 @@ class AudioChallenge implements Page {
 
   async handleDecision(e: Event | KeyboardEvent, container: HTMLElement) {
     const target = <HTMLElement>e.target;
-   // disableDecisionButtons();
+    disableDecisionButtons();
     let decision = 0;
     if ('key' in e) {
-      decision = e.key === 'ArrowRight' ? 1 : 0;
+      decision = Number.parseInt(e.key, 10);
     } else {
       decision = +<string>target.dataset.word;
     }
@@ -203,6 +200,8 @@ class AudioChallenge implements Page {
     container.append(gameNode);
     this.playWordAudio(this.currentWord.audio);
     const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
+    const btnNext = <HTMLElement>document.querySelector('.btn-next');
+    const btnDontKnow = <HTMLElement>document.querySelector('.btn-dont-know');
       gameCard.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('btn-next')) {
@@ -215,6 +214,21 @@ class AudioChallenge implements Page {
         this.handleDecision(e, gameCard);
       }
     });
+    if (!this.state.audio.set) {
+      this.state.sprint.set = true;
+      document.addEventListener('keydown', async (e: KeyboardEvent) => {
+        const { key } = e;
+        const keyNum = Number.parseInt(key, 10);
+        const selectButtons = <NodeListOf<HTMLElement>>document.querySelectorAll('.select-word');
+        if (answers.includes(keyNum) && !selectButtons[0].getAttribute('disabled')) {
+          await this.handleDecision(e, gameCard);
+        } else if ((key === 'Enter' || key === 'ArrowRight') && !btnNext.classList.contains('hidden')) {
+          this.updateCard();
+        } else if ((key === 'Enter') && !btnDontKnow.classList.contains('hidden') && this.currentWord) {
+          showCorrectAnswer(this.currentWord, false, -1);
+        }
+      });
+    }
   }
 }
 
