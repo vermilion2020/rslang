@@ -42,7 +42,7 @@ $icons-path: '../../../../assets/images/png/';
   }
 }
 
-///round dio
+////round dio
 .out {
   width: 100px;
   height: 100px;
@@ -81,7 +81,7 @@ $icons-path: '../../../../assets/images/png/';
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: #fff;
+  background: $bgTColorWhite;
 }
 
 .value,
@@ -89,7 +89,7 @@ $icons-path: '../../../../assets/images/png/';
   color: progress-circular;
   z-index: 101;
 }
-
+////
 .game-wrapper {
   max-width: 50vw;
   margin: 0 auto;
@@ -120,34 +120,38 @@ $icons-path: '../../../../assets/images/png/';
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 5px $bgTColorWhite;
+  border: solid 5px $bgTColorBlack;
   background: url('#{$icons-path}up_volume_white.png');
-  background-size: 100px;
-  background-position: bottom 1.2rem left 1.4rem;
+  background-size: 80px;
+  background-position: bottom 50% left 47%;
   background-repeat: no-repeat;
   border-radius: 50%;
-  background-color: $elemColorCian;
+  background-color: $bgTColorBlack;
   cursor: pointer;
 
   &:hover {
-    background-color: $btnColorUnit3;
-    border-color: $btnColorUnit4;
+    background-color: $iconColorStudied;
+    border-color: $bgTColorBlack;
   }
 }
 
 .select-container__game {
   margin-bottom: 5%;
+  text-align: center;
   .select-word {
     margin: 5px 10px;
-    padding: 5px 8px;
-    border-radius: 0.8rem;
+    padding: 10px 10px;
+    border-radius: 1.3rem;
+    border: 2px solid $elemColorGreen;
     cursor: pointer;
     font-family: $enFont;
     font-size: 1.1rem;
+    color: $bgTColorBlack;
     background-color: $elemColorGreen;
-
+    text-transform: capitalize;
     &:hover {
-      background-color: $btnColorUnit3;
+      background-color: $colorBtnHov;
+      color: $bgTColorBlack;
     }
   }
 }
@@ -156,16 +160,76 @@ $icons-path: '../../../../assets/images/png/';
   margin: 0 auto 30px;
 }
 
-.btn-next {
-  width: 100px;
-  height: 40px;
-  border-radius: 0.8rem;
+.btn-next,
+.btn-dont-know {
+  padding: 10px 10px;
+  border-radius: 1.3rem;
+  border: solid 2px $iconColorStudied;
   cursor: pointer;
   font-family: $enFont;
   font-size: 1.1rem;
   background-color: $bgTColorWhite;
+}
 
+.btn-dont-know:hover {
+  background-color: $iconColorComplex;
+  color: $bgTColorWhite;
+  border: 2px solid $bgTColorWhite;
+}
+
+.btn-next:hover {
+  background-color: $trueColorGames;
+  color: $bgTColorWhite;
+  border: 2px solid $bgTColorWhite;
+}
+
+.select-word:disabled {
+  background-color: $elemColorGreen;
+}
+
+.select-word:disabled.correct {
+  background-color: $trueColorGames;
+}
+
+.select-word:disabled.guessed {
+  background-color: $trueColorGames;
+}
+
+.select-word:disabled.incorrect {
+  background-color: $falseColorGames;
+}
+
+.speaker-ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
   &:hover {
-    background-color: $iconColorComplex;
+    background-color: $trueColorGames;
+    transition: ease-in-out 0.3s;
   }
+}
+
+.img-voice {
+  height: 30px;
+  width: 30px;
+  padding: 5px;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    cursor: pointer;
+    background-color: $bgTColorWhite;
+    transition: ease-in-out 0.1s;
+  }
+}
+.repeat-word {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }

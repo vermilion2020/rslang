@@ -74,41 +74,42 @@ $icons-path: '../../../../assets/images/png/';
     margin: 5px 10px;
     width: 100px;
     height: 40px;
-    border-radius: 0.8rem;
+    border-radius: 1.4rem;
+    border: none;
+    color: $bgTColorWhite;
     cursor: pointer;
     font-family: $enFont;
     font-size: 1.1rem;
     background-color: $circleBgColor;
   }
-  .level-one:hover {
+  .level-one {
     background-color: $btnColorUnit1;
     transition: ease-in-out 0.4s;
-    border-radius: 1.2rem;
   }
-  .level-two:hover {
+  .level-two {
     background-color: $btnColorUnit2;
     transition: ease-in-out 0.4s;
-    border-radius: 1.2rem;
   }
-  .level-three:hover {
+  .level-three {
     background-color: $btnColorUnit3;
     transition: ease-in-out 0.4s;
-    border-radius: 1.2rem;
   }
-  .level-four:hover {
+  .level-four {
     background-color: $btnColorUnit4;
     transition: ease-in-out 0.4s;
-    border-radius: 1.2rem;
   }
-  .level-five:hover {
+  .level-five {
     background-color: $btnColorUnit5;
     transition: ease-in-out 0.4s;
-    border-radius: 1.2rem;
   }
-  .level-six:hover {
+  .level-six {
     background-color: $btnColorUnit6;
     transition: ease-in-out 0.4s;
-    border-radius: 1.2rem;
+  }
+
+  .select-level:hover {
+    background-color: $colorBtnHov;
+    color: $bgTColorBlack;
   }
 }
 
@@ -117,10 +118,10 @@ $icons-path: '../../../../assets/images/png/';
 }
 
 .btn-start {
-  //   margin: 0 20px;
   width: 100px;
   height: 40px;
-  border-radius: 0.8rem;
+  border-radius: 1.3rem;
+  border: 1px solid $bgTColorBlack;
   cursor: pointer;
   font-family: $enFont;
   font-size: 1.1rem;
@@ -128,6 +129,7 @@ $icons-path: '../../../../assets/images/png/';
 
   &:hover {
     background-color: $colorBtnHov;
+    border: 2px solid $colorBtnHov;
   }
 }
 

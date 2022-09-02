@@ -47,12 +47,15 @@ class Sprint implements Page {
     this.page = Math.floor(Math.random() * countPages) + 1;
     this.unit = 1;
     this.currentWord = null;
-    this.container.addEventListener('click', async (e: Event) => {
-      const target = <HTMLElement>e.target;
-      if (target.classList.contains('unit-select__button')) {
-        this.handleUnitSelect(e);
-      }
-    });
+    if(!this.state.sprint.set) {
+      this.state.sprint.set = true;
+      this.container.addEventListener('click', async (e: Event) => {
+        const target = <HTMLElement>e.target;
+        if (target.classList.contains('unit-select__button')) {
+          this.handleUnitSelect(e);
+        }
+      });
+    }
   }
 
   async handleUnitSelect(e: Event) {
@@ -153,7 +156,6 @@ class Sprint implements Page {
     if (this.currentWord) {
       await this.saveResult(this.currentWord, result);
     }
-    await this.updateCard();
   }
 
   async renderGame() {
