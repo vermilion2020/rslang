@@ -103,7 +103,7 @@ class Header implements Page {
     const loginButton = <HTMLElement>headerContainer.querySelector('#log-in');
     const logoutButton = <HTMLElement>headerContainer.querySelector('#log-out');
 
-    [ nav, logo ].forEach(el => {
+    [nav, logo].forEach((el) => {
       el.addEventListener('click', (e: Event) => {
         this.handleItemClick(e);
       });

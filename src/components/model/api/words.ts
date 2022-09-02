@@ -26,14 +26,14 @@ export const getWordsHard = async (userId: string, token: string) => axios.get(`
 
 export const addUserWord = async (userId: string, wordId: string, data: UserWord, token: string) => axios.post(`${apiBaseUrl}/users/${userId}/words/${wordId}`, data, {
   headers: {
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     'content-type': 'application/json',
   },
 });
 
 export const updateUserWord = async (userId: string, wordId: string, data: UserWord, token: string) => axios.put(`${apiBaseUrl}/users/${userId}/words/${wordId}`, data, {
   headers: {
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     'content-type': 'application/json',
   },
 });

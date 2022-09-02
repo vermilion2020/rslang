@@ -7,11 +7,13 @@ import Sprint from '../view/sprint/Sprint';
 import AudioChallenge from '../view/audio/AudioChallenge';
 import Stats from '../view/stats/Stats';
 import { checkAuthState } from './helpers/auth-helper';
-import { parseQueryString, rewriteUrl, setGameInitial, setProgress, showPageTitle } from './helpers/router-helper';
+import {
+  parseQueryString, rewriteUrl, setGameInitial, setProgress, showPageTitle,
+} from './helpers/router-helper';
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   let newState: PagesState = await checkAuthState(state);
-  rewriteUrl();
+  rewriteUrl(state);
   const { queryStr, pageName } = parseQueryString();
   let page: Page;
   switch (pageName) {

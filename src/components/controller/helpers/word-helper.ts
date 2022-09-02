@@ -20,7 +20,9 @@ export const loadWords = async (unit: number, page: number, loggedIn: boolean): 
         const includWords = words.map((word) => {
           const incl = userWords.find((userWord) => word.id === userWord.wordId);
           if (incl) {
-            return { ...word, difficulty: incl.difficulty, optional: incl.optional, used: true };
+            return {
+              ...word, difficulty: incl.difficulty, optional: incl.optional, used: true,
+            };
           }
           return word;
         });
