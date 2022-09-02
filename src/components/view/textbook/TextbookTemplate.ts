@@ -66,6 +66,8 @@ export const pagingTemplate = (
   currentUnit: number,
   currentPage: number,
   dataPerPage: boolean[],
+  tochapter: string,
+  btntext: string,
 ): HTMLTemplateElement => {
   const paging = document.createElement('template');
   let overPages = 1;
@@ -91,7 +93,9 @@ export const pagingTemplate = (
     .join('');
   paging.innerHTML = `
   <div class="wrapper-paging">
-  <a href="/#/dictionary/unit${currentUnit}/${currentPage}"><button class="btn-to-menu" data-id="dictionary">в словарь</button></a>
+  <a href="/#/${tochapter}/unit${currentUnit}/${currentPage}">
+    <button class="btn-to-menu" data-id="${tochapter}">${btntext}</button>
+  </a>
     <div class="paging">
       <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}
@@ -101,7 +105,7 @@ export const pagingTemplate = (
   return paging;
 };
 
-export const playTemplate = (unit: number, page: number) => {
+export const playTemplate = (unit: number, page: number, chapter: string) => {
   const playPart = document.createElement('template');
   playPart.innerHTML = `
   <section class="section-game">
@@ -110,11 +114,15 @@ export const playTemplate = (unit: number, page: number) => {
       <p class="desc">Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.</p>
       <div class="wrapper-btn">
         <div class="wrapper-sprint">
-          <a href="/#/sprint/unit${unit}/${page}/textbook"><button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button></a>
+          <a href="${unit === 7 ? '/#/sprint' : `/#/sprint/unit${unit}/${page}/${chapter}`}">
+            <button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button>
+          </a>
           <div class="icon-bg-sprint"></div>
         </div>
         <div class="wrapper-audio">
-          <a href="/#/audio/unit${unit}/${page}/textbook"><button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button></a>
+        <a href="${unit === 7 ? '/#/audio' : `/#/audio/unit${unit}/${page}/${chapter}`}">
+            <button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button>
+          </a>
           <div class="icon-bg-audio"></div>
           <div class="icon-star-audio"></div>
         </div>
@@ -122,4 +130,4 @@ export const playTemplate = (unit: number, page: number) => {
     </div>
   </section>`;
   return playPart;
-}
+};

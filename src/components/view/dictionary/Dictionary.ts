@@ -1,8 +1,8 @@
 import './Dictionary.scss';
 import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
-import { pagingTemplate, unitTemplate, sectionWords, titleTemplate, dictionaryTemplate } from './DictionaryTemplate';
-import { playTemplate } from '../textbook/TextbookTemplate';
+import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
+import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
 import { loadWords, loadWordsHard, addWordData, addDataPerPage } from '../../controller/helpers/word-helper';
 import { handleRoute } from '../../controller/router';
 
@@ -64,7 +64,7 @@ class Dictionary implements Page {
       );
     }
 
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page, dataPerPage)
+    const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page, dataPerPage, 'textbook', 'в учебник')
       .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
@@ -112,7 +112,7 @@ class Dictionary implements Page {
   }
 
   createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page)
+    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page, 'dictionary')
       .content.cloneNode(true);
     return playNode;
   }
@@ -157,6 +157,20 @@ class Dictionary implements Page {
     radios.forEach((r) => r.addEventListener('click', changeRadio));
     const audioBtn = document.querySelectorAll('.btn-audio-diction');
     audioBtn.forEach((a) => a.addEventListener('click', this.playAudio));
+
+    const handleClick = (e: Event) => {
+      const target = <HTMLLinkElement>(<HTMLElement>e.target);
+      const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);
+      document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
+      menuItem.classList.add('main-nav__item_active');
+    };
+
+    const classBtn = ['.btn-audio', '.btn-sprint', '.btn-to-menu'];
+
+    classBtn.forEach((el: string) => {
+      const elem = <HTMLElement>document.querySelector(el);
+      elem.addEventListener('click', handleClick);
+    });
   }
 
   playAudio(e: Event) {

@@ -19,7 +19,7 @@ class Textbook implements Page {
     container.innerHTML = '';
     container.append(sectionWord);
     container.append(sectionPlay);
-    this.addListener(this.state);
+    this.addListener();
     return this.state;
   }
 
@@ -91,7 +91,7 @@ class Textbook implements Page {
       );
     }
 
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.unit, this.state.textbook.page, dataPerPage)
+    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.unit, this.state.textbook.page, dataPerPage, 'dictionary', 'в словарь')
       .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
@@ -110,12 +110,12 @@ class Textbook implements Page {
   }
 
   createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate(this.state.textbook.unit, this.state.textbook.page)
+    const playNode = <HTMLElement>playTemplate(this.state.textbook.unit, this.state.textbook.page, 'textbook')
       .content.cloneNode(true);
     return playNode;
   }
 
-  addListener(state: PagesState) {
+  addListener() {
     const handleClick = (e: Event) => {
       const target = <HTMLLinkElement>(<HTMLElement>e.target);
       const menuItem = <HTMLElement>document.getElementById(`${target.dataset.id}-menu-item`);
