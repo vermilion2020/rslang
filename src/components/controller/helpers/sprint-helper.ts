@@ -151,4 +151,8 @@ export const getDecisionResult = (container: HTMLElement, decision: number) => {
     setTimeout(() => { container.classList.remove('border-false'); }, 1000);
   }
   return result;
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> develop

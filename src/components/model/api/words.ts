@@ -29,6 +29,7 @@ export const getWordsHard = async (userId: string, token: string) =>
     },
   });
 
+<<<<<<< HEAD
 export const addUserWord = async (userId: string, wordId: string, data: UserWord, token: string) =>
   axios.post(`${apiBaseUrl}/users/${userId}/words/${wordId}`, data, {
     headers: {
@@ -44,3 +45,24 @@ export const updateUserWord = async (userId: string, wordId: string, data: UserW
       'content-type': 'application/json',
     },
   });
+=======
+export const addUserWord = async (userId: string, wordId: string, data: UserWord, token: string) => axios.post(`${apiBaseUrl}/users/${userId}/words/${wordId}`, data, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    'content-type': 'application/json',
+  },
+});
+
+export const updateUserWord = async (userId: string, wordId: string, data: UserWord, token: string) => axios.put(`${apiBaseUrl}/users/${userId}/words/${wordId}`, data, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    'content-type': 'application/json',
+  },
+});
+
+export const checkData = async (userId: string, token: string, unit: number, page: number) => axios.get(`${apiBaseUrl}/users/${userId}/aggregatedWords/pages/${page}?filter={"$or":[{"userWord.difficulty":"easy"},{"userWord.difficulty":"hard"}]}&group=${unit}`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+>>>>>>> develop
