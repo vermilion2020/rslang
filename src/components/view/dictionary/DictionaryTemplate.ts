@@ -97,7 +97,7 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
   <div class="diction-desc ${loggedIn ? 'loggedin' : ''}">
 
     <div class="block-en">
-      <div class="wordEn">${wordData.word[0].toUpperCase() + wordData.word.slice(1)}</div>
+      <div class="wordEn">${wordData.word[0].toUpperCase() + wordData.word.slice(1)}  ${wordData.transcription}</div>
       <div class="text-meaning">${wordData.textMeaning}</div>
       <div class="text-example">${wordData.textExample}</div>
     </div>

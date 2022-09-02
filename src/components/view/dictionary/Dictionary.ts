@@ -54,13 +54,16 @@ class Dictionary implements Page {
     if ((currentPage + 2) < 30 && (currentPage - 2) > 1) {
       overPages = currentPage - 2;
     }
+    let dataPerPage = [false, false, false, false, false];
+    if (this.state.loggedIn) {
+      dataPerPage = await addDataPerPage(
+        this.state.userId,
+        this.state.token,
+        this.state.dictionary.unit,
+        overPages,
+      );
+    }
 
-    const dataPerPage = await addDataPerPage(
-      this.state.userId,
-      this.state.token,
-      this.state.dictionary.unit,
-      overPages,
-    );
     const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page, dataPerPage)
       .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
@@ -95,6 +98,7 @@ class Dictionary implements Page {
     const target = <HTMLElement>e.target;
     if (target.dataset.unit) {
       this.state.dictionary.unit = +target.dataset.unit;
+      this.state.dictionary.page = 1;
     }
     await this.changeCurrentPage(this.state.dictionary.unit, this.state.dictionary.page);
   }
@@ -178,8 +182,7 @@ class Dictionary implements Page {
 
     audio.src = `https://rslang-learn-words.herokuapp.com/${playlist[0]}`;
     audio.play();
-  };
-
+  }
 }
 
 export default Dictionary;
