@@ -13,6 +13,7 @@ export interface WordData {
   wordTranslate: string,
   textMeaningTranslate: string,
   textExampleTranslate: string,
+  _id?: string,
   difficulty?: string;
   optional?: {
       vic: number;
@@ -44,7 +45,7 @@ export interface UserWord {
 }
 
 export interface WordHardData {
-  id: string,
+  _id: string,
   group: number,
   page: number,
   word: string,

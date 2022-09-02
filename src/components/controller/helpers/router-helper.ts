@@ -1,5 +1,5 @@
-import menuItems from "../../model/menu-items";
-import { GameInitial, Progress } from "../../model/types";
+import menuItems from '../../model/menu-items';
+import { GameInitial, PagesState, Progress } from '../../model/types';
 
 const routes: { [key: string]: string } = {
   notFound: 'notFound',
@@ -11,7 +11,7 @@ const routes: { [key: string]: string } = {
   stats: 'stats',
 };
 
-export   const parseQueryString = () => {
+export const parseQueryString = () => {
   const queryStr = window.location.hash
     .replace('/#', '')
     .split('/')
@@ -19,10 +19,13 @@ export   const parseQueryString = () => {
   const path = queryStr.length ? queryStr[0] : '/';
   const pageName = routes[path] || routes.notFound;
   return { queryStr, pageName };
-}
+};
 
-export const rewriteUrl = () => {
+export const rewriteUrl = (state: PagesState) => {
   const { hash } = window.location;
+  if ((hash.includes('sprint') || hash.includes('audio')) && state.gameStarted) {
+    window.location.reload();
+  }
   if (!hash) {
     window.location.hash = `#${window.location.pathname}`;
     window.location.pathname = '';
@@ -30,7 +33,8 @@ export const rewriteUrl = () => {
 };
 
 export const setGameInitial = (queryStr: string[]): GameInitial => {
-  let  unit = -1, page = -1;
+  let unit = -1; let
+    page = -1;
   let source = '';
   if (queryStr[1] && queryStr[1].includes('unit')) {
     unit = +queryStr[1].replace(/([a-zA-Z])+/, '') || 1;
@@ -56,7 +60,6 @@ export const setProgress = (queryStr: string[], textbook: Progress) => {
   if (!page) { page = 1; }
   return { unit, page };
 };
-
 
 export const showPageTitle = (page: string) => {
   const currentMenuItem = menuItems.find((item) => item.href === page);

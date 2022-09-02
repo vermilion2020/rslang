@@ -12,7 +12,7 @@ const AppView = async () => {
   state = await header.render();
   renderFooter();
   window.addEventListener('hashchange', async () => {
-    state = await handleRoute(state) ;
+    state = await handleRoute(state);
   });
 };
 
