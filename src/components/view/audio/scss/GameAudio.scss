@@ -120,27 +120,52 @@ $icons-path: '../../../../assets/images/png/';
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 2px white;
+  border: solid 5px $bgTColorWhite;
   background: url('#{$icons-path}up_volume_white.png');
   background-size: 100px;
   background-position: bottom 1.2rem left 1.4rem;
   background-repeat: no-repeat;
   border-radius: 50%;
+  background-color: $elemColorCian;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
+    background-color: $btnColorUnit3;
+    border-color: $btnColorUnit4;
   }
 }
 
 .select-container__game {
-  margin-bottom: 10%;
+  margin-bottom: 5%;
   .select-word {
+    margin: 5px 10px;
+    padding: 5px 8px;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    font-family: $enFont;
+    font-size: 1.1rem;
+    background-color: $elemColorGreen;
+
     &:hover {
-      cursor: pointer;
+      background-color: $btnColorUnit3;
     }
   }
 }
 
 .block-btn__next {
-  margin-bottom: 10%;
+  margin: 0 auto 30px;
+}
+
+.btn-next {
+  width: 100px;
+  height: 40px;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  font-family: $enFont;
+  font-size: 1.1rem;
+  background-color: $bgTColorWhite;
+
+  &:hover {
+    background-color: $iconColorComplex;
+  }
 }
