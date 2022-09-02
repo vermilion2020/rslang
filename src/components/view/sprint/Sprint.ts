@@ -156,7 +156,6 @@ class Sprint implements Page {
     if (this.currentWord) {
       await this.saveResult(this.currentWord, result);
     }
-    await this.updateCard();
   }
 
   async renderGame() {

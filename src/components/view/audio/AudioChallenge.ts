@@ -6,17 +6,16 @@ import { renderAudioResultPop } from './AudioResult';
 
 import { loadWords } from '../../controller/helpers';
 import { updateWordData, getNewWord } from '../../controller/helpers/sprint-helper';
-import { unitSelect, randomTranslates, showCorrectAnswer, resetCardsContent, disableDecisionButtons } from '../../controller/helpers/audio-helper';
+import { unitSelect, randomTranslates, showCorrectAnswer, resetCardsContent, disableDecisionButtons, playWordAudio } from '../../controller/helpers/audio-helper';
 import { CheckedWord, GameWordData, WordData } from '../../model/types';
 import { answers, apiBaseUrl, countAttempts, countPages, units } from '../../model/constants';
 
 class AudioChallenge implements Page {
   state: PagesState;
   container: HTMLElement;
-  player = <HTMLAudioElement>document.querySelector('#audio');
   score: number = 0;
   maxSuccess: number = 0;
-  successTotal: number = 0;
+  successTotal: number;
   unit: number;
   page: number;
   currentWord: GameWordData | null;
@@ -76,9 +75,6 @@ class AudioChallenge implements Page {
   }
 
   async updateCard() {
-    if (this.checkedWords.length > countAttempts) {
-      renderAudioResultPop();
-    }
     const { word, updatedWords } = await getNewWord(
       this.words,
       this.unit,
@@ -90,20 +86,6 @@ class AudioChallenge implements Page {
     this.words = [...updatedWords];
     this.currentWord = { ...word };
     this.updateGameContent(this.currentWord);
-  }
-
-  async playWordAudio(audioPath?: string) {
-    if (audioPath) {
-      this.player.src = `${apiBaseUrl}/${audioPath}`;
-      this.player.currentTime = 0;
-      this.player.muted = false;
-      try {
-        await this.player.play();
-      } catch {
-        console.log('don\'t start audio on reload');
-      }
-      
-    }
   }
 
   updateGameContent = async (word: GameWordData) => {
@@ -119,7 +101,7 @@ class AudioChallenge implements Page {
     selectContainer.append(translatesBody);
     const correctCount = <HTMLElement>document.querySelector('.value-correct');
     correctCount.innerHTML = `${this.successTotal}`;
-    this.playWordAudio(word.audio);
+    playWordAudio(word.audio);
   };
 
   setInitialValues() {
@@ -151,26 +133,67 @@ class AudioChallenge implements Page {
     this.checkedWords.push(checked);
   }
 
-  async handleDecision(e: Event | KeyboardEvent, container: HTMLElement) {
+  getDecisionValue(e: Event| KeyboardEvent, container: HTMLElement) {
     const target = <HTMLElement>e.target;
-    disableDecisionButtons();
-    let decision = 0;
-    if ('key' in e) {
-      decision = Number.parseInt(e.key, 10);
-    } else {
-      decision = +<string>target.dataset.word;
-    }
+      let decision = 0;
+      if ('key' in e) {
+        decision = Number.parseInt(e.key, 10);
+      } else {
+        decision = +<string>target.dataset.word;
+      }
     const resultValue = +<string>container.dataset.result;
     const result = decision === resultValue;
+    return {result, decision};
+  }
+
+  async handleDecision(result: boolean, decision: number) {
+    disableDecisionButtons();
     if (this.currentWord) {
       await this.saveResult(this.currentWord, result);
     }
     const audio = <HTMLElement>document.querySelector('.speaker-ico');
     if (this.currentWord && audio) {
       showCorrectAnswer(this.currentWord, result, decision);
+      //countAttempts
+      if (this.checkedWords.length >= 5) {
+        renderAudioResultPop(this.checkedWords, this.successTotal);
+        this.render();
+      }
       audio.addEventListener('click', () => {
-        this.playWordAudio(this.currentWord?.audio);
+        if (this.currentWord) {
+          playWordAudio(this.currentWord?.audio);
+        }
       });
+    }
+  }
+  
+  handleClickGameCard = async (e: Event, container: HTMLElement) => {
+    const target = <HTMLElement>e.target;
+    if (target.classList.contains('btn-next')) {
+      this.updateCard();
+    } else if (target.classList.contains('btn-dont-know') && this.currentWord) {
+      showCorrectAnswer(this.currentWord, false, -1);
+    } else if (target.classList.contains('voice-ico__block') && this.currentWord) {
+      playWordAudio(this.currentWord.audio);
+    } else if (target.classList.contains('select-word')) {
+      const { result, decision } = this.getDecisionValue(e, container);
+      await this.handleDecision(result, decision);
+    }
+  }
+
+  handleKeysGameCard = async (e: KeyboardEvent, container: HTMLElement) => {
+    const { key } = e;
+    const keyNum = Number.parseInt(key, 10);
+    const btnNext = <HTMLElement>document.querySelector('.btn-next');
+    const btnDontKnow = <HTMLElement>document.querySelector('.btn-dont-know');
+    const selectButtons = <NodeListOf<HTMLElement>>document.querySelectorAll('.select-word');
+    if (answers.includes(keyNum) && !selectButtons[0].getAttribute('disabled')) {
+      const { result, decision } = this.getDecisionValue(e, container);
+      await this.handleDecision(result, decision);
+    } else if ((key === 'Enter' || key === 'ArrowRight') && !btnNext.classList.contains('hidden')) {
+      this.updateCard();
+    } else if ((key === 'Enter') && !btnDontKnow.classList.contains('hidden') && !btnDontKnow.getAttribute('disabled') && this.currentWord) {
+      await this.handleDecision(false, -1);
     }
   }
 
@@ -198,35 +221,15 @@ class AudioChallenge implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(gameNode);
-    this.playWordAudio(this.currentWord.audio);
+    playWordAudio(this.currentWord.audio);
     const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
-    const btnNext = <HTMLElement>document.querySelector('.btn-next');
-    const btnDontKnow = <HTMLElement>document.querySelector('.btn-dont-know');
-      gameCard.addEventListener('click', (e: Event) => {
-      const target = <HTMLElement>e.target;
-      if (target.classList.contains('btn-next')) {
-        this.updateCard();
-      } else if (target.classList.contains('btn-dont-know') && this.currentWord) {
-        showCorrectAnswer(this.currentWord, false, -1);
-      } else if (target.classList.contains('voice-ico__block') && this.currentWord) {
-        this.playWordAudio(this.currentWord.audio);
-      } else if (target.classList.contains('select-word')) {
-        this.handleDecision(e, gameCard);
-      }
+    gameCard.addEventListener('click', async (e: Event) => {
+      await this.handleClickGameCard(e, gameCard);
     });
     if (!this.state.audio.set) {
       this.state.sprint.set = true;
       document.addEventListener('keydown', async (e: KeyboardEvent) => {
-        const { key } = e;
-        const keyNum = Number.parseInt(key, 10);
-        const selectButtons = <NodeListOf<HTMLElement>>document.querySelectorAll('.select-word');
-        if (answers.includes(keyNum) && !selectButtons[0].getAttribute('disabled')) {
-          await this.handleDecision(e, gameCard);
-        } else if ((key === 'Enter' || key === 'ArrowRight') && !btnNext.classList.contains('hidden')) {
-          this.updateCard();
-        } else if ((key === 'Enter') && !btnDontKnow.classList.contains('hidden') && this.currentWord) {
-          showCorrectAnswer(this.currentWord, false, -1);
-        }
+        this.handleKeysGameCard(e, gameCard);
       });
     }
   }

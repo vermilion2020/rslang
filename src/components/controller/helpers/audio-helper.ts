@@ -33,9 +33,23 @@ export const enableDecisionButtons = () => {
     .removeAttribute('disabled');
 };
 
+export const playWordAudio = async (audioPath?: string) => {
+  if (audioPath) {
+    const player = <HTMLAudioElement>document.querySelector('#audio');
+    player.src = `${apiBaseUrl}/${audioPath}`;
+    player.currentTime = 0;
+    player.muted = false;
+    try {
+      await player.play();
+    } catch {
+      console.log('don\'t start audio on reload');
+    }
+    
+  }
+}
+
 export const showCorrectAnswer = (word: GameWordData, result: boolean, valueResult: number) => {
   // TODO set scc styles for classes incorrect, correct, guessed
-  disableDecisionButtons();
   const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
   const correct = +<string>gameCard.dataset.result;
   document.querySelector('.btn-dont-know')?.classList.add('hidden');
@@ -59,10 +73,14 @@ export const showCorrectAnswer = (word: GameWordData, result: boolean, valueResu
 
 export const resetCardsContent = () => {
   const picture = <HTMLElement>document.querySelector('#word-picture');
-  picture.setAttribute('src', '');
-  picture.classList.add('hidden');
+  if(picture) {
+    picture.setAttribute('src', '');
+    picture.classList.add('hidden');
+  }
   const offer = <HTMLElement>document.querySelector('.select-offer');
-  offer.innerText = '';
+  if(offer) {
+    offer.innerText = '';
+  }
   document.querySelector('.btn-dont-know')?.classList.remove('hidden');
   document.querySelector('.btn-next')?.classList.add('hidden');
   (<HTMLElement>document.querySelector('.speaker-ico')).classList.add('hidden');
