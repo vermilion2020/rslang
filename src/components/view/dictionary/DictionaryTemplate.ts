@@ -9,13 +9,6 @@ export const sectionWords = (currentUnit: number): Record<string, HTMLElement> =
   return { section, wrapper };
 };
 
-// export const titleTemplate = (titleName: string) => {
-//   const titleBlock = document.createElement('template');
-//   titleBlock.innerHTML = `
-//   <p class="title-sec">${titleName}</p>`;
-//   return titleBlock;
-// };
-
 export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
   const card = `<div class="dictionary-card" id="${wordData.id}">
   <div class="diction-meta">

@@ -13,6 +13,7 @@ export interface WordData {
   wordTranslate: string,
   textMeaningTranslate: string,
   textExampleTranslate: string,
+  _id?: string,
   difficulty?: string;
   optional?: {
       vic: number;
