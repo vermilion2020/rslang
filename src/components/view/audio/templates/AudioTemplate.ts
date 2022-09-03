@@ -1,6 +1,6 @@
 const audioTemplate: HTMLTemplateElement = document.createElement('template');
 audioTemplate.innerHTML = `
-  <div class="main-page">
+  <div class="main-page-audio">
   <div class="wrapper">
     <section class="header-audio">
      <div class="close-audio">

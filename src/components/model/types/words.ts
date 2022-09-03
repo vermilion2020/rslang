@@ -40,9 +40,10 @@ export type GameWordData = WordData & { translates: string[] };
 export interface UserWord {
   difficulty: string;
   optional: {
-    vic: number;
-    loss: number;
-  };
+      vic: number,
+      loss: number,
+      source?: string
+  }
 }
 
 export interface WordHardData {

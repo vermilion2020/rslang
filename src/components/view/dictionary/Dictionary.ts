@@ -4,7 +4,6 @@ import { Page, PagesState } from '../../model/types/page';
 import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
 import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
 import { loadWords, loadWordsHard, addWordData, addDataPerPage } from '../../controller/helpers/word-helper';
-import { handleRoute } from '../../controller/router';
 
 class Dictionary implements Page {
   state: PagesState;
@@ -32,7 +31,6 @@ class Dictionary implements Page {
     if (this.state.dictionary.unit === 7) {
       words = await loadWordsHard(this.state);
     }
-    console.log(words);
     const dictionaryNode = <HTMLElement>dictionaryTemplate(words, this.state.loggedIn).content.cloneNode(true);
     const pagingNode = await this.paging();
     const unitNode = this.units();
@@ -104,7 +102,7 @@ class Dictionary implements Page {
   }
 
   async changeCurrentPage(unit: number, page: number) {
-    window.location.hash = `/#/${this.state.page}/unit${unit}/${page}`;
+    window.location.hash = `/${this.state.page}/unit${unit}/${page}`;
     const dictionaryProgress = { unit: this.state.dictionary.unit, page: this.state.dictionary.page };
     const textbook = JSON.stringify(dictionaryProgress);
     localStorage.setItem('dictionary', textbook);
@@ -121,7 +119,6 @@ class Dictionary implements Page {
     const changeRadio = async (e: Event) => {
       const cardId = (<HTMLInputElement>e.target).name;
       const card = <HTMLElement>document.getElementById(cardId);
-      console.log(card);
       const lebelEl = document.getElementById(cardId)?.querySelector('.label');
       const inputValue = (<HTMLInputElement>e.target).value;
       const inputChecked = (<HTMLInputElement>e.target).checked;

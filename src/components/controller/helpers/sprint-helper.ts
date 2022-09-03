@@ -1,6 +1,7 @@
+import { saveGameStat } from '../../model/api';
 import { addUserWord, getWordTranslates, updateUserWord } from '../../model/api/words';
 import { maxScorePerWord, minScorePerWord, scoreStep } from '../../model/constants';
-import { GameWordData, UserWord, WordData } from '../../model/types';
+import { GameWordData, StatData, UserWord, WordData } from '../../model/types';
 import { loadWords } from './word-helper';
 
 export const randomResult = (word: GameWordData) => {
@@ -99,7 +100,13 @@ export const updateScoreParameters = (
   return { successCount, successReward, totalSore };
 };
 
-export const updateWordData = async (result: boolean, word: GameWordData, userId: string, token: string) => {
+export const updateWordData = async (
+  result: boolean,
+  word: GameWordData,
+  userId: string,
+  token: string,
+  source: string
+) => {
   let loss = word.optional?.loss || 0;
   let vic = word.optional?.vic || 0;
   let difficulty = word.difficulty || 'base';
@@ -123,6 +130,7 @@ export const updateWordData = async (result: boolean, word: GameWordData, userId
     optional: {
       vic,
       loss,
+      source: source,
     },
   };
   if (word.used) {
@@ -130,6 +138,30 @@ export const updateWordData = async (result: boolean, word: GameWordData, userId
   } else {
     await addUserWord(userId, word.id, data, token);
   }
+};
+
+export const saveGameStatistics = async (
+  userId: string,
+  token: string,
+  maxSuccess: number,
+  successAnswers: number,
+  totalAnswers: number,
+  source: string
+) => {
+  const maxData: StatData = {
+    field: 'maxSuccess',
+    value: maxSuccess,
+    source: source,
+    totalValue: 0,
+  };
+  await saveGameStat(userId, token, maxData);
+  let percentData: StatData = {
+    field: 'successPercent',
+    value: successAnswers,
+    source: source,
+    totalValue: totalAnswers,
+  };
+  await saveGameStat(userId, token, percentData);
 };
 
 export const disableDecisionButtons = () => {

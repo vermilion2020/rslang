@@ -23,7 +23,7 @@ export const parseQueryString = () => {
 
 export const rewriteUrl = (state: PagesState) => {
   const { hash } = window.location;
-  if ((hash.includes('sprint') || hash.includes('audio')) && state.gameStarted) {
+  if (state.gameStarted) {
     window.location.reload();
   }
   if (!hash) {

@@ -5,7 +5,8 @@ import audioTemplateGame, { drawTranslates } from './templates/AudioTemplateGame
 import { renderAudioResultPop } from './AudioResult';
 
 import { loadWords } from '../../controller/helpers';
-import { updateWordData, getNewWord } from '../../controller/helpers/sprint-helper';
+
+import { updateWordData, getNewWord, saveGameStatistics } from '../../controller/helpers/sprint-helper';
 import {
   unitSelect,
   randomTranslates,
@@ -14,8 +15,10 @@ import {
   disableDecisionButtons,
   playWordAudio,
 } from '../../controller/helpers/audio-helper';
+
 import { CheckedWord, GameWordData, WordData } from '../../model/types';
-import { answers, apiBaseUrl, countAttempts, countPages, units } from '../../model/constants';
+import { answers, countAttempts, countPages, units } from '../../model/constants';
+import audioTemplateResult from './templates/AudioTemplateResult';
 
 class AudioChallenge implements Page {
   state: PagesState;
@@ -82,6 +85,11 @@ class AudioChallenge implements Page {
   }
 
   async updateCard() {
+    //change to countAttempts
+    if (this.checkedWords.length >= 5) {
+      await this.renderResults();
+      await this.render();
+    }
     const { word, updatedWords } = await getNewWord(
       this.words,
       this.unit,
@@ -92,7 +100,10 @@ class AudioChallenge implements Page {
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
-    this.updateGameContent(this.currentWord);
+    //change to countAttempts
+    if (this.checkedWords.length < 5) {
+      this.updateGameContent(this.currentWord);
+    }
   }
 
   updateGameContent = async (word: GameWordData) => {
@@ -127,7 +138,7 @@ class AudioChallenge implements Page {
     }
 
     if (this.state.loggedIn) {
-      await updateWordData(result, word, this.state.userId, this.state.token);
+      await updateWordData(result, word, this.state.userId, this.state.token, 'audio');
     }
     const checked: CheckedWord = {
       wordId: word.id,
@@ -161,11 +172,13 @@ class AudioChallenge implements Page {
     const audio = <HTMLElement>document.querySelector('.speaker-ico');
     if (this.currentWord && audio) {
       showCorrectAnswer(this.currentWord, result, decision);
+
       //countAttempts
       if (this.checkedWords.length >= 20) {
         renderAudioResultPop(this.checkedWords, this.successTotal);
         this.render();
       }
+
       audio.addEventListener('click', () => {
         if (this.currentWord) {
           playWordAudio(this.currentWord?.audio);
@@ -240,6 +253,20 @@ class AudioChallenge implements Page {
         this.handleKeysGameCard(e, gameCard);
       });
     }
+  }
+
+  async renderResults() {
+    const successWords = this.checkedWords.filter((w) => w.result);
+    const failedWords = this.checkedWords.filter((w) => !w.result);
+    await saveGameStatistics(
+      this.state.userId,
+      this.state.token,
+      this.maxSuccess,
+      successWords.length,
+      this.checkedWords.length,
+      'audio'
+    );
+    renderAudioResultPop(successWords, failedWords, this.successTotal);
   }
 }
 
