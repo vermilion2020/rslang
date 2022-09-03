@@ -1,6 +1,4 @@
-import {
-  addUserWord, getWordTranslates, updateUserWord,
-} from '../../model/api/words';
+import { addUserWord, getWordTranslates, updateUserWord } from '../../model/api/words';
 import { maxScorePerWord, minScorePerWord, scoreStep } from '../../model/constants';
 import { GameWordData, UserWord, WordData } from '../../model/types';
 import { loadWords } from './word-helper';
@@ -17,7 +15,7 @@ export const getNewWord = async (
   unit: number,
   currPage: number,
   loggedIn: boolean,
-  translateCounts: number, 
+  translateCounts: number,
   source: string
 ) => {
   let currentPage = currPage;
@@ -26,7 +24,7 @@ export const getNewWord = async (
   const response = await getWordTranslates(words[wordIndex].id, translateCounts);
   const { translates } = <GameWordData>response.data;
   const word = { ...words[wordIndex], translates };
-  let updatedWords  = [...words.slice(0, wordIndex), ...words.slice(wordIndex + 1, words.length)];
+  let updatedWords = [...words.slice(0, wordIndex), ...words.slice(wordIndex + 1, words.length)];
   if (updatedWords.length < 1) {
     if (currentPage > 1) {
       currentPage -= 1;
@@ -41,7 +39,7 @@ export const getNewWord = async (
     if (currentPage !== -1) {
       let newWords = await loadWords(currentUnit, currentPage, loggedIn);
       if (source === 'textbook' || source === 'dictionary') {
-        newWords = newWords.filter(word => word.difficulty !== 'easy');
+        newWords = newWords.filter((word) => word.difficulty !== 'easy');
       }
       updatedWords = [...updatedWords, ...newWords];
     }
@@ -76,7 +74,7 @@ export const updateScoreParameters = (
   result: boolean,
   successInRope: number,
   countForSuccess: number,
-  score: number,
+  score: number
 ) => {
   let successCount = successInRope;
   let successReward = countForSuccess;
@@ -142,13 +140,17 @@ export const disableDecisionButtons = () => {
 };
 
 export const getDecisionResult = (container: HTMLElement, decision: number) => {
-  const result = +<string>container.dataset.result === decision;
+  const result = +(<string>container.dataset.result) === decision;
   if (result) {
     container.classList.add('border-true');
-    setTimeout(() => { container.classList.remove('border-true'); }, 1000);
+    setTimeout(() => {
+      container.classList.remove('border-true');
+    }, 1000);
   } else {
     container.classList.add('border-false');
-    setTimeout(() => { container.classList.remove('border-false'); }, 1000);
+    setTimeout(() => {
+      container.classList.remove('border-false');
+    }, 1000);
   }
   return result;
 };
