@@ -3,7 +3,7 @@ import { CheckedWord } from '../../../model/types';
 
 const drawResultLine = (checkedWord: CheckedWord, result: string): string => `
     <li class="result-item ${result}-item">
-      <div class="on-speak img-voice"  data-id="${checkedWord.wordId}"></div>
+      <div class="on-speak"  data-id="${checkedWord.wordId}"><div class='img-voice__res'></div></div>
       <span class="eng-word">${checkedWord.word}</span>
       <span class="transcription">${checkedWord.transcription}</span>
       <span class="rus-word"> - ${checkedWord.wordTranslate}</span>
