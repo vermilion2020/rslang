@@ -10,6 +10,13 @@ export interface StatGame {
   maxSuccess: number;
 }
 
+export interface StatData {
+  value: number;
+  source: string;
+  field: string;
+  totalValue: number
+}
+
 export type ResponseStat = {
   data: Stat
 }

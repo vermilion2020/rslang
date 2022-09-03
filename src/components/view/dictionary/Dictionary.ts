@@ -31,7 +31,6 @@ class Dictionary implements Page {
     if (this.state.dictionary.unit === 7) {
       words = await loadWordsHard(this.state);
     }
-    console.log(words);
     const dictionaryNode = <HTMLElement>dictionaryTemplate(words, this.state.loggedIn).content.cloneNode(true);
     const pagingNode = await this.paging();
     const unitNode = this.units();
@@ -120,7 +119,6 @@ class Dictionary implements Page {
     const changeRadio = async (e: Event) => {
       const cardId = (<HTMLInputElement>e.target).name;
       const card = <HTMLElement>document.getElementById(cardId);
-      console.log(card);
       const lebelEl = document.getElementById(cardId)?.querySelector('.label');
       const inputValue = (<HTMLInputElement>e.target).value;
       const inputChecked = (<HTMLInputElement>e.target).checked;
