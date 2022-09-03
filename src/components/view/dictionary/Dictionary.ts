@@ -4,7 +4,6 @@ import { Page, PagesState } from '../../model/types/page';
 import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
 import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
 import { loadWords, loadWordsHard, addWordData, addDataPerPage } from '../../controller/helpers/word-helper';
-import { handleRoute } from '../../controller/router';
 
 class Dictionary implements Page {
   state: PagesState;
@@ -104,7 +103,7 @@ class Dictionary implements Page {
   }
 
   async changeCurrentPage(unit: number, page: number) {
-    window.location.hash = `/#/${this.state.page}/unit${unit}/${page}`;
+    window.location.hash = `/${this.state.page}/unit${unit}/${page}`;
     const dictionaryProgress = { unit: this.state.dictionary.unit, page: this.state.dictionary.page };
     const textbook = JSON.stringify(dictionaryProgress);
     localStorage.setItem('dictionary', textbook);

@@ -4,7 +4,7 @@ export const commonStatsTemplate = (dayStat: Stat): HTMLTemplateElement => {
   const todayDate = (new Date()).toLocaleDateString('ru');
   const stat = document.createElement('template');
   stat.innerHTML = `
-    <div class="main-page">
+    <div class="common-stat">
       <h2>Общая статистика на ${todayDate}</h2>
       <table>
         <tr><th>Новые слова</th><th>Изученные слова</th><th>Процент правильных ответов</th></tr>
@@ -18,7 +18,7 @@ export const gameStatsTemplate = (dayStat: StatGame, gameName: string): HTMLTemp
   const todayDate = (new Date()).toLocaleDateString('ru');
   const stat = document.createElement('template');
   stat.innerHTML = `
-    <div class="main-page">
+    <div class="game-stat">
       <h2>Cтатистика по игре ${gameName} на ${todayDate}</h2>
       <table>
         <tr><th>Новые слова</th><th>Процент правильных ответов</th><th>Самая длинная цепочка угаданных слов</th></tr>
