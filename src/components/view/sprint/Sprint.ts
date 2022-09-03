@@ -14,6 +14,7 @@ import {
   updateScoreParameters,
   updateWordData,
   loadWords,
+  saveGameStatistics,
 } from '../../controller/helpers';
 
 class Sprint implements Page {
@@ -26,6 +27,8 @@ class Sprint implements Page {
   container: HTMLElement;
 
   successInRope = 0;
+
+  maxSuccess = 0;
 
   countForSuccess = 10;
 
@@ -122,9 +125,9 @@ class Sprint implements Page {
     this.score = scoreUpdates.totalSore;
     this.successInRope = scoreUpdates.successCount;
     this.countForSuccess = scoreUpdates.successReward;
-
+    this.maxSuccess = this.successInRope > this.maxSuccess ? this.successInRope : this.maxSuccess;
     if (this.state.loggedIn) {
-      await updateWordData(result, word, this.state.userId, this.state.token);
+      await updateWordData(result, word, this.state.userId, this.state.token, 'sprint');
     }
     const checked: CheckedWord = {
       wordId: word.id,
@@ -139,6 +142,7 @@ class Sprint implements Page {
 
   setInitialValues() {
     this.successInRope = 0;
+    this.maxSuccess = 0;
     this.score = 0;
     this.countForSuccess = 10;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
@@ -157,6 +161,7 @@ class Sprint implements Page {
     const result = getDecisionResult(container, decision);
     if (this.currentWord) {
       await this.saveResult(this.currentWord, result);
+      this.updateCard();
     }
   }
 
@@ -221,6 +226,14 @@ class Sprint implements Page {
     }
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
+    await saveGameStatistics(
+      this.state.userId,
+      this.state.token,
+      this.maxSuccess,
+      successWords.length,
+      this.checkedWords.length,
+      'sprint'
+    );
     const sprintResultsNode = <HTMLElement>(
       sprintResultsTemplate(successWords, failedWords, this.score).content.cloneNode(true)
     );

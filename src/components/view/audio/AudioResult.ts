@@ -3,9 +3,7 @@ import './AudioChallenge.scss';
 import { CheckedWord} from '../../../components/model/types/';
 import { playWordAudio } from '../../controller/helpers/audio-helper';
 
-export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: number) => {
-  const successWords = checkedWords.filter((w) => w.result);
-  const failedWords = checkedWords.filter((w) => !w.result);
+export const renderAudioResultPop = (successWords: CheckedWord[], failedWords: CheckedWord[], successTotal: number) => {
   const container = document.querySelector('#popup-audio') as HTMLElement;
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const formResu = container.querySelector('#page-result') as HTMLFormElement;
@@ -14,17 +12,6 @@ export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: 
   overlay.classList.remove('hidden');
   const resultPopNode = <HTMLElement>audioTemplateResult(successWords, failedWords, successTotal).content.cloneNode(true);
   container.appendChild(resultPopNode);
-
-  // const repeatBtn = <HTMLElement>document.querySelector('.result-repeat');
-  // repeatBtn.addEventListener('click', async (e) => {
-  //   e.preventDefault();
-  //   console.log('click', e.target);
-  //   console.log('GETW: ', getWords(1, 1));
-  //   console.log('LWORds: ', loadWords);
-  //   const wordsContent = (await getWords(1, 1)).data;
-  //   const wordsArr = wordsContent.map((el: WordData) => el.word);
-  //   console.log('WA: ', wordsArr);
-  // });
   
   container.querySelector('.result-exit')?.addEventListener('click', (e) => {
     e.preventDefault();
@@ -43,9 +30,9 @@ export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: 
     } else if (target.id === 'result-value') {
       wordsTab.classList.remove('hidden');
       totalTab.classList.add('hidden');
-    } else if (target.classList.contains('img-voice')) {
+    } else if (target.classList.contains('img-voice__res') || target.classList.contains('on-speak')) {
       const wordId = <string>target.dataset.id;
-      const audioPath = checkedWords.find((w) => w.wordId === wordId)?.audio;
+      const audioPath = [...successWords, ...failedWords].find((w) => w.wordId === wordId)?.audio;
       playWordAudio(audioPath);
     }
   });
