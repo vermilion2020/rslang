@@ -44,7 +44,6 @@ export const playWordAudio = async (audioPath?: string) => {
     } catch {
       console.log('don\'t start audio on reload');
     }
-    
   }
 }
 
