@@ -1,8 +1,14 @@
 import {
-  pagingTemplate, textbookTemplate, unitTemplate, sectionWords, titleTemplate, playTemplate,
+  pagingTemplate,
+  textbookTemplate,
+  unitTemplate,
+  sectionWords,
+  titleTemplate,
+  playTemplate,
 } from './TextbookTemplate';
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
+
 import { loadWords, loadWordsHard, addDataPerPage } from '../../controller/helpers/word-helper';
 import { handleRoute } from '../../controller/router';
 
@@ -76,24 +82,27 @@ class Textbook implements Page {
   async paging() {
     let overPages = 1;
     const currentPage = this.state.textbook.page;
-    if ((currentPage + 2) >= 30) {
+    if (currentPage + 2 >= 30) {
       overPages = 26;
     }
-    if ((currentPage + 2) < 30 && (currentPage - 2) > 1) {
+    if (currentPage + 2 < 30 && currentPage - 2 > 1) {
       overPages = currentPage - 2;
     }
     let dataPerPage = [false, false, false, false, false];
     if (this.state.loggedIn) {
-      dataPerPage = await addDataPerPage(
-        this.state.userId,
-        this.state.token,
-        this.state.textbook.unit,
-        overPages,
-      );
+      dataPerPage = await addDataPerPage(this.state.userId, this.state.token, this.state.textbook.unit, overPages);
     }
 
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.textbook.unit, this.state.textbook.page, dataPerPage, 'dictionary', 'в словарь')
-      .content.cloneNode(true);
+    const pagingNode = <HTMLElement>(
+      pagingTemplate(
+        this.state.textbook.unit,
+        this.state.textbook.page,
+        dataPerPage,
+        'dictionary',
+        'в словарь'
+      ).content.cloneNode(true)
+    );
+
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
       this.handlePagingClick(e);
@@ -102,10 +111,7 @@ class Textbook implements Page {
   }
 
   units() {
-    const unitNode = <HTMLElement>unitTemplate(
-      this.state.textbook.unit,
-      this.state.loggedIn,
-    ).content.cloneNode(true);
+    const unitNode = <HTMLElement>unitTemplate(this.state.textbook.unit, this.state.loggedIn).content.cloneNode(true);
     const units = <HTMLElement>unitNode.querySelector('.units');
     units.addEventListener('click', async (e) => {
       this.handleUnitClick(e);
@@ -114,8 +120,10 @@ class Textbook implements Page {
   }
 
   createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate(this.state.textbook.unit, this.state.textbook.page, 'textbook')
-      .content.cloneNode(true);
+    const playNode = <HTMLElement>(
+      playTemplate(this.state.textbook.unit, this.state.textbook.page, 'textbook').content.cloneNode(true)
+    );
+
     return playNode;
   }
 
