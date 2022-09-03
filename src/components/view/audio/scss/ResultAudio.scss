@@ -36,6 +36,28 @@ $icons-path: '../../../../assets/images/png/';
   align-items: center;
 }
 
+.result-info-words {
+  overflow: auto;
+}
+
+.result-info-words::-webkit-scrollbar {
+  width: 12px; 
+  height: 90%;
+}
+
+.result-info-words::-webkit-scrollbar-track {
+  background: $bgTColorWhite;    
+  z-index: -1;
+  
+}
+
+.result-info-words::-webkit-scrollbar-thumb {
+  background-color: $TextNotActive; 
+  border-radius: 20px;    
+  cursor: pointer; 
+  border: 3px solid $bgTColorWhite; 
+}
+
 .result-description {
   font-family: $rusFont;
   font-size: 1.2rem;
