@@ -1,4 +1,5 @@
-@import 'base-styles.scss';
+@import './common/base-styles.scss';
+@import './common/loader.scss';
 
 .button  {
   -webkit-transition: all 0.3s ease;

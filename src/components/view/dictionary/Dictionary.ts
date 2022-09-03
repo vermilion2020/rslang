@@ -3,7 +3,7 @@ import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
 import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
 import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
-import { loadWords, loadWordsHard, addWordData, addDataPerPage } from '../../controller/helpers/word-helper';
+import { loadWords, loadWordsHard, addWordData, addDataPerPage, showPreloader } from '../../controller/helpers/word-helper';
 
 class Dictionary implements Page {
   state: PagesState;
@@ -15,6 +15,7 @@ class Dictionary implements Page {
   async render() {
     this.state.page = 'dictionary';
     const container = document.querySelector('#main-container') as HTMLDivElement;
+    showPreloader(container);
     const sectionDictionary = await this.createSectionDiction();
     const sectionPlay = this.createSectionPlay();
     container.innerHTML = '';

@@ -1,6 +1,7 @@
 import mainTemplate from './MainTemplate';
 import './Main.scss';
 import { Page, PagesState } from '../../model/types/page';
+import { showPreloader } from '../../controller/helpers';
 
 class Main implements Page {
   state: PagesState;
@@ -27,10 +28,10 @@ class Main implements Page {
 
   async render() {
     this.state.page = 'main';
-    const notFoundNode = <HTMLElement>mainTemplate.content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
+    const mainNode = <HTMLElement>mainTemplate.content.cloneNode(true);
     container.innerHTML = '';
-    container.append(notFoundNode);
+    container.append(mainNode);
     this.addListener();
     return this.state;
   }
