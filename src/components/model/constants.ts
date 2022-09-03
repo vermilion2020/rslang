@@ -1,5 +1,4 @@
-//export const apiBaseUrl = 'https://rslang-learn-words.herokuapp.com';
-export const apiBaseUrl = 'http://localhost:8081';
+export const apiBaseUrl = 'https://rslang-learn-words.herokuapp.com';
 //textbook
 export const countPages = 30;
 
