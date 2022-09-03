@@ -47,24 +47,13 @@ class Sprint implements Page {
     this.page = Math.floor(Math.random() * countPages) + 1;
     this.unit = 1;
     this.currentWord = null;
-<<<<<<< HEAD
-    if(!this.state.sprint.set) {
-      this.state.sprint.set = true;
-      this.container.addEventListener('click', async (e: Event) => {
-        const target = <HTMLElement>e.target;
-        if (target.classList.contains('unit-select__button')) {
-          this.handleUnitSelect(e);
-        }
-      });
-    }
-=======
+
     this.container.addEventListener('click', async (e: Event) => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('unit-select__button')) {
         this.handleUnitSelect(e);
       }
     });
->>>>>>> develop
   }
 
   async handleUnitSelect(e: Event) {
@@ -76,7 +65,9 @@ class Sprint implements Page {
       timerCard(3, 'unit-diagram');
       document.querySelector('.unit-select')?.classList.add('hidden');
       document.querySelector('.diagram')?.classList.remove('hidden');
-      await startTimer(2, async () => { await this.renderGame(); });
+      await startTimer(2, async () => {
+        await this.renderGame();
+      });
     }
   }
 
@@ -96,7 +87,9 @@ class Sprint implements Page {
       document.querySelector('.unit-select')?.classList.add('hidden');
       document.querySelector('.diagram')?.classList.remove('hidden');
       timerCard(3, 'unit-diagram');
-      await startTimer(2, async () => { await this.renderGame(); });
+      await startTimer(2, async () => {
+        await this.renderGame();
+      });
     }
     this.container.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
@@ -159,7 +152,7 @@ class Sprint implements Page {
     if ('key' in e) {
       decision = e.key === 'ArrowRight' ? 1 : 0;
     } else {
-      decision = +<string>target.dataset.value;
+      decision = +(<string>target.dataset.value);
     }
     const result = getDecisionResult(container, decision);
     if (this.currentWord) {
@@ -169,13 +162,9 @@ class Sprint implements Page {
 
   async renderGame() {
     this.setInitialValues();
-    this.words = await loadWords(
-      this.unit,
-      this.page,
-      this.state.loggedIn,
-    );
+    this.words = await loadWords(this.unit, this.page, this.state.loggedIn);
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
-      this.words = this.words.filter(word => word.difficulty !== 'easy');
+      this.words = this.words.filter((word) => word.difficulty !== 'easy');
       if (!this.words.length) {
         window.location.href = '/#/sprint';
       }
@@ -195,7 +184,9 @@ class Sprint implements Page {
     this.container.append(sprintCardNode);
     const cardContainer = <HTMLElement>document.querySelector('#card-sprint');
     timerCard(59, 'card-diagram');
-    await startTimer(58, async () => { await this.renderResults(); });
+    await startTimer(58, async () => {
+      await this.renderResults();
+    });
     cardContainer.addEventListener('click', async (e: Event) => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('decision_button') || target.classList.contains('arr')) {
@@ -215,7 +206,7 @@ class Sprint implements Page {
 
   playWordAudio(target: HTMLElement) {
     const wordId = <string>target.dataset.id;
-    const wordAudio = <string> this.checkedWords.find((item) => item.wordId === wordId)?.audio;
+    const wordAudio = <string>this.checkedWords.find((item) => item.wordId === wordId)?.audio;
     if (wordAudio) {
       this.player.src = `${apiBaseUrl}/${wordAudio}`;
       this.player.currentTime = 0;
@@ -230,14 +221,12 @@ class Sprint implements Page {
     }
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
-    const sprintResultsNode = <HTMLElement>sprintResultsTemplate(
-      successWords,
-      failedWords,
-      this.score,
-    ).content.cloneNode(true);
+    const sprintResultsNode = <HTMLElement>(
+      sprintResultsTemplate(successWords, failedWords, this.score).content.cloneNode(true)
+    );
     this.container.innerHTML = '';
     this.container.append(sprintResultsNode);
-    const sprintResults = <HTMLElement> this.container.querySelector('#results-sprint');
+    const sprintResults = <HTMLElement>this.container.querySelector('#results-sprint');
     sprintResults.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('results-audio')) {
