@@ -6,7 +6,14 @@ import { renderAudioResultPop } from './AudioResult';
 
 import { loadWords } from '../../controller/helpers';
 import { updateWordData, getNewWord } from '../../controller/helpers/sprint-helper';
-import { unitSelect, randomTranslates, showCorrectAnswer, resetCardsContent, disableDecisionButtons, playWordAudio } from '../../controller/helpers/audio-helper';
+import {
+  unitSelect,
+  randomTranslates,
+  showCorrectAnswer,
+  resetCardsContent,
+  disableDecisionButtons,
+  playWordAudio,
+} from '../../controller/helpers/audio-helper';
 import { CheckedWord, GameWordData, WordData } from '../../model/types';
 import { answers, apiBaseUrl, countAttempts, countPages, units } from '../../model/constants';
 
@@ -32,16 +39,16 @@ class AudioChallenge implements Page {
     this.currentWord = null;
     this.successTotal = 0;
     this.selectedWords = [];
-      document.addEventListener('keydown', async (e: KeyboardEvent) => {
-        const { key } = e;
-        const keyNum = Number.parseInt(key, 10);
-        const btnStart = document.querySelector('.btn-start');
-        if (units.includes(keyNum) && btnStart) {
-          this.unit = await unitSelect(e);
-        } else if ((key === 'Enter') && btnStart) {
-          this.renderGame();
-        }
-      });
+    document.addEventListener('keydown', async (e: KeyboardEvent) => {
+      const { key } = e;
+      const keyNum = Number.parseInt(key, 10);
+      const btnStart = document.querySelector('.btn-start');
+      if (units.includes(keyNum) && btnStart) {
+        this.unit = await unitSelect(e);
+      } else if (key === 'Enter' && btnStart) {
+        this.renderGame();
+      }
+    });
   }
 
   async render() {
@@ -66,7 +73,7 @@ class AudioChallenge implements Page {
     }
     // render game page
     const startAudioGameBtn = document.querySelector('.btn-start') as HTMLButtonElement;
-    if(startAudioGameBtn) {
+    if (startAudioGameBtn) {
       startAudioGameBtn.addEventListener('click', async (e: Event) => {
         this.renderGame();
       });
@@ -133,17 +140,17 @@ class AudioChallenge implements Page {
     this.checkedWords.push(checked);
   }
 
-  getDecisionValue(e: Event| KeyboardEvent, container: HTMLElement) {
+  getDecisionValue(e: Event | KeyboardEvent, container: HTMLElement) {
     const target = <HTMLElement>e.target;
-      let decision = 0;
-      if ('key' in e) {
-        decision = Number.parseInt(e.key, 10);
-      } else {
-        decision = +<string>target.dataset.word;
-      }
-    const resultValue = +<string>container.dataset.result;
+    let decision = 0;
+    if ('key' in e) {
+      decision = Number.parseInt(e.key, 10);
+    } else {
+      decision = +(<string>target.dataset.word);
+    }
+    const resultValue = +(<string>container.dataset.result);
     const result = decision === resultValue;
-    return {result, decision};
+    return { result, decision };
   }
 
   async handleDecision(result: boolean, decision: number) {
@@ -155,7 +162,7 @@ class AudioChallenge implements Page {
     if (this.currentWord && audio) {
       showCorrectAnswer(this.currentWord, result, decision);
       //countAttempts
-      if (this.checkedWords.length >= 5) {
+      if (this.checkedWords.length >= 20) {
         renderAudioResultPop(this.checkedWords, this.successTotal);
         this.render();
       }
@@ -166,7 +173,7 @@ class AudioChallenge implements Page {
       });
     }
   }
-  
+
   handleClickGameCard = async (e: Event, container: HTMLElement) => {
     const target = <HTMLElement>e.target;
     if (target.classList.contains('btn-next')) {
@@ -179,7 +186,7 @@ class AudioChallenge implements Page {
       const { result, decision } = this.getDecisionValue(e, container);
       await this.handleDecision(result, decision);
     }
-  }
+  };
 
   handleKeysGameCard = async (e: KeyboardEvent, container: HTMLElement) => {
     const { key } = e;
@@ -192,18 +199,19 @@ class AudioChallenge implements Page {
       await this.handleDecision(result, decision);
     } else if ((key === 'Enter' || key === 'ArrowRight') && !btnNext.classList.contains('hidden')) {
       this.updateCard();
-    } else if ((key === 'Enter') && !btnDontKnow.classList.contains('hidden') && !btnDontKnow.getAttribute('disabled') && this.currentWord) {
+    } else if (
+      key === 'Enter' &&
+      !btnDontKnow.classList.contains('hidden') &&
+      !btnDontKnow.getAttribute('disabled') &&
+      this.currentWord
+    ) {
       await this.handleDecision(false, -1);
     }
-  }
+  };
 
   async renderGame() {
     this.setInitialValues();
-    this.words = await loadWords(
-      this.unit,
-      this.page,
-      this.state.loggedIn,
-    );
+    this.words = await loadWords(this.unit, this.page, this.state.loggedIn);
     const { word, updatedWords } = await getNewWord(
       this.words,
       this.unit,
@@ -215,7 +223,7 @@ class AudioChallenge implements Page {
     this.words = [...updatedWords];
     this.currentWord = { ...word };
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
-      this.words = this.words.filter(word => word.difficulty !== 'easy');
+      this.words = this.words.filter((word) => word.difficulty !== 'easy');
     }
     const gameNode = <HTMLElement>audioTemplateGame(this.currentWord).content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;

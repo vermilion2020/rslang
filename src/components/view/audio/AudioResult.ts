@@ -17,18 +17,14 @@ export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: 
   );
   container.appendChild(resultPopNode);
 
-  // const repeatBtn = <HTMLElement>document.querySelector('.result-repeat');
-  // repeatBtn.addEventListener('click', async (e) => {
+  // container.querySelector('.result-exit')?.addEventListener('click', (e) => {
   //   e.preventDefault();
-  //   console.log('click', e.target);
-  //   console.log('GETW: ', getWords(1, 1));
-  //   console.log('LWORds: ', loadWords);
-  //   const wordsContent = (await getWords(1, 1)).data;
-  //   const wordsArr = wordsContent.map((el: WordData) => el.word);
-  //   console.log('WA: ', wordsArr);
+  //   container.classList.add('hidden');
+  //   overlay.classList.add('hidden');
+  //   formResu.reset();
   // });
 
-  container.querySelector('.result-exit')?.addEventListener('click', (e) => {
+  container.querySelector('.result-repeat')?.addEventListener('click', (e) => {
     e.preventDefault();
     container.classList.add('hidden');
     overlay.classList.add('hidden');
