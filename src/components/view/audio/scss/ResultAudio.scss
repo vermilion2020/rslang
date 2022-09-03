@@ -174,36 +174,55 @@ $icons-path: '../../../../assets/images/png/';
     margin: auto;
   }
 }
+
+.result-incorrect {
+  list-style: none;
+
+  .incorrect-item {
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    text-align: center;
+    margin: auto;
+  }
+}
+
 .inside-progress {
   z-index: 100;
 }
 
-.on-speak {
-  width: 40px;
-  height: 40px;
+// .on-speak {
+//   width: 40px;
+//   height: 40px;
 
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+//   border-radius: 50%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
 
-  &:hover {
-    cursor: pointer;
-    background-color: $colorBtnHov;
-  }
+//   &:hover {
+//     cursor: pointer;
+//     background-color: $colorBtnHov;
+//   }
 
-  &:active {
-    background-color: $trueColorGames;
-    transition: ease-in-out 0.3s;
-  }
-}
+//   &:active {
+//     background-color: $trueColorGames;
+//     transition: ease-in-out 0.3s;
+//   }
+// }
 .img-voice__res {
-  height: 20px;
-  width: 20px;
-  background-size: cover;
+  height: 40px;
+  width: 40px;
+
+  background-size: 50%;
   border-radius: 50%;
   background-image: url('#{$icons-path}up_volume.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+
   cursor: pointer;
 
   &:active {
@@ -212,9 +231,14 @@ $icons-path: '../../../../assets/images/png/';
   }
 }
 
-.result-item {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+// .result-item {
+//   list-style-type: none;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// }
+.eng-word,
+.transcription,
+.rus-word {
+  width: 25%;
 }

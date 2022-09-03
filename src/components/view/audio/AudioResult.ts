@@ -1,6 +1,6 @@
 import audioTemplateResult from './templates/AudioTemplateResult';
 import './AudioChallenge.scss';
-import { CheckedWord} from '../../../components/model/types/';
+import { CheckedWord } from '../../../components/model/types/';
 import { playWordAudio } from '../../controller/helpers/audio-helper';
 
 export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: number) => {
@@ -12,7 +12,9 @@ export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: 
   container.innerHTML = '';
   container.classList.remove('hidden');
   overlay.classList.remove('hidden');
-  const resultPopNode = <HTMLElement>audioTemplateResult(successWords, failedWords, successTotal).content.cloneNode(true);
+  const resultPopNode = <HTMLElement>(
+    audioTemplateResult(successWords, failedWords, successTotal).content.cloneNode(true)
+  );
   container.appendChild(resultPopNode);
 
   // const repeatBtn = <HTMLElement>document.querySelector('.result-repeat');
@@ -25,7 +27,7 @@ export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: 
   //   const wordsArr = wordsContent.map((el: WordData) => el.word);
   //   console.log('WA: ', wordsArr);
   // });
-  
+
   container.querySelector('.result-exit')?.addEventListener('click', (e) => {
     e.preventDefault();
     container.classList.add('hidden');
@@ -43,7 +45,7 @@ export const renderAudioResultPop = (checkedWords: CheckedWord[], successTotal: 
     } else if (target.id === 'result-value') {
       wordsTab.classList.remove('hidden');
       totalTab.classList.add('hidden');
-    } else if (target.classList.contains('img-voice')) {
+    } else if (target.classList.contains('img-voice__res')) {
       const wordId = <string>target.dataset.id;
       const audioPath = checkedWords.find((w) => w.wordId === wordId)?.audio;
       playWordAudio(audioPath);
