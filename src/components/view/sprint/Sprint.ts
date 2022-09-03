@@ -119,7 +119,7 @@ class Sprint implements Page {
     this.countForSuccess = scoreUpdates.successReward;
 
     if (this.state.loggedIn) {
-      await updateWordData(result, word, this.state.userId, this.state.token);
+      await updateWordData(result, word, this.state.userId, this.state.token, 'sprint');
     }
     const checked: CheckedWord = {
       wordId: word.id,

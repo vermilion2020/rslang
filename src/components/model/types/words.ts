@@ -40,7 +40,8 @@ export interface UserWord {
   difficulty: string,
   optional: {
       vic: number,
-      loss: number
+      loss: number,
+      source?: string
   }
 }
 

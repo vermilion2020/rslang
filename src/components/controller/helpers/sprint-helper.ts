@@ -101,7 +101,13 @@ export const updateScoreParameters = (
   return { successCount, successReward, totalSore };
 };
 
-export const updateWordData = async (result: boolean, word: GameWordData, userId: string, token: string) => {
+export const updateWordData = async (
+  result: boolean,
+  word: GameWordData,
+  userId: string,
+  token: string,
+  source: string
+) => {
   let loss = word.optional?.loss || 0;
   let vic = word.optional?.vic || 0;
   let difficulty = word.difficulty || 'base';
@@ -125,6 +131,7 @@ export const updateWordData = async (result: boolean, word: GameWordData, userId
     optional: {
       vic,
       loss,
+      source: source
     },
   };
   if (word.used) {
