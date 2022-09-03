@@ -35,6 +35,25 @@ body {
   overflow: hidden;
 }
 
+body::-webkit-scrollbar {
+  width: 12px; 
+  height: 90%;
+}
+
+body::-webkit-scrollbar-track {
+  background: $bgTColorWhite;    
+  z-index: -1;
+  
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: $bgTColorBlack; 
+  border-radius: 20px;    
+  cursor: pointer; 
+  border: 3px solid $bgTColorWhite; 
+}
+
+
 html {
   font-size: 16px;
 }
