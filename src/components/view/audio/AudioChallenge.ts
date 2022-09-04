@@ -31,6 +31,7 @@ class AudioChallenge implements Page {
   words: WordData[] = [];
   selectedWords: string[] = [];
   checkedWords: CheckedWord[] = [];
+  numTried: number;
 
   constructor(state: PagesState) {
     this.container = document.querySelector('#main-container') as HTMLDivElement;
@@ -41,6 +42,7 @@ class AudioChallenge implements Page {
     this.currentWord = null;
     this.successTotal = 0;
     this.selectedWords = [];
+    this.numTried = 1;
     document.addEventListener('keydown', async (e: KeyboardEvent) => {
       const { key } = e;
       const keyNum = Number.parseInt(key, 10);
@@ -84,8 +86,7 @@ class AudioChallenge implements Page {
   }
 
   async updateCard() {
-    //change to countAttempts
-    if (this.checkedWords.length >= 5) {
+    if (this.checkedWords.length >= countAttempts) {
       await this.renderResults();
       await this.render();
     }
@@ -99,8 +100,7 @@ class AudioChallenge implements Page {
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
-    //change to countAttempts
-    if (this.checkedWords.length < 5) {
+    if (this.checkedWords.length < countAttempts) {
       this.updateGameContent(this.currentWord);
     }
   }
@@ -119,6 +119,14 @@ class AudioChallenge implements Page {
     const correctCount = <HTMLElement>document.querySelector('.value-correct');
     correctCount.innerHTML = `${this.successTotal}`;
     playWordAudio(word.audio);
+    //countDown
+    const wordAmount = <HTMLElement>document.querySelector('.value-total');
+    wordAmount.innerText = `${countAttempts - this.numTried}`;
+    this.numTried += 1;
+    //progress draw
+    const progresBarMov = <HTMLElement>document.querySelector('.progress-circular');
+    let gradient = Math.round(((countAttempts - (countAttempts - this.numTried)) / countAttempts) * 100) * 3.6;
+    progresBarMov.style.background = `conic-gradient(#65D72F ${gradient}deg, #FF0000 0deg)`;
   };
 
   setInitialValues() {

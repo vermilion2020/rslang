@@ -61,7 +61,7 @@ const audioTemplateResult = (
             <p class="result-description">Процент правильно изученных слов</p>
             <div class="out-pop">
               <div class="container-pop"> 
-                <div class="progress-circular__pop">
+                <div class="progress-circular__pop progress-backgrd">
                   <span class="value-pop">${percent}%</span>
                 </div>
               </div>

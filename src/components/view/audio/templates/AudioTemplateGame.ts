@@ -16,8 +16,8 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
   const { result, translates } = randomTranslates(word);
   const unitClass = ` unit-${word.group + 1}-container`;
   gameBody.innerHTML = `
-<div class="main-page-audio${unitClass}" id="main-page-audio">
-  <section class="header-game">
+<div class="main-page-audio${unitClass}">
+  <div class="progress">
     <div class="out">
       <div class="container">
         <div class="progress-circular">
@@ -27,10 +27,7 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
         </div>
       </div>
     </div>
-    <div class="close-audio__game">
-      <a href="/" class="close-audio__gamepage"><div class="close-crose__white"></div></a>
-    </div>
-  </section>
+  </div>
   <div class="wrapper">
     <section class="content">
         <div class="game-wrapper" data-result="${result + 1}">
@@ -52,7 +49,10 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
         </div>
       </div>
     </section>
-</div>
+  </div>
+  <div class="close-audio__game" id="close-audio">
+      <a href="/" class="close-audio__gamepage"><div class="close-crose__white"></div></a>
+  </div>
 </div>
 `;
   return gameBody;

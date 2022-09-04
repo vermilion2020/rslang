@@ -7,27 +7,14 @@ $svgs-path: '../../../../assets/icons/';
   width: 97%;
   justify-content: space-between;
   padding: 1rem 0 0;
-
-  .close-audio__game {
-    height: 50px;
-    width: 50px;
-
-    .close-audio__gamepage {
-      text-decoration: none;
-
-      .close-crose__white {
-        margin: 25% auto;
-        background-image: url('#{$icons-path}close-black.png');
-        width: 20px;
-        height: 20px;
-        background-size: cover;
-      }
-    }
-  }
 }
 
-#main-page-audio .wrapper {
-  margin-top: 0;
+#close-audio {
+  margin-top: 1rem;
+}
+
+.progress {
+  margin-top: 1rem;
 }
 
 .out {

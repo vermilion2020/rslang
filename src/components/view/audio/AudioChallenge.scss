@@ -9,9 +9,9 @@
   height: 100%;
   min-height: calc(100vh - 130px);
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: start;
   background: $bgTColorGrey;
+  justify-content: space-evenly;
 
   h2 {
     font-family: $rusFont;
@@ -22,7 +22,7 @@
 
   .wrapper {
     width: 55vw;
-    margin: 8vh auto;
+    margin-top: 10vh;
     display: flex;
     flex-direction: column;
     border: 17px solid $bgTColorGrey;

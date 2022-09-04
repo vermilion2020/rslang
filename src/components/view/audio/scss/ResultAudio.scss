@@ -208,11 +208,11 @@ $icons-path: '../../../../assets/images/png/';
   width: 30px;
   justify-self: end;
   cursor: pointer;
+  
   .close-audio__gamepage {
     text-decoration: none;
 
     .close-crose__white {
-      margin: 25% auto;
       background-image: url('#{$icons-path}close-black.png');
       width: 20px;
       height: 20px;
