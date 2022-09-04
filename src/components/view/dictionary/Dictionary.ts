@@ -15,13 +15,35 @@ class Dictionary implements Page {
   async render() {
     this.state.page = 'dictionary';
     const container = document.querySelector('#main-container') as HTMLDivElement;
+    let {dataPerPage, statusPage} = await this.createDataPerPage();
     const sectionDictionary = await this.createSectionDiction();
-    const sectionPlay = this.createSectionPlay();
+    const sectionPlay = this.createSectionPlay(statusPage);
     container.innerHTML = '';
     container.append(sectionDictionary);
     container.append(sectionPlay);
     this.addListener(this.state);
     return this.state;
+  }
+
+  async createDataPerPage() {
+    let overPages = 1;
+    const currentPage = this.state.textbook.page;
+    if (currentPage + 2 >= 30) {
+      overPages = 26;
+    }
+    if (currentPage + 2 < 30 && currentPage - 2 > 1) {
+      overPages = currentPage - 2;
+    }
+    let dataPerPage = [false, false, false, false, false];
+    if (this.state.loggedIn) {
+      dataPerPage = await addDataPerPage(this.state.userId, this.state.token, this.state.textbook.unit, overPages);
+    }
+    const currentIndex = currentPage - overPages;
+    const statusPage = dataPerPage[currentIndex];
+    return {
+      dataPerPage: dataPerPage,
+      statusPage: statusPage,
+    }
   }
 
   async createSectionDiction() {
@@ -62,7 +84,14 @@ class Dictionary implements Page {
       );
     }
 
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page, dataPerPage, 'textbook', 'в учебник')
+    const pagingNode = <HTMLElement>pagingTemplate(
+      this.state.dictionary.unit,
+      this.state.dictionary.page,
+      dataPerPage,
+      overPages,
+      'textbook',
+      'в учебник'
+      )
       .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
@@ -109,8 +138,8 @@ class Dictionary implements Page {
     await this.render();
   }
 
-  createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page, 'dictionary')
+  createSectionPlay(statusPage: boolean) {
+    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page, 'dictionary', statusPage)
       .content.cloneNode(true);
     return playNode;
   }
