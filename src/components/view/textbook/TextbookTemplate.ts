@@ -1,18 +1,17 @@
 import { WordData } from '../../model/types/words';
 
 export const sectionWords = (currentUnit: number, statusPage:boolean): Record<string, HTMLElement> => {
-  let learnChapter = ''
+  let learnChapter = 'learn-base'
   if (currentUnit !== 7 ){
     if (statusPage) {
       learnChapter = 'learn-chapter';
     }
   }
-  console.log(statusPage);
+
   const section = document.createElement('section');
   const wrapper = document.createElement('div');
   wrapper.classList.add('wrapper-sec-word');
-  section.classList.add('section-word', `unit-${currentUnit}`);
-  // section.classList.add(`${learnChapter}`);
+  section.classList.add('section-word', `unit-${currentUnit}`, `${learnChapter}`);
   section.append(wrapper);
   return { section, wrapper };
 };
@@ -81,13 +80,6 @@ export const pagingTemplate = (
   const paging = document.createElement('template');
 
   const countPages = 5;
-  // let overPages = 1;
-  // if ((currentPage + 2) >= 30) {
-  //   overPages = 26;
-  // }
-  // if ((currentPage + 2) < 30 && (currentPage - 2) > 1) {
-  //   overPages = currentPage - 2;
-  // }
   const buttons = Array.from(Array(countPages).keys())
     .map((num) => num + overPages)
     .map(
@@ -103,31 +95,34 @@ export const pagingTemplate = (
     .join('');
   paging.innerHTML = `
   <div class="wrapper-paging">
-  <a href="/#/${tochapter}/unit${currentUnit}/${currentPage}">
-    <button class="btn-to-menu" data-id="${tochapter}">${btntext}</button>
-  </a>
+    <a href="/#/${tochapter}/unit${currentUnit}/${currentPage}">
+      <button class="btn-to-menu" data-id="${tochapter}">${btntext}</button>
+    </a>
     <div class="paging">
       <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}
       <button class="paging__next button-pag" ${currentPage >= 30 ? 'disabled="disabled"' : ''}></button>
     </div>
+    <button class="linc-to-game">Играть в спринт и аудиовызов</button>
     </div>`;
   return paging;
 };
 
 export const playTemplate = (unit: number, page: number, chapter: string, statusPage: boolean) => {
   const playPart = document.createElement('template');
+  let learnChapter = 'learn-base'
   let easyClass = '';
   let chapterDesc = 'Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.'
   if (unit !== 7) {
     if (statusPage === true) {
       easyClass = 'block-game';
       chapterDesc = 'Поздравляем! Эта страница изучена. Поэтому сейчас ты не можешь перейти на игры со страницы.'
+      learnChapter = 'learn-chapter'
     }
     easyClass = statusPage === true ? 'block-game' : ''
   }
   playPart.innerHTML = `
-  <section class="section-game">
+  <section class="section-game ${learnChapter}" id="section-game">
     <div class="wrapper-game">
       <p class="title-sec">Игры</p>
       <p class="desc">${chapterDesc}</p>

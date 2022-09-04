@@ -80,7 +80,7 @@ class Textbook implements Page {
     const textbookProgress = { unit: this.state.textbook.unit, page: this.state.textbook.page };
     const textbook = JSON.stringify(textbookProgress);
     localStorage.setItem('textbook', textbook);
-    await this.render();
+    // await this.render();
   }
 
   async createSectionWords(overPages: number, dataPerPage: boolean[], statusPage:boolean) {
@@ -106,18 +106,6 @@ class Textbook implements Page {
   }
 
   async paging(overPages: number, dataPerPage: boolean[]) {
-    // let overPages = 1;
-    // const currentPage = this.state.textbook.page;
-    // if (currentPage + 2 >= 30) {
-    //   overPages = 26;
-    // }
-    // if (currentPage + 2 < 30 && currentPage - 2 > 1) {
-    //   overPages = currentPage - 2;
-    // }
-    // let dataPerPage = [false, false, false, false, false];
-    // if (this.state.loggedIn) {
-    //   dataPerPage = await addDataPerPage(this.state.userId, this.state.token, this.state.textbook.unit, overPages);
-    // }
 
     const pagingNode = <HTMLElement>(
       pagingTemplate(
