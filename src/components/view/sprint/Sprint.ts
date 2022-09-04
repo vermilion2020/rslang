@@ -226,14 +226,16 @@ class Sprint implements Page {
     }
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
-    await saveGameStatistics(
-      this.state.userId,
-      this.state.token,
-      this.maxSuccess,
-      successWords.length,
-      this.checkedWords.length,
-      'sprint'
-    );
+    if (this.state.loggedIn) {
+      await saveGameStatistics(
+        this.state.userId,
+        this.state.token,
+        this.maxSuccess,
+        successWords.length,
+        this.checkedWords.length,
+        'sprint'
+      );
+    }
     const sprintResultsNode = <HTMLElement>(
       sprintResultsTemplate(successWords, failedWords, this.score).content.cloneNode(true)
     );
