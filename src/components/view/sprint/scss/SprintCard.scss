@@ -1,17 +1,18 @@
 $icons-path: '../../../../assets/icons/';
+$unit-img-path: '../../../../assets/images/units/';
 
 .card-translate {
   text-transform: capitalize;
   font-family: $rusFont;
   font-size: 1.5rem;
-  margin: 0.6rem 0 1.2rem;
+  margin: 0rem 0 1.2rem;
 }
 
 .card-word {
   text-transform: capitalize;
   font-family: $enFont;
   font-size: 2rem;
-  margin: 3rem 0 1.5rem ;
+  margin: 1rem 0 1.5rem ;
 }
 
 .point-multiplier {
@@ -27,8 +28,28 @@ $icons-path: '../../../../assets/icons/';
     background: $circleBgColor;
   }
 
-  .circle__active {
-    background: $circleActBgColor;
+  .circle-1__active {
+    background: $сolorUnit1;
+  }
+
+  .circle-2__active {
+    background: $сolorUnit2;
+  }
+
+  .circle-3__active {
+    background: $сolorUnit3;
+  }
+
+  .circle-4__active {
+    background: $сolorUnit4;
+  }
+
+  .circle-5__active {
+    background: $сolorUnit5;
+  }
+
+  .circle-6__active {
+    background: $сolorUnit6;
   }
 }
 
@@ -41,16 +62,14 @@ $icons-path: '../../../../assets/icons/';
   font-family: $enFont;
 }
 
-.border-true {
-  outline: 5px solid $trueColorGames;
+.background-true {
+  background: radial-gradient($trueBgColorGames, $bgTColorWhite) !important;
   transition: all 0.5s ease;
-  opacity: 0.8;
 }
 
-.border-false {
-  outline: 5px solid $falseColorGames;
+.background-false {
+  background:  radial-gradient($falseBgColorGames, $bgTColorWhite) !important;
   transition: all 0.5s ease;
-  opacity: 0.8;
 }
 
 .arr {
@@ -91,10 +110,49 @@ $icons-path: '../../../../assets/icons/';
 
 .decision {
   display: flex;
-  gap: 1rem;
-  justify-content: space-evenly;
+  gap: 5rem;
+  justify-content: center;
 }
 
 .diagram {
   margin: 1rem auto;
+}
+
+.unit-img {
+  width: 110px;
+  margin: 1rem auto 0.5rem;
+  height: 70px;
+}
+
+.unit-1-img {
+  background: url('#{$unit-img-path}unit-1.svg');
+  background-size: cover;
+}
+
+.unit-2-img {
+  background: url('#{$unit-img-path}unit-2.svg');
+  background-size: cover;
+  height: 78px;
+}
+
+.unit-3-img {
+  background: url('#{$unit-img-path}unit-3.svg');
+  background-size: cover;
+  width: 100px;
+  height: 77px;
+}
+
+.unit-4-img {
+  background: url('#{$unit-img-path}unit-4.svg');
+  background-size: cover;
+}
+
+.unit-5-img {
+  background: url('#{$unit-img-path}unit-5.svg');
+  height: 80px;
+  background-size: cover;
+}
+.unit-6-img {
+  background: url('#{$unit-img-path}unit-6.svg');
+  background-size: cover;
 }

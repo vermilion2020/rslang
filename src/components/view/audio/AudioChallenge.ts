@@ -241,7 +241,7 @@ class AudioChallenge implements Page {
       await this.handleClickGameCard(e, gameCard);
     });
     if (!this.state.audio.set) {
-      this.state.sprint.set = true;
+      this.state.audio.set = true;
       document.addEventListener('keydown', async (e: KeyboardEvent) => {
         this.handleKeysGameCard(e, gameCard);
       });

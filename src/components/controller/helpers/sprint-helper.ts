@@ -75,7 +75,8 @@ export const updateScoreParameters = (
   result: boolean,
   successInRope: number,
   countForSuccess: number,
-  score: number
+  score: number,
+  unit: number
 ) => {
   let successCount = successInRope;
   let successReward = countForSuccess;
@@ -85,15 +86,15 @@ export const updateScoreParameters = (
     successCount += 1;
     stepNumber = successCount % scoreStep;
     totalSore += successReward;
-    document.querySelector(`.circle[data-value="${stepNumber}"]`)?.classList.add('circle__active');
+    document.querySelector(`.circle[data-value="${stepNumber}"]`)?.classList.add(`circle-${unit}__active`);
   } else {
     successCount = 0;
-    document.querySelectorAll('.circle').forEach((el) => el.classList.remove('circle__active'));
+    document.querySelectorAll('.circle').forEach((el) => el.classList.remove(`circle-${unit}__active`));
   }
   successReward = minScorePerWord + Math.floor(successCount / scoreStep) * minScorePerWord;
   successReward = successReward > maxScorePerWord ? maxScorePerWord : successReward;
   if (stepNumber === 0) {
-    document.querySelectorAll('.circle').forEach((el) => el.classList.remove('circle__active'));
+    document.querySelectorAll('.circle').forEach((el) => el.classList.remove(`circle-${unit}__active`));
   }
   (<HTMLElement>document.querySelector('#success-count')).innerText = `${successReward}`;
   (<HTMLElement>document.querySelector('#score')).innerText = `${totalSore}`;
@@ -174,14 +175,14 @@ export const disableDecisionButtons = () => {
 export const getDecisionResult = (container: HTMLElement, decision: number) => {
   const result = +(<string>container.dataset.result) === decision;
   if (result) {
-    container.classList.add('border-true');
+    container.classList.add('background-true');
     setTimeout(() => {
-      container.classList.remove('border-true');
+      container.classList.remove('background-true');
     }, 1000);
   } else {
-    container.classList.add('border-false');
+    container.classList.add('background-false');
     setTimeout(() => {
-      container.classList.remove('border-false');
+      container.classList.remove('background-false');
     }, 1000);
   }
   return result;

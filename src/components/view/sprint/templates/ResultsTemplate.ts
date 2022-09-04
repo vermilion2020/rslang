@@ -14,12 +14,13 @@ export const sprintResultsTemplate = (
   successWords: CheckedWord[],
   failedWords: CheckedWord[],
   score: number,
+  unit: number
 ): HTMLTemplateElement => {
   const sprintResult = document.createElement('template');
   const successLines = successWords.map((item) => drawResultLine(item)).join('');
   const failedLines = failedWords.map((item) => drawResultLine(item)).join('');
   sprintResult.innerHTML = `
-    <div class="sprint-container">
+    <div class="sprint-container unit-${unit}-container">
       <div class="results-sprint" id="results-sprint">
         <h1 class="heading-h1">Результаты игры</h1>
         <h3 class="heading-h3">Вы набрали ${score} очков</h3>
