@@ -2,7 +2,7 @@ import audioTemplateResult from './templates/AudioTemplateResult';
 import './AudioChallenge.scss';
 import { CheckedWord } from '../../../components/model/types/';
 import { playWordAudio } from '../../controller/helpers/audio-helper';
-
+import { countAttempts } from '../../model/constants';
 export const renderAudioResultPop = (successWords: CheckedWord[], failedWords: CheckedWord[], successTotal: number) => {
   const container = document.querySelector('#popup-audio') as HTMLElement;
   const overlay = document.querySelector('#overlay') as HTMLElement;
@@ -15,12 +15,17 @@ export const renderAudioResultPop = (successWords: CheckedWord[], failedWords: C
   );
   container.appendChild(resultPopNode);
 
-  // container.querySelector('.result-exit')?.addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   container.classList.add('hidden');
-  //   overlay.classList.add('hidden');
-  //   formResu.reset();
-  // });
+  const progressCircular = <HTMLElement>document.querySelector('.progress-backgrd');
+  const percent = Math.round((successTotal / countAttempts) * 100) * 3.6;
+
+  progressCircular.style.background = `conic-gradient(#65D72F ${percent}deg, #FF0000 0deg)`;
+
+  container.querySelector('.result-exit')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    container.classList.add('hidden');
+    overlay.classList.add('hidden');
+    window.location.href = '/';
+  });
 
   container.querySelector('.result-repeat')?.addEventListener('click', (e) => {
     e.preventDefault();

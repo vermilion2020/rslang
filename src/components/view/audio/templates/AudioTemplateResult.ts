@@ -20,32 +20,6 @@ const audioTemplateResult = (
   const failedLines = failedWords.map((item) => drawResultLine(item, 'incorrect')).join('');
   const percent = Math.round((successTotal / countAttempts) * 100);
   const result = document.createElement('template');
-  const progressCircular = <HTMLElement>document.querySelector('.progress-circular__pop');
-
-  let start: number = 0;
-  function bar(percent: number) {
-    let progress = setInterval(() => {
-      if (start < percent) {
-        start += 1;
-        progressEND();
-      } else {
-        start -= 1;
-        progressEND();
-      }
-
-      function progressEND() {
-        // percent = +`${start}%`;
-        progressCircular.style.background = `conic-gradient($iconColorComplex ${
-          start * 3.6
-        }deg, $iconColorStudied 0deg)`;
-        if (start == percent) {
-          clearInterval(progress);
-          // percent = +'';
-        }
-      }
-    });
-  }
-  // bar(percent);
 
   result.innerHTML = `
       <div id="page-result" class="popupAudio">
@@ -58,7 +32,7 @@ const audioTemplateResult = (
             <p class="result-description">Процент правильно изученных слов</p>
             <div class="out-pop">
               <div class="container-pop"> 
-                <div class="progress-circular__pop">
+                <div class="progress-circular__pop progress-backgrd">
                   <span class="value-pop">${percent}%</span>
                 </div>
               </div>
@@ -82,6 +56,7 @@ const audioTemplateResult = (
           </div>
         </div>
       </div>`;
+
   return result;
 };
 

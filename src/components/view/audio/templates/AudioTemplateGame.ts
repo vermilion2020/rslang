@@ -22,7 +22,7 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
   <div class="container">
     <div class="progress-circular">
       <div class="inside-progress">
-        <span class="value-correct">${result + 1}</span> / <span class="value-total">${countAttempts}</span>    
+        <span class="value-correct">0</span> / <span class="value-total">${countAttempts}</span>    
       </div>
     </div>
   </div>

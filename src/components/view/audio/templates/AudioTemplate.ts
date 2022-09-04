@@ -4,7 +4,7 @@ audioTemplate.innerHTML = `
   <div class="wrapper">
     <section class="header-audio">
      <div class="close-audio">
-      <a href="/" class="close-audio__firstpage"><div class="close-crose__white"></div></a>
+    
      </div>
     </section>
     <section class="content">
