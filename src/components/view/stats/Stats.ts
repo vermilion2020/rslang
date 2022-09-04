@@ -1,8 +1,9 @@
-import { commonStatsTemplate, gameStatsTemplate } from './StatsTemplate';
+import { dayStatsTemplate } from './StatsTemplate';
 import './Stats.scss';
-import { Page, PagesState, ResponseStat, Stat, StatGame } from '../../model/types';
-import { getDayCommonStat, getDayGameStat } from '../../model/api';
+import { Page, PagesState } from '../../model/types';
 import { showPreloader } from '../../controller/helpers';
+import { createDayChartData, createMonthChartData } from '../../controller/helpers/stat-helper';
+import { drawChart, drawFullChart } from '../../controller/helpers/chart-helper';
 
 class Stats implements Page {
   state: PagesState;
@@ -15,18 +16,32 @@ class Stats implements Page {
     this.state.page = 'stats';
     const container = document.querySelector('#main-container') as HTMLDivElement;
     showPreloader(container);
-    const statData: Stat = (await getDayCommonStat(this.state.userId, this.state.token)).data;
-    const statsNode = <HTMLElement>commonStatsTemplate(statData).content.cloneNode(true);
-    const sprintStatData: StatGame = (await getDayGameStat(this.state.userId, this.state.token, 'sprint')).data;
-    const sprintStatsNode = <HTMLElement>gameStatsTemplate(sprintStatData, 'sprint').content.cloneNode(true);
-    const audioStatData: StatGame = (await getDayGameStat(this.state.userId, this.state.token, 'audio')).data;
-    const audioStatsNode = <HTMLElement>gameStatsTemplate(audioStatData, 'audio').content.cloneNode(true);
+    const { commonData, sprintData, audioData } = await createDayChartData(this.state.userId, this.state.token);
+    const { newWordsData, easyWordsData } = await createMonthChartData(this.state.userId, this.state.token);
+    const statDay = <HTMLElement>dayStatsTemplate().content.cloneNode(true);
     container.innerHTML = '';
-    container.append(statsNode);
-    container.append(sprintStatsNode);
-    container.append(audioStatsNode);
+    container.append(statDay);
+    drawChart('chartdiv_common', commonData);
+    drawChart('chartdiv_sprint', sprintData);
+    drawChart('chartdiv_audio', audioData);
+    drawFullChart('chartdiv_new', newWordsData);
+    drawFullChart('chartdiv_easy', easyWordsData);
+    const menu = <HTMLElement>container.querySelector('.stat-menu');
+    menu.addEventListener('click', (e: Event) => {
+      const target = <HTMLElement>e.target;
+      const dayStatBlock = <HTMLElement>container.querySelector('.day-stat');
+      const monthStatBlock = <HTMLElement>container.querySelector('.month-stat');
+      if(target.id === 'day-stat') {
+        dayStatBlock.classList.remove('hidden');
+        monthStatBlock.classList.add('hidden');
+      } else {
+        dayStatBlock.classList.add('hidden');
+        monthStatBlock.classList.remove('hidden');
+      }
+    });
     return this.state;
   }
 }
 
 export default Stats;
+

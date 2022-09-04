@@ -1,0 +1,31 @@
+@import '../common/base-styles.scss';
+
+.chartdiv {
+  width: 400px;
+  height: 400px;
+}
+
+.chartdiv-long {
+  width: 900px;
+  height: 400px;
+}
+
+.stat-container {
+  padding: 1rem 2.5rem 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.stat-block {
+  max-width: 500px;
+}
+
+.stat-long-block {
+  max-width: 1000px;
+}
+
+.day-stat {
+  display: flex;
+  gap: 2rem;
+  margin: auto;
+}
