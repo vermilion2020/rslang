@@ -1,6 +1,6 @@
 @import '../../view/base-styles.scss';
 
-.btn-audio-diction, .icon-audio-diction {
+.btn-audio-diction, .icon-audio-diction, .linc-to-game, .icon-linc-to-game  {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -163,7 +163,7 @@
 
 .wrapper-paging {
   a {
-    order: 2;
+    order: 3;
   }
   .paging {
     order: 1;
@@ -174,3 +174,45 @@ input {
   cursor: pointer;
 }
 
+.wrapper-linc {
+  position: relative;
+  order: 2;
+  margin-left: auto;
+  margin-right: 30px;
+    .linc-to-game {
+      font-size: 0.9rem;
+      height: 40px;
+      width: 254px;
+      border-radius: 3rem;
+      background-color: transparent;
+      border: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .icon-linc-to-game {
+      cursor: pointer;
+      position: absolute;
+      background-color: $bgTColorBlack;
+      width: 20px;
+      height: 20px;
+      -webkit-mask: url('../../../assets/icons/arrow-bot.svg') no-repeat;
+      -webkit-mask-size: auto 20px;
+      top: 28%;
+      right: -1%;
+    }
+
+    &:hover {
+      .linc-to-game {
+        color: #458506;
+      }
+      .icon-linc-to-game {
+        background-color: #458506;
+      }
+    }
+}
+
+.linc-to-game.linc-block {
+  pointer-events: none;
+  color: rgb(38, 38, 38);
+}

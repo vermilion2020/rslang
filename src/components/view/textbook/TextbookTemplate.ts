@@ -70,6 +70,8 @@ export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTempla
 };
 
 export const pagingTemplate = (
+  currentChapter: string,
+  statusPage: boolean,
   currentUnit: number,
   currentPage: number,
   dataPerPage: boolean[],
@@ -93,6 +95,22 @@ export const pagingTemplate = (
         </div>`,
     )
     .join('');
+
+  let lincBlock = '';
+  if(currentChapter === 'dictionary') {
+    lincBlock = `
+    <div class="wrapper-linc">
+      <button class="linc-to-game">Играть в спринт и аудиовызов</button>
+      <div class="icon-linc-to-game"></div>
+    </div>`
+    if (statusPage === true) {
+      lincBlock = `
+      <div class="wrapper-linc">
+        <button class="linc-to-game linc-block">Игры недоступны</button>
+      </div>`
+    }
+  }
+  
   paging.innerHTML = `
   <div class="wrapper-paging">
     <a href="/#/${tochapter}/unit${currentUnit}/${currentPage}">
@@ -103,7 +121,7 @@ export const pagingTemplate = (
       ${buttons}
       <button class="paging__next button-pag" ${currentPage >= 30 ? 'disabled="disabled"' : ''}></button>
     </div>
-    <button class="linc-to-game">Играть в спринт и аудиовызов</button>
+    ${lincBlock}
     </div>`;
   return paging;
 };

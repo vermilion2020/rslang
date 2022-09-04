@@ -56,7 +56,7 @@ class Dictionary implements Page {
       words = await loadWordsHard(this.state);
     }
     const dictionaryNode = <HTMLElement>dictionaryTemplate(words, this.state.loggedIn).content.cloneNode(true);
-    const pagingNode = await this.paging(overPages, dataPerPage);
+    const pagingNode = await this.paging(overPages, dataPerPage, statusPage);
     const unitNode = this.units();
 
     wrapper.innerHTML = '';
@@ -67,9 +67,11 @@ class Dictionary implements Page {
     return section;
   }
 
-  async paging(overPages: number, dataPerPage: boolean[]) {
+  async paging(overPages: number, dataPerPage: boolean[], statusPage: boolean) {
 
     const pagingNode = <HTMLElement>pagingTemplate(
+      'dictionary',
+      statusPage,
       this.state.dictionary.unit,
       this.state.dictionary.page,
       dataPerPage,

@@ -80,7 +80,6 @@ class Textbook implements Page {
     const textbookProgress = { unit: this.state.textbook.unit, page: this.state.textbook.page };
     const textbook = JSON.stringify(textbookProgress);
     localStorage.setItem('textbook', textbook);
-    // await this.render();
   }
 
   async createSectionWords(overPages: number, dataPerPage: boolean[], statusPage:boolean) {
@@ -94,7 +93,7 @@ class Textbook implements Page {
       words = await loadWordsHard(this.state);
     }
     const textbookNode = <HTMLElement>textbookTemplate(words).content.cloneNode(true);
-    const pagingNode = await this.paging(overPages, dataPerPage);
+    const pagingNode = await this.paging(overPages, dataPerPage, statusPage);
     const unitNode = this.units();
 
     wrapper.innerHTML = '';
@@ -105,10 +104,12 @@ class Textbook implements Page {
     return section;
   }
 
-  async paging(overPages: number, dataPerPage: boolean[]) {
+  async paging(overPages: number, dataPerPage: boolean[], statusPage: boolean) {
 
     const pagingNode = <HTMLElement>(
       pagingTemplate(
+        'textbook',
+        statusPage,
         this.state.textbook.unit,
         this.state.textbook.page,
         dataPerPage,
