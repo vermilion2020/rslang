@@ -1,5 +1,4 @@
 import audioTemplateResult from './templates/AudioTemplateResult';
-import './AudioChallenge.scss';
 import { CheckedWord } from '../../../components/model/types/';
 import { playWordAudio } from '../../controller/helpers/audio-helper';
 

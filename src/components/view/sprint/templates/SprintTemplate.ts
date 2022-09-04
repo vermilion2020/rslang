@@ -19,10 +19,10 @@ export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
   sprintStart.innerHTML = `
     <div class="sprint-container${unitClass}">
       <div class="start-sprint" data-id="${unitId || 1}">
-        <h1>Спринт</h1>
+        <h2>Спринт</h2>
         <p>Правила игры:</p>
         <p>Выберите соответсвует ли перевод предложенному слову</p>
-        <p>Используй левую &#8592; и правую &#8594; стрелки  клавиатуры для выбора ответа</p>
+        <p>Используйте левую &#8592; и правую &#8594; стрелки  клавиатуры для выбора ответа</p>
         <p class="select-label">Выберите раздел:</p>
         <div class="unit-select">
           <button data-id="1" class="unit-select__button unit-sprint-1">Раздел 1</button>

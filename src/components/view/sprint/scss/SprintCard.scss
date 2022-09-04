@@ -63,12 +63,12 @@ $unit-img-path: '../../../../assets/images/units/';
 }
 
 .background-true {
-  background: radial-gradient($trueBgColorGames, $bgTColorWhite) !important;
+  background: $trueBgColorGames !important;
   transition: all 0.5s ease;
 }
 
 .background-false {
-  background:  radial-gradient($falseBgColorGames, $bgTColorWhite) !important;
+  background: $falseBgColorGames !important;
   transition: all 0.5s ease;
 }
 

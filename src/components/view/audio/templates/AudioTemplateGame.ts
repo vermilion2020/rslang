@@ -14,23 +14,24 @@ export const drawTranslates = (translates: string[]) => {
 const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
   const gameBody = document.createElement('template');
   const { result, translates } = randomTranslates(word);
+  const unitClass = ` unit-${word.group + 1}-container`;
   gameBody.innerHTML = `
-<div class="main-page__game">
-<div class="wrapper">
-<section class="header-game">
-<div class="out">
-  <div class="container">
-    <div class="progress-circular">
-      <div class="inside-progress">
-        <span class="value-correct">${result + 1}</span> / <span class="value-total">${countAttempts}</span>    
+<div class="main-page-audio${unitClass}" id="main-page-audio">
+  <section class="header-game">
+    <div class="out">
+      <div class="container">
+        <div class="progress-circular">
+          <div class="inside-progress">
+            <span class="value-correct">${result + 1}</span> / <span class="value-total">${countAttempts}</span>    
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <div class="close-audio__game">
       <a href="/" class="close-audio__gamepage"><div class="close-crose__white"></div></a>
     </div>
-    </section>
+  </section>
+  <div class="wrapper">
     <section class="content">
         <div class="game-wrapper" data-result="${result + 1}">
           <div class="visualisation">
@@ -47,7 +48,7 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
         </div>
         <div class="block-btn__next">
           <button class="btn-dont-know">Пропустить</button>
-          <button class="btn-next hidden">Следующее слово</button>
+          <button class="btn-next hidden button">Следующее слово</button>
         </div>
       </div>
     </section>

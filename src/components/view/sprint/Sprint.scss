@@ -3,8 +3,6 @@
 @import 'scss/SprintResults.scss';
 @import 'scss/SprintLevel.scss';
 
-$unit-img-path: '../../../assets/images/units/';
-
 .sprint-container {
   width: 100%;
   height: 100%;
@@ -14,15 +12,17 @@ $unit-img-path: '../../../assets/images/units/';
   align-items: center;
   background: $bgColorGames;
 
-  h1 {
+  h2 {
     font-family: $rusFont;
     font-weight: 500;
+    font-size: 2.5rem;
+    margin: 0;
   }
 }
 
 .card-sprint,
 .start-sprint {
-  width: 700px;
+  width: 50vw;
   background: $bgTColorWhite;
   border: 17px solid $bgTColorGrey;
   height: 350px;
@@ -32,67 +32,4 @@ $unit-img-path: '../../../assets/images/units/';
   margin: 10vh auto 1rem;
 }
 
-.unit-1-container {
-  background: url('#{$unit-img-path}unit-1-pattern.png') $сolorUnit1;
-  background-size: 150px;
-
-  .card-sprint,
-  .start-sprint,
-  .results-sprint {
-    border: 17px solid $borderUnit1;
-  }
-}
-
-.unit-2-container {
-  background: url('#{$unit-img-path}unit-2-pattern.png') $сolorUnit2;
-  background-size: 150px;
-  .card-sprint,
-  .start-sprint,
-  .results-sprint {
-    border: 17px solid $borderUnit2;
-  }
-}
-
-.unit-3-container {
-  background: url('#{$unit-img-path}unit-3-pattern.png') $сolorUnit3;
-  background-size: 150px;
-
-  .card-sprint,
-  .start-sprint,
-  .results-sprint {
-    border: 17px solid $borderUnit3;
-  }
-}
-
-.unit-4-container {
-  background: url('#{$unit-img-path}unit-4-pattern.png') $сolorUnit4;
-  background-size: 150px;
-
-  .card-sprint,
-  .start-sprint,
-  .results-sprint {
-    border: 17px solid $borderUnit4;
-  }
-}
-
-.unit-5-container {
-  background: url('#{$unit-img-path}unit-5-pattern.png') $сolorUnit5;
-  background-size: 150px;
-
-  .card-sprint,
-  .start-sprint,
-  .results-sprint {
-    border: 17px solid $borderUnit5;
-  }
-}
-
-.unit-6-container {
-  background: url('#{$unit-img-path}unit-6-pattern.png') $сolorUnit6;
-  background-size: 150px;
-
-  .card-sprint,
-  .start-sprint,
-  .results-sprint {
-    border: 17px solid $borderUnit6;
-  }
-}
+@import '../common/unit-styles.scss';

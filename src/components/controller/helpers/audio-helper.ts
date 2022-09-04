@@ -5,12 +5,17 @@ export const unitSelect = async (e: Event | KeyboardEvent) => {
   const target = <HTMLElement>e.target;
     let unitId = 0;
     if ('key' in e) {
-      unitId = Number.parseInt(e.key, 10)
+      unitId = Number.parseInt(e.key, 10);
     }
     else if (target.classList.contains('select-level')) {
       unitId = +<string>target.dataset.sett;
     }
   const unitSelectContainer = <HTMLElement>document.querySelector('.select-container');
+  const prevSelected = <string>unitSelectContainer.dataset.sett;
+  const container = document.querySelector('.main-page-audio');
+  container?.classList.remove(`unit-${prevSelected}-container`);
+  container?.classList.add(`unit-${unitId}-container`);
+ 
   unitSelectContainer.dataset.sett = `${unitId}`;
   return unitId;
 };

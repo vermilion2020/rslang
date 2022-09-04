@@ -17,8 +17,7 @@ import {
 } from '../../controller/helpers/audio-helper';
 
 import { CheckedWord, GameWordData, WordData } from '../../model/types';
-import { answers, countAttempts, countPages, units } from '../../model/constants';
-import audioTemplateResult from './templates/AudioTemplateResult';
+import { answers, countAttempts, countPages, failedSound, successSound, units } from '../../model/constants';
 
 class AudioChallenge implements Page {
   state: PagesState;
@@ -67,10 +66,10 @@ class AudioChallenge implements Page {
     }
     const selectLevelBox = document.querySelector('.select-container') as HTMLElement;
     if (selectLevelBox) {
-      selectLevelBox.addEventListener('click', (e: Event) => {
+      selectLevelBox.addEventListener('click', async (e: Event) => {
         const targetLi = e.target as HTMLLIElement;
         if (targetLi.classList.contains('select-level')) {
-          unitSelect(e);
+          this.unit = await unitSelect(e);
         }
       });
     }
@@ -166,6 +165,11 @@ class AudioChallenge implements Page {
 
   async handleDecision(result: boolean, decision: number) {
     disableDecisionButtons();
+    if(result) {
+      playWordAudio(successSound);
+    } else if (decision !== -1) {
+      playWordAudio(failedSound);
+    }
     if (this.currentWord) {
       await this.saveResult(this.currentWord, result);
     }
@@ -185,6 +189,7 @@ class AudioChallenge implements Page {
     if (target.classList.contains('btn-next')) {
       this.updateCard();
     } else if (target.classList.contains('btn-dont-know') && this.currentWord) {
+      disableDecisionButtons();
       showCorrectAnswer(this.currentWord, false, -1);
     } else if (target.classList.contains('voice-ico__block') && this.currentWord) {
       playWordAudio(this.currentWord.audio);
