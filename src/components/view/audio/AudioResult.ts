@@ -33,13 +33,20 @@ export const renderAudioResultPop = (successWords: CheckedWord[], failedWords: C
     if (target.id === 'result-words') {
       wordsTab.classList.add('hidden');
       totalTab.classList.remove('hidden');
+      document.querySelector('.button_light')?.classList.remove('button_light');
+      target.classList.add('button_light');
     } else if (target.id === 'result-value') {
       wordsTab.classList.remove('hidden');
       totalTab.classList.add('hidden');
+      document.querySelector('.button_light')?.classList.remove('button_light');
+      target.classList.add('button_light');
     } else if (target.classList.contains('img-voice__res')) {
       const wordId = <string>target.dataset.id;
       const audioPath = [...successWords, ...failedWords].find((w) => w.wordId === wordId)?.audio;
       playWordAudio(audioPath);
+    } else if (target.classList.contains('close-crose__white')) {
+      document.querySelector('#popup-audio')?.classList.add('hidden');
+      document.querySelector('#overlay')?.classList.add('hidden');
     }
   });
 };

@@ -30,11 +30,13 @@
   font-size: 0.9rem;
   border-radius: 2rem;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .unit-select__button:hover {
   background-color: $colorBtnHov;
   color: $bgTColorBlack;
+  outline: 1px solid $bgTColorBlack;
 }
 
 .unit-sprint-1 {

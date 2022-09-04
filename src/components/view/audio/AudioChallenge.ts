@@ -124,6 +124,7 @@ class AudioChallenge implements Page {
   setInitialValues() {
     this.maxSuccess = 0;
     this.successTotal = 0;
+    this.checkedWords = [];
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
   }

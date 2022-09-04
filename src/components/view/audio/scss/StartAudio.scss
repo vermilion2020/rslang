@@ -102,6 +102,7 @@ $icons-path: '../../../../assets/images/png/';
   .select-level:hover {
     background-color: $colorBtnHov;
     color: $bgTColorBlack;
+    outline: 1px solid $bgTColorBlack;
   }
 }
 
@@ -116,12 +117,13 @@ $icons-path: '../../../../assets/images/png/';
   border: 1px solid $bgTColorBlack;
   background: $bgTColorWhite;
   cursor: pointer;
-  font-family: $enFont;
+  font-family: $rusFont;
   font-size: 1.1rem;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: $colorBtnHov;
-    border: 2px solid $colorBtnHov;
+    border: 1px solid $bgTColorBlack;
   }
 }
 

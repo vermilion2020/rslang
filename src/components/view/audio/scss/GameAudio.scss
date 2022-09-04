@@ -127,22 +127,19 @@ $svgs-path: '../../../../assets/icons/';
 .select-container__game {
   margin-bottom: 5%;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 45vw;
+  gap: 1rem;
+  justify-content: center;
 
   .select-word {
-    margin: 5px 10px;
-    padding: 0.5rem 0.7rem;
-    border-radius: 1.3rem;
-    border: 2px solid $elemColorGreen;
-    cursor: pointer;
-    font-family: $enFont;
-    font-size: 1.1rem;
-    color: $bgTColorBlack;
-    background-color: $elemColorGreen;
+    font-family: $rusFont;
     text-transform: capitalize;
+    border: solid 1px $bgTColorBlack;
+
     &:hover {
-      background-color: $colorBtnHov;
-      border: 2px solid $colorBtnHov;
-      color: $bgTColorBlack;
+      border: solid 1px $colorBtnHov;
     }
   }
 }
@@ -185,11 +182,14 @@ $svgs-path: '../../../../assets/icons/';
 .select-word:disabled:hover {
   background-color: $bgTColorWhite;
   border: 2px solid $bgTColorGrey;
+  color: $bgTColorBlack;
   cursor: default;
+  outline: 0;
 }
 
 .select-word:disabled.correct {
   background-color: $bgTColorWhite;
+  color: $trueColorGames;
   border: 2px solid $trueColorGames;
   cursor: default;
 }
@@ -203,6 +203,7 @@ $svgs-path: '../../../../assets/icons/';
 .select-word:disabled.incorrect {
   background-color: $bgTColorWhite;
   border: 2px solid $falseColorGames;
+  color: $falseColorGames;
   text-decoration: line-through;
 }
 
@@ -241,4 +242,11 @@ $svgs-path: '../../../../assets/icons/';
   height: 3rem;
   display: flex;
   justify-content: space-around;
+}
+
+.word-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }

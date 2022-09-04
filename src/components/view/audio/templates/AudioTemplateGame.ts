@@ -6,7 +6,7 @@ import { GameWordData } from '../../../model/types';
 export const drawTranslates = (translates: string[]) => {
   let translatesButtons = '';
   for (let i = 0; i < translates.length; i += 1) {
-    translatesButtons += `<button class="select-word" data-word="${i + 1}" value>${i + 1} - ${translates[i]}</button>`;
+    translatesButtons += `<button class="select-word button" data-word="${i + 1}" value>${i + 1} - ${translates[i]}</button>`;
   }
   return translatesButtons;
 };
@@ -36,7 +36,7 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
         <div class="game-wrapper" data-result="${result + 1}">
           <div class="visualisation">
             <div class="voice-ico__block" data-id="${word.id}">
-              <img src="" style=" height: 100%; border-radius: 50%; overflow:hidden;" alt="current-pic" id="word-picture" class="hidden">
+              <img src="" alt="${word.word}" id="word-picture" class="hidden word-picture">
             </div>
             <div class="repeat-word">
             <div class="speaker-ico hidden"><img class='img-voice' src="${voiceIcon}" alt="img voice"></div>
