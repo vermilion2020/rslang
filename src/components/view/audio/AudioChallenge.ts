@@ -93,7 +93,7 @@ class AudioChallenge implements Page {
 
   async updateCard() {
     //change to countAttempts
-    if (this.checkedWords.length >= 5) {
+    if (this.checkedWords.length >= 20) {
       await this.renderResults();
       await this.render();
     }
@@ -108,7 +108,7 @@ class AudioChallenge implements Page {
     this.words = [...updatedWords];
     this.currentWord = { ...word };
     //change to countAttempts
-    if (this.checkedWords.length < 5) {
+    if (this.checkedWords.length < 20) {
       this.updateGameContent(this.currentWord);
     }
   }
