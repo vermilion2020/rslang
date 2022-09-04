@@ -116,9 +116,6 @@ class Header implements Page {
     if (logoutButton) {
       logoutButton.addEventListener('click', () => {
         this.state = handleLogout(this.state);
-        if (!this.state.loggedIn) {
-          window.location.reload();
-        }
       });
     }
     return this.state;
