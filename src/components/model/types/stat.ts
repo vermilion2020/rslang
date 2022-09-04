@@ -24,3 +24,13 @@ export type ResponseStat = {
 export type ResponseGameStat = {
   data: StatGame
 }
+
+export type ChartAxisData = {
+  label: string,
+  value: number
+}
+
+export type DateChartData = {
+  date: number;
+  value: number;
+}
