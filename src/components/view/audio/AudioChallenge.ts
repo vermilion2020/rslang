@@ -133,7 +133,6 @@ class AudioChallenge implements Page {
     this.numTried += 1;
     //progress draw
     const progresBarMov = <HTMLElement>document.querySelector('.progress-circular');
-    console.log('PBar', progresBarMov);
     let gradient = Math.round(((countAttempts - (countAttempts - this.numTried)) / countAttempts) * 100) * 3.6;
     progresBarMov.style.background = `conic-gradient(#65D72F ${gradient}deg, #FF0000 0deg)`;
   };

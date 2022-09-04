@@ -232,3 +232,10 @@ $icons-path: '../../../../assets/images/png/';
   display: flex;
   justify-content: space-around;
 }
+
+#word-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
