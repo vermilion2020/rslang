@@ -1,7 +1,7 @@
 @import '../common/base-styles.scss';
 
 .chartdiv {
-  width: 400px;
+  width: 600px;
   height: 400px;
 }
 
@@ -14,6 +14,9 @@
   padding: 1rem 2.5rem 1rem;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stat-block {
@@ -27,5 +30,7 @@
 .day-stat {
   display: flex;
   gap: 2rem;
+  max-width: 650px;
   margin: auto;
+  flex-direction: column;
 }

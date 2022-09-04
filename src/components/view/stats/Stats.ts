@@ -1,4 +1,4 @@
-import { dayStatsTemplate } from './StatsTemplate';
+import { statsTemplate } from './StatsTemplate';
 import './Stats.scss';
 import { Page, PagesState } from '../../model/types';
 import { showPreloader } from '../../controller/helpers';
@@ -17,16 +17,16 @@ class Stats implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     showPreloader(container);
     const { commonData, sprintData, audioData } = await createDayChartData(this.state.userId, this.state.token);
-    const { newWordsData, easyWordsData } = await createMonthChartData(this.state.userId, this.state.token);
-    const statDay = <HTMLElement>dayStatsTemplate().content.cloneNode(true);
+    const statDay = <HTMLElement>statsTemplate().content.cloneNode(true);
     container.innerHTML = '';
     container.append(statDay);
     drawChart('chartdiv_common', commonData);
     drawChart('chartdiv_sprint', sprintData);
     drawChart('chartdiv_audio', audioData);
+    const menu = <HTMLElement>container.querySelector('.stat-menu');
+    const { newWordsData, easyWordsData } = await createMonthChartData(this.state.userId, this.state.token);
     drawFullChart('chartdiv_new', newWordsData);
     drawFullChart('chartdiv_easy', easyWordsData);
-    const menu = <HTMLElement>container.querySelector('.stat-menu');
     menu.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
       const dayStatBlock = <HTMLElement>container.querySelector('.day-stat');

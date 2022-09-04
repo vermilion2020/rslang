@@ -1,4 +1,4 @@
-export const dayStatsTemplate = (): HTMLTemplateElement => {
+export const statsTemplate = (): HTMLTemplateElement => {
   const todayDate = (new Date()).toLocaleDateString('ru');
   const stat = document.createElement('template');
   stat.innerHTML = `
