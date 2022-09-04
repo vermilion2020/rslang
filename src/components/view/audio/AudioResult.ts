@@ -6,7 +6,6 @@ import { playWordAudio } from '../../controller/helpers/audio-helper';
 export const renderAudioResultPop = (successWords: CheckedWord[], failedWords: CheckedWord[], successTotal: number) => {
   const container = document.querySelector('#popup-audio') as HTMLElement;
   const overlay = document.querySelector('#overlay') as HTMLElement;
-  const formResu = container.querySelector('#page-result') as HTMLFormElement;
   container.innerHTML = '';
   container.classList.remove('hidden');
   overlay.classList.remove('hidden');
@@ -26,7 +25,6 @@ export const renderAudioResultPop = (successWords: CheckedWord[], failedWords: C
     e.preventDefault();
     container.classList.add('hidden');
     overlay.classList.add('hidden');
-    formResu.reset();
   });
 
   container.addEventListener('click', (e: Event) => {
