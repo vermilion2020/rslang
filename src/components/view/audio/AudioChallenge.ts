@@ -172,13 +172,6 @@ class AudioChallenge implements Page {
     const audio = <HTMLElement>document.querySelector('.speaker-ico');
     if (this.currentWord && audio) {
       showCorrectAnswer(this.currentWord, result, decision);
-
-      //countAttempts
-      if (this.checkedWords.length >= 20) {
-        renderAudioResultPop(this.checkedWords, this.successTotal);
-        this.render();
-      }
-
       audio.addEventListener('click', () => {
         if (this.currentWord) {
           playWordAudio(this.currentWord?.audio);
@@ -255,7 +248,7 @@ class AudioChallenge implements Page {
     }
   }
 
-  async renderResults() {
+  async renderResults(){
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
     await saveGameStatistics(
@@ -267,7 +260,7 @@ class AudioChallenge implements Page {
       'audio'
     );
     renderAudioResultPop(successWords, failedWords, this.successTotal);
-  }
+  };
 }
 
 export default AudioChallenge;
