@@ -2,8 +2,16 @@ import './Dictionary.scss';
 import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
 import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
-import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
-import { loadWords, loadWordsHard, addWordData, addDataPerPage, showPreloader } from '../../controller/helpers/word-helper';
+import {
+  pagingTemplate, unitTemplate, titleTemplate, playTemplate,
+} from '../textbook/TextbookTemplate';
+import {
+  loadWords,
+  loadWordsHard,
+  addWordData,
+  addDataPerPage,
+  showPreloader,
+} from '../../controller/helpers/word-helper';
 
 class Dictionary implements Page {
   state: PagesState;
@@ -146,7 +154,9 @@ class Dictionary implements Page {
           lebelEl?.classList.remove('hard');
           await addWordData(state.userId, cardId, state.token, 'base');
           if (state.dictionary.unit === 7) {
-            if (card.parentNode) { card.parentNode.removeChild(card); }
+            if (card.parentNode) {
+              card.parentNode.removeChild(card);
+            }
           }
         }
       }
@@ -155,7 +165,9 @@ class Dictionary implements Page {
           lebelEl?.classList.add('easy');
           lebelEl?.classList.remove('hard');
           if (state.dictionary.unit === 7) {
-            if (card.parentNode) { card.parentNode.removeChild(card); }
+            if (card.parentNode) {
+              card.parentNode.removeChild(card);
+            }
           }
           await addWordData(state.userId, cardId, state.token, 'easy');
         } else {

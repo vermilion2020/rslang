@@ -1,9 +1,9 @@
 .results-sprint {
   overflow: hidden;
   height: 420px;
-  width: 700px;
+  width: 50vw;
   background: $bgTColorWhite;
-  border-radius: 1rem;
+  border-radius: 3rem;
   padding: 1rem;
   text-align: center;
   margin: 10vh auto 1rem;
@@ -11,6 +11,26 @@
 
   hr {
     background: $circleBgColor;
+  }
+
+  .results-line {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  
+    .word {
+      font-family: $enFont;
+      text-transform: capitalize;
+    }
+  
+    .translate {
+      text-transform: capitalize;
+    }
+  
+    .transcription {
+      color: $TextNotActive;
+      width: auto;
+    }
   }
 }
 
@@ -67,25 +87,6 @@
 
 .play-again {
   margin-top: 0.8rem;
-}
-
-.results-line {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-
-  .word {
-    font-family: $enFont;
-    text-transform: capitalize;
-  }
-
-  .translate {
-    text-transform: capitalize;
-  }
-
-  .transcription {
-    color: $TextNotActive;
-  }
 }
 
 .results-audio {

@@ -1,7 +1,10 @@
-import { saveGameStat } from '../../model/api';
+import { saveGameStat } from '../../model/api/stat';
 import { addUserWord, getWordTranslates, updateUserWord } from '../../model/api/words';
 import { maxScorePerWord, minScorePerWord, scoreStep } from '../../model/constants';
-import { GameWordData, StatData, UserWord, WordData } from '../../model/types';
+import { StatData } from '../../model/types/stat';
+import {
+  GameWordData, UserWord, WordData,
+} from '../../model/types/words';
 import { loadWords } from './word-helper';
 
 export const randomResult = (word: GameWordData) => {
@@ -17,7 +20,7 @@ export const getNewWord = async (
   currPage: number,
   loggedIn: boolean,
   translateCounts: number,
-  source: string
+  source: string,
 ) => {
   let currentPage = currPage;
   let currentUnit = unit;
@@ -40,7 +43,7 @@ export const getNewWord = async (
     if (currentPage !== -1) {
       let newWords = await loadWords(currentUnit, currentPage, loggedIn);
       if (source === 'textbook' || source === 'dictionary') {
-        newWords = newWords.filter((word) => word.difficulty !== 'easy');
+        newWords = newWords.filter((w) => w.difficulty !== 'easy');
       }
       updatedWords = [...updatedWords, ...newWords];
     }
@@ -75,7 +78,8 @@ export const updateScoreParameters = (
   result: boolean,
   successInRope: number,
   countForSuccess: number,
-  score: number
+  score: number,
+  unit: number,
 ) => {
   let successCount = successInRope;
   let successReward = countForSuccess;
@@ -85,15 +89,15 @@ export const updateScoreParameters = (
     successCount += 1;
     stepNumber = successCount % scoreStep;
     totalSore += successReward;
-    document.querySelector(`.circle[data-value="${stepNumber}"]`)?.classList.add('circle__active');
+    document.querySelector(`.circle[data-value="${stepNumber}"]`)?.classList.add(`circle-${unit}__active`);
   } else {
     successCount = 0;
-    document.querySelectorAll('.circle').forEach((el) => el.classList.remove('circle__active'));
+    document.querySelectorAll('.circle').forEach((el) => el.classList.remove(`circle-${unit}__active`));
   }
   successReward = minScorePerWord + Math.floor(successCount / scoreStep) * minScorePerWord;
   successReward = successReward > maxScorePerWord ? maxScorePerWord : successReward;
   if (stepNumber === 0) {
-    document.querySelectorAll('.circle').forEach((el) => el.classList.remove('circle__active'));
+    document.querySelectorAll('.circle').forEach((el) => el.classList.remove(`circle-${unit}__active`));
   }
   (<HTMLElement>document.querySelector('#success-count')).innerText = `${successReward}`;
   (<HTMLElement>document.querySelector('#score')).innerText = `${totalSore}`;
@@ -105,7 +109,7 @@ export const updateWordData = async (
   word: GameWordData,
   userId: string,
   token: string,
-  source: string
+  source: string,
 ) => {
   let loss = word.optional?.loss || 0;
   let vic = word.optional?.vic || 0;
@@ -130,7 +134,7 @@ export const updateWordData = async (
     optional: {
       vic,
       loss,
-      source: source
+      source,
     },
   };
   if (word.used) {
@@ -140,22 +144,29 @@ export const updateWordData = async (
   }
 };
 
-export const saveGameStatistics = async (userId: string, token: string, maxSuccess: number, successAnswers: number, totalAnswers: number, source: string) => {
+export const saveGameStatistics = async (
+  userId: string,
+  token: string,
+  maxSuccess: number,
+  successAnswers: number,
+  totalAnswers: number,
+  source: string,
+) => {
   const maxData: StatData = {
     field: 'maxSuccess',
     value: maxSuccess,
-    source: source,
-    totalValue: 0
-  }
+    source,
+    totalValue: 0,
+  };
   await saveGameStat(userId, token, maxData);
-  let percentData: StatData = {
+  const percentData: StatData = {
     field: 'successPercent',
     value: successAnswers,
-    source: source,
-    totalValue: totalAnswers
-  }
+    source,
+    totalValue: totalAnswers,
+  };
   await saveGameStat(userId, token, percentData);
-}
+};
 
 export const disableDecisionButtons = () => {
   const trueButton = <HTMLElement>document.querySelector('.decision_button__true');
@@ -167,14 +178,14 @@ export const disableDecisionButtons = () => {
 export const getDecisionResult = (container: HTMLElement, decision: number) => {
   const result = +(<string>container.dataset.result) === decision;
   if (result) {
-    container.classList.add('border-true');
+    container.classList.add('background-true');
     setTimeout(() => {
-      container.classList.remove('border-true');
+      container.classList.remove('background-true');
     }, 1000);
   } else {
-    container.classList.add('border-false');
+    container.classList.add('background-false');
     setTimeout(() => {
-      container.classList.remove('border-false');
+      container.classList.remove('background-false');
     }, 1000);
   }
   return result;

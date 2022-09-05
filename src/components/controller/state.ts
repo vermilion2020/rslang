@@ -1,4 +1,4 @@
-import { PagesState } from '../model/types';
+import { PagesState } from '../model/types/page';
 
 const getInitialState = (): PagesState => {
   const textbook = localStorage.getItem('textbook');

@@ -1,10 +1,12 @@
 import { sprintCardTemplate, sprintResultsTemplate, sprintStartTemplate } from './templates';
 import './Sprint.scss';
-import './Timer.scss';
+import './scss/Timer.scss';
 import { Page, PagesState } from '../../model/types/page';
 import startTimer, { timerCard } from '../../controller/timer';
-import { apiBaseUrl, countPages } from '../../model/constants';
-import { CheckedWord, GameWordData, WordData } from '../../model/types';
+import {
+  apiBaseUrl, countPages, failedSound, successSound,
+} from '../../model/constants';
+import { CheckedWord, GameWordData, WordData } from '../../model/types/words';
 import {
   disableDecisionButtons,
   getDecisionResult,
@@ -66,6 +68,7 @@ class Sprint implements Page {
       this.startCountDown = true;
       this.unit = await unitSelect(target);
       timerCard(3, 'unit-diagram');
+      document.querySelector('.sprint-container')?.classList.add(`unit-${this.unit}-container`);
       document.querySelector('.unit-select')?.classList.add('hidden');
       document.querySelector('.diagram')?.classList.remove('hidden');
       await startTimer(2, async () => {
@@ -79,12 +82,13 @@ class Sprint implements Page {
     if (this.state.gameStarted) {
       window.location.reload();
     }
-    const sprintNode = <HTMLElement>sprintStartTemplate().content.cloneNode(true);
-    this.container.innerHTML = '';
-    this.container.append(sprintNode);
+
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
       this.unit = this.state.sprint.unit;
       this.page = this.state.sprint.page;
+      const sprintNode = <HTMLElement>sprintStartTemplate(`${this.unit}`).content.cloneNode(true);
+      this.container.innerHTML = '';
+      this.container.append(sprintNode);
       this.startCountDown = true;
       this.state.gameStarted = true;
       document.querySelector('.unit-select')?.classList.add('hidden');
@@ -93,6 +97,10 @@ class Sprint implements Page {
       await startTimer(2, async () => {
         await this.renderGame();
       });
+    } else {
+      const sprintNode = <HTMLElement>sprintStartTemplate().content.cloneNode(true);
+      this.container.innerHTML = '';
+      this.container.append(sprintNode);
     }
     this.container.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
@@ -105,7 +113,7 @@ class Sprint implements Page {
 
   async updateCard() {
     if (this.words.length === 0) {
-      return await this.renderResults();
+      return this.renderResults();
     }
     const { word, updatedWords } = await getNewWord(
       this.words,
@@ -113,15 +121,15 @@ class Sprint implements Page {
       this.page,
       this.state.loggedIn,
       1,
-      this.state.sprint.source
+      this.state.sprint.source,
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
-    updateCardContent(this.currentWord);
+    return updateCardContent(this.currentWord);
   }
 
   async saveResult(word: GameWordData, result: boolean) {
-    const scoreUpdates = updateScoreParameters(result, this.successInRope, this.countForSuccess, this.score);
+    const scoreUpdates = updateScoreParameters(result, this.successInRope, this.countForSuccess, this.score, this.unit);
     this.score = scoreUpdates.totalSore;
     this.successInRope = scoreUpdates.successCount;
     this.countForSuccess = scoreUpdates.successReward;
@@ -145,8 +153,8 @@ class Sprint implements Page {
     this.maxSuccess = 0;
     this.score = 0;
     this.countForSuccess = 10;
-    this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
-    this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
+    this.page = this.state.sprint.page > 0 && this.state.sprint.page < 30 ? this.state.sprint.page : this.page;
+    this.unit = this.state.sprint.page > 0 && this.state.sprint.page < 6 ? this.state.sprint.unit : this.unit;
   }
 
   async handleDecision(e: Event | KeyboardEvent, container: HTMLElement) {
@@ -159,6 +167,11 @@ class Sprint implements Page {
       decision = +(<string>target.dataset.value);
     }
     const result = getDecisionResult(container, decision);
+    if (result) {
+      this.playWordAudio(successSound);
+    } else {
+      this.playWordAudio(failedSound);
+    }
     if (this.currentWord) {
       await this.saveResult(this.currentWord, result);
       this.updateCard();
@@ -180,7 +193,7 @@ class Sprint implements Page {
       this.page,
       this.state.loggedIn,
       1,
-      this.state.sprint.source
+      this.state.sprint.source,
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
@@ -209,9 +222,7 @@ class Sprint implements Page {
     });
   }
 
-  playWordAudio(target: HTMLElement) {
-    const wordId = <string>target.dataset.id;
-    const wordAudio = <string>this.checkedWords.find((item) => item.wordId === wordId)?.audio;
+  playWordAudio(wordAudio: string) {
     if (wordAudio) {
       this.player.src = `${apiBaseUrl}/${wordAudio}`;
       this.player.currentTime = 0;
@@ -233,19 +244,21 @@ class Sprint implements Page {
         this.maxSuccess,
         successWords.length,
         this.checkedWords.length,
-        'sprint'
+        'sprint',
       );
     }
     const sprintResultsNode = <HTMLElement>(
-      sprintResultsTemplate(successWords, failedWords, this.score).content.cloneNode(true)
+      sprintResultsTemplate(successWords, failedWords, this.score, this.unit).content.cloneNode(true)
     );
     this.container.innerHTML = '';
     this.container.append(sprintResultsNode);
-    const sprintResults = <HTMLElement>this.container.querySelector('#results-sprint');
+    const sprintResults = <HTMLElement> this.container.querySelector('#results-sprint');
     sprintResults.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('results-audio')) {
-        this.playWordAudio(target);
+        const wordId = <string>target.dataset.id;
+        const wordAudio = <string> this.checkedWords.find((item) => item.wordId === wordId)?.audio;
+        this.playWordAudio(wordAudio);
       } else if (target.id === 'play-again') {
         this.startCountDown = false;
         window.location.reload();

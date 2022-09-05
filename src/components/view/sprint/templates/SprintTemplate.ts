@@ -1,5 +1,5 @@
 import { randomResult } from '../../../controller/helpers/sprint-helper';
-import { GameWordData } from '../../../model/types';
+import { GameWordData } from '../../../model/types/words';
 
 const timerNode = (seconds: number, visible: string) => `
 <div class="diagram timer${visible}" data-seconds="${seconds}">
@@ -15,12 +15,14 @@ const timerNode = (seconds: number, visible: string) => `
 
 export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
   const sprintStart = document.createElement('template');
+  const unitClass = unitId ? ` unit-${unitId}-container` : '';
   sprintStart.innerHTML = `
-    <div class="sprint-container">
+    <div class="sprint-container${unitClass}">
       <div class="start-sprint" data-id="${unitId || 1}">
-        <h1>Спринт</h1>
+        <h2>Спринт</h2>
         <p>Правила игры:</p>
         <p>Выберите соответсвует ли перевод предложенному слову</p>
+        <p>Используйте левую &#8592; и правую &#8594; стрелки  клавиатуры для выбора ответа</p>
         <p class="select-label">Выберите раздел:</p>
         <div class="unit-select">
           <button data-id="1" class="unit-select__button unit-sprint-1">Раздел 1</button>
@@ -39,8 +41,9 @@ export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
 export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
   const sprintCard = document.createElement('template');
   const { result, translate } = randomResult(word);
+  const unit = (word.group || 0) + 1;
   sprintCard.innerHTML = `
-    <div class="sprint-container">
+    <div class="sprint-container unit-${unit}-container">
       <div class="card-sprint" id="card-sprint" data-word="${word.id}" data-result="${result}">
         <p id="score">0</p>
         <span id="start-countdown" class="hidden">59</span>
@@ -50,6 +53,7 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
           <div class="circle" data-value="2"></div>
           <div class="circle" data-value="3"></div>
         </div>
+        <div class="unit-img unit-${unit}-img"></div>
         <h3 id="card-word" class="card-word">${word.word}</h3>
         <h4 id="card-translate" class="card-translate">${translate}</h4>
         <div class="decision">

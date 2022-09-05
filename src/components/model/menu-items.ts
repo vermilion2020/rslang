@@ -1,4 +1,4 @@
-import { MenuItem } from './types';
+import { MenuItem } from './types/menu-item';
 
 const menuItems: MenuItem[] = [
   { name: 'Учебник', href: 'textbook', auth: false },

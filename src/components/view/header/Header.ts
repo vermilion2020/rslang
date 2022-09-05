@@ -1,7 +1,7 @@
 import headerTemplate from './HeaderTemplate';
 import './Header.scss';
 import './Auth.scss';
-import { Page, PagesState } from '../../model/types';
+import { Page, PagesState } from '../../model/types/page';
 import { route } from '../../controller/router';
 import menuItems from '../../model/menu-items';
 import { authTemplate, registrationTemplate } from './AuthTemplate';
@@ -92,11 +92,9 @@ class Header implements Page {
   async render() {
     const headerContainer = document.querySelector('#header-container') as HTMLElement;
     headerContainer.innerHTML = '';
-    const headerNode = <HTMLElement>headerTemplate(
-      this.state.page,
-      this.state.loggedIn,
-      this.state.userName,
-    ).content.cloneNode(true);
+    const headerNode = <HTMLElement>(
+      headerTemplate(this.state.page, this.state.loggedIn, this.state.userName).content.cloneNode(true)
+    );
     headerContainer.appendChild(headerNode);
     const nav = <HTMLElement>headerContainer.querySelector('nav');
     const logo = <HTMLElement>headerContainer.querySelector('.logo__link');

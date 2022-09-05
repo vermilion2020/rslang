@@ -1,6 +1,7 @@
-import { getAllCommonStat, getDayCommonStat, getDayGameStat } from "../../model/api";
-import { ChartAxisData, Stat, StatGame } from "../../model/types";
-import { drawFullChart } from "./chart-helper";
+import { getAllCommonStat, getDayCommonStat, getDayGameStat } from '../../model/api';
+import {
+  ChartAxisData, DateChartData, Stat, StatGame,
+} from '../../model/types/stat';
 
 export const createDayChartData = async (userId: string, token: string) => {
   const statData: Stat = (await getDayCommonStat(userId, token)).data;
@@ -23,19 +24,21 @@ export const createDayChartData = async (userId: string, token: string) => {
   ];
 
   return { commonData, sprintData, audioData };
-}
+};
 
 export const createMonthChartData = async (userId: string, token: string) => {
   const newWordsObj = <{ [key: string]: number }>(await getAllCommonStat(userId, token, 'new')).data;
-  let newWordsData = [];
-  for (let w in newWordsObj) {
-    newWordsData.push({date: Date.parse(w), value: newWordsObj[w]});
-  }
+  const newWordsData: DateChartData[] = [];
+  const keysNew = Object.keys(newWordsObj);
+  keysNew.forEach((k) => {
+    newWordsData.push({ date: Date.parse(k), value: newWordsObj[k] });
+  });
   const easyWordsObj = <{ [key: string]: number }>(await getAllCommonStat(userId, token, 'easy')).data;
-  let easyWordsData = [];
-  for (let w in easyWordsObj) {
-    easyWordsData.push({date: Date.parse(w), value: easyWordsObj[w]});
-  }
+  const easyWordsData: DateChartData[] = [];
+  const keysEasy = Object.keys(easyWordsObj);
+  keysEasy.forEach((k) => {
+    easyWordsData.push({ date: Date.parse(k), value: newWordsObj[k] });
+  });
 
   return { newWordsData, easyWordsData };
-}
+};

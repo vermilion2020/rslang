@@ -1,13 +1,24 @@
-import { getUserWords, getUserWord, getWords, getWordsHard, addUserWord, updateUserWord, checkData } from '../../model/api/words';
-import { WordData, UserWords, WordHardData, UserWord } from '../../model/types/words';
+import {
+  getUserWords,
+  getUserWord,
+  getWords,
+  getWordsHard,
+  addUserWord,
+  updateUserWord,
+  checkData,
+} from '../../model/api/words';
+import {
+  WordData, UserWords, WordHardData, UserWord,
+} from '../../model/types/words';
 import { PagesState } from '../../model/types/page';
 import loaderTemplate from '../../view/common/loader-template';
 
 export const showPreloader = (container: HTMLElement) => {
-  container.innerHTML = '';
+  const mainContainer = container;
+  mainContainer.innerHTML = '';
   const loaderNode = <HTMLElement>loaderTemplate.content.cloneNode(true);
-  container.append(loaderNode);
-}
+  mainContainer.append(loaderNode);
+};
 
 export const loadWords = async (unit: number, page: number, loggedIn: boolean): Promise<WordData[]> => {
   let words: WordData[] = [];
@@ -26,7 +37,10 @@ export const loadWords = async (unit: number, page: number, loggedIn: boolean): 
           const incl = userWords.find((userWord) => word.id === userWord.wordId);
           if (incl) {
             return {
-              ...word, difficulty: incl.difficulty, optional: incl.optional, used: true,
+              ...word,
+              difficulty: incl.difficulty,
+              optional: incl.optional,
+              used: true,
             };
           }
           return word;

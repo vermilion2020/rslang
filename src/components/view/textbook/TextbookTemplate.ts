@@ -28,8 +28,12 @@ export const drawCard = (wordData: WordData): string => {
     <div class="wordEn">${wordData.word[0].toUpperCase() + wordData.word.slice(1)}</div>
     <div ckass="wordRu">${wordData.wordTranslate[0].toUpperCase() + wordData.wordTranslate.slice(1)}</div>
     <div class="wrapper-difficulty">
-      <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${wordData.optional?.vic}</div>
-      <div class="difficulty loss ${wordData.optional && +wordData.optional.loss !== 0 ? 'play' : ''}">${wordData.optional?.loss}</div>
+      <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${
+  wordData.optional?.vic
+}</div>
+      <div class="difficulty loss ${wordData.optional && +wordData.optional.loss !== 0 ? 'play' : ''}">${
+  wordData.optional?.loss
+}</div>
     </div>
     <div class="label ${wordData.difficulty ? wordData.difficulty : ''}"></div>
   </div>`;
@@ -51,8 +55,9 @@ export const textbookTemplate = (words: WordData[]): HTMLTemplateElement => {
 export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTemplateElement => {
   const units = document.createElement('template');
   const unitNames = [1, 2, 3, 4, 5, 6, 7];
-  const buttons = unitNames.map(
-    (unit) => `
+  const buttons = unitNames
+    .map(
+      (unit) => `
     <button data-unit="${unit}"
       class="button unit-button ${unit === currentUnit ? 'current-unit' : ''}"
       ${unit === 7 && loggedIn === false ? 'disabled="disabled"' : ''}
@@ -60,7 +65,7 @@ export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTempla
       ${unit === 7 ? 'сложное' : `раздел ${unit}`}
       ${unit === 7 ? '<div class="lable-btn"></div>' : ''}
     </button>`,
-  )
+    )
     .join('');
   units.innerHTML = `
     <div class="units">
