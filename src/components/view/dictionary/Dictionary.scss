@@ -123,6 +123,50 @@
   background-color: $iconColorStudied;
 }
 
+.easy-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: url('../../../assets/icons/check.svg');
+  background-size: cover;
+  cursor: pointer;
+
+  &:hover {
+    background: url('../../../assets/icons/check-hover.svg');
+    background-size: cover;
+  }
+
+  &.active {
+    background: url('../../../assets/icons/check-active.svg');
+    background-size: cover;
+  }
+
+  &.active:hover {
+    opacity: 0.8;
+  }
+}
+
+.hard-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: url('../../../assets/icons/star.svg');
+  background-size: cover;
+  cursor: pointer;
+
+  &:hover {
+    background: url('../../../assets/icons/star-hover.svg');
+    background-size: cover;
+  }
+
+  &.active {
+    background: url('../../../assets/icons/star-active.svg');
+    background-size: cover;
+  }
+
+  &.active:hover {
+    opacity: 0.8;
+  }
+}
+
 .btn-audio-diction {
   height: 45px;
   width: 45px;

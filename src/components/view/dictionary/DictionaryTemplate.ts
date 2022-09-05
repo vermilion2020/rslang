@@ -40,13 +40,21 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
           class="radio-dif"
           onMouseDown="this.isChecked=this.checked;" 
           onClick="this.checked=!this.isChecked;" 
-          name="${wordData.id}" value="hard" ${wordData.difficulty === 'hard' ? 'checked' : ''}/>сложное<br>
+          data-id="hard_${wordData.id}"
+          name="${wordData.id}" id="hard_${wordData.id}" value="hard" ${wordData.difficulty === 'hard' ? 'checked' : ''}/>
+          <div data-value="hard" data-id="${wordData.id}" class="hard-icon${wordData.difficulty === 'hard' ? ' active' : ''}" 
+          title="${wordData.difficulty === 'hard' ? 'убрать из сложного' : 'добавить в сложное'}"></div>
+          сложное<br>
     
         <input type="radio"
-        class="radio-dif"
+          class="radio-dif"
           onMouseDown="this.isChecked=this.checked;" 
           onClick="this.checked=!this.isChecked;" 
-          name="${wordData.id}" value="easy" ${wordData.difficulty === 'easy' ? 'checked' : ''}/>изученное<br>
+          data-id="easy_${wordData.id}"
+          name="${wordData.id}" id="easy_${wordData.id}" value="easy" ${wordData.difficulty === 'easy' ? 'checked' : ''}/>
+          <div data-value="easy" data-id="${wordData.id}" class="easy-icon${wordData.difficulty === 'easy' ? ' active' : ''}" 
+          title="${wordData.difficulty === 'easy' ? 'убрать из изученного' : 'добавить в изученное'}"></div>
+          изученное<br>
 
       </div>
       <div class="wrapper-difficulty">

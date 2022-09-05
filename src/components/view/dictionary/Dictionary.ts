@@ -130,6 +130,16 @@ class Dictionary implements Page {
     return playNode;
   }
 
+  selectComplexity(e: Event) {
+    const target = <HTMLElement>e.target;
+    const id = <string>target.dataset.id;
+    const value = <string>target.dataset.value;
+    const radioToChange = <HTMLInputElement>document.querySelector(`#${value}_${id}`);
+    radioToChange.click();
+    const radioValue = (<HTMLInputElement>document.querySelector(`[name="${id}"]:checked`)).value;
+    console.log(radioValue);
+  }
+
   addListener(state: PagesState) {
     const changeRadio = async (e: Event) => {
       const cardId = (<HTMLInputElement>e.target).name;
@@ -166,7 +176,17 @@ class Dictionary implements Page {
     };
 
     const radios = document.querySelectorAll('.radio-dif');
-    radios.forEach((r) => r.addEventListener('click', changeRadio));
+    radios.forEach((r) => r.addEventListener('change', changeRadio));
+    const cards = document.querySelectorAll('.dictionary-card');
+    cards.forEach((c) => c.addEventListener('click', (e: Event) => {
+      const target = <HTMLElement>e.target;
+      if(target.classList.contains('btn-audio-diction')) {
+        this.playAudio;
+      } else if (target.classList.contains('hard-icon') || target.classList.contains('easy-icon')) {
+        this.selectComplexity(e);
+      }
+    }));
+
     const audioBtn = document.querySelectorAll('.btn-audio-diction');
     audioBtn.forEach((a) => a.addEventListener('click', this.playAudio));
 
