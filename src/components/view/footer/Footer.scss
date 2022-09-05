@@ -1,0 +1,100 @@
+@import '../../view/common/base-styles.scss';
+
+.github-link, use  {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.footer-container {
+  max-width: 1320px;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+  .copyright {
+    padding-left: $mainIndent;
+    font-size: 1rem;
+    font-family: $rusFont;
+    color: $bgTColorBlack;
+    text-align: center;
+
+    a {
+      color: $bgTColorBlack;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    &:before {
+      content: '©';
+    }
+  }
+
+  .github-link--wrapper {
+    padding: 1.4rem 0;
+    display: flex;
+    gap: 15px;
+  }
+
+  .github-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: $bgTColorBlack;
+    font: $enFont;
+    gap: 5px;
+    .icon-git {
+      height: 20px;
+      width: 20px;
+      use {
+        fill: black;
+      }
+    }
+  }
+}
+
+.rsschool {
+  width: 83px;
+  height: 30px;
+  margin-left: 20px;
+
+  &:hover .rsschool-paint,
+  &:focus .rsschool-paint{
+    fill: $colorBtnHov;
+  }
+}
+
+.github-link:hover {
+  color: $btnColorUnit4;
+  .icon-git{
+    use {
+      fill: $btnColorUnit4;
+    }
+  }
+}
+
+.link-rs {
+  padding-right: $mainIndent;
+  .icon-rs {
+    height: 35px;
+    width: 90px;
+    use {
+      fill: $bgTColorBlack;
+    }
+  }
+}
+
+.link-rs:hover {
+  .icon-rs{
+    use {
+      fill: $btnColorUnit4;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@import '../common/base-styles.scss';
+
+.chartdiv {
+  width: 60vw;
+  height: 400px;
+  max-width: 600px;
+}
+
+.chartdiv-long {
+  width: 900px;
+  height: 400px;
+}
+
+.stat-container {
+  padding: 6rem 2% 1rem;
+  width: 96%;
+  height: 96%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .stat-menu {
+    margin-bottom: 1rem;
+  }
+}
+
+.stat-block {
+  width: 60vw;
+  max-width: 600px;
+}
+
+.stat-long-block {
+  max-width: 1000px;
+}
+
+.day-stat {
+  display: flex;
+  gap: 2rem;
+  max-width: 650px;
+  margin: auto;
+  align-items: center;
+  flex-direction: column;
+}
