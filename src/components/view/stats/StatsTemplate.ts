@@ -4,7 +4,7 @@ const statsTemplate = (): HTMLTemplateElement => {
   stat.innerHTML = `
     <section class="stat-container">
       <div class="stat-menu">
-        <button class="button" id="day-stat">Дневная статистика</button>
+        <button class="button button_light" id="day-stat">Дневная статистика</button>
         <button class="button" id="month-stat">Долгосрочная статистика</button>
       </div>
       <div class="day-stat">
