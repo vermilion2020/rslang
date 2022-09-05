@@ -36,18 +36,21 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
     <div class="label ${wordData.difficulty ? wordData.difficulty : ''}"></div>
     <div class="sec-btn-diction">
       <div class="wrapper-btn-diction">
-        <input type="radio" 
-          class="radio-dif"
-          onMouseDown="this.isChecked=this.checked;" 
-          onClick="this.checked=!this.isChecked;" 
-          name="${wordData.id}" value="hard" ${wordData.difficulty === 'hard' ? 'checked' : ''}/>сложное<br>
-    
-        <input type="radio"
-        class="radio-dif"
-          onMouseDown="this.isChecked=this.checked;" 
-          onClick="this.checked=!this.isChecked;" 
-          name="${wordData.id}" value="easy" ${wordData.difficulty === 'easy' ? 'checked' : ''}/>изученное<br>
-
+        <input type="hidden" id="difficulty_${wordData.id}" value="${wordData.difficulty}">
+          <div class="difficulty-block">
+            <button data-value="hard" 
+              data-id="${wordData.id}" 
+              data-icon="hard_${wordData.id}"
+              class="difficulty-button hard-icon${wordData.difficulty === 'hard' ? ' active' : ''}">
+            сложное</button><br>
+          </div>
+          <div class="difficulty-block">
+            <button data-value="easy" 
+              data-id="${wordData.id}"
+              data-icon="easy_${wordData.id}"
+              class="difficulty-button easy-icon${wordData.difficulty === 'easy' ? ' active' : ''}">
+            изученное</button><br>
+          </div>
       </div>
       <div class="wrapper-difficulty">
         <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${

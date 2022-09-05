@@ -106,8 +106,9 @@ export const handleRegistration = async (state: PagesState) => {
     alert('Пароли должны совпадать!');
     return newState;
   }
+  let regResult = null;
   try {
-    await regNewUser(data);
+    regResult = await regNewUser(data);
   } catch (e) {
     alert('Аккаунт с таким имейлом уже существует!');
   }
@@ -116,10 +117,12 @@ export const handleRegistration = async (state: PagesState) => {
       email: email.value,
       password: password.value,
     };
-    const response = await authUser(authData);
-    if (response.status === 200) {
-      const responseData = <SignInResponse>response.data;
-      newState = { ...updateStateOnAuth(newState, responseData) };
+    if (regResult) {
+      const response = await authUser(authData);
+      if (response.status === 200) {
+        const responseData = <SignInResponse>response.data;
+        newState = { ...updateStateOnAuth(newState, responseData) };
+      }
     }
   } catch (e) {
     alert('Логин или пароль не верны! Попробуйте снова!');

@@ -104,7 +104,7 @@
 
 .wrapper-btn-diction {
   display: flex;
-  gap: 7px;
+  gap: 1rem;
 }
 
 .label {
@@ -121,6 +121,58 @@
 }
 .label.easy {
   background-color: $iconColorStudied;
+}
+
+.difficulty-block {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  .difficulty-button {
+    height: 1.5rem;
+    cursor: pointer;
+    border: 0;
+    background-size: 1.5rem;
+    background-repeat: no-repeat;
+    background-position: left;
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0rem 1rem 0rem 2rem;
+    font-family: $rusFont;
+    background-color: $bgTColorWhite;
+  }
+}
+
+.easy-icon {
+  background-image: url('../../../assets/icons/check.svg');
+
+  &:hover {
+    background-image: url('../../../assets/icons/check-hover.svg');
+  }
+
+  &.active {
+    background-image: url('../../../assets/icons/check-active.svg');
+  }
+
+  &.active:hover {
+    opacity: 0.8;
+  }
+}
+
+.hard-icon {
+  background-image: url('../../../assets/icons/star.svg');
+
+  &:hover {
+    background-image: url('../../../assets/icons/star-hover.svg');
+  }
+
+  &.active {
+    background-image: url('../../../assets/icons/star-active.svg');
+  }
+
+  &.active:hover {
+    opacity: 0.8;
+  }
 }
 
 .btn-audio-diction {
@@ -182,12 +234,16 @@ input {
     .linc-to-game {
       font-size: 0.9rem;
       height: 40px;
-      width: 254px;
+      width: 274px;
       border-radius: 3rem;
-      background-color: transparent;
-      border: none;
+      background-color: $bgTColorWhite;
+      border: 1px solid $bgTColorBlack;
       position: relative;
       cursor: pointer;
+
+      &:hover {
+        background: $colorBtnHov;
+      }
     }
 
     .icon-linc-to-game {
@@ -199,16 +255,7 @@ input {
       -webkit-mask: url('../../../assets/icons/arrow-bot.svg') no-repeat;
       -webkit-mask-size: auto 20px;
       top: 28%;
-      right: -1%;
-    }
-
-    &:hover {
-      .linc-to-game {
-        color: #458506;
-      }
-      .icon-linc-to-game {
-        background-color: #458506;
-      }
+      right: 0.4rem;
     }
 }
 

@@ -4,7 +4,6 @@
   position: absolute;
   z-index: 100;
   width: 500px;
-  height: 500px;
   right: calc(50% - 250px);
   top: calc(50% - 250px);
   background: $bgTColorWhite;
@@ -60,4 +59,9 @@
   background: $bgColorInput;
   padding: 0.6rem;
   border-radius: 0.4rem;
+}
+
+.popup__buttons-auth {
+  display: flex;
+  justify-content: space-around;
 }

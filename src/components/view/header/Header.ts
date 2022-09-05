@@ -12,18 +12,25 @@ class Header implements Page {
 
   popupContainer: HTMLElement;
 
+  currentForm: string;
+
   overlay = document.querySelector('#overlay') as HTMLElement;
 
   form = document.querySelector('#auth-form') as HTMLFormElement;
 
   constructor(state: PagesState) {
     this.state = state;
+    this.currentForm = 'auth';
     this.popupContainer = document.querySelector('#popup') as HTMLElement;
-    this.popupContainer.addEventListener('click', async (e) => {
+    this.popupContainer.addEventListener('click', async (e: Event) => {
       e.preventDefault();
       const target = e.target as HTMLElement;
       if (target.id === 'reg-button') {
+        this.currentForm = 'reg';
         this.renderRegForm();
+      } else if (target.id === 'back-button') {
+        this.currentForm = 'auth';
+        this.renderAuthForm();
       } else if (target.id === 'registration') {
         this.state = await handleRegistration(this.state);
         if (this.state.loggedIn) {
@@ -40,7 +47,23 @@ class Header implements Page {
         this.render();
       }
     });
+
+    document.addEventListener('keypress', async (e: KeyboardEvent) => {
+      let key = e.key;
+      if (key === 'Enter' && this.currentForm === 'auth') {
+        e.preventDefault();
+        this.state = await handleAuth(this.state);
+      } else if (key === 'Enter' && this.currentForm === 'reg') {
+        e.preventDefault();
+        this.state = await handleRegistration(this.state);
+        if (this.state.loggedIn) {
+          this.render();
+        }
+      }
+    });
   }
+
+  
 
   clearPopup() {
     this.popupContainer.classList.add('hidden');
@@ -85,8 +108,6 @@ class Header implements Page {
       }
       route(e, this.state);
     }
-    document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
-    target.classList.add('main-nav__item_active');
   }
 
   async render() {
