@@ -3,20 +3,29 @@ import {
   AutenticationData, PagesState, RegistrationData, SignInResponse,
 } from '../../model/types';
 
-export const handleLogout = (state: PagesState) => {
-  const newState = { ...state };
+export const clearLocalStorage = () => {
   localStorage.removeItem('refreshToken');
   localStorage.removeItem('expire');
   localStorage.removeItem('token');
   localStorage.removeItem('userId');
   localStorage.removeItem('userName');
+  localStorage.removeItem('dictionary');
+  localStorage.removeItem('textbook');
+  window.location.reload();
+}
+
+export const handleLogout = (state: PagesState) => {
+  const newState = { ...state };
   newState.loggedIn = false;
   newState.token = '';
   newState.refreshToken = '';
   newState.userId = '';
   newState.userName = '';
+  clearLocalStorage();
   return newState;
 };
+
+
 
 export const checkAuthState = async (state: PagesState): Promise<PagesState> => {
   if (!state.token) {
@@ -39,7 +48,6 @@ export const checkAuthState = async (state: PagesState): Promise<PagesState> => 
     }
   } else if (now >= refreshDead) {
     newState = { ...handleLogout(newState) };
-    // TODO: add validation for other response statuses
   } else {
     newState.loggedIn = true;
   }

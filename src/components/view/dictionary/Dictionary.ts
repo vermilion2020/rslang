@@ -3,7 +3,7 @@ import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
 import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
 import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
-import { loadWords, loadWordsHard, addWordData, addDataPerPage } from '../../controller/helpers/word-helper';
+import { loadWords, loadWordsHard, addWordData, addDataPerPage, showPreloader } from '../../controller/helpers/word-helper';
 
 class Dictionary implements Page {
   state: PagesState;

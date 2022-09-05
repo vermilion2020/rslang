@@ -241,14 +241,16 @@ class AudioChallenge implements Page {
   async renderResults(){
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
-    await saveGameStatistics(
-      this.state.userId,
-      this.state.token,
-      this.maxSuccess,
-      successWords.length,
-      this.checkedWords.length,
-      'audio'
-    );
+    if (this.state.loggedIn) {
+      await saveGameStatistics(
+        this.state.userId,
+        this.state.token,
+        this.maxSuccess,
+        successWords.length,
+        this.checkedWords.length,
+        'audio'
+      );
+    }
     renderAudioResultPop(successWords, failedWords, this.successTotal);
   };
 }
