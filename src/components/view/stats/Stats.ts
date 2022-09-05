@@ -30,13 +30,19 @@ class Stats implements Page {
     menu.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
       const dayStatBlock = <HTMLElement>container.querySelector('.day-stat');
+      const dayStatButton = <HTMLElement>container.querySelector('#day-stat');
       const monthStatBlock = <HTMLElement>container.querySelector('.month-stat');
+      const monthStatButton = <HTMLElement>container.querySelector('#month-stat');
       if (target.id === 'day-stat') {
         dayStatBlock.classList.remove('hidden');
         monthStatBlock.classList.add('hidden');
-      } else {
+        monthStatButton.classList.remove('button_light');
+        dayStatButton.classList.add('button_light');
+      } else if (target.id === 'month-stat'){
         dayStatBlock.classList.add('hidden');
         monthStatBlock.classList.remove('hidden');
+        dayStatButton.classList.remove('button_light');
+        monthStatButton.classList.add('button_light');
       }
     });
     return this.state;
