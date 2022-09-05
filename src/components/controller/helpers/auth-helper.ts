@@ -70,6 +70,22 @@ export const updateStateOnAuth = (state: PagesState, data: SignInResponse) => {
   return newState;
 };
 
+const showNotification = (message: string) => {
+  const notification = <HTMLElement>document.querySelector('.notification');
+  const messageContainer = <HTMLElement>document.querySelector('#message');
+  messageContainer.innerText = message;
+  notification.classList.remove('hidden');
+    notification.classList.add('transition-fade-in');
+    setTimeout(() => {
+      notification.classList.remove('transition-fade-in');
+      notification.classList.add('hidden');
+    }, 4000);
+    notification.addEventListener('click', () => {
+      notification.classList.remove('transition-fade-in');
+      notification.classList.add('hidden');
+    });
+}
+
 export const handleAuth = async (state: PagesState) => {
   let newState = { ...state };
   const email = document.querySelector('[name="email"]') as HTMLInputElement;
@@ -86,7 +102,7 @@ export const handleAuth = async (state: PagesState) => {
       window.location.reload();
     }
   } catch (e) {
-    alert('Логин или пароль не верны! Попробуйте снова!');
+    showNotification('Логин или пароль не верны! Попробуйте снова!');
   }
   return newState;
 };
@@ -97,20 +113,21 @@ export const handleRegistration = async (state: PagesState) => {
   const name = document.querySelector('[name="name"]') as HTMLInputElement;
   const password = document.querySelector('[name="password"]') as HTMLInputElement;
   const passwordConfirmation = document.querySelector('[name="password-confirm"]') as HTMLInputElement;
+  
   const data: RegistrationData = {
     email: email.value,
     name: name.value,
     password: password.value,
   };
   if (password.value !== passwordConfirmation.value) {
-    alert('Пароли должны совпадать!');
+    showNotification('Пароли должны совпадать!');
     return newState;
   }
   let regResult = null;
   try {
     regResult = await regNewUser(data);
   } catch (e) {
-    alert('Аккаунт с таким имейлом уже существует!');
+    showNotification('Аккаунт с таким имейлом уже существует!');
   }
   try {
     const authData: AutenticationData = {
@@ -125,7 +142,7 @@ export const handleRegistration = async (state: PagesState) => {
       }
     }
   } catch (e) {
-    alert('Логин или пароль не верны! Попробуйте снова!');
+    showNotification('Логин или пароль не верны! Попробуйте снова!');
   }
   return newState;
 };
