@@ -1,2 +1,0 @@
-# rslang
-RS Lang App
