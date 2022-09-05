@@ -19,7 +19,7 @@ class Header implements Page {
   constructor(state: PagesState) {
     this.state = state;
     this.popupContainer = document.querySelector('#popup') as HTMLElement;
-    this.popupContainer.addEventListener('click', async (e) => {
+    this.popupContainer.addEventListener('click', async (e: Event) => {
       e.preventDefault();
       const target = e.target as HTMLElement;
       if (target.id === 'reg-button') {
@@ -38,6 +38,18 @@ class Header implements Page {
       if (this.state.loggedIn) {
         this.clearPopup();
         this.render();
+      }
+    });
+
+    window.addEventListener('keypress', async (e: KeyboardEvent) => {
+      let key = e.key;
+      if (key === 'Enter') {
+        this.state = await handleAuth(this.state);
+        if (this.state.loggedIn) {
+          this.renderRegForm();
+        } else {
+          this.renderAuthForm();
+        }
       }
     });
   }
@@ -92,11 +104,9 @@ class Header implements Page {
   async render() {
     const headerContainer = document.querySelector('#header-container') as HTMLElement;
     headerContainer.innerHTML = '';
-    const headerNode = <HTMLElement>headerTemplate(
-      this.state.page,
-      this.state.loggedIn,
-      this.state.userName,
-    ).content.cloneNode(true);
+    const headerNode = <HTMLElement>(
+      headerTemplate(this.state.page, this.state.loggedIn, this.state.userName).content.cloneNode(true)
+    );
     headerContainer.appendChild(headerNode);
     const nav = <HTMLElement>headerContainer.querySelector('nav');
     const logo = <HTMLElement>headerContainer.querySelector('.logo__link');
