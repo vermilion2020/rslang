@@ -104,7 +104,13 @@
 
 .wrapper-btn-diction {
   display: flex;
-  gap: 7px;
+  gap: 1rem;
+}
+
+.difficulty-block {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .label {
@@ -226,12 +232,16 @@ input {
     .linc-to-game {
       font-size: 0.9rem;
       height: 40px;
-      width: 254px;
+      width: 274px;
       border-radius: 3rem;
-      background-color: transparent;
-      border: none;
+      background-color: $bgTColorWhite;
+      border: 1px solid $bgTColorBlack;
       position: relative;
       cursor: pointer;
+
+      &:hover {
+        background: $colorBtnHov;
+      }
     }
 
     .icon-linc-to-game {
@@ -243,16 +253,7 @@ input {
       -webkit-mask: url('../../../assets/icons/arrow-bot.svg') no-repeat;
       -webkit-mask-size: auto 20px;
       top: 28%;
-      right: -1%;
-    }
-
-    &:hover {
-      .linc-to-game {
-        color: #458506;
-      }
-      .icon-linc-to-game {
-        background-color: #458506;
-      }
+      right: 0.4rem;
     }
 }
 

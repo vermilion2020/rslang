@@ -36,26 +36,23 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
     <div class="label ${wordData.difficulty ? wordData.difficulty : ''}"></div>
     <div class="sec-btn-diction">
       <div class="wrapper-btn-diction">
-        <input type="radio" 
-          class="radio-dif"
-          onMouseDown="this.isChecked=this.checked;" 
-          onClick="this.checked=!this.isChecked;" 
-          data-id="hard_${wordData.id}"
-          name="${wordData.id}" id="hard_${wordData.id}" value="hard" ${wordData.difficulty === 'hard' ? 'checked' : ''}/>
-          <div data-value="hard" data-id="${wordData.id}" class="hard-icon${wordData.difficulty === 'hard' ? ' active' : ''}" 
-          title="${wordData.difficulty === 'hard' ? 'убрать из сложного' : 'добавить в сложное'}"></div>
-          сложное<br>
-    
-        <input type="radio"
-          class="radio-dif"
-          onMouseDown="this.isChecked=this.checked;" 
-          onClick="this.checked=!this.isChecked;" 
-          data-id="easy_${wordData.id}"
-          name="${wordData.id}" id="easy_${wordData.id}" value="easy" ${wordData.difficulty === 'easy' ? 'checked' : ''}/>
-          <div data-value="easy" data-id="${wordData.id}" class="easy-icon${wordData.difficulty === 'easy' ? ' active' : ''}" 
-          title="${wordData.difficulty === 'easy' ? 'убрать из изученного' : 'добавить в изученное'}"></div>
-          изученное<br>
-
+        <input type="hidden" id="difficulty_${wordData.id}" value="${wordData.difficulty}">
+          <div class="difficulty-block">
+            <div data-value="hard" 
+              data-id="${wordData.id}" 
+              data-icon="hard_${wordData.id}"
+              class="hard-icon${wordData.difficulty === 'hard' ? ' active' : ''}" 
+              title="${wordData.difficulty === 'hard' ? 'убрать из сложного' : 'добавить в сложное'}"></div>
+            сложное<br>
+          </div>
+          <div class="difficulty-block">
+            <div data-value="easy" 
+              data-id="${wordData.id}"
+              data-icon="easy_${wordData.id}"
+              class="easy-icon${wordData.difficulty === 'easy' ? ' active' : ''}" 
+              title="${wordData.difficulty === 'easy' ? 'убрать из изученного' : 'добавить в изученное'}"></div>
+            изученное<br>
+          </div>
       </div>
       <div class="wrapper-difficulty">
         <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${wordData.optional?.vic}</div>

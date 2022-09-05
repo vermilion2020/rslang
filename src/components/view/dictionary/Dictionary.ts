@@ -21,7 +21,7 @@ class Dictionary implements Page {
     container.innerHTML = '';
     container.append(sectionDictionary);
     container.append(sectionPlay);
-    this.addListener(this.state);
+    this.addListener();
     this. addListenerScroll();
     return this.state;
   }
@@ -130,65 +130,49 @@ class Dictionary implements Page {
     return playNode;
   }
 
-  selectComplexity(e: Event) {
+  cardClickHandler(e: Event) {
+    const target = <HTMLElement>e.target;
+    if(target.classList.contains('btn-audio-diction') || target.classList.contains('icon-audio-diction')) {
+      this.playAudio(e);
+    } else if (target.classList.contains('hard-icon') || target.classList.contains('easy-icon')) {
+      this.selectComplexity(e);
+    }
+  }
+
+  async selectComplexity(e: Event) {
     const target = <HTMLElement>e.target;
     const id = <string>target.dataset.id;
     const value = <string>target.dataset.value;
-    const radioToChange = <HTMLInputElement>document.querySelector(`#${value}_${id}`);
-    radioToChange.click();
-    const radioValue = (<HTMLInputElement>document.querySelector(`[name="${id}"]:checked`)).value;
-    console.log(radioValue);
+    const hidden = <HTMLInputElement>document.querySelector(`#difficulty_${id}`)
+    const newValue = hidden.value === value ? '' : value;
+    hidden.value = newValue;
+    document.querySelectorAll(`[data-id="${id}"]`).forEach((el) => el.classList.remove('active'));
+    if(newValue) {
+      document.querySelector(`[data-icon="${newValue}_${id}"]`)?.classList.add('active');
+    }
+    const lebelEl = <HTMLElement>document.getElementById(id)?.querySelector(`.label`);
+    switch(newValue) {
+      case 'hard':
+        lebelEl.classList.add('hard');
+        lebelEl.classList.remove('easy');
+        await addWordData(this.state.userId, id, this.state.token, 'hard');
+        break;
+      case 'easy':
+        lebelEl.classList.remove('hard');
+        lebelEl.classList.add('easy');
+        await addWordData(this.state.userId, id, this.state.token, 'easy');
+        break;
+      default:
+        lebelEl.classList.remove('hard');
+        lebelEl.classList.remove('easy');
+        await addWordData(this.state.userId, id, this.state.token, 'base');
+        break;
+    }
   }
 
-  addListener(state: PagesState) {
-    const changeRadio = async (e: Event) => {
-      const cardId = (<HTMLInputElement>e.target).name;
-      const card = <HTMLElement>document.getElementById(cardId);
-      const lebelEl = document.getElementById(cardId)?.querySelector('.label');
-      const inputValue = (<HTMLInputElement>e.target).value;
-      const inputChecked = (<HTMLInputElement>e.target).checked;
-      if (inputValue === 'hard') {
-        if (inputChecked) {
-          lebelEl?.classList.add('hard');
-          lebelEl?.classList.remove('easy');
-          await addWordData(state.userId, cardId, state.token, 'hard');
-        } else {
-          lebelEl?.classList.remove('hard');
-          await addWordData(state.userId, cardId, state.token, 'base');
-          if (state.dictionary.unit === 7) {
-            if (card.parentNode) { card.parentNode.removeChild(card); }
-          }
-        }
-      }
-      if (inputValue === 'easy') {
-        if (inputChecked) {
-          lebelEl?.classList.add('easy');
-          lebelEl?.classList.remove('hard');
-          if (state.dictionary.unit === 7) {
-            if (card.parentNode) { card.parentNode.removeChild(card); }
-          }
-          await addWordData(state.userId, cardId, state.token, 'easy');
-        } else {
-          lebelEl?.classList.remove('easy');
-          await addWordData(state.userId, cardId, state.token, 'base');
-        }
-      }
-    };
-
-    const radios = document.querySelectorAll('.radio-dif');
-    radios.forEach((r) => r.addEventListener('change', changeRadio));
+  addListener() {
     const cards = document.querySelectorAll('.dictionary-card');
-    cards.forEach((c) => c.addEventListener('click', (e: Event) => {
-      const target = <HTMLElement>e.target;
-      if(target.classList.contains('btn-audio-diction')) {
-        this.playAudio;
-      } else if (target.classList.contains('hard-icon') || target.classList.contains('easy-icon')) {
-        this.selectComplexity(e);
-      }
-    }));
-
-    const audioBtn = document.querySelectorAll('.btn-audio-diction');
-    audioBtn.forEach((a) => a.addEventListener('click', this.playAudio));
+    cards.forEach((c) => c.addEventListener('click', (e: Event) => { this.cardClickHandler(e); }));
 
     const handleClick = (e: Event) => {
       const target = <HTMLLinkElement>(<HTMLElement>e.target);
