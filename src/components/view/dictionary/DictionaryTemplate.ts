@@ -38,20 +38,18 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
       <div class="wrapper-btn-diction">
         <input type="hidden" id="difficulty_${wordData.id}" value="${wordData.difficulty}">
           <div class="difficulty-block">
-            <div data-value="hard" 
+            <button data-value="hard" 
               data-id="${wordData.id}" 
               data-icon="hard_${wordData.id}"
-              class="hard-icon${wordData.difficulty === 'hard' ? ' active' : ''}" 
-              title="${wordData.difficulty === 'hard' ? 'убрать из сложного' : 'добавить в сложное'}"></div>
-            сложное<br>
+              class="difficulty-button hard-icon${wordData.difficulty === 'hard' ? ' active' : ''}">
+            сложное</button><br>
           </div>
           <div class="difficulty-block">
-            <div data-value="easy" 
+            <button data-value="easy" 
               data-id="${wordData.id}"
               data-icon="easy_${wordData.id}"
-              class="easy-icon${wordData.difficulty === 'easy' ? ' active' : ''}" 
-              title="${wordData.difficulty === 'easy' ? 'убрать из изученного' : 'добавить в изученное'}"></div>
-            изученное<br>
+              class="difficulty-button easy-icon${wordData.difficulty === 'easy' ? ' active' : ''}">
+            изученное</button><br>
           </div>
       </div>
       <div class="wrapper-difficulty">

@@ -107,12 +107,6 @@
   gap: 1rem;
 }
 
-.difficulty-block {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
 .label {
   position: absolute;
   width: 20px;
@@ -129,21 +123,35 @@
   background-color: $iconColorStudied;
 }
 
+.difficulty-block {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  .difficulty-button {
+    height: 1.5rem;
+    cursor: pointer;
+    border: 0;
+    background-size: 1.5rem;
+    background-repeat: no-repeat;
+    background-position: left;
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0rem 1rem 0rem 2rem;
+    font-family: $rusFont;
+    background-color: $bgTColorWhite;
+  }
+}
+
 .easy-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  background: url('../../../assets/icons/check.svg');
-  background-size: cover;
-  cursor: pointer;
+  background-image: url('../../../assets/icons/check.svg');
 
   &:hover {
-    background: url('../../../assets/icons/check-hover.svg');
-    background-size: cover;
+    background-image: url('../../../assets/icons/check-hover.svg');
   }
 
   &.active {
-    background: url('../../../assets/icons/check-active.svg');
-    background-size: cover;
+    background-image: url('../../../assets/icons/check-active.svg');
   }
 
   &.active:hover {
@@ -152,20 +160,14 @@
 }
 
 .hard-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  background: url('../../../assets/icons/star.svg');
-  background-size: cover;
-  cursor: pointer;
+  background-image: url('../../../assets/icons/star.svg');
 
   &:hover {
-    background: url('../../../assets/icons/star-hover.svg');
-    background-size: cover;
+    background-image: url('../../../assets/icons/star-hover.svg');
   }
 
   &.active {
-    background: url('../../../assets/icons/star-active.svg');
-    background-size: cover;
+    background-image: url('../../../assets/icons/star-active.svg');
   }
 
   &.active:hover {
