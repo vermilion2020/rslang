@@ -16,11 +16,7 @@ mainTemplate.innerHTML = `
    </div>
     <div class="cover-img">
       <div class="img-block">
-        <img class="img-mock" src="images/mock.png" alt="title-img" />
-      <svg class="icon-star8">
-        <use xlink:href="./icons/sprite-mainpage.svg#star8"></use>
-      </svg>
-        <img class="icon-set" src="icons/set-x.svg" alt="title-img" />
+        <img class="icon-mane-gr" src="icons/mane-gr.svg" alt="title-img" />
       </div>
     </div>
   </section>
@@ -114,6 +110,23 @@ mainTemplate.innerHTML = `
       </div>
     </div>
    </section>
+
+
+   <section class="sec-decor">
+    <div class="wrapper-sec-decor">
+      <div class="decor-1">
+        <img class="icon-mane-gr" src="icons/decor-1.svg" alt="decor"/>
+      </div>
+      <div class="decor-2">
+        <img class="icon-mane-gr" src="icons/decor-2.svg" alt="decor"/>
+      </div>
+      <div class="decor-3">
+        <img class="icon-mane-gr" src="icons/decor-3.svg" alt="decor"/>
+      </div>
+    </div>
+   </section>
+
+
 
    <section class="sec-4">
     <div class="wrapper-sec-4">

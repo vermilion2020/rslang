@@ -64,7 +64,7 @@ p {
 
 .img-block {
   position: relative;
-  margin-right: 116px;
+  // margin-right: 116px;
 
   .img-mock {
     height: 450px;
@@ -306,4 +306,29 @@ hr {
   left: 17rem;
   width: 10rem;
   display: none;
+}
+
+.sec-decor {
+  background-color: $bgTColorGrey;
+  padding: 0 2.5rem;
+}
+
+.wrapper-sec-decor {
+  padding-top: 75px;
+  padding-bottom: 105px;
+  max-width: 1240px;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.decor-2 {
+  padding-top: 110px;
+  padding-left: 65px;
+}
+
+.decor-3 {
+  padding-top: 55px;
 }

@@ -10,6 +10,14 @@ class Main implements Page {
     this.state = state;
   }
 
+  // <img class="img-mock" src="images/mock.png" alt="title-img" />
+  // <svg class="icon-star8">
+  //   <use xlink:href="./icons/sprite-mainpage.svg#star8"></use>
+  // </svg>
+  // <img class="icon-set" src="icons/set-x.svg" alt="title-img" />
+
+
+
   addListener() {
     const handleClick = (e: Event) => {
       const target = <HTMLLinkElement>(<HTMLElement>e.target).closest('.link-arrow');
