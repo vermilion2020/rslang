@@ -45,12 +45,12 @@ const audioTemplateResult = (
             </div>
           </div>
           <div class="result-info-words hidden">
-            <p class="studied-wrld">Выученные слова <span class="results-success">${successWords.length}</span></p>
+            <p class="studied-wrld">Угадано слов: <span class="results-success">${successWords.length}</span></p>
               <ul class="result-correct">
                 ${successLines}
               </ul>
               <hr class="hr-line">
-              <p  class="unstudied-wrld">Не выученные слова <span class="results-fail">${failedWords.length}</span></p>
+              <p  class="unstudied-wrld">Не угадано слов: <span class="results-fail">${failedWords.length}</span></p>
               <ul class="result-incorrect">
                 ${failedLines}
               </ul>

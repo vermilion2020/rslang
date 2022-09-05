@@ -65,6 +65,7 @@ class AudioChallenge implements Page {
         this.unit = await unitSelect(e);
       } else if (key === 'Enter' && btnStart) {
         this.renderGame();
+        this.state.gameStarted = true;
       }
     });
   }
@@ -103,19 +104,18 @@ class AudioChallenge implements Page {
     if (this.checkedWords.length >= countAttempts) {
       await this.renderResults();
       await this.render();
-    }
-    drawProgress(this.numTried);
-    const { word, updatedWords } = await getNewWord(
-      this.words,
-      this.unit,
-      this.page,
-      this.state.loggedIn,
-      4,
-      this.state.sprint.source,
-    );
-    this.words = [...updatedWords];
-    this.currentWord = { ...word };
-    if (this.checkedWords.length < countAttempts) {
+    } else {
+      drawProgress(this.numTried);
+      const { word, updatedWords } = await getNewWord(
+        this.words,
+        this.unit,
+        this.page,
+        this.state.loggedIn,
+        4,
+        this.state.sprint.source,
+      );
+      this.words = [...updatedWords];
+      this.currentWord = { ...word };
       this.updateGameContent(this.currentWord);
     }
   }
@@ -138,7 +138,7 @@ class AudioChallenge implements Page {
     this.maxSuccess = 0;
     this.successTotal = 0;
     this.checkedWords = [];
-    this.numTried = 0;
+    this.numTried = 1;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
   }
@@ -256,6 +256,7 @@ class AudioChallenge implements Page {
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(gameNode);
+    drawProgress(this.numTried);
     playWordAudio(this.currentWord.audio);
     const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
     gameCard.addEventListener('click', async (e: Event) => {
