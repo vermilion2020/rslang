@@ -15,25 +15,48 @@ class Dictionary implements Page {
   async render() {
     this.state.page = 'dictionary';
     const container = document.querySelector('#main-container') as HTMLDivElement;
-    showPreloader(container);
-    const sectionDictionary = await this.createSectionDiction();
-    const sectionPlay = this.createSectionPlay();
+    let {dataPerPage, statusPage, overPages} = await this.createDataPerPage();
+    const sectionDictionary = await this.createSectionDiction(overPages, dataPerPage, statusPage);
+    const sectionPlay = this.createSectionPlay(statusPage);
     container.innerHTML = '';
     container.append(sectionDictionary);
     container.append(sectionPlay);
     this.addListener(this.state);
+    this. addListenerScroll();
     return this.state;
   }
 
-  async createSectionDiction() {
-    const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.dictionary.unit);
+  async createDataPerPage() {
+    let overPages = 1;
+    const currentPage = this.state.dictionary.page;
+    if (currentPage + 2 >= 30) {
+      overPages = 26;
+    }
+    if (currentPage + 2 < 30 && currentPage - 2 > 1) {
+      overPages = currentPage - 2;
+    }
+    let dataPerPage = [false, false, false, false, false];
+    if (this.state.loggedIn) {
+      dataPerPage = await addDataPerPage(this.state.userId, this.state.token, this.state.dictionary.unit, overPages);
+    }
+    const currentIndex = currentPage - overPages;
+    const statusPage = dataPerPage[currentIndex];
+    return {
+      dataPerPage: dataPerPage,
+      statusPage: statusPage,
+      overPages: overPages,
+    }
+  }
+
+  async createSectionDiction(overPages: number, dataPerPage: boolean[], statusPage:boolean) {
+    const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.dictionary.unit, statusPage);
     const titleNode = <HTMLElement>titleTemplate('Словарь').content.cloneNode(true);
     let words = await loadWords(this.state.dictionary.unit, this.state.dictionary.page, this.state.loggedIn);
     if (this.state.dictionary.unit === 7) {
       words = await loadWordsHard(this.state);
     }
     const dictionaryNode = <HTMLElement>dictionaryTemplate(words, this.state.loggedIn).content.cloneNode(true);
-    const pagingNode = await this.paging();
+    const pagingNode = await this.paging(overPages, dataPerPage, statusPage);
     const unitNode = this.units();
 
     wrapper.innerHTML = '';
@@ -44,26 +67,18 @@ class Dictionary implements Page {
     return section;
   }
 
-  async paging() {
-    let overPages = 1;
-    const currentPage = this.state.dictionary.page;
-    if ((currentPage + 2) >= 30) {
-      overPages = 26;
-    }
-    if ((currentPage + 2) < 30 && (currentPage - 2) > 1) {
-      overPages = currentPage - 2;
-    }
-    let dataPerPage = [false, false, false, false, false];
-    if (this.state.loggedIn) {
-      dataPerPage = await addDataPerPage(
-        this.state.userId,
-        this.state.token,
-        this.state.dictionary.unit,
-        overPages,
-      );
-    }
+  async paging(overPages: number, dataPerPage: boolean[], statusPage: boolean) {
 
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page, dataPerPage, 'textbook', 'в учебник')
+    const pagingNode = <HTMLElement>pagingTemplate(
+      'dictionary',
+      statusPage,
+      this.state.dictionary.unit,
+      this.state.dictionary.page,
+      dataPerPage,
+      overPages,
+      'textbook',
+      'в учебник'
+      )
       .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
@@ -105,13 +120,12 @@ class Dictionary implements Page {
   async changeCurrentPage(unit: number, page: number) {
     window.location.hash = `/${this.state.page}/unit${unit}/${page}`;
     const dictionaryProgress = { unit: this.state.dictionary.unit, page: this.state.dictionary.page };
-    const textbook = JSON.stringify(dictionaryProgress);
-    localStorage.setItem('dictionary', textbook);
-    await this.render();
+    const dictionary = JSON.stringify(dictionaryProgress);
+    localStorage.setItem('dictionary', dictionary);
   }
 
-  createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page, 'dictionary')
+  createSectionPlay(statusPage: boolean) {
+    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page, 'dictionary', statusPage)
       .content.cloneNode(true);
     return playNode;
   }
@@ -169,6 +183,16 @@ class Dictionary implements Page {
       const elem = <HTMLElement>document.querySelector(el);
       elem.addEventListener('click', handleClick);
     });
+  }
+
+  addListenerScroll() {
+    const btnToGame = <HTMLElement>document.querySelector(".linc-to-game");
+    const currentGame = <HTMLElement>document.querySelector(".section-game");
+
+    const scrollToGame = (e: Event) => {
+      currentGame.scrollIntoView({block: "center", behavior: "smooth"});
+    }
+    btnToGame.addEventListener('click', scrollToGame);
   }
 
   playAudio(e: Event) {

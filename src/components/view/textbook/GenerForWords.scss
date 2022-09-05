@@ -424,3 +424,9 @@ button[data-unit="7"]:disabled {
   background-position: center calc(100% - 3rem);
 }
 
+.block-game {
+  pointer-events: none;
+  background-color: $bgTColorGrey;
+}
+
+
