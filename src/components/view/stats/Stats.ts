@@ -1,6 +1,6 @@
-import { statsTemplate } from './StatsTemplate';
+import statsTemplate from './StatsTemplate';
 import './Stats.scss';
-import { Page, PagesState } from '../../model/types';
+import { Page, PagesState } from '../../model/types/page';
 import { showPreloader } from '../../controller/helpers';
 import { createDayChartData, createMonthChartData } from '../../controller/helpers/stat-helper';
 import { drawChart, drawFullChart } from '../../controller/helpers/chart-helper';
@@ -31,7 +31,7 @@ class Stats implements Page {
       const target = <HTMLElement>e.target;
       const dayStatBlock = <HTMLElement>container.querySelector('.day-stat');
       const monthStatBlock = <HTMLElement>container.querySelector('.month-stat');
-      if(target.id === 'day-stat') {
+      if (target.id === 'day-stat') {
         dayStatBlock.classList.remove('hidden');
         monthStatBlock.classList.add('hidden');
       } else {
@@ -44,4 +44,3 @@ class Stats implements Page {
 }
 
 export default Stats;
-

@@ -9,8 +9,9 @@ import {
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
 
-import { loadWords, loadWordsHard, addDataPerPage, showPreloader } from '../../controller/helpers/word-helper';
-import loaderTemplate from '../common/loader-template';
+import {
+  loadWords, loadWordsHard, addDataPerPage, showPreloader,
+} from '../../controller/helpers/word-helper';
 
 class Textbook implements Page {
   state: PagesState;
@@ -116,7 +117,7 @@ class Textbook implements Page {
         dataPerPage,
         overPages,
         'dictionary',
-        'в словарь'
+        'в словарь',
       ).content.cloneNode(true)
     );
 

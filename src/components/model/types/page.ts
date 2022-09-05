@@ -3,7 +3,7 @@ export interface Progress {
   page: number;
 }
 
-export type GameInitial = Progress & { source: string, set?: boolean };
+export type GameInitial = Progress & { source: string; set?: boolean };
 
 export interface PagesState {
   page: string;
@@ -14,8 +14,8 @@ export interface PagesState {
   userId: string;
   userName: string;
   textbook: Progress;
-  sprint: GameInitial,
-  audio: GameInitial,
+  sprint: GameInitial;
+  audio: GameInitial;
   dictionary: Progress;
   gameStarted?: boolean;
 }

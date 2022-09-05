@@ -1,20 +1,14 @@
 import menuItems from '../../model/menu-items';
-import { MenuItem } from '../../model/types';
+import { MenuItem } from '../../model/types/menu-item';
 
 const drawMenuItem = (item: MenuItem, active: string, loggedIn: boolean): string => `
-    <a href="/#/${item.href}" title="${!loggedIn && item.auth
-  ? 'Log in to see this page'
-  : item.name}"
+    <a href="/#/${item.href}" title="${!loggedIn && item.auth ? 'Log in to see this page' : item.name}"
     class="main-nav__item${active === item.href ? ' main-nav__item_active' : ''} ${
   !loggedIn && item.auth ? ' main-nav__item_disabled' : ''
 }" id="${item.href}-menu-item">${item.name}
     </a>`;
 
-const headerTemplate = (
-  active: string,
-  loggedIn: boolean,
-  userName: string,
-): HTMLTemplateElement => {
+const headerTemplate = (active: string, loggedIn: boolean, userName: string): HTMLTemplateElement => {
   const header = document.createElement('template');
   const menuBody = menuItems.map((item) => drawMenuItem(item, active, loggedIn)).join('');
   const loggedOutBlock = `

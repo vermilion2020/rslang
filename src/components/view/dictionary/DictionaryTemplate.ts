@@ -53,8 +53,12 @@ export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
           </div>
       </div>
       <div class="wrapper-difficulty">
-        <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${wordData.optional?.vic}</div>
-        <div class="difficulty loss ${wordData.optional && +wordData.optional.loss !== 0 ? 'play' : ''}">${wordData.optional?.loss}</div>
+        <div class="difficulty vic ${wordData.optional && +wordData.optional.vic !== 0 ? 'play' : ''}">${
+  wordData.optional?.vic
+}</div>
+        <div class="difficulty loss ${wordData.optional && +wordData.optional.loss !== 0 ? 'play' : ''}">${
+  wordData.optional?.loss
+}</div>
       </div>
     </div>
     

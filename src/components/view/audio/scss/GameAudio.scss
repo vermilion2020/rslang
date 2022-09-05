@@ -1,48 +1,22 @@
 $icons-path: '../../../../assets/images/png/';
-
-.main-page__game {
-  width: 100%;
-  height: 100%;
-  min-height: calc(100vh - 130px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: $elemColorCian;
-
-  .wrapper {
-    width: 70%;
-    margin-top: 3%;
-    display: flex;
-    flex-direction: column;
-    background: $bgColorGames;
-    border-radius: 1rem;
-    padding: 0.8rem;
-    border: 1px double $bgTColorBlack;
-  }
-}
+$svgs-path: '../../../../assets/icons/';
 
 .header-game {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-  .close-audio__game {
-    height: 50px;
-    width: 50px;
-    .close-audio__gamepage {
-      text-decoration: none;
-
-      .close-crose__white {
-        margin: 25% auto;
-        background-image: url('#{$icons-path}close-black.png');
-        width: 20px;
-        height: 20px;
-        background-size: cover;
-      }
-    }
-  }
+  width: 97%;
+  justify-content: space-between;
+  padding: 1rem 0 0;
 }
 
-////round dio
+#close-audio {
+  margin-top: 1rem;
+}
+
+.progress {
+  margin-top: 1rem;
+}
+
 .out {
   width: 100px;
   height: 100px;
@@ -89,7 +63,7 @@ $icons-path: '../../../../assets/images/png/';
   color: progress-circular;
   z-index: 101;
 }
-////
+
 .game-wrapper {
   max-width: 50vw;
   margin: 0 auto;
@@ -105,12 +79,15 @@ $icons-path: '../../../../assets/images/png/';
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 10%;
   }
 }
 
 .select-offer {
-  text-align: center;
+  font-family: $enFont;
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  margin: 0.5rem auto 1rem;
+
 }
 
 .voice-ico__block {
@@ -119,17 +96,17 @@ $icons-path: '../../../../assets/images/png/';
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 5px $bgTColorBlack;
-  background: url('#{$icons-path}up_volume_white.png');
-  background-size: 80px;
-  background-position: bottom 50% left 47%;
+  border: solid 2px $bgTColorBlack;
+  background: url('#{$icons-path}up_volume.png');
+  background-size: 40px;
+  background-position: bottom 50% left 50%;
   background-repeat: no-repeat;
   border-radius: 50%;
-  background-color: $bgTColorBlack;
+  background-color: $bgTColorWhite;
   cursor: pointer;
 
   &:hover {
-    background-color: $iconColorStudied;
+    background-color: $colorBtnHov;
     border-color: $bgTColorBlack;
   }
 }
@@ -137,65 +114,84 @@ $icons-path: '../../../../assets/images/png/';
 .select-container__game {
   margin-bottom: 5%;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 45vw;
+  gap: 1rem;
+  justify-content: center;
+
   .select-word {
-    margin: 5px 10px;
-    padding: 10px 10px;
-    border-radius: 1.3rem;
-    border: 2px solid $elemColorGreen;
-    cursor: pointer;
-    font-family: $enFont;
-    font-size: 1.1rem;
-    color: $bgTColorBlack;
-    background-color: $elemColorGreen;
+    font-family: $rusFont;
     text-transform: capitalize;
+    border: solid 1px $bgTColorBlack;
+
     &:hover {
-      background-color: $colorBtnHov;
-      color: $bgTColorBlack;
+      border: solid 1px $colorBtnHov;
     }
   }
 }
 
 .block-btn__next {
-  margin: 0 auto 30px;
+  margin: 0 auto 1rem;
 }
 
-.btn-next,
 .btn-dont-know {
+  color: $falseColorGames;
+  border: 2px solid $bgTColorGrey;
+  background-image: url('#{$svgs-path}arrow-right-red.svg');
+  background-color: $bgTColorWhite;
+  padding: 0.6rem 3rem 0.7rem 1rem;
+  background-size: 20px;
+  border-radius: 2rem;
+  background-position: bottom 0.8rem right 1rem;
+  background-repeat: no-repeat;
+  font-family: $rusFont;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.btn-next {
   padding: 10px 10px;
   border-radius: 1.3rem;
   border: solid 2px $iconColorStudied;
   cursor: pointer;
-  font-family: $enFont;
+  font-family: $rusFont;
   font-size: 1.1rem;
   background-color: $bgTColorWhite;
 }
 
 .btn-dont-know:hover {
-  background-color: $iconColorComplex;
-  color: $bgTColorWhite;
-  border: 2px solid $bgTColorWhite;
+  border: 2px solid $falseColorGames;
 }
 
-.btn-next:hover {
-  background-color: $trueColorGames;
-  color: $bgTColorWhite;
-  border: 2px solid $bgTColorWhite;
-}
-
-.select-word:disabled {
-  background-color: $elemColorGreen;
+.select-word:disabled,
+.select-word:disabled:hover {
+  background-color: $bgTColorWhite;
+  border: 2px solid $bgTColorGrey;
+  color: $bgTColorBlack;
+  cursor: default;
+  outline: 0;
 }
 
 .select-word:disabled.correct {
-  background-color: $trueColorGames;
+  background-color: $bgTColorWhite;
+  color: $trueColorGames;
+  border: 2px solid $trueColorGames;
+  cursor: default;
 }
 
-.select-word:disabled.guessed {
-  background-color: $trueColorGames;
+.select-word:disabled.guessed,
+.select-word:disabled.guessed:hover {
+  border: 2px solid $trueColorGames;
+  cursor: default;
 }
 
 .select-word:disabled.incorrect {
-  background-color: $falseColorGames;
+  background-color: $bgTColorWhite;
+  border: 2px solid $falseColorGames;
+  color: $falseColorGames;
+  text-decoration: line-through;
 }
 
 .speaker-ico {
@@ -208,7 +204,7 @@ $icons-path: '../../../../assets/images/png/';
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: $trueColorGames;
+    background-color: $colorBtnHov;
     transition: ease-in-out 0.3s;
   }
 }
@@ -216,19 +212,28 @@ $icons-path: '../../../../assets/images/png/';
 .img-voice {
   height: 30px;
   width: 30px;
-  padding: 5px;
+  padding: 0.3rem;
   border-radius: 50%;
+  border: 1px solid $bgTColorBlack;
   &:hover {
     cursor: pointer;
   }
   &:active {
     cursor: pointer;
-    background-color: $bgTColorWhite;
+    background-color: $colorBtnHov;
     transition: ease-in-out 0.1s;
   }
 }
 .repeat-word {
   width: 100%;
+  height: 3rem;
   display: flex;
   justify-content: space-around;
+}
+
+.word-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }

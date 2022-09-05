@@ -2,8 +2,16 @@ import './Dictionary.scss';
 import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
 import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
-import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
-import { loadWords, loadWordsHard, addWordData, addDataPerPage, showPreloader } from '../../controller/helpers/word-helper';
+import {
+  pagingTemplate, unitTemplate, titleTemplate, playTemplate,
+} from '../textbook/TextbookTemplate';
+import {
+  loadWords,
+  loadWordsHard,
+  addWordData,
+  addDataPerPage,
+  showPreloader,
+} from '../../controller/helpers/word-helper';
 
 class Dictionary implements Page {
   state: PagesState;
@@ -168,6 +176,9 @@ class Dictionary implements Page {
         lebelEl.classList.remove('easy');
         await addWordData(this.state.userId, id, this.state.token, 'base');
         break;
+    }
+    if (this.state.dictionary.unit === 7 && newValue !== 'hard') {
+      (<HTMLElement>document.getElementById(id)).remove();
     }
   }
 

@@ -1,5 +1,5 @@
 import { handleRoute } from '../controller/router';
-import { PagesState } from '../model/types';
+import { PagesState } from '../model/types/page';
 import renderFooter from './footer/Footer';
 import getInitialState from '../controller/state';
 import './AppView.scss';

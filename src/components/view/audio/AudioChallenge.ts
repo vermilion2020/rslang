@@ -2,27 +2,50 @@ import audioTemplate from './templates/AudioTemplate';
 import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
 import audioTemplateGame, { drawTranslates } from './templates/AudioTemplateGame';
-import { renderAudioResultPop } from './AudioResult';
+import renderAudioResultPop from './AudioResult';
 
 import { loadWords } from '../../controller/helpers';
+
 import { updateWordData, getNewWord, saveGameStatistics } from '../../controller/helpers/sprint-helper';
-import { unitSelect, randomTranslates, showCorrectAnswer, resetCardsContent, disableDecisionButtons, playWordAudio } from '../../controller/helpers/audio-helper';
-import { CheckedWord, GameWordData, WordData } from '../../model/types';
-import { answers, countAttempts, countPages, units } from '../../model/constants';
-import audioTemplateResult from './templates/AudioTemplateResult';
+import {
+  unitSelect,
+  randomTranslates,
+  showCorrectAnswer,
+  resetCardsContent,
+  disableDecisionButtons,
+  playWordAudio,
+  drawProgress,
+} from '../../controller/helpers/audio-helper';
+
+import { CheckedWord, GameWordData, WordData } from '../../model/types/words';
+import {
+  answers, countAttempts, countPages, failedSound, successSound, units,
+} from '../../model/constants';
 
 class AudioChallenge implements Page {
   state: PagesState;
+
   container: HTMLElement;
-  score: number = 0;
-  maxSuccess: number = 0;
+
+  score = 0;
+
+  maxSuccess = 0;
+
   successTotal: number;
+
   unit: number;
+
   page: number;
+
   currentWord: GameWordData | null;
+
   words: WordData[] = [];
+
   selectedWords: string[] = [];
+
   checkedWords: CheckedWord[] = [];
+
+  numTried: number;
 
   constructor(state: PagesState) {
     this.container = document.querySelector('#main-container') as HTMLDivElement;
@@ -33,16 +56,18 @@ class AudioChallenge implements Page {
     this.currentWord = null;
     this.successTotal = 0;
     this.selectedWords = [];
-      document.addEventListener('keydown', async (e: KeyboardEvent) => {
-        const { key } = e;
-        const keyNum = Number.parseInt(key, 10);
-        const btnStart = document.querySelector('.btn-start');
-        if (units.includes(keyNum) && btnStart) {
-          this.unit = await unitSelect(e);
-        } else if ((key === 'Enter') && btnStart) {
-          this.renderGame();
-        }
-      });
+    this.numTried = 1;
+    document.addEventListener('keydown', async (e: KeyboardEvent) => {
+      const { key } = e;
+      const keyNum = Number.parseInt(key, 10);
+      const btnStart = document.querySelector('.btn-start');
+      if (units.includes(keyNum) && btnStart) {
+        this.unit = await unitSelect(e);
+      } else if (key === 'Enter' && btnStart) {
+        this.renderGame();
+        this.state.gameStarted = true;
+      }
+    });
   }
 
   async render() {
@@ -58,17 +83,17 @@ class AudioChallenge implements Page {
     }
     const selectLevelBox = document.querySelector('.select-container') as HTMLElement;
     if (selectLevelBox) {
-      selectLevelBox.addEventListener('click', (e: Event) => {
+      selectLevelBox.addEventListener('click', async (e: Event) => {
         const targetLi = e.target as HTMLLIElement;
         if (targetLi.classList.contains('select-level')) {
-          unitSelect(e);
+          this.unit = await unitSelect(e);
         }
       });
     }
     // render game page
     const startAudioGameBtn = document.querySelector('.btn-start') as HTMLButtonElement;
-    if(startAudioGameBtn) {
-      startAudioGameBtn.addEventListener('click', async (e: Event) => {
+    if (startAudioGameBtn) {
+      startAudioGameBtn.addEventListener('click', async () => {
         this.renderGame();
       });
     }
@@ -76,23 +101,21 @@ class AudioChallenge implements Page {
   }
 
   async updateCard() {
-    //change to countAttempts
-    if (this.checkedWords.length >= 5) {
+    if (this.checkedWords.length >= countAttempts) {
       await this.renderResults();
       await this.render();
-    }
-    const { word, updatedWords } = await getNewWord(
-      this.words,
-      this.unit,
-      this.page,
-      this.state.loggedIn,
-      4,
-      this.state.sprint.source
-    );
-    this.words = [...updatedWords];
-    this.currentWord = { ...word };
-    //change to countAttempts
-    if (this.checkedWords.length < 5) {
+    } else {
+      drawProgress(this.numTried);
+      const { word, updatedWords } = await getNewWord(
+        this.words,
+        this.unit,
+        this.page,
+        this.state.loggedIn,
+        4,
+        this.state.sprint.source,
+      );
+      this.words = [...updatedWords];
+      this.currentWord = { ...word };
       this.updateGameContent(this.currentWord);
     }
   }
@@ -108,14 +131,14 @@ class AudioChallenge implements Page {
     const translatesBody = <HTMLElement>translatesTemplate.content.cloneNode(true);
     selectContainer.innerHTML = '';
     selectContainer.append(translatesBody);
-    const correctCount = <HTMLElement>document.querySelector('.value-correct');
-    correctCount.innerHTML = `${this.successTotal}`;
     playWordAudio(word.audio);
   };
 
   setInitialValues() {
     this.maxSuccess = 0;
     this.successTotal = 0;
+    this.checkedWords = [];
+    this.numTried = 1;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
   }
@@ -127,6 +150,7 @@ class AudioChallenge implements Page {
     } else {
       this.maxSuccess = 0;
     }
+    this.numTried += 1;
 
     if (this.state.loggedIn) {
       await updateWordData(result, word, this.state.userId, this.state.token, 'audio');
@@ -142,21 +166,26 @@ class AudioChallenge implements Page {
     this.checkedWords.push(checked);
   }
 
-  getDecisionValue(e: Event| KeyboardEvent, container: HTMLElement) {
+  getDecisionValue(e: Event | KeyboardEvent, container: HTMLElement) {
     const target = <HTMLElement>e.target;
-      let decision = 0;
-      if ('key' in e) {
-        decision = Number.parseInt(e.key, 10);
-      } else {
-        decision = +<string>target.dataset.word;
-      }
-    const resultValue = +<string>container.dataset.result;
+    let decision = 0;
+    if ('key' in e) {
+      decision = Number.parseInt(e.key, 10);
+    } else {
+      decision = +(<string>target.dataset.word);
+    }
+    const resultValue = +(<string>container.dataset.result);
     const result = decision === resultValue;
-    return {result, decision};
+    return { result, decision };
   }
 
   async handleDecision(result: boolean, decision: number) {
     disableDecisionButtons();
+    if (result) {
+      playWordAudio(successSound);
+    } else if (decision !== -1) {
+      playWordAudio(failedSound);
+    }
     if (this.currentWord) {
       await this.saveResult(this.currentWord, result);
     }
@@ -170,12 +199,13 @@ class AudioChallenge implements Page {
       });
     }
   }
-  
+
   handleClickGameCard = async (e: Event, container: HTMLElement) => {
     const target = <HTMLElement>e.target;
     if (target.classList.contains('btn-next')) {
       this.updateCard();
     } else if (target.classList.contains('btn-dont-know') && this.currentWord) {
+      disableDecisionButtons();
       showCorrectAnswer(this.currentWord, false, -1);
     } else if (target.classList.contains('voice-ico__block') && this.currentWord) {
       playWordAudio(this.currentWord.audio);
@@ -183,62 +213,64 @@ class AudioChallenge implements Page {
       const { result, decision } = this.getDecisionValue(e, container);
       await this.handleDecision(result, decision);
     }
-  }
+  };
 
   handleKeysGameCard = async (e: KeyboardEvent, container: HTMLElement) => {
     const { key } = e;
     const keyNum = Number.parseInt(key, 10);
     const btnNext = <HTMLElement>document.querySelector('.btn-next');
     const btnDontKnow = <HTMLElement>document.querySelector('.btn-dont-know');
-    const selectButtons = <NodeListOf<HTMLElement>>document.querySelectorAll('.select-word');
-    if (answers.includes(keyNum) && !selectButtons[0].getAttribute('disabled')) {
+    const selectButtons = document.querySelectorAll('.select-word');
+    if (answers.includes(keyNum) && selectButtons[0] && !selectButtons[0].getAttribute('disabled')) {
       const { result, decision } = this.getDecisionValue(e, container);
       await this.handleDecision(result, decision);
     } else if ((key === 'Enter' || key === 'ArrowRight') && !btnNext.classList.contains('hidden')) {
       this.updateCard();
-    } else if ((key === 'Enter') && !btnDontKnow.classList.contains('hidden') && !btnDontKnow.getAttribute('disabled') && this.currentWord) {
+    } else if (
+      key === 'Enter'
+      && !btnDontKnow.classList.contains('hidden')
+      && !btnDontKnow.getAttribute('disabled')
+      && this.currentWord
+    ) {
       await this.handleDecision(false, -1);
     }
-  }
+  };
 
   async renderGame() {
     this.setInitialValues();
-    this.words = await loadWords(
-      this.unit,
-      this.page,
-      this.state.loggedIn,
-    );
+    this.words = await loadWords(this.unit, this.page, this.state.loggedIn);
     const { word, updatedWords } = await getNewWord(
       this.words,
       this.unit,
       this.page,
       this.state.loggedIn,
       4,
-      this.state.sprint.source
+      this.state.sprint.source,
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
-      this.words = this.words.filter(word => word.difficulty !== 'easy');
+      this.words = this.words.filter((w) => w.difficulty !== 'easy');
     }
     const gameNode = <HTMLElement>audioTemplateGame(this.currentWord).content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(gameNode);
+    drawProgress(this.numTried);
     playWordAudio(this.currentWord.audio);
     const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
     gameCard.addEventListener('click', async (e: Event) => {
       await this.handleClickGameCard(e, gameCard);
     });
     if (!this.state.audio.set) {
-      this.state.sprint.set = true;
+      this.state.audio.set = true;
       document.addEventListener('keydown', async (e: KeyboardEvent) => {
         this.handleKeysGameCard(e, gameCard);
       });
     }
   }
 
-  async renderResults(){
+  async renderResults() {
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
     if (this.state.loggedIn) {
@@ -248,11 +280,11 @@ class AudioChallenge implements Page {
         this.maxSuccess,
         successWords.length,
         this.checkedWords.length,
-        'audio'
+        'audio',
       );
     }
     renderAudioResultPop(successWords, failedWords, this.successTotal);
-  };
+  }
 }
 
 export default AudioChallenge;

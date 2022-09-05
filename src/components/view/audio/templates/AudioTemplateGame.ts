@@ -1,12 +1,14 @@
 import voiceIcon from '../../../../assets/images/png/up_volume.png';
 import { randomTranslates } from '../../../controller/helpers/audio-helper';
 import { countAttempts } from '../../../model/constants';
-import { GameWordData } from '../../../model/types';
+import { GameWordData } from '../../../model/types/words';
 
 export const drawTranslates = (translates: string[]) => {
   let translatesButtons = '';
   for (let i = 0; i < translates.length; i += 1) {
-    translatesButtons += `<button class="select-word" data-word="${i + 1}" value>${i + 1} - ${translates[i]}</button>`;
+    translatesButtons += `<button class="select-word button" data-word="${i + 1}" value>${i + 1} - ${
+      translates[i]
+    }</button>`;
   }
   return translatesButtons;
 };
@@ -14,28 +16,26 @@ export const drawTranslates = (translates: string[]) => {
 const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
   const gameBody = document.createElement('template');
   const { result, translates } = randomTranslates(word);
+  const unitClass = ` unit-${word.group + 1}-container`;
   gameBody.innerHTML = `
-<div class="main-page__game">
-<div class="wrapper">
-<section class="header-game">
-<div class="out">
-  <div class="container">
-    <div class="progress-circular">
-      <div class="inside-progress">
-        <span class="value-correct">0</span> / <span class="value-total">${countAttempts}</span>    
+<div class="main-page-audio${unitClass}">
+  <div class="progress">
+    <div class="out">
+      <div class="container">
+        <div class="progress-circular">
+          <div class="inside-progress">
+            <span class="current-step">1</span> / <span class="value-total">${countAttempts}</span>    
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-    <div class="close-audio__game">
-      <a href="/" class="close-audio__gamepage"><div class="close-crose__white"></div></a>
-    </div>
-    </section>
+  <div class="wrapper">
     <section class="content">
         <div class="game-wrapper" data-result="${result + 1}">
           <div class="visualisation">
             <div class="voice-ico__block" data-id="${word.id}">
-              <img src="" style=" height: 100%; border-radius: 50%; overflow:hidden;" alt="current-pic" id="word-picture" class="hidden">
+              <img src="" alt="${word.word}" id="word-picture" class="hidden word-picture">
             </div>
             <div class="repeat-word">
             <div class="speaker-ico hidden"><img class='img-voice' src="${voiceIcon}" alt="img voice"></div>
@@ -47,11 +47,14 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
         </div>
         <div class="block-btn__next">
           <button class="btn-dont-know">Пропустить</button>
-          <button class="btn-next hidden">Следующее слово</button>
+          <button class="btn-next hidden button">Следующее слово</button>
         </div>
       </div>
     </section>
-</div>
+  </div>
+  <div class="close-audio__game" id="close-audio">
+      <a href="/" class="close-audio__gamepage"><div class="close-crose__white"></div></a>
+  </div>
 </div>
 `;
   return gameBody;

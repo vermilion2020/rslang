@@ -7,7 +7,7 @@ $icons-path: '../../../../assets/images/png/';
   height: 70vh;
   right: calc(50% - 25vw);
   top: calc(50% - 35vh);
-  background: $bgColorGames;
+  background: $bgTColorWhite;
   border-radius: 1rem;
   border: 1px solid $btnColorUnit6;
   display: flex;
@@ -100,6 +100,7 @@ $icons-path: '../../../../assets/images/png/';
   display: flex;
   justify-content: center;
   align-items: center;
+
   &::after {
     position: absolute;
     content: '';
@@ -112,28 +113,9 @@ $icons-path: '../../../../assets/images/png/';
 
 .head-result {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  gap: 1rem;
   margin-top: 0px;
-  .result-value {
-    font-family: $enFont;
-    font-size: 1.8rem;
-    border-bottom: 3px solid $bgColorGames;
-    &:hover {
-      cursor: pointer;
-      border-bottom: 3px solid $bgTColorBlack;
-      transition: ease-in-out 0.3s;
-    }
-  }
-  .result-words {
-    font-family: $enFont;
-    font-size: 1.8rem;
-    border-bottom: 3px solid $bgColorGames;
-    &:hover {
-      cursor: pointer;
-      border-bottom: 3px solid $bgTColorBlack;
-      transition: ease-in-out 0.3s;
-    }
-  }
 }
 
 .result-info {
@@ -151,21 +133,6 @@ $icons-path: '../../../../assets/images/png/';
   display: flex;
   justify-content: space-around;
 
-  .result-repeat {
-    padding: 10px 15px;
-    border-radius: 1.3rem;
-    border: 2px solid $iconColorComplex;
-    cursor: pointer;
-    font-family: $enFont;
-    font-size: 1.6rem;
-    font-weight: bold;
-    &:hover {
-      background-color: $iconColorComplex;
-      border: 2px solid $iconColorComplex;
-      color: $bgTColorWhite;
-    }
-  }
-
   .result-exit {
     padding: 10px 15px;
     border-radius: 1.3rem;
@@ -182,61 +149,125 @@ $icons-path: '../../../../assets/images/png/';
   }
 }
 
-.result-correct {
-  list-style: none;
+.result-info-words {
+  height: 70%;
 
-  .correct-item,
-  .incorrect-item {
-    display: flex;
-    align-items: center;
-  }
-
-  span {
-    text-align: center;
-    margin: auto;
+  hr {
+    background: $circleBgColor;
   }
 }
+
+.result-correct {
+  list-style: none;
+  padding: 0;
+}
+
+.result-incorrect {
+  list-style: none;
+  padding: 0;
+}
+
 .inside-progress {
   z-index: 100;
 }
 
-.on-speak {
-  width: 40px;
-  height: 40px;
+.studied-wrld,
+.unstudied-wrld {
+  font-family: $rusFont;
+  font-size: 1.2rem;
+  margin: 1rem auto 1rem;
+}
 
-  border-radius: 50%;
+.img-voice__res {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 2rem;
+  padding: 0.5rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
 
-  &:hover {
-    cursor: pointer;
-    background-color: $colorBtnHov;
+  svg {
+    align-self: center;
+    justify-self: center;
   }
 
-  &:active {
-    background-color: $trueColorGames;
+  &:hover {
+    background-color: $bgTColorGrey;
     transition: ease-in-out 0.3s;
   }
 }
-.img-voice__res {
-  height: 20px;
-  width: 20px;
-  background-size: cover;
-  border-radius: 50%;
-  background-image: url('#{$icons-path}up_volume.png');
-  cursor: pointer;
 
-  &:active {
-    background-color: $trueColorGames;
-    transition: ease-in-out 0.3s;
+.close-audio__game {
+  height: 30px;
+  width: 30px;
+  justify-self: end;
+  cursor: pointer;
+  
+  .close-audio__gamepage {
+    text-decoration: none;
+
+    .close-crose__white {
+      background-image: url('#{$icons-path}close-black.png');
+      width: 20px;
+      height: 20px;
+      background-size: cover;
+    }
   }
 }
 
 .result-item {
-  list-style-type: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1rem;
   align-items: center;
+}
+
+.correct-item {
+
+  use {
+    fill: $trueColorGames;
+  }
+}
+
+.incorrect-item {
+  use {
+    fill: $falseColorGames;
+  }
+}
+
+.eng-word {
+  font-family: $enFont;
+  text-transform: capitalize;
+}
+
+.transcription {
+  color: $TextNotActive;
+  font-family: $enFont;
+}
+
+.rus-word {
+  text-transform: capitalize;
+  font-family: $rusFont;
+  font-size: 1rem;
+}
+
+.menu-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.results-success {
+  padding: 0.3rem 0.7rem;
+  margin-left: 1rem;
+  color: $bgTColorWhite;
+  background: $trueColorGames;
+  border-radius: 1rem;
+}
+
+.results-fail {
+  padding: 0.3rem 0.7rem;
+  margin-left: 1rem;
+  color: $bgTColorWhite;
+  background: $falseColorGames;
+  border-radius: 1rem;
 }

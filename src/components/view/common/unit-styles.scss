@@ -1,0 +1,73 @@
+
+$unit-img-path: '../../../assets/images/units/';
+
+.unit-1-container {
+  background: url('#{$unit-img-path}unit-1-pattern.png') $сolorUnit1 !important;
+  background-size: 150px !important;
+
+  .card-sprint,
+  .start-sprint,
+  .results-sprint,
+  .wrapper {
+    border: 17px solid $borderUnit1 !important;
+  }
+}
+
+.unit-2-container {
+  background: url('#{$unit-img-path}unit-2-pattern.png') $сolorUnit2 !important;
+  background-size: 150px !important;
+  .card-sprint,
+  .start-sprint,
+  .results-sprint,
+  .wrapper {
+    border: 17px solid $borderUnit2 !important;
+  }
+}
+
+.unit-3-container {
+  background: url('#{$unit-img-path}unit-3-pattern.png') $сolorUnit3 !important;
+  background-size: 150px !important;
+
+  .card-sprint,
+  .start-sprint,
+  .results-sprint,
+  .wrapper {
+    border: 17px solid $borderUnit3 !important;
+  }
+}
+
+.unit-4-container {
+  background: url('#{$unit-img-path}unit-4-pattern.png') $сolorUnit4 !important;
+  background-size: 150px !important;
+
+  .card-sprint,
+  .start-sprint,
+  .results-sprint,
+  .wrapper {
+    border: 17px solid $borderUnit4 !important;
+  }
+}
+
+.unit-5-container {
+  background: url('#{$unit-img-path}unit-5-pattern.png') $сolorUnit5 !important;
+  background-size: 150px !important;
+
+  .card-sprint,
+  .start-sprint,
+  .results-sprint,
+  .wrapper {
+    border: 17px solid $borderUnit5 !important;
+  }
+}
+
+.unit-6-container {
+  background: url('#{$unit-img-path}unit-6-pattern.png') $сolorUnit6 !important;
+  background-size: 150px !important;
+
+  .card-sprint,
+  .start-sprint,
+  .results-sprint,
+  .wrapper {
+    border: 17px solid $borderUnit6 !important;
+  }
+}

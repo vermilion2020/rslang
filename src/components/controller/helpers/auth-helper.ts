@@ -1,7 +1,8 @@
 import { authUser, getToken, regNewUser } from '../../model/api/auth';
+import { PagesState } from '../../model/types/page';
 import {
-  AutenticationData, PagesState, RegistrationData, SignInResponse,
-} from '../../model/types';
+  AutenticationData, RegistrationData, SignInResponse,
+} from '../../model/types/auth';
 
 export const clearLocalStorage = () => {
   localStorage.removeItem('refreshToken');
@@ -12,7 +13,7 @@ export const clearLocalStorage = () => {
   localStorage.removeItem('dictionary');
   localStorage.removeItem('textbook');
   window.location.reload();
-}
+};
 
 export const handleLogout = (state: PagesState) => {
   const newState = { ...state };
@@ -24,8 +25,6 @@ export const handleLogout = (state: PagesState) => {
   clearLocalStorage();
   return newState;
 };
-
-
 
 export const checkAuthState = async (state: PagesState): Promise<PagesState> => {
   if (!state.token) {

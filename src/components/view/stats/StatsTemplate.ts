@@ -1,5 +1,5 @@
-export const statsTemplate = (): HTMLTemplateElement => {
-  const todayDate = (new Date()).toLocaleDateString('ru');
+const statsTemplate = (): HTMLTemplateElement => {
+  const todayDate = new Date().toLocaleDateString('ru');
   const stat = document.createElement('template');
   stat.innerHTML = `
     <section class="stat-container">
@@ -33,4 +33,6 @@ export const statsTemplate = (): HTMLTemplateElement => {
       </div>
     </section>`;
   return stat;
-} 
+};
+
+export default statsTemplate;

@@ -20,4 +20,3 @@ loaderTemplate.innerHTML = `
   </div>
   </div>`;
 export default loaderTemplate;
-
