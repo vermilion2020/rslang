@@ -144,11 +144,11 @@ class Dictionary implements Page {
     if(target.classList.contains('btn-audio-diction') || target.classList.contains('icon-audio-diction')) {
       this.playAudio(e);
     } else if (target.classList.contains('hard-icon') || target.classList.contains('easy-icon')) {
-      this.selectComplexity(e);
+      this.selectDifficulty(e);
     }
   }
 
-  async selectComplexity(e: Event) {
+  async selectDifficulty(e: Event) {
     const target = <HTMLElement>e.target;
     const id = <string>target.dataset.id;
     const value = <string>target.dataset.value;
