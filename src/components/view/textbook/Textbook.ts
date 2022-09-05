@@ -9,8 +9,8 @@ import {
 import './Textbook.scss';
 import { Page, PagesState } from '../../model/types/page';
 
-import { loadWords, loadWordsHard, addDataPerPage } from '../../controller/helpers/word-helper';
-import { handleRoute } from '../../controller/router';
+import { loadWords, loadWordsHard, addDataPerPage, showPreloader } from '../../controller/helpers/word-helper';
+import loaderTemplate from '../common/loader-template';
 
 class Textbook implements Page {
   state: PagesState;
