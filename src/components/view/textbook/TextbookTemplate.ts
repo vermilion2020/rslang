@@ -1,10 +1,17 @@
 import { WordData } from '../../model/types/words';
 
-export const sectionWords = (currentUnit: number): Record<string, HTMLElement> => {
+export const sectionWords = (currentUnit: number, statusPage:boolean): Record<string, HTMLElement> => {
+  let learnChapter = 'learn-base'
+  if (currentUnit !== 7 ){
+    if (statusPage) {
+      learnChapter = 'learn-chapter';
+    }
+  }
+
   const section = document.createElement('section');
   const wrapper = document.createElement('div');
   wrapper.classList.add('wrapper-sec-word');
-  section.classList.add('section-word', `unit-${currentUnit}`);
+  section.classList.add('section-word', `unit-${currentUnit}`, `${learnChapter}`);
   section.append(wrapper);
   return { section, wrapper };
 };
@@ -68,21 +75,18 @@ export const unitTemplate = (currentUnit: number, loggedIn: boolean): HTMLTempla
 };
 
 export const pagingTemplate = (
+  currentChapter: string,
+  statusPage: boolean,
   currentUnit: number,
   currentPage: number,
   dataPerPage: boolean[],
+  overPages: number,
   tochapter: string,
   btntext: string,
 ): HTMLTemplateElement => {
   const paging = document.createElement('template');
-  let overPages = 1;
+
   const countPages = 5;
-  if (currentPage + 2 >= 30) {
-    overPages = 26;
-  }
-  if (currentPage + 2 < 30 && currentPage - 2 > 1) {
-    overPages = currentPage - 2;
-  }
   const buttons = Array.from(Array(countPages).keys())
     .map((num) => num + overPages)
     .map(
@@ -96,37 +100,65 @@ export const pagingTemplate = (
         </div>`,
     )
     .join('');
+
+  let lincBlock = '';
+  if(currentChapter === 'dictionary') {
+    lincBlock = `
+    <div class="wrapper-linc">
+      <button class="linc-to-game">Играть в спринт и аудиовызов</button>
+      <div class="icon-linc-to-game"></div>
+    </div>`
+    if (statusPage === true) {
+      lincBlock = `
+      <div class="wrapper-linc">
+        <button class="linc-to-game linc-block">Игры недоступны</button>
+      </div>`
+    }
+  }
+  
   paging.innerHTML = `
   <div class="wrapper-paging">
-  <a href="/#/${tochapter}/unit${currentUnit}/${currentPage}">
-    <button class="btn-to-menu" data-id="${tochapter}">${btntext}</button>
-  </a>
+    <a href="/#/${tochapter}/unit${currentUnit}/${currentPage}">
+      <button class="btn-to-menu" data-id="${tochapter}">${btntext}</button>
+    </a>
     <div class="paging">
       <button class="paging__prev button-pag" ${currentPage <= 1 ? 'disabled="disabled"' : ''}></button>
       ${buttons}
       <button class="paging__next button-pag" ${currentPage >= 30 ? 'disabled="disabled"' : ''}></button>
     </div>
+    ${lincBlock}
     </div>`;
   return paging;
 };
 
-export const playTemplate = (unit: number, page: number, chapter: string) => {
+export const playTemplate = (unit: number, page: number, chapter: string, statusPage: boolean) => {
   const playPart = document.createElement('template');
+  let learnChapter = 'learn-base'
+  let easyClass = '';
+  let chapterDesc = 'Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.'
+  if (unit !== 7) {
+    if (statusPage === true) {
+      easyClass = 'block-game';
+      chapterDesc = 'Поздравляем! Эта страница изучена. Поэтому сейчас ты не можешь перейти на игры со страницы.'
+      learnChapter = 'learn-chapter'
+    }
+    easyClass = statusPage === true ? 'block-game' : ''
+  }
   playPart.innerHTML = `
-  <section class="section-game">
+  <section class="section-game ${learnChapter}" id="section-game">
     <div class="wrapper-game">
       <p class="title-sec">Игры</p>
-      <p class="desc">Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.</p>
+      <p class="desc">${chapterDesc}</p>
       <div class="wrapper-btn">
         <div class="wrapper-sprint">
           <a href="${unit === 7 ? '/#/sprint' : `/#/sprint/unit${unit}/${page}/${chapter}`}">
-            <button class="btn-game btn-sprint" data-id="sprint">Играть<br>в<br>Спринт</button>
+            <button class="btn-game btn-sprint ${easyClass}" data-id="sprint">Играть<br>в<br>Спринт</button>
           </a>
           <div class="icon-bg-sprint"></div>
         </div>
         <div class="wrapper-audio">
         <a href="${unit === 7 ? '/#/audio' : `/#/audio/unit${unit}/${page}/${chapter}`}">
-            <button class="btn-game btn-audio" data-id="audio">Играть<br>в<br>Аудиовызов</button>
+            <button class="btn-game btn-audio ${easyClass}" data-id="audio">Играть<br>в<br>Аудиовызов</button>
           </a>
           <div class="icon-bg-audio"></div>
           <div class="icon-star-audio"></div>

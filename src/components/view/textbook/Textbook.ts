@@ -23,14 +23,36 @@ class Textbook implements Page {
   async render() {
     this.state.page = 'textbook';
     const container = document.querySelector('#main-container') as HTMLDivElement;
-    showPreloader(container);
-    const sectionWord = await this.createSectionWords();
-    const sectionPlay = this.createSectionPlay();
+    let {dataPerPage, statusPage, overPages} = await this.createDataPerPage();
+    const sectionWord = await this.createSectionWords(overPages, dataPerPage, statusPage);
+    const sectionPlay = this.createSectionPlay(statusPage);
     container.innerHTML = '';
     container.append(sectionWord);
     container.append(sectionPlay);
     this.addListener();
     return this.state;
+  }
+
+  async createDataPerPage() {
+    let overPages = 1;
+    const currentPage = this.state.textbook.page;
+    if (currentPage + 2 >= 30) {
+      overPages = 26;
+    }
+    if (currentPage + 2 < 30 && currentPage - 2 > 1) {
+      overPages = currentPage - 2;
+    }
+    let dataPerPage = [false, false, false, false, false];
+    if (this.state.loggedIn) {
+      dataPerPage = await addDataPerPage(this.state.userId, this.state.token, this.state.textbook.unit, overPages);
+    }
+    const currentIndex = currentPage - overPages;
+    const statusPage = dataPerPage[currentIndex];
+    return {
+      dataPerPage: dataPerPage,
+      statusPage: statusPage,
+      overPages: overPages,
+    }
   }
 
   async handlePagingClick(e: Event) {
@@ -59,18 +81,20 @@ class Textbook implements Page {
     const textbookProgress = { unit: this.state.textbook.unit, page: this.state.textbook.page };
     const textbook = JSON.stringify(textbookProgress);
     localStorage.setItem('textbook', textbook);
-    await this.render();
   }
 
-  async createSectionWords() {
-    const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(this.state.textbook.unit);
+  async createSectionWords(overPages: number, dataPerPage: boolean[], statusPage:boolean) {
+    const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(
+      this.state.textbook.unit,
+      statusPage
+      );
     const titleNode = <HTMLElement>titleTemplate('Учебник').content.cloneNode(true);
     let words = await loadWords(this.state.textbook.unit, this.state.textbook.page, this.state.loggedIn);
     if (this.state.textbook.unit === 7) {
       words = await loadWordsHard(this.state);
     }
     const textbookNode = <HTMLElement>textbookTemplate(words).content.cloneNode(true);
-    const pagingNode = await this.paging();
+    const pagingNode = await this.paging(overPages, dataPerPage, statusPage);
     const unitNode = this.units();
 
     wrapper.innerHTML = '';
@@ -81,25 +105,16 @@ class Textbook implements Page {
     return section;
   }
 
-  async paging() {
-    let overPages = 1;
-    const currentPage = this.state.textbook.page;
-    if (currentPage + 2 >= 30) {
-      overPages = 26;
-    }
-    if (currentPage + 2 < 30 && currentPage - 2 > 1) {
-      overPages = currentPage - 2;
-    }
-    let dataPerPage = [false, false, false, false, false];
-    if (this.state.loggedIn) {
-      dataPerPage = await addDataPerPage(this.state.userId, this.state.token, this.state.textbook.unit, overPages);
-    }
+  async paging(overPages: number, dataPerPage: boolean[], statusPage: boolean) {
 
     const pagingNode = <HTMLElement>(
       pagingTemplate(
+        'textbook',
+        statusPage,
         this.state.textbook.unit,
         this.state.textbook.page,
         dataPerPage,
+        overPages,
         'dictionary',
         'в словарь',
       ).content.cloneNode(true)
@@ -121,9 +136,9 @@ class Textbook implements Page {
     return unitNode;
   }
 
-  createSectionPlay() {
+  createSectionPlay(statusPage: boolean) {
     const playNode = <HTMLElement>(
-      playTemplate(this.state.textbook.unit, this.state.textbook.page, 'textbook').content.cloneNode(true)
+      playTemplate(this.state.textbook.unit, this.state.textbook.page, 'textbook', statusPage).content.cloneNode(true)
     );
 
     return playNode;

@@ -1,10 +1,16 @@
 import { WordData } from '../../model/types/words';
 
-export const sectionWords = (currentUnit: number): Record<string, HTMLElement> => {
+export const sectionWords = (currentUnit: number, statusPage:boolean): Record<string, HTMLElement> => {
+  let learnChapter = 'learn-base'
+  if (currentUnit !== 7 ){
+    if (statusPage) {
+      learnChapter = 'learn-chapter';
+    }
+  }
   const section = document.createElement('section');
   const wrapper = document.createElement('div');
   wrapper.classList.add('wrapper-sec-dic');
-  section.classList.add('section-dic', `unit-${currentUnit}`);
+  section.classList.add('section-dic', `unit-${currentUnit}`, `${learnChapter}`);
   section.append(wrapper);
   return { section, wrapper };
 };
