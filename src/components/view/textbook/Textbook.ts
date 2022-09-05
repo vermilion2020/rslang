@@ -22,6 +22,7 @@ class Textbook implements Page {
   async render() {
     this.state.page = 'textbook';
     const container = document.querySelector('#main-container') as HTMLDivElement;
+    showPreloader(container);
     let {dataPerPage, statusPage, overPages} = await this.createDataPerPage();
     const sectionWord = await this.createSectionWords(overPages, dataPerPage, statusPage);
     const sectionPlay = this.createSectionPlay(statusPage);

@@ -15,6 +15,7 @@ class Dictionary implements Page {
   async render() {
     this.state.page = 'dictionary';
     const container = document.querySelector('#main-container') as HTMLDivElement;
+    showPreloader(container);
     let {dataPerPage, statusPage, overPages} = await this.createDataPerPage();
     const sectionDictionary = await this.createSectionDiction(overPages, dataPerPage, statusPage);
     const sectionPlay = this.createSectionPlay(statusPage);
