@@ -9,7 +9,10 @@ registrationTemplate.innerHTML = `
     <input class="popup__input" required minlength="3" type="text" name="name" placeHolder="Имя">
     <input class="popup__input" required minlength="8" type="password" name="password" placeHolder="Пароль">
     <input class="popup__input" required minlength="8" type="password" name="password-confirm" placeHolder="Повторно пароль">
+    <div class="popup__buttons-auth">
+    <button type="submit" id="back-button" class="button button_light">Вернуться</button>
     <button type="submit" id="registration" class="popup__submit button">Зарегистрироваться</button>
+    </div>
     <span class="popup__copyright">© Все права защищены — 2022 г. RS Lang</span>
   </form>`;
 

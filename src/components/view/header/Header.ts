@@ -52,6 +52,12 @@ class Header implements Page {
         }
       }
     });
+
+    this.popupContainer.addEventListener('click', async (e: Event) => {
+      e.preventDefault();
+      const target = e.target as HTMLElement;
+      if (target.id === 'back-button') this.renderAuthForm();
+    });
   }
 
   clearPopup() {
