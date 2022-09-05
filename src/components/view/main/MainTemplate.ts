@@ -115,13 +115,13 @@ mainTemplate.innerHTML = `
    <section class="sec-decor">
     <div class="wrapper-sec-decor">
       <div class="decor-1">
-        <img class="icon-mane-gr" src="icons/decor-1.svg" alt="decor"/>
+        <img class="icon-dec" src="icons/decor-1.svg" alt="decor"/>
       </div>
       <div class="decor-2">
-        <img class="icon-mane-gr" src="icons/decor-2.svg" alt="decor"/>
+        <img class="icon-dec" src="icons/decor-2.svg" alt="decor"/>
       </div>
       <div class="decor-3">
-        <img class="icon-mane-gr" src="icons/decor-3.svg" alt="decor"/>
+        <img class="icon-dec" src="icons/decor-3.svg" alt="decor"/>
       </div>
     </div>
    </section>
@@ -137,11 +137,11 @@ mainTemplate.innerHTML = `
         <div class="desc-sec-4">
           <p class="name">Мила</p>
           <p class="position">Team-leader, frontend developer</p>
-          <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
+          <p class="position-desc">Разработка игры Спринт, авторизации, статистики, доработка бэкенда.</p>
           <div class="git-block">
             <a href="https://github.com/vermilion2020" target="_blank" class="git-link">Github: vermilion2020</a>
           </div>
-          <img class="photo" src="images/photo-mila.png" alt="mila"/>
+          <img class="photo" src="images/mila-photo.png" alt="mila"/>
         </div>
         <div></div>
         <div class="line-team">      <hr></div>
@@ -149,11 +149,11 @@ mainTemplate.innerHTML = `
         <div class="desc-sec-4">
           <p class="name">Роман</p>
           <p class="position">Frontend developer</p>
-          <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
+          <p class="position-desc">Разработка игры Аудиовызов.</p>
           <div class="git-block">
             <a href="https://github.com/googray" target="_blank" class="git-link">Github: googray</a>
           </div>
-          <img class="photo" src="images/photo-mila.png" alt="roman"/>
+          <img class="photo" src="images/roman-photo.png" alt="roman"/>
         </div>
         <div></div>
         <div class="line-team">      <hr></div>
@@ -161,11 +161,11 @@ mainTemplate.innerHTML = `
         <div class="desc-sec-4">
           <p class="name">Галина</p>
           <p class="position">Frontend developer</p>
-          <p class="position-desc">Разработка Игры Аудиовызов, регистрации и создание сервера для приложения.</p>
+          <p class="position-desc">Разработка главной страницы, словаря и учебника.</p>
           <div class="git-block">
             <a href="https://github.com/halina-k" target="_blank" class="git-link">Github:  halina-k</a>
           </div>
-          <img class="photo" src="images/photo-mila.png" alt="halina"/>
+          <img class="photo" src="images/halina-photo.png" alt="halina"/>
         </div>
       </div>
     </div>

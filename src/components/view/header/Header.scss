@@ -45,23 +45,18 @@ h1 {
   display: flex;
   gap: 0.8rem;
   align-items: center;
+  padding-right: 2.5rem;
 }
 
 .user-name {
   font-family: $rusFont;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: $bgTColorBlack;
-  cursor: pointer;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 12rem;
+  width: 8rem;
   white-space: nowrap;
   text-align: right;
-
-  &:hover {
-    color: $colorBtnHov;
-    text-decoration: underline;
-  }
 }
 
 .main-nav__item {
@@ -95,8 +90,9 @@ h1 {
 
 .main-nav {
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
+
 
 @media screen and (max-width: 1279px) {
   
