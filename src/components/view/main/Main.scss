@@ -1,6 +1,6 @@
 @import '../../view/common/base-styles.scss';
 
-.arrow, .icon-arrow {
+.arrow, .icon-arrow, .photo  {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -19,7 +19,7 @@ p {
   padding: 0 $mainIndent;
   grid-template-columns: 50% 50%;
   margin-bottom: 2rem;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .cover-img {
@@ -59,13 +59,15 @@ p {
     position: absolute;
     width: 180px;
     height: 180px;
+    bottom: 6%;
     left: 82%;
   }
 }
 
 .img-block {
   position: relative;
-  // margin-right: 116px;
+  padding-right: 40px;
+  padding-bottom: 2rem;
 
   .img-mock {
     height: 450px;
@@ -260,16 +262,6 @@ hr {
    }
 }
 
-.desc-sec-4 {
-  position: relative;
-
-  &:hover {
-    .photo {
-      display: block;
-    }
-  }
-}
-
 .name {
   font-size: $textSubtitle;
 }
@@ -301,12 +293,19 @@ hr {
   }
 }
 
+.desc-sec-4:hover {
+  .photo {
+    width: 20rem;
+    -webkit-filter: none;   
+  }
+}
+
 .photo {
-  position: absolute;
-  top: -2rem;
-  left: -13rem;
+  -webkit-filter: grayscale(100%);  
   width: 10rem;
-  display: none;
+  &:hover {
+    -webkit-filter: none;  
+  }
 }
 
 .sec-decor {
@@ -315,7 +314,7 @@ hr {
 }
 
 .wrapper-sec-decor {
-  padding-top: 75px;
+  padding-top: 48px;
   padding-bottom: 105px;
   max-width: 1240px;
   margin: auto;

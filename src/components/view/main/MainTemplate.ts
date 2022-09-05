@@ -67,7 +67,7 @@ mainTemplate.innerHTML = `
           <p class="title">Словарь</p>
           <div class="desc-sec-2">
           <p>Словарь это продолжение учебника. В словаре ты можешь узнать применение слов в контексте, прослушать как оно звучит на английском языке.</p>
-          <p>А также отметить слово как сложное или изуенное.</p>
+          <p>А также отметить слово как сложное или изученное.</p>
           </div>
           <a href="/#/dictionary" class="link-arrow" id="link-dictionary" data-id="dictionary">
             <div class="arrow">
@@ -80,8 +80,8 @@ mainTemplate.innerHTML = `
            <div class="line">      <hr></div>
           <p class="title">Спринт</p>
           <div class="desc-sec-2">
-            <p>Учись реагировать быстро, моментально понимая английскую речь. В этом тебе поможет наша игра.</p>
-            <p>И еще  результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
+          <p>Проверь и закрепи выученные слова. В игре тебе нужно угадать правильный перевод из предложенных вариантов</p>
+          <p>И еще результаты своих побед и ошибок ты сможешь увидеть в учебнике и статистике.</p>
           </div>
 
           <a href="/#/sprint" class="link-arrow" id="link-sprint" data-id="sprint">
@@ -95,8 +95,9 @@ mainTemplate.innerHTML = `
             <div class="line">      <hr></div>
             <p class="title">Аудиовызов</p>
             <div class="desc-sec-2">
-              <p>Название говорит само за себя. Мы говорим - ты угадываешь. Как и в игре Спринт результаты своих побед и ошибок ты сможешь увидеть в учебнике.</p>
-              <p>Удачи!</p>
+            <p>Учись реагировать быстро, моментально понимая английскую речь. Мы говорим - ты угадываешь.</p>
+            <p>Как и в игре Спринт, результаты своих побед и ошибок ты сможешь увидеть в учебнике и статистике.</p>
+            <p>Удачи!</p>
             </div>
             <a href="/#/audio" class="link-arrow" id="link-audio" data-id="audio">
               <div class="arrow">
@@ -133,7 +134,7 @@ mainTemplate.innerHTML = `
       <p class="sec-4-title">О команде</>
       <hr>
       <div class="main-block-sec-4">
-        <p class="number">1</p>
+      <img class="photo" src="images/mila-photo.png" alt="mila"/>
         <div class="desc-sec-4">
           <p class="name">Мила</p>
           <p class="position">Team-leader, frontend developer</p>
@@ -141,11 +142,11 @@ mainTemplate.innerHTML = `
           <div class="git-block">
             <a href="https://github.com/vermilion2020" target="_blank" class="git-link">Github: vermilion2020</a>
           </div>
-          <img class="photo" src="images/mila-photo.png" alt="mila"/>
+
         </div>
         <div></div>
         <div class="line-team">      <hr></div>
-        <p class="number">2</p>
+        <img class="photo" src="images/roman-photo.png" alt="roman"/>
         <div class="desc-sec-4">
           <p class="name">Роман</p>
           <p class="position">Frontend developer</p>
@@ -153,11 +154,11 @@ mainTemplate.innerHTML = `
           <div class="git-block">
             <a href="https://github.com/googray" target="_blank" class="git-link">Github: googray</a>
           </div>
-          <img class="photo" src="images/roman-photo.png" alt="roman"/>
+          
         </div>
         <div></div>
         <div class="line-team">      <hr></div>
-        <p class="number">3</p>
+        <img class="photo" src="images/halina-photo.png" alt="halina"/>
         <div class="desc-sec-4">
           <p class="name">Галина</p>
           <p class="position">Frontend developer</p>
@@ -165,7 +166,6 @@ mainTemplate.innerHTML = `
           <div class="git-block">
             <a href="https://github.com/halina-k" target="_blank" class="git-link">Github:  halina-k</a>
           </div>
-          <img class="photo" src="images/halina-photo.png" alt="halina"/>
         </div>
       </div>
     </div>
