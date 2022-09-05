@@ -1,12 +1,14 @@
 import voiceIcon from '../../../../assets/images/png/up_volume.png';
 import { randomTranslates } from '../../../controller/helpers/audio-helper';
 import { countAttempts } from '../../../model/constants';
-import { GameWordData } from '../../../model/types';
+import { GameWordData } from '../../../model/types/words';
 
 export const drawTranslates = (translates: string[]) => {
   let translatesButtons = '';
   for (let i = 0; i < translates.length; i += 1) {
-    translatesButtons += `<button class="select-word button" data-word="${i + 1}" value>${i + 1} - ${translates[i]}</button>`;
+    translatesButtons += `<button class="select-word button" data-word="${i + 1}" value>${i + 1} - ${
+      translates[i]
+    }</button>`;
   }
   return translatesButtons;
 };
@@ -22,7 +24,7 @@ const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
       <div class="container">
         <div class="progress-circular">
           <div class="inside-progress">
-            <span class="value-correct">${result + 1}</span> / <span class="value-total">${countAttempts}</span>    
+            <span class="current-step">1</span> / <span class="value-total">${countAttempts}</span>    
           </div>
         </div>
       </div>

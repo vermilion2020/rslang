@@ -2,7 +2,7 @@ import audioTemplate from './templates/AudioTemplate';
 import './AudioChallenge.scss';
 import { Page, PagesState } from '../../model/types/page';
 import audioTemplateGame, { drawTranslates } from './templates/AudioTemplateGame';
-import { renderAudioResultPop } from './AudioResult';
+import renderAudioResultPop from './AudioResult';
 
 import { loadWords } from '../../controller/helpers';
 
@@ -14,23 +14,37 @@ import {
   resetCardsContent,
   disableDecisionButtons,
   playWordAudio,
+  drawProgress,
 } from '../../controller/helpers/audio-helper';
 
-import { CheckedWord, GameWordData, WordData } from '../../model/types';
-import { answers, countAttempts, countPages, failedSound, successSound, units } from '../../model/constants';
+import { CheckedWord, GameWordData, WordData } from '../../model/types/words';
+import {
+  answers, countAttempts, countPages, failedSound, successSound, units,
+} from '../../model/constants';
 
 class AudioChallenge implements Page {
   state: PagesState;
+
   container: HTMLElement;
-  score: number = 0;
-  maxSuccess: number = 0;
+
+  score = 0;
+
+  maxSuccess = 0;
+
   successTotal: number;
+
   unit: number;
+
   page: number;
+
   currentWord: GameWordData | null;
+
   words: WordData[] = [];
+
   selectedWords: string[] = [];
+
   checkedWords: CheckedWord[] = [];
+
   numTried: number;
 
   constructor(state: PagesState) {
@@ -78,7 +92,7 @@ class AudioChallenge implements Page {
     // render game page
     const startAudioGameBtn = document.querySelector('.btn-start') as HTMLButtonElement;
     if (startAudioGameBtn) {
-      startAudioGameBtn.addEventListener('click', async (e: Event) => {
+      startAudioGameBtn.addEventListener('click', async () => {
         this.renderGame();
       });
     }
@@ -90,13 +104,14 @@ class AudioChallenge implements Page {
       await this.renderResults();
       await this.render();
     }
+    drawProgress(this.numTried);
     const { word, updatedWords } = await getNewWord(
       this.words,
       this.unit,
       this.page,
       this.state.loggedIn,
       4,
-      this.state.sprint.source
+      this.state.sprint.source,
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
@@ -116,23 +131,14 @@ class AudioChallenge implements Page {
     const translatesBody = <HTMLElement>translatesTemplate.content.cloneNode(true);
     selectContainer.innerHTML = '';
     selectContainer.append(translatesBody);
-    const correctCount = <HTMLElement>document.querySelector('.value-correct');
-    correctCount.innerHTML = `${this.successTotal}`;
     playWordAudio(word.audio);
-    //countDown
-    const wordAmount = <HTMLElement>document.querySelector('.value-total');
-    wordAmount.innerText = `${countAttempts - this.numTried}`;
-    this.numTried += 1;
-    //progress draw
-    const progresBarMov = <HTMLElement>document.querySelector('.progress-circular');
-    let gradient = Math.round(((countAttempts - (countAttempts - this.numTried)) / countAttempts) * 100) * 3.6;
-    progresBarMov.style.background = `conic-gradient(#65D72F ${gradient}deg, #FF0000 0deg)`;
   };
 
   setInitialValues() {
     this.maxSuccess = 0;
     this.successTotal = 0;
     this.checkedWords = [];
+    this.numTried = 0;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
   }
@@ -144,6 +150,7 @@ class AudioChallenge implements Page {
     } else {
       this.maxSuccess = 0;
     }
+    this.numTried += 1;
 
     if (this.state.loggedIn) {
       await updateWordData(result, word, this.state.userId, this.state.token, 'audio');
@@ -174,7 +181,7 @@ class AudioChallenge implements Page {
 
   async handleDecision(result: boolean, decision: number) {
     disableDecisionButtons();
-    if(result) {
+    if (result) {
       playWordAudio(successSound);
     } else if (decision !== -1) {
       playWordAudio(failedSound);
@@ -213,17 +220,17 @@ class AudioChallenge implements Page {
     const keyNum = Number.parseInt(key, 10);
     const btnNext = <HTMLElement>document.querySelector('.btn-next');
     const btnDontKnow = <HTMLElement>document.querySelector('.btn-dont-know');
-    const selectButtons = <NodeListOf<HTMLElement>>document.querySelectorAll('.select-word');
-    if (answers.includes(keyNum) && !selectButtons[0].getAttribute('disabled')) {
+    const selectButtons = document.querySelectorAll('.select-word');
+    if (answers.includes(keyNum) && selectButtons[0] && !selectButtons[0].getAttribute('disabled')) {
       const { result, decision } = this.getDecisionValue(e, container);
       await this.handleDecision(result, decision);
     } else if ((key === 'Enter' || key === 'ArrowRight') && !btnNext.classList.contains('hidden')) {
       this.updateCard();
     } else if (
-      key === 'Enter' &&
-      !btnDontKnow.classList.contains('hidden') &&
-      !btnDontKnow.getAttribute('disabled') &&
-      this.currentWord
+      key === 'Enter'
+      && !btnDontKnow.classList.contains('hidden')
+      && !btnDontKnow.getAttribute('disabled')
+      && this.currentWord
     ) {
       await this.handleDecision(false, -1);
     }
@@ -238,12 +245,12 @@ class AudioChallenge implements Page {
       this.page,
       this.state.loggedIn,
       4,
-      this.state.sprint.source
+      this.state.sprint.source,
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
-      this.words = this.words.filter((word) => word.difficulty !== 'easy');
+      this.words = this.words.filter((w) => w.difficulty !== 'easy');
     }
     const gameNode = <HTMLElement>audioTemplateGame(this.currentWord).content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
@@ -262,7 +269,7 @@ class AudioChallenge implements Page {
     }
   }
 
-  async renderResults(){
+  async renderResults() {
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
     if (this.state.loggedIn) {
@@ -272,11 +279,11 @@ class AudioChallenge implements Page {
         this.maxSuccess,
         successWords.length,
         this.checkedWords.length,
-        'audio'
+        'audio',
       );
     }
     renderAudioResultPop(successWords, failedWords, this.successTotal);
-  };
+  }
 }
 
 export default AudioChallenge;

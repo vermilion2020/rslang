@@ -3,8 +3,10 @@ import './Sprint.scss';
 import './scss/Timer.scss';
 import { Page, PagesState } from '../../model/types/page';
 import startTimer, { timerCard } from '../../controller/timer';
-import { apiBaseUrl, countPages, failedSound, successSound } from '../../model/constants';
-import { CheckedWord, GameWordData, WordData } from '../../model/types';
+import {
+  apiBaseUrl, countPages, failedSound, successSound,
+} from '../../model/constants';
+import { CheckedWord, GameWordData, WordData } from '../../model/types/words';
 import {
   disableDecisionButtons,
   getDecisionResult,
@@ -80,7 +82,7 @@ class Sprint implements Page {
     if (this.state.gameStarted) {
       window.location.reload();
     }
-    
+
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
       this.unit = this.state.sprint.unit;
       this.page = this.state.sprint.page;
@@ -111,7 +113,7 @@ class Sprint implements Page {
 
   async updateCard() {
     if (this.words.length === 0) {
-      return await this.renderResults();
+      return this.renderResults();
     }
     const { word, updatedWords } = await getNewWord(
       this.words,
@@ -119,11 +121,11 @@ class Sprint implements Page {
       this.page,
       this.state.loggedIn,
       1,
-      this.state.sprint.source
+      this.state.sprint.source,
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
-    updateCardContent(this.currentWord);
+    return updateCardContent(this.currentWord);
   }
 
   async saveResult(word: GameWordData, result: boolean) {
@@ -165,7 +167,7 @@ class Sprint implements Page {
       decision = +(<string>target.dataset.value);
     }
     const result = getDecisionResult(container, decision);
-    if(result) {
+    if (result) {
       this.playWordAudio(successSound);
     } else {
       this.playWordAudio(failedSound);
@@ -191,7 +193,7 @@ class Sprint implements Page {
       this.page,
       this.state.loggedIn,
       1,
-      this.state.sprint.source
+      this.state.sprint.source,
     );
     this.words = [...updatedWords];
     this.currentWord = { ...word };
@@ -242,7 +244,7 @@ class Sprint implements Page {
         this.maxSuccess,
         successWords.length,
         this.checkedWords.length,
-        'sprint'
+        'sprint',
       );
     }
     const sprintResultsNode = <HTMLElement>(
@@ -250,12 +252,12 @@ class Sprint implements Page {
     );
     this.container.innerHTML = '';
     this.container.append(sprintResultsNode);
-    const sprintResults = <HTMLElement>this.container.querySelector('#results-sprint');
+    const sprintResults = <HTMLElement> this.container.querySelector('#results-sprint');
     sprintResults.addEventListener('click', (e: Event) => {
       const target = <HTMLElement>e.target;
       if (target.classList.contains('results-audio')) {
         const wordId = <string>target.dataset.id;
-        const wordAudio = <string>this.checkedWords.find((item) => item.wordId === wordId)?.audio;
+        const wordAudio = <string> this.checkedWords.find((item) => item.wordId === wordId)?.audio;
         this.playWordAudio(wordAudio);
       } else if (target.id === 'play-again') {
         this.startCountDown = false;

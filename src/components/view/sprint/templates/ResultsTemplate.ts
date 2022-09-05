@@ -1,4 +1,4 @@
-import { CheckedWord } from '../../../model/types';
+import { CheckedWord } from '../../../model/types/words';
 
 export const drawResultLine = (checkedWord: CheckedWord): string => `
   <div class="results-line">
@@ -14,7 +14,7 @@ export const sprintResultsTemplate = (
   successWords: CheckedWord[],
   failedWords: CheckedWord[],
   score: number,
-  unit: number
+  unit: number,
 ): HTMLTemplateElement => {
   const sprintResult = document.createElement('template');
   const successLines = successWords.map((item) => drawResultLine(item)).join('');

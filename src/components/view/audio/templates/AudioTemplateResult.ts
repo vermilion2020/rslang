@@ -1,5 +1,5 @@
 import { countAttempts } from '../../../model/constants';
-import { CheckedWord } from '../../../model/types';
+import { CheckedWord } from '../../../model/types/words';
 
 const drawResultLine = (checkedWord: CheckedWord, result: string): string => `
     <li class="result-item ${result}-item">
@@ -15,35 +15,12 @@ const drawResultLine = (checkedWord: CheckedWord, result: string): string => `
 const audioTemplateResult = (
   successWords: CheckedWord[],
   failedWords: CheckedWord[],
-  successTotal: number
+  successTotal: number,
 ): HTMLTemplateElement => {
   const successLines = successWords.map((item) => drawResultLine(item, 'correct')).join('');
   const failedLines = failedWords.map((item) => drawResultLine(item, 'incorrect')).join('');
   const percent = Math.round((successTotal / countAttempts) * 100);
   const result = document.createElement('template');
-  const progressCircular = <HTMLElement>document.querySelector('.progress-circular__pop');
-
-  let start: number = 0;
-  function bar(percent: number) {
-    let progress = setInterval(() => {
-      if (start < percent) {
-        start += 1;
-        progressEND();
-      } else {
-        start -= 1;
-        progressEND();
-      }
-
-      function progressEND() {
-        progressCircular.style.background = `conic-gradient($iconColorComplex ${
-          start * 3.6
-        }deg, $iconColorStudied 0deg)`;
-        if (start == percent) {
-          clearInterval(progress);
-        }
-      }
-    });
-  }
 
   result.innerHTML = `
       <div id="page-result" class="popupAudio">
@@ -58,7 +35,7 @@ const audioTemplateResult = (
             </div>
           </div>
           <div class="result-info-value">
-            <p class="result-description">Процент правильно изученных слов</p>
+            <p class="result-description">Процент угаданных слов</p>
             <div class="out-pop">
               <div class="container-pop"> 
                 <div class="progress-circular__pop progress-backgrd">
@@ -68,12 +45,12 @@ const audioTemplateResult = (
             </div>
           </div>
           <div class="result-info-words hidden">
-            <p class="studied-wrld">Выученные слова - <span class="results-success">${successWords.length}</span></p>
+            <p class="studied-wrld">Выученные слова <span class="results-success">${successWords.length}</span></p>
               <ul class="result-correct">
                 ${successLines}
               </ul>
               <hr class="hr-line">
-              <p  class="unstudied-wrld">Не выученные слова - <span class="results-fail">${failedWords.length}</span></p>
+              <p  class="unstudied-wrld">Не выученные слова <span class="results-fail">${failedWords.length}</span></p>
               <ul class="result-incorrect">
                 ${failedLines}
               </ul>

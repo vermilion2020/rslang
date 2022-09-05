@@ -1,7 +1,10 @@
-import { saveGameStat } from '../../model/api';
+import { saveGameStat } from '../../model/api/stat';
 import { addUserWord, getWordTranslates, updateUserWord } from '../../model/api/words';
 import { maxScorePerWord, minScorePerWord, scoreStep } from '../../model/constants';
-import { GameWordData, StatData, UserWord, WordData } from '../../model/types';
+import { StatData } from '../../model/types/stat';
+import {
+  GameWordData, UserWord, WordData,
+} from '../../model/types/words';
 import { loadWords } from './word-helper';
 
 export const randomResult = (word: GameWordData) => {
@@ -17,7 +20,7 @@ export const getNewWord = async (
   currPage: number,
   loggedIn: boolean,
   translateCounts: number,
-  source: string
+  source: string,
 ) => {
   let currentPage = currPage;
   let currentUnit = unit;
@@ -40,7 +43,7 @@ export const getNewWord = async (
     if (currentPage !== -1) {
       let newWords = await loadWords(currentUnit, currentPage, loggedIn);
       if (source === 'textbook' || source === 'dictionary') {
-        newWords = newWords.filter((word) => word.difficulty !== 'easy');
+        newWords = newWords.filter((w) => w.difficulty !== 'easy');
       }
       updatedWords = [...updatedWords, ...newWords];
     }
@@ -76,7 +79,7 @@ export const updateScoreParameters = (
   successInRope: number,
   countForSuccess: number,
   score: number,
-  unit: number
+  unit: number,
 ) => {
   let successCount = successInRope;
   let successReward = countForSuccess;
@@ -106,7 +109,7 @@ export const updateWordData = async (
   word: GameWordData,
   userId: string,
   token: string,
-  source: string
+  source: string,
 ) => {
   let loss = word.optional?.loss || 0;
   let vic = word.optional?.vic || 0;
@@ -131,7 +134,7 @@ export const updateWordData = async (
     optional: {
       vic,
       loss,
-      source: source,
+      source,
     },
   };
   if (word.used) {
@@ -147,19 +150,19 @@ export const saveGameStatistics = async (
   maxSuccess: number,
   successAnswers: number,
   totalAnswers: number,
-  source: string
+  source: string,
 ) => {
   const maxData: StatData = {
     field: 'maxSuccess',
     value: maxSuccess,
-    source: source,
+    source,
     totalValue: 0,
   };
   await saveGameStat(userId, token, maxData);
-  let percentData: StatData = {
+  const percentData: StatData = {
     field: 'successPercent',
     value: successAnswers,
-    source: source,
+    source,
     totalValue: totalAnswers,
   };
   await saveGameStat(userId, token, percentData);

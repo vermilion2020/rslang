@@ -1,7 +1,6 @@
 import mainTemplate from './MainTemplate';
 import './Main.scss';
 import { Page, PagesState } from '../../model/types/page';
-import { showPreloader } from '../../controller/helpers';
 
 class Main implements Page {
   state: PagesState;

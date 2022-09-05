@@ -12,9 +12,9 @@ async function startTimer(duration: number, cb: () => Promise<void>) {
 export function timerCard(seconds: number, className: string) {
   const diagramBox = <HTMLElement>document.querySelector(`.diagram.timer.${className}`);
   if (diagramBox) {
-    const secondsData = +<string>diagramBox.dataset.seconds;
+    const secondsData = +(<string>diagramBox.dataset.seconds);
 
-    const deg = ((360 * seconds) / secondsData) + 180;
+    const deg = (360 * seconds) / secondsData + 180;
     if (seconds >= secondsData / 2) {
       diagramBox.classList.add('over_50');
     } else {

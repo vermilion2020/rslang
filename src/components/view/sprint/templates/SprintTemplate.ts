@@ -1,5 +1,5 @@
 import { randomResult } from '../../../controller/helpers/sprint-helper';
-import { GameWordData } from '../../../model/types';
+import { GameWordData } from '../../../model/types/words';
 
 const timerNode = (seconds: number, visible: string) => `
 <div class="diagram timer${visible}" data-seconds="${seconds}">
@@ -41,7 +41,7 @@ export const sprintStartTemplate = (unitId?: string): HTMLTemplateElement => {
 export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
   const sprintCard = document.createElement('template');
   const { result, translate } = randomResult(word);
-  const unit = (word.group || 0 ) + 1;
+  const unit = (word.group || 0) + 1;
   sprintCard.innerHTML = `
     <div class="sprint-container unit-${unit}-container">
       <div class="card-sprint" id="card-sprint" data-word="${word.id}" data-result="${result}">

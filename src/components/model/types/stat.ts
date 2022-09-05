@@ -14,23 +14,23 @@ export interface StatData {
   value: number;
   source: string;
   field: string;
-  totalValue: number
+  totalValue: number;
 }
 
 export type ResponseStat = {
-  data: Stat
-}
+  data: Stat;
+};
 
 export type ResponseGameStat = {
-  data: StatGame
-}
+  data: StatGame;
+};
 
 export type ChartAxisData = {
-  label: string,
-  value: number
-}
+  label: string;
+  value: number;
+};
 
 export type DateChartData = {
   date: number;
   value: number;
-}
+};

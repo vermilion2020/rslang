@@ -2,8 +2,16 @@ import './Dictionary.scss';
 import '../textbook/GenerForWords.scss';
 import { Page, PagesState } from '../../model/types/page';
 import { sectionWords, dictionaryTemplate } from './DictionaryTemplate';
-import { pagingTemplate, unitTemplate, titleTemplate, playTemplate } from '../textbook/TextbookTemplate';
-import { loadWords, loadWordsHard, addWordData, addDataPerPage, showPreloader } from '../../controller/helpers/word-helper';
+import {
+  pagingTemplate, unitTemplate, titleTemplate, playTemplate,
+} from '../textbook/TextbookTemplate';
+import {
+  loadWords,
+  loadWordsHard,
+  addWordData,
+  addDataPerPage,
+  showPreloader,
+} from '../../controller/helpers/word-helper';
 
 class Dictionary implements Page {
   state: PagesState;
@@ -47,24 +55,26 @@ class Dictionary implements Page {
   async paging() {
     let overPages = 1;
     const currentPage = this.state.dictionary.page;
-    if ((currentPage + 2) >= 30) {
+    if (currentPage + 2 >= 30) {
       overPages = 26;
     }
-    if ((currentPage + 2) < 30 && (currentPage - 2) > 1) {
+    if (currentPage + 2 < 30 && currentPage - 2 > 1) {
       overPages = currentPage - 2;
     }
     let dataPerPage = [false, false, false, false, false];
     if (this.state.loggedIn) {
-      dataPerPage = await addDataPerPage(
-        this.state.userId,
-        this.state.token,
-        this.state.dictionary.unit,
-        overPages,
-      );
+      dataPerPage = await addDataPerPage(this.state.userId, this.state.token, this.state.dictionary.unit, overPages);
     }
 
-    const pagingNode = <HTMLElement>pagingTemplate(this.state.dictionary.unit, this.state.dictionary.page, dataPerPage, 'textbook', 'в учебник')
-      .content.cloneNode(true);
+    const pagingNode = <HTMLElement>(
+      pagingTemplate(
+        this.state.dictionary.unit,
+        this.state.dictionary.page,
+        dataPerPage,
+        'textbook',
+        'в учебник',
+      ).content.cloneNode(true)
+    );
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
       this.handlePagingClick(e);
@@ -111,8 +121,9 @@ class Dictionary implements Page {
   }
 
   createSectionPlay() {
-    const playNode = <HTMLElement>playTemplate(this.state.dictionary.unit, this.state.dictionary.page, 'dictionary')
-      .content.cloneNode(true);
+    const playNode = <HTMLElement>(
+      playTemplate(this.state.dictionary.unit, this.state.dictionary.page, 'dictionary').content.cloneNode(true)
+    );
     return playNode;
   }
 
@@ -132,7 +143,9 @@ class Dictionary implements Page {
           lebelEl?.classList.remove('hard');
           await addWordData(state.userId, cardId, state.token, 'base');
           if (state.dictionary.unit === 7) {
-            if (card.parentNode) { card.parentNode.removeChild(card); }
+            if (card.parentNode) {
+              card.parentNode.removeChild(card);
+            }
           }
         }
       }
@@ -141,7 +154,9 @@ class Dictionary implements Page {
           lebelEl?.classList.add('easy');
           lebelEl?.classList.remove('hard');
           if (state.dictionary.unit === 7) {
-            if (card.parentNode) { card.parentNode.removeChild(card); }
+            if (card.parentNode) {
+              card.parentNode.removeChild(card);
+            }
           }
           await addWordData(state.userId, cardId, state.token, 'easy');
         } else {

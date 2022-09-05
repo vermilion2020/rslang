@@ -1,5 +1,5 @@
 import menuItems from '../../model/menu-items';
-import { GameInitial, PagesState, Progress } from '../../model/types';
+import { GameInitial, PagesState, Progress } from '../../model/types/page';
 
 const routes: { [key: string]: string } = {
   notFound: 'notFound',
@@ -33,8 +33,8 @@ export const rewriteUrl = (state: PagesState) => {
 };
 
 export const setGameInitial = (queryStr: string[]): GameInitial => {
-  let unit = -1; let
-    page = -1;
+  let unit = -1;
+  let page = -1;
   let source = '';
   if (queryStr[1] && queryStr[1].includes('unit')) {
     unit = +queryStr[1].replace(/([a-zA-Z])+/, '') || 1;
@@ -56,8 +56,12 @@ export const setProgress = (queryStr: string[], textbook: Progress) => {
       page = +queryStr[2] || 1;
     }
   }
-  if (!unit) { unit = 1; }
-  if (!page) { page = 1; }
+  if (!unit) {
+    unit = 1;
+  }
+  if (!page) {
+    page = 1;
+  }
   return { unit, page };
 };
 
