@@ -108,8 +108,6 @@ class Header implements Page {
       }
       route(e, this.state);
     }
-    document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
-    target.classList.add('main-nav__item_active');
   }
 
   async render() {

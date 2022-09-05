@@ -68,5 +68,7 @@ export const setProgress = (queryStr: string[], textbook: Progress) => {
 export const showPageTitle = (page: string) => {
   const currentMenuItem = menuItems.find((item) => item.href === page);
   const pageTitle = currentMenuItem ? currentMenuItem.name : 'RS Lang';
+  document.querySelector('.main-nav__item_active')?.classList.remove('main-nav__item_active');
+  document.querySelector(`#${currentMenuItem?.href}-menu-item`)?.classList.add('main-nav__item_active');
   document.title = pageTitle;
 };
