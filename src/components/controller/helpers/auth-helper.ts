@@ -75,16 +75,16 @@ const showNotification = (message: string) => {
   const messageContainer = <HTMLElement>document.querySelector('#message');
   messageContainer.innerText = message;
   notification.classList.remove('hidden');
-    notification.classList.add('transition-fade-in');
-    setTimeout(() => {
-      notification.classList.remove('transition-fade-in');
-      notification.classList.add('hidden');
-    }, 4000);
-    notification.addEventListener('click', () => {
-      notification.classList.remove('transition-fade-in');
-      notification.classList.add('hidden');
-    });
-}
+  notification.classList.add('transition-fade-in');
+  setTimeout(() => {
+    notification.classList.remove('transition-fade-in');
+    notification.classList.add('hidden');
+  }, 4000);
+  notification.addEventListener('click', () => {
+    notification.classList.remove('transition-fade-in');
+    notification.classList.add('hidden');
+  });
+};
 
 export const handleAuth = async (state: PagesState) => {
   let newState = { ...state };
@@ -113,7 +113,7 @@ export const handleRegistration = async (state: PagesState) => {
   const name = document.querySelector('[name="name"]') as HTMLInputElement;
   const password = document.querySelector('[name="password"]') as HTMLInputElement;
   const passwordConfirmation = document.querySelector('[name="password-confirm"]') as HTMLInputElement;
-  
+
   const data: RegistrationData = {
     email: email.value,
     name: name.value,
@@ -123,7 +123,7 @@ export const handleRegistration = async (state: PagesState) => {
     showNotification('Пароли должны совпадать!');
     return newState;
   }
-  let regResult = null;
+  let regResult = {};
   try {
     regResult = await regNewUser(data);
   } catch (e) {
@@ -134,7 +134,7 @@ export const handleRegistration = async (state: PagesState) => {
       email: email.value,
       password: password.value,
     };
-    if (regResult) {
+    if (Object.keys(regResult).length !== 0) {
       const response = await authUser(authData);
       if (response.status === 200) {
         const responseData = <SignInResponse>response.data;

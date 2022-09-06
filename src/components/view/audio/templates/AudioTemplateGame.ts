@@ -1,5 +1,4 @@
 import voiceIcon from '../../../../assets/images/png/up_volume.png';
-import { randomTranslates } from '../../../controller/helpers/audio-helper';
 import { countAttempts } from '../../../model/constants';
 import { GameWordData } from '../../../model/types/words';
 
@@ -13,9 +12,8 @@ export const drawTranslates = (translates: string[]) => {
   return translatesButtons;
 };
 
-const audioTemplateGame = (word: GameWordData): HTMLTemplateElement => {
+const audioTemplateGame = (word: GameWordData, result: number, translates: string[]): HTMLTemplateElement => {
   const gameBody = document.createElement('template');
-  const { result, translates } = randomTranslates(word);
   const unitClass = ` unit-${word.group + 1}-container`;
   gameBody.innerHTML = `
 <div class="main-page-audio${unitClass}">

@@ -49,11 +49,12 @@ class Header implements Page {
     });
 
     document.addEventListener('keypress', async (e: KeyboardEvent) => {
-      let key = e.key;
-      if (key === 'Enter' && this.currentForm === 'auth') {
+      const email = document.querySelector('[name="email"]') as HTMLElement;
+      const { key } = e;
+      if (key === 'Enter' && this.currentForm === 'auth' && email) {
         e.preventDefault();
         this.state = await handleAuth(this.state);
-      } else if (key === 'Enter' && this.currentForm === 'reg') {
+      } else if (key === 'Enter' && this.currentForm === 'reg' && email) {
         e.preventDefault();
         this.state = await handleRegistration(this.state);
         if (this.state.loggedIn) {
@@ -62,8 +63,6 @@ class Header implements Page {
       }
     });
   }
-
-  
 
   clearPopup() {
     this.popupContainer.classList.add('hidden');

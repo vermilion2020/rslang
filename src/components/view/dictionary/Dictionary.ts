@@ -24,14 +24,14 @@ class Dictionary implements Page {
     this.state.page = 'dictionary';
     const container = document.querySelector('#main-container') as HTMLDivElement;
     showPreloader(container);
-    let {dataPerPage, statusPage, overPages} = await this.createDataPerPage();
+    const { dataPerPage, statusPage, overPages } = await this.createDataPerPage();
     const sectionDictionary = await this.createSectionDiction(overPages, dataPerPage, statusPage);
     const sectionPlay = this.createSectionPlay(statusPage);
     container.innerHTML = '';
     container.append(sectionDictionary);
     container.append(sectionPlay);
     this.addListener();
-    this. addListenerScroll();
+    this.addListenerScroll();
     return this.state;
   }
 
@@ -51,10 +51,10 @@ class Dictionary implements Page {
     const currentIndex = currentPage - overPages;
     const statusPage = dataPerPage[currentIndex];
     return {
-      dataPerPage: dataPerPage,
-      statusPage: statusPage,
-      overPages: overPages,
-    }
+      dataPerPage,
+      statusPage,
+      overPages,
+    };
   }
 
   async createSectionDiction(overPages: number, dataPerPage: boolean[], statusPage:boolean) {
@@ -77,7 +77,6 @@ class Dictionary implements Page {
   }
 
   async paging(overPages: number, dataPerPage: boolean[], statusPage: boolean) {
-
     const pagingNode = <HTMLElement>pagingTemplate(
       'dictionary',
       statusPage,
@@ -86,8 +85,8 @@ class Dictionary implements Page {
       dataPerPage,
       overPages,
       'textbook',
-      'в учебник'
-      )
+      'в учебник',
+    )
       .content.cloneNode(true);
     const paging = <HTMLElement>pagingNode.querySelector('.paging');
     paging.addEventListener('click', async (e) => {
@@ -141,7 +140,7 @@ class Dictionary implements Page {
 
   cardClickHandler(e: Event) {
     const target = <HTMLElement>e.target;
-    if(target.classList.contains('btn-audio-diction') || target.classList.contains('icon-audio-diction')) {
+    if (target.classList.contains('btn-audio-diction') || target.classList.contains('icon-audio-diction')) {
       this.playAudio(e);
     } else if (target.classList.contains('hard-icon') || target.classList.contains('easy-icon')) {
       this.selectDifficulty(e);
@@ -152,15 +151,15 @@ class Dictionary implements Page {
     const target = <HTMLElement>e.target;
     const id = <string>target.dataset.id;
     const value = <string>target.dataset.value;
-    const hidden = <HTMLInputElement>document.querySelector(`#difficulty_${id}`)
+    const hidden = <HTMLInputElement>document.querySelector(`#difficulty_${id}`);
     const newValue = hidden.value === value ? '' : value;
     hidden.value = newValue;
     document.querySelectorAll(`[data-id="${id}"]`).forEach((el) => el.classList.remove('active'));
-    if(newValue) {
+    if (newValue) {
       document.querySelector(`[data-icon="${newValue}_${id}"]`)?.classList.add('active');
     }
-    const lebelEl = <HTMLElement>document.getElementById(id)?.querySelector(`.label`);
-    switch(newValue) {
+    const lebelEl = <HTMLElement>document.getElementById(id)?.querySelector('.label');
+    switch (newValue) {
       case 'hard':
         lebelEl.classList.add('hard');
         lebelEl.classList.remove('easy');
@@ -202,12 +201,12 @@ class Dictionary implements Page {
   }
 
   addListenerScroll() {
-    const btnToGame = <HTMLElement>document.querySelector(".linc-to-game");
-    const currentGame = <HTMLElement>document.querySelector(".section-game");
+    const btnToGame = <HTMLElement>document.querySelector('.linc-to-game');
+    const currentGame = <HTMLElement>document.querySelector('.section-game');
 
-    const scrollToGame = (e: Event) => {
-      currentGame.scrollIntoView({block: "center", behavior: "smooth"});
-    }
+    const scrollToGame = () => {
+      currentGame.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    };
     btnToGame.addEventListener('click', scrollToGame);
   }
 

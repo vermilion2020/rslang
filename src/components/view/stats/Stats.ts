@@ -38,7 +38,7 @@ class Stats implements Page {
         monthStatBlock.classList.add('hidden');
         monthStatButton.classList.remove('button_light');
         dayStatButton.classList.add('button_light');
-      } else if (target.id === 'month-stat'){
+      } else if (target.id === 'month-stat') {
         dayStatBlock.classList.add('hidden');
         monthStatBlock.classList.remove('hidden');
         dayStatButton.classList.remove('button_light');
