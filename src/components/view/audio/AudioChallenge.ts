@@ -47,6 +47,8 @@ class AudioChallenge implements Page {
 
   checkedWords: CheckedWord[] = [];
 
+  correct: number;
+
   numTried: number;
 
   constructor(state: PagesState) {
@@ -55,6 +57,7 @@ class AudioChallenge implements Page {
     this.words = [];
     this.page = Math.floor(Math.random() * countPages) + 1;
     this.unit = 1;
+    this.correct = -1;
     this.currentWord = null;
     this.successTotal = 0;
     this.selectedWords = [];
@@ -68,8 +71,12 @@ class AudioChallenge implements Page {
       if (units.includes(keyNum) && btnStart) {
         this.unit = await unitSelect(e);
       } else if (key === 'Enter' && btnStart) {
-        this.renderGame();
-        this.state.gameStarted = true;
+        const selected = <HTMLElement>document.querySelector('.select-container');
+        if (selected && selected.dataset.sett) 
+        {
+          this.renderGame();
+          this.state.gameStarted = true;
+        }  
       }
     });
   }
@@ -98,7 +105,11 @@ class AudioChallenge implements Page {
     const startAudioGameBtn = document.querySelector('.btn-start') as HTMLButtonElement;
     if (startAudioGameBtn) {
       startAudioGameBtn.addEventListener('click', async () => {
-        this.renderGame();
+        const selected = <HTMLElement>document.querySelector('.select-container');
+        if (selected && selected.dataset.sett) 
+        {
+          this.renderGame();
+        }
       });
     }
     return this.state;
@@ -127,10 +138,9 @@ class AudioChallenge implements Page {
   updateGameContent = async (word: GameWordData) => {
     resetCardsContent();
     const selectContainer = <HTMLDivElement>document.querySelector('.select-container__game');
-    const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
     const translatesTemplate = document.createElement('template');
     const { result, translates } = randomTranslates(word);
-    gameCard.dataset.result = `${result + 1}`;
+    this.correct = result + 1;
     translatesTemplate.innerHTML = drawTranslates(translates);
     const translatesBody = <HTMLElement>translatesTemplate.content.cloneNode(true);
     selectContainer.innerHTML = '';
@@ -144,6 +154,7 @@ class AudioChallenge implements Page {
     this.successTotal = 0;
     this.checkedWords = [];
     this.numTried = 1;
+    this.correct = -1;
     this.page = this.state.sprint.page !== -1 ? this.state.sprint.page : this.page;
     this.unit = this.state.sprint.unit !== -1 ? this.state.sprint.unit : this.unit;
   }
@@ -176,12 +187,11 @@ class AudioChallenge implements Page {
     const target = <HTMLElement>e.target;
     let decision = 0;
     if ('key' in e) {
-      decision = Number.parseInt(e.key, 10);
+      decision = +e.key;
     } else {
       decision = +(<string>target.dataset.word);
     }
-    const resultValue = +(<string>container.dataset.result);
-    const result = decision === resultValue;
+    const result = decision === this.correct;
     return { result, decision };
   }
 
@@ -197,7 +207,7 @@ class AudioChallenge implements Page {
     }
     const audio = <HTMLElement>document.querySelector('.speaker-ico');
     if (this.currentWord && audio) {
-      showCorrectAnswer(this.currentWord, result, decision);
+      showCorrectAnswer(this.currentWord, result, decision, this.correct);
       audio.addEventListener('click', () => {
         if (this.currentWord) {
           playWordAudio(this.currentWord?.audio);
@@ -212,7 +222,7 @@ class AudioChallenge implements Page {
       this.updateCard();
     } else if (target.classList.contains('btn-dont-know') && this.currentWord) {
       disableDecisionButtons();
-      showCorrectAnswer(this.currentWord, false, -1);
+      showCorrectAnswer(this.currentWord, false, -1, this.correct);
     } else if (target.classList.contains('voice-ico__block') && this.currentWord) {
       playWordAudio(this.currentWord.audio);
     } else if (target.classList.contains('select-word')) {
@@ -224,16 +234,17 @@ class AudioChallenge implements Page {
   handleKeysGameCard = async (e: KeyboardEvent, container: HTMLElement) => {
     const { key } = e;
     const keyNum = Number.parseInt(key, 10);
-    const btnNext = <HTMLElement>document.querySelector('.btn-next');
-    const btnDontKnow = <HTMLElement>document.querySelector('.btn-dont-know');
+    const btnNext = document.querySelector('.btn-next');
+    const btnDontKnow = document.querySelector('.btn-dont-know');
     const selectButtons = document.querySelectorAll('.select-word');
     if (answers.includes(keyNum) && selectButtons[0] && !selectButtons[0].getAttribute('disabled')) {
       const { result, decision } = this.getDecisionValue(e, container);
       await this.handleDecision(result, decision);
-    } else if ((key === 'Enter' || key === 'ArrowRight') && !btnNext.classList.contains('hidden')) {
+    } else if ((key === 'Enter' || key === 'ArrowRight') && btnNext && !btnNext.classList.contains('hidden')) {
       this.updateCard();
     } else if (
       key === 'Enter'
+      && btnDontKnow
       && !btnDontKnow.classList.contains('hidden')
       && !btnDontKnow.getAttribute('disabled')
       && this.currentWord
@@ -258,7 +269,9 @@ class AudioChallenge implements Page {
     if (this.state.sprint.source === 'textbook' || this.state.sprint.source === 'dictionary') {
       this.words = this.words.filter((w) => w.difficulty !== 'easy');
     }
-    const gameNode = <HTMLElement>audioTemplateGame(this.currentWord).content.cloneNode(true);
+    const { result, translates } = randomTranslates(this.currentWord);
+    this.correct = result + 1;
+    const gameNode = <HTMLElement>audioTemplateGame(this.currentWord, this.correct, translates).content.cloneNode(true);
     const container = document.querySelector('#main-container') as HTMLDivElement;
     container.innerHTML = '';
     container.append(gameNode);
@@ -280,7 +293,6 @@ class AudioChallenge implements Page {
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
     if (this.state.loggedIn) {
-      console.log(this.maxSuccess);
       await saveGameStatistics(
         this.state.userId,
         this.state.token,

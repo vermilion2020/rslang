@@ -22,7 +22,6 @@ axios.interceptors.response.use(
     } else if (error.response?.status === 417) {
       console.log('word is already in user words');
     }
-    return Promise.reject(error);
   },
 );
 
