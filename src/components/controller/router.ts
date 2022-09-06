@@ -13,7 +13,7 @@ import {
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   let newState: PagesState = await checkAuthState(state);
-  rewriteUrl(state);
+  rewriteUrl();
   const { queryStr, pageName } = parseQueryString();
   let page: Page;
   switch (pageName) {

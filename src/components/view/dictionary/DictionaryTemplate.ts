@@ -1,8 +1,8 @@
 import { WordData } from '../../model/types/words';
 
 export const sectionWords = (currentUnit: number, statusPage:boolean): Record<string, HTMLElement> => {
-  let learnChapter = 'learn-base'
-  if (currentUnit !== 7 ){
+  let learnChapter = 'learn-base';
+  if (currentUnit !== 7) {
     if (statusPage) {
       learnChapter = 'learn-chapter';
     }

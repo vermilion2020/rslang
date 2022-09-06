@@ -24,7 +24,7 @@ class Textbook implements Page {
     this.state.page = 'textbook';
     const container = document.querySelector('#main-container') as HTMLDivElement;
     showPreloader(container);
-    let {dataPerPage, statusPage, overPages} = await this.createDataPerPage();
+    const { dataPerPage, statusPage, overPages } = await this.createDataPerPage();
     const sectionWord = await this.createSectionWords(overPages, dataPerPage, statusPage);
     const sectionPlay = this.createSectionPlay(statusPage);
     container.innerHTML = '';
@@ -50,10 +50,10 @@ class Textbook implements Page {
     const currentIndex = currentPage - overPages;
     const statusPage = dataPerPage[currentIndex];
     return {
-      dataPerPage: dataPerPage,
-      statusPage: statusPage,
-      overPages: overPages,
-    }
+      dataPerPage,
+      statusPage,
+      overPages,
+    };
   }
 
   async handlePagingClick(e: Event) {
@@ -87,8 +87,8 @@ class Textbook implements Page {
   async createSectionWords(overPages: number, dataPerPage: boolean[], statusPage:boolean) {
     const { section, wrapper } = <Record<string, HTMLElement>>sectionWords(
       this.state.textbook.unit,
-      statusPage
-      );
+      statusPage,
+    );
     const titleNode = <HTMLElement>titleTemplate('Учебник').content.cloneNode(true);
     let words = await loadWords(this.state.textbook.unit, this.state.textbook.page, this.state.loggedIn);
     if (this.state.textbook.unit === 7) {
@@ -107,7 +107,6 @@ class Textbook implements Page {
   }
 
   async paging(overPages: number, dataPerPage: boolean[], statusPage: boolean) {
-
     const pagingNode = <HTMLElement>(
       pagingTemplate(
         'textbook',

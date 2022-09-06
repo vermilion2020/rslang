@@ -33,6 +33,8 @@ class AudioChallenge implements Page {
 
   successTotal: number;
 
+  successInRope: number;
+
   unit: number;
 
   page: number;
@@ -56,6 +58,8 @@ class AudioChallenge implements Page {
     this.currentWord = null;
     this.successTotal = 0;
     this.selectedWords = [];
+    this.successInRope = 0;
+    this.maxSuccess = 0;
     this.numTried = 1;
     document.addEventListener('keydown', async (e: KeyboardEvent) => {
       const { key } = e;
@@ -136,6 +140,7 @@ class AudioChallenge implements Page {
 
   setInitialValues() {
     this.maxSuccess = 0;
+    this.successInRope = 0;
     this.successTotal = 0;
     this.checkedWords = [];
     this.numTried = 1;
@@ -145,10 +150,11 @@ class AudioChallenge implements Page {
 
   async saveResult(word: GameWordData, result: boolean) {
     if (result) {
-      this.maxSuccess += 1;
+      this.successInRope += 1;
+      this.maxSuccess = this.maxSuccess > this.successInRope ? this.maxSuccess : this.successInRope;
       this.successTotal += 1;
     } else {
-      this.maxSuccess = 0;
+      this.successInRope = 0;
     }
     this.numTried += 1;
 
@@ -274,6 +280,7 @@ class AudioChallenge implements Page {
     const successWords = this.checkedWords.filter((w) => w.result);
     const failedWords = this.checkedWords.filter((w) => !w.result);
     if (this.state.loggedIn) {
+      console.log(this.maxSuccess);
       await saveGameStatistics(
         this.state.userId,
         this.state.token,
