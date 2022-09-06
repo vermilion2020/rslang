@@ -10,6 +10,7 @@ import { checkAuthState } from './helpers/auth-helper';
 import {
   parseQueryString, rewriteUrl, setGameInitial, setProgress, showPageTitle,
 } from './helpers/router-helper';
+import renderFooter from '../view/footer/Footer';
 
 export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   let newState: PagesState = await checkAuthState(state);
@@ -58,6 +59,7 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
       break;
   }
   showPageTitle(newState.page);
+  renderFooter(newState);
   return newState;
 };
 

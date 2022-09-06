@@ -35,6 +35,15 @@ body {
   overflow: hidden;
 }
 
+.main-container-games {
+  min-height: calc(100vh - 65px);
+
+  .sprint-container,
+  .main-page-audio {
+    min-height: calc(100vh - 65px);
+  }
+}
+
 body::-webkit-scrollbar {
   width: 12px; 
   height: 90%;
