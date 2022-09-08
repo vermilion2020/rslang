@@ -61,10 +61,8 @@ export const playWordAudio = async (audioPath?: string) => {
   }
 };
 
-export const showCorrectAnswer = (word: GameWordData, result: boolean, valueResult: number) => {
-  // TODO set scc styles for classes incorrect, correct, guessed
+export const showCorrectAnswer = (word: GameWordData, result: boolean, valueResult: number, valueCorrect: number) => {
   const gameCard = <HTMLElement>document.querySelector('.game-wrapper');
-  const correct = +(<string>gameCard.dataset.result);
   document.querySelector('.btn-dont-know')?.classList.add('hidden');
   document.querySelector('.btn-next')?.classList.remove('hidden');
   const imgSrc = `${apiBaseUrl}/${word.image}`;
@@ -77,9 +75,9 @@ export const showCorrectAnswer = (word: GameWordData, result: boolean, valueResu
     if (valueResult !== -1) {
       setSelectClass(valueResult, 'incorrect');
     }
-    setSelectClass(correct, 'correct');
+    setSelectClass(valueCorrect, 'correct');
   } else {
-    setSelectClass(correct, 'guessed');
+    setSelectClass(valueCorrect, 'guessed');
   }
   (<HTMLElement>document.querySelector('.select-offer')).innerText = <string>word.word;
 };

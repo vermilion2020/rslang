@@ -15,8 +15,6 @@ class Main implements Page {
   // </svg>
   // <img class="icon-set" src="icons/set-x.svg" alt="title-img" />
 
-
-
   addListener() {
     const handleClick = (e: Event) => {
       const target = <HTMLLinkElement>(<HTMLElement>e.target).closest('.link-arrow');

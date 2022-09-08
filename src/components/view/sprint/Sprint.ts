@@ -151,6 +151,7 @@ class Sprint implements Page {
   setInitialValues() {
     this.successInRope = 0;
     this.maxSuccess = 0;
+    window.localStorage.setItem('gameStarted', '1');
     this.score = 0;
     this.countForSuccess = 10;
     this.page = this.state.sprint.page > 0 && this.state.sprint.page < 30 ? this.state.sprint.page : this.page;

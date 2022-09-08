@@ -1,5 +1,5 @@
 import menuItems from '../../model/menu-items';
-import { GameInitial, PagesState, Progress } from '../../model/types/page';
+import { GameInitial, Progress } from '../../model/types/page';
 
 const routes: { [key: string]: string } = {
   notFound: 'notFound',
@@ -21,9 +21,11 @@ export const parseQueryString = () => {
   return { queryStr, pageName };
 };
 
-export const rewriteUrl = (state: PagesState) => {
+export const rewriteUrl = () => {
   const { hash } = window.location;
-  if (state.gameStarted) {
+  const gameStarted = window.localStorage.getItem('gameStarted');
+  if (gameStarted) {
+    window.localStorage.removeItem('gameStarted');
     window.location.reload();
   }
   if (!hash) {

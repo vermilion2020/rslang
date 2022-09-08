@@ -1,8 +1,8 @@
 import { WordData } from '../../model/types/words';
 
 export const sectionWords = (currentUnit: number, statusPage:boolean): Record<string, HTMLElement> => {
-  let learnChapter = 'learn-base'
-  if (currentUnit !== 7 ){
+  let learnChapter = 'learn-base';
+  if (currentUnit !== 7) {
     if (statusPage) {
       learnChapter = 'learn-chapter';
     }
@@ -102,20 +102,20 @@ export const pagingTemplate = (
     .join('');
 
   let lincBlock = '';
-  if(currentChapter === 'dictionary') {
+  if (currentChapter === 'dictionary') {
     lincBlock = `
     <div class="wrapper-linc">
       <button class="linc-to-game">Играть в спринт и аудиовызов</button>
       <div class="icon-linc-to-game"></div>
-    </div>`
+    </div>`;
     if (statusPage === true) {
       lincBlock = `
       <div class="wrapper-linc">
         <button class="linc-to-game linc-block">Игры недоступны</button>
-      </div>`
+      </div>`;
     }
   }
-  
+
   paging.innerHTML = `
   <div class="wrapper-paging">
     <a href="/#/${tochapter}/unit${currentUnit}/${currentPage}">
@@ -133,16 +133,16 @@ export const pagingTemplate = (
 
 export const playTemplate = (unit: number, page: number, chapter: string, statusPage: boolean) => {
   const playPart = document.createElement('template');
-  let learnChapter = 'learn-base'
+  let learnChapter = 'learn-base';
   let easyClass = '';
-  let chapterDesc = 'Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.'
+  let chapterDesc = 'Перейди в игры со страниц Учебника или Словаря и твои результат отобразятся в этих разделах.';
   if (unit !== 7) {
     if (statusPage === true) {
       easyClass = 'block-game';
-      chapterDesc = 'Поздравляем! Эта страница изучена. Поэтому сейчас ты не можешь перейти на игры со страницы.'
-      learnChapter = 'learn-chapter'
+      chapterDesc = 'Поздравляем! Эта страница изучена. Поэтому сейчас ты не можешь перейти на игры со страницы.';
+      learnChapter = 'learn-chapter';
     }
-    easyClass = statusPage === true ? 'block-game' : ''
+    easyClass = statusPage === true ? 'block-game' : '';
   }
   playPart.innerHTML = `
   <section class="section-game ${learnChapter}" id="section-game">
