@@ -8,7 +8,7 @@ import AudioChallenge from '../view/audio/AudioChallenge';
 import Stats from '../view/stats/Stats';
 import { checkAuthState } from './helpers/auth-helper';
 import {
-  parseQueryString, rewriteUrl, setGameInitial, setProgress, showPageTitle,
+  parseQueryString, rewriteUrl, setGameInitial, setMenu, setProgress, showPageTitle,
 } from './helpers/router-helper';
 import renderFooter from '../view/footer/Footer';
 
@@ -62,6 +62,8 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   renderFooter(newState);
   return newState;
 };
+
+
 
 export const route = (e: Event, state: PagesState) => {
   const target = e.target as HTMLLinkElement;

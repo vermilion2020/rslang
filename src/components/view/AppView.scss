@@ -125,7 +125,7 @@ html {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 @keyframes fade-in {
@@ -136,4 +136,11 @@ html {
 .transition-fade-in {
   animation-name: fade-in;
   animation-duration: 2s;
+}
+
+@media screen and (max-width: 767px) {
+
+  html {
+    font-size: 14px;
+  }
 }

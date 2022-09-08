@@ -21,6 +21,7 @@ const headerTemplate = (active: string, loggedIn: boolean, userName: string): HT
       <button class="button" id="log-out">Выход</button>
     </div>`;
   header.innerHTML = `
+  <div class="burger"></div>
   <div class="logo"><a href="/#/" class="logo__link"></span><h1>RS Lang</h1></a></div>
   <nav class="main-nav" id="main-nav">
     ${menuBody}

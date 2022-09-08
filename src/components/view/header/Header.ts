@@ -6,6 +6,7 @@ import { route } from '../../controller/router';
 import menuItems from '../../model/menu-items';
 import { authTemplate, registrationTemplate } from './AuthTemplate';
 import { handleAuth, handleLogout, handleRegistration } from '../../controller/helpers/auth-helper';
+import { setMenu } from '../../controller/helpers';
 
 class Header implements Page {
   state: PagesState;
@@ -100,6 +101,10 @@ class Header implements Page {
     const target = e.target as HTMLLinkElement;
     if (target.tagName === 'A') {
       e.preventDefault();
+      const overlay = <HTMLElement>document.querySelector('#overlay');
+      if(!overlay.classList.contains('hidden')) {
+        setMenu();
+      }
       const newLocation = target.href;
       const menuItem = menuItems.find((item) => newLocation.includes(item.href));
       if (!this.state.loggedIn && menuItem?.auth) {
@@ -116,11 +121,17 @@ class Header implements Page {
       headerTemplate(this.state.page, this.state.loggedIn, this.state.userName).content.cloneNode(true)
     );
     headerContainer.appendChild(headerNode);
-    const nav = <HTMLElement>headerContainer.querySelector('nav');
+    
     const logo = <HTMLElement>headerContainer.querySelector('.logo__link');
     const loginButton = <HTMLElement>headerContainer.querySelector('#log-in');
     const logoutButton = <HTMLElement>headerContainer.querySelector('#log-out');
-
+    const burger = <HTMLElement>document.querySelector('.burger');
+    const nav = <HTMLElement>document.querySelector('#main-nav');
+    const toggleMenu = () => {
+      nav.classList.toggle('hidden');
+      document.querySelector('#overlay')?.classList.toggle('hidden');
+    }
+    burger.addEventListener('click', toggleMenu);
     [nav, logo].forEach((el) => {
       el.addEventListener('click', (e: Event) => {
         this.handleItemClick(e);
