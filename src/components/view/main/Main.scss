@@ -338,9 +338,4 @@ hr {
   padding-top: 55px;
 }
 
-@media screen and (max-width: 950px) {
-  .icon-mane-gr {
-    width: 83%;
-  }
-
-}
+@import './MainAdaptive.scss';

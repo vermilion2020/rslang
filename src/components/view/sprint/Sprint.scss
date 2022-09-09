@@ -26,11 +26,20 @@
   max-width: 700px;
   background: $bgTColorWhite;
   border: 17px solid $bgTColorGrey;
-  height: 350px;
+  max-height: 370px;
   border-radius: 3rem;
   padding: 1rem;
   text-align: center;
   margin: 10vh auto 1rem;
+}
+
+@media screen and (max-width: 767px) {
+
+  .card-sprint, 
+  .start-sprint {
+    width: 75vw;
+    margin: 3vh auto 1rem;
+  }
 }
 
 @import '../common/unit-styles.scss';

@@ -126,10 +126,50 @@ $icons-path: '../../../../assets/images/png/';
     background-color: $colorBtnHov;
     border: 1px solid $bgTColorBlack;
   }
+
+  &:disabled {
+    border: 1px solid $bgTColorGrey;
+  }
+
+  &:disabled:hover {
+    background-color: $bgTColorWhite;
+    border: 1px solid $bgTColorGrey;
+    cursor: default;
+  }
 }
 
 .audio-main__title {
   font-family: $enFont;
   font-size: 2.8rem;
+}
+
+@media screen and (max-width: 767px) {
+
+  .select-word {
+    min-width: 50vw;
+  }
+
+  .select-container {
+    width: 65vw;
+    margin: 1rem auto;
+  }
+
+  .select-level {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.8rem;
+  }
+
+
+  .audio-content__wrapper {
+    max-width: 75vw;
+  }
+
+  .control-explanation {
+    padding: 1rem;
+  }
+
+  .select-unit-offer {
+    text-align: right;
+  }
 }
 

@@ -8,9 +8,13 @@ const drawMenuItem = (item: MenuItem, active: string, loggedIn: boolean): string
 }" id="${item.href}-menu-item">${item.name}
     </a>`;
 
-const headerTemplate = (active: string, loggedIn: boolean, userName: string): HTMLTemplateElement => {
+const headerTemplate = (active: string, loggedIn: boolean, userName: string, width: number): HTMLTemplateElement => {
   const header = document.createElement('template');
   const menuBody = menuItems.map((item) => drawMenuItem(item, active, loggedIn)).join('');
+  let visibility = '';
+  if (width < 768) {
+    visibility = ' hidden'
+  }
   const loggedOutBlock = `
     <div class="logged-out">
       <button class="button" id="log-in">Войти</button>
@@ -23,7 +27,7 @@ const headerTemplate = (active: string, loggedIn: boolean, userName: string): HT
   header.innerHTML = `
   <div class="burger"></div>
   <div class="logo"><a href="/#/" class="logo__link"></span><h1>RS Lang</h1></a></div>
-  <nav class="main-nav" id="main-nav">
+  <nav class="main-nav${visibility}" id="main-nav">
     ${menuBody}
   </nav>
   ${!loggedIn ? loggedOutBlock : loggedInBlock}

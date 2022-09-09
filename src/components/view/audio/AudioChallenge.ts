@@ -237,6 +237,7 @@ class AudioChallenge implements Page {
     const btnNext = document.querySelector('.btn-next');
     const btnDontKnow = document.querySelector('.btn-dont-know');
     const selectButtons = document.querySelectorAll('.select-word');
+    const voiceIco = document.querySelector('.voice-ico__block');
     if (answers.includes(keyNum) && selectButtons[0] && !selectButtons[0].getAttribute('disabled')) {
       const { result, decision } = this.getDecisionValue(e, container);
       await this.handleDecision(result, decision);
@@ -250,7 +251,12 @@ class AudioChallenge implements Page {
       && this.currentWord
     ) {
       await this.handleDecision(false, -1);
-    }
+    } else if (
+      key === ' '
+      && voiceIco 
+      && this.currentWord) {
+        playWordAudio(this.currentWord.audio);
+      }
   };
 
   async renderGame() {

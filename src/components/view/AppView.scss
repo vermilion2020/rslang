@@ -143,4 +143,10 @@ html {
   html {
     font-size: 14px;
   }
+
+  .main-block-sec-2,
+  .main-block-sec-4 {
+    display: flex;
+    flex-direction: column;
+  }
 }

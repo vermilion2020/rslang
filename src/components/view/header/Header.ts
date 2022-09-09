@@ -118,7 +118,7 @@ class Header implements Page {
     const headerContainer = document.querySelector('#header-container') as HTMLElement;
     headerContainer.innerHTML = '';
     const headerNode = <HTMLElement>(
-      headerTemplate(this.state.page, this.state.loggedIn, this.state.userName).content.cloneNode(true)
+      headerTemplate(this.state.page, this.state.loggedIn, this.state.userName, window.innerWidth).content.cloneNode(true)
     );
     headerContainer.appendChild(headerNode);
     
@@ -127,10 +127,12 @@ class Header implements Page {
     const logoutButton = <HTMLElement>headerContainer.querySelector('#log-out');
     const burger = <HTMLElement>document.querySelector('.burger');
     const nav = <HTMLElement>document.querySelector('#main-nav');
+    const overlay = <HTMLElement>document.querySelector('#overlay');
     const toggleMenu = () => {
       nav.classList.toggle('hidden');
-      document.querySelector('#overlay')?.classList.toggle('hidden');
+      overlay.classList.toggle('hidden');
     }
+    overlay.addEventListener('click', toggleMenu);
     burger.addEventListener('click', toggleMenu);
     [nav, logo].forEach((el) => {
       el.addEventListener('click', (e: Event) => {
