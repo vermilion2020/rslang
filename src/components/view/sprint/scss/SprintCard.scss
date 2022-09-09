@@ -156,3 +156,30 @@ $unit-img-path: '../../../../assets/images/units/';
   background: url('#{$unit-img-path}unit-6.svg');
   background-size: cover;
 }
+
+@media screen and (max-width: 767px) {
+
+  .decision {
+    gap: 5vw;
+  }
+
+  .decision_button__false {
+    color: $falseColorGames;
+    border: 2px solid $falseColorGames;
+    background-image: url('#{$icons-path}arrow-left-red.svg');
+    padding: 0.5rem 0.9rem 0.5rem 2.5rem;
+    background-size: 1.2rem;
+    background-position: bottom 0.7rem left 1rem;
+    background-repeat: no-repeat;
+  }
+
+  .decision_button__true {
+    color: $trueColorGames;
+    border: 2px solid $trueColorGames;
+    background-image: url('#{$icons-path}arrow-right-green.svg');
+    padding: 0.5rem 2.5rem 0.5rem 0.9rem;
+    background-size: 1.2rem;
+    background-position: bottom 0.7rem right 1rem;
+    background-repeat: no-repeat;
+  }
+}

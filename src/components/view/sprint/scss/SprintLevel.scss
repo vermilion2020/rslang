@@ -67,3 +67,16 @@
 .start-countdown {
   margin-top: 1rem;
 }
+
+@media screen and (max-width: 767px) {
+
+  .unit-select {
+    width: 37vw;
+    margin: 1rem auto;
+  }
+
+  .unit-select__button {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.8rem;
+  }
+}
