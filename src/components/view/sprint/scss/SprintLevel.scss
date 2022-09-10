@@ -25,7 +25,6 @@
 .unit-select__button {
   display: block;
   color: $bgTColorWhite;
-  border: 0;
   padding: 0.7rem 1.4rem;
   border: 0;
   font-size: 0.9rem;
@@ -66,4 +65,13 @@
 
 .start-countdown {
   margin-top: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+
+  .unit-select {
+    width: 60vw;
+    margin: 1rem auto;
+  }
+
 }

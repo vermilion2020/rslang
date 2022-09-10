@@ -65,3 +65,31 @@
   display: flex;
   justify-content: space-around;
 }
+
+@media screen and (max-width: 767px) {
+
+  .popup-container {
+    max-width: 500px;
+    width: 90vw;
+    right: calc(50% - 45vw);
+    top: 5rem;
+  }
+
+  .popup {
+    padding: 1rem 1rem;
+    max-width: 420px;
+    width: 82vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    align-items: stretch;
+    text-align: center;
+
+    .button,
+    .button_light {
+      padding: 0.7rem 1.1rem;
+      outline: 1px solid $bgTColorBlack;
+    }
+  }
+}

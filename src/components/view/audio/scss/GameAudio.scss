@@ -241,3 +241,32 @@ $svgs-path: '../../../../assets/icons/';
   object-fit: cover;
   border-radius: 50%;
 }
+
+@media screen and (max-width: 767px) {
+
+  .voice-ico__block {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .out {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .container {
+    width: 50px;
+    height: 50px;
+    padding: 2px;
+  }
+  
+  .progress-circular {
+    position: relative;
+    width: 50px;
+    height: 50px;
+  }
+  .progress-circular::after {
+    width: 40px;
+    height: 40px;
+  }
+}

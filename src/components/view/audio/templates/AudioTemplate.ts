@@ -21,7 +21,7 @@ audioTemplate.innerHTML = `
             <button class="select-level level-six" data-sett="6">Раздел 6</button>
           </div>
           <div class="block-btn__start">
-          <button class="btn-start">Начать</button>
+          <button class="btn-start" disabled>Начать</button>
           </div>
         </div>
       </section>
