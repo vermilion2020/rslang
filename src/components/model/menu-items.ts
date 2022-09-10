@@ -5,6 +5,7 @@ const menuItems: MenuItem[] = [
   { name: 'Словарь', href: 'dictionary', auth: false },
   { name: 'Спринт', href: 'sprint', auth: false },
   { name: 'Аудиовызов', href: 'audio', auth: false },
+  { name: 'Команда', href: '/#/', auth: false },
   { name: 'Статистика', href: 'stats', auth: true },
 ];
 

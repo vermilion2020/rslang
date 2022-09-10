@@ -13,7 +13,7 @@ const headerTemplate = (active: string, loggedIn: boolean, userName: string, wid
   const menuBody = menuItems.map((item) => drawMenuItem(item, active, loggedIn)).join('');
   let visibility = '';
   if (width < 768) {
-    visibility = ' hidden'
+    visibility = ' hidden';
   }
   const loggedOutBlock = `
     <div class="logged-out">
