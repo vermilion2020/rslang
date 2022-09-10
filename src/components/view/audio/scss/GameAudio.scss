@@ -244,6 +244,11 @@ $svgs-path: '../../../../assets/icons/';
 
 @media screen and (max-width: 767px) {
 
+  .voice-ico__block {
+    width: 100px;
+    height: 100px;
+  }
+  
   .out {
     width: 60px;
     height: 60px;

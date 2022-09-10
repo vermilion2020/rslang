@@ -101,9 +101,13 @@
 
 @media screen and (max-width: 767px) {
 
-  .link-rs .icon-rs {
-    height: 25px;
-    width: 75px;
+  .link-rs {
+    padding-right: 1rem;
+
+    .icon-rs {
+      height: 25px;
+      width: 75px;
+    }
   }
 
   .footer-container {

@@ -221,8 +221,7 @@ class AudioChallenge implements Page {
     if (target.classList.contains('btn-next')) {
       this.updateCard();
     } else if (target.classList.contains('btn-dont-know') && this.currentWord) {
-      disableDecisionButtons();
-      showCorrectAnswer(this.currentWord, false, -1, this.correct);
+      await this.handleDecision(false, -1);
     } else if (target.classList.contains('voice-ico__block') && this.currentWord) {
       playWordAudio(this.currentWord.audio);
     } else if (target.classList.contains('select-word')) {

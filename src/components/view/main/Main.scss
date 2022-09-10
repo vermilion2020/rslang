@@ -338,4 +338,9 @@ hr {
   padding-top: 55px;
 }
 
+.main-star-icons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 @import './MainAdaptive.scss';
