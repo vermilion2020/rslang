@@ -1,11 +1,25 @@
 
-@media screen and (max-width: 950px) {
-
-  .icon-mane-gr {
-    width: 83%;
-    margin: auto;
-    display: block;
+@media screen and (max-width: 1000px) {
+  
+  .img-block {
+    padding-right: 0;
+    .icon-mane-gr {
+      width: 84%;
+    }
   }
+
+  .cover-text {
+    .title {
+      font-size: 3.1rem;
+      line-height: 3.2rem;
+    }
+    .icon-star6 {
+      width: 120px;
+      height: 120px;
+      left: 86%;
+    }
+  }
+
 
   .cover-img {
     margin-top: 2rem;

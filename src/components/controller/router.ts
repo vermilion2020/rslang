@@ -63,8 +63,6 @@ export const handleRoute = async (state: PagesState): Promise<PagesState> => {
   return newState;
 };
 
-
-
 export const route = (e: Event, state: PagesState) => {
   const target = e.target as HTMLLinkElement;
   window.history.pushState({}, '', target.href);

@@ -25,7 +25,7 @@ export const setMenu = () => {
   const nav = <HTMLElement>document.querySelector('#main-nav');
   const overlay = <HTMLElement>document.querySelector('#overlay');
   overlay.classList.add('hidden');
-  if (window.innerWidth < 768) {
+  if (window.innerWidth < 1000) {
     nav.classList.add('hidden');
   } else {
     nav.classList.remove('hidden');
