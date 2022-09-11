@@ -114,7 +114,7 @@ class Header implements Page {
       await route(e, this.state);
       if (target.id === '/#/-menu-item') {
         const teamSection = <HTMLElement>document.querySelector('.sec-4');
-        teamSection.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        teamSection.scrollIntoView({ block: 'start', behavior: 'smooth' });
       }
     }
   }
