@@ -26,12 +26,15 @@ const headerTemplate = (active: string, loggedIn: boolean, userName: string, wid
       <button class="button" id="log-out">Выход</button>
     </div>`;
   header.innerHTML = `
-  <div class="burger"></div>
+
   <div class="logo"><a href="/#/" class="logo__link"></span><h1>RS Lang</h1></a></div>
-  <nav class="main-nav${visibility}" id="main-nav">
-    ${menuBody}
-  </nav>
-  ${!loggedIn ? loggedOutBlock : loggedInBlock}
+  <div class="wrapper-burger${visibility}">
+    <nav class="main-nav${visibility}" id="main-nav">
+      ${menuBody}
+    </nav>
+    ${!loggedIn ? loggedOutBlock : loggedInBlock}
+  </div>
+  <div class="burger"></div>
   `;
   return header;
 };

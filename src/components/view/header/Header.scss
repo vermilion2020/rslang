@@ -27,6 +27,7 @@ h1 {
   font-family: $enFont;
   font-size: 20px;
   margin: 0;
+  width: 81px;
 }
 
 .logo__link {
@@ -91,10 +92,17 @@ h1 {
 .main-nav {
   display: flex;
   gap: 10px;
+  margin: auto;
 }
 
 .burger {
   display: none;
+}
+
+.wrapper-burger {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 
@@ -107,9 +115,12 @@ h1 {
 
 
   .header-container {
-    padding: 0.5rem 0;
+    padding: 0.8rem 0;
   }
 
+  .logo {
+    padding-left: 1rem;
+  }
 
   .logged-out,
   .logged-in {
@@ -120,58 +131,19 @@ h1 {
     max-width: 5rem;
   }
 
-  // .burger {
-  //   width: 3rem;
-  //   height: 3rem;
-  //   background: url('../../../assets/icons/burger-test.svg');
-  //   background-size: cover;
-  //   display: block;
-  //   margin-left: 1rem;
-  //   cursor: pointer;
-  //   transition: all 1s ease;
-  //   z-index: 1001;
-
-  //   &:hover {
-  //     background-image: url('../../../assets/icons/burger-menu-active.svg');
-  //   }
-  // }
-
   .burger {
     cursor: pointer;
     background-color: #000000;
     width: 40px;
     height: 25px;
     -webkit-mask: url('../../../assets/icons/burger-menu.svg') no-repeat;
-    margin-left: 1rem;
+    margin-right: 1rem;
     display: block;
     transition: all 1s ease;
     &:hover {
       background-color: #458506;
     }
   }
-
-  // nav {
-  //   display: flex;
-  //   flex-direction: column;
-  //   position: absolute;
-  //   top: 3.5rem;
-  //   left: 1rem;
-  //   gap: 0.5rem;
-  //   background: $bgTColorWhite;
-  //   z-index: 1000;
-  //   border-radius: 1rem;
-  //   padding: 1rem 0;
-  //   transition: all 1s ease;
-  //   border: 1px solid $bgTColorBlack;
-
-  //   .main-nav__item {
-  //     padding: 0.6rem 1.6rem;
-
-  //     &:hover {
-  //       background: $bgTColorGrey;
-  //     }
-  //   } 
-  // }
 
   @keyframes menu-move {
     from {
@@ -182,34 +154,31 @@ h1 {
     }
   }
 
-  nav {
-  flex-direction: column;
-  position: absolute;
-  top: 0rem;
-  left: 0rem;
-  gap: 0.5rem;
-  background: $bgTColorGrey;
-  z-index: 1000;
-  padding: 3rem 0;
-  transition: all 1s ease;
-  height: 100vh;
-  width: 70vw;
-  font-size: 1.8rem;
-  justify-content: start;
-  align-items: center;
-  animation-name: menu-move;
-  animation-duration: 500ms;
+  .wrapper-burger {
+    flex-direction: column;
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    gap: 0.5rem;
+    background: $bgTColorGrey;
+    z-index: 1000;
+    padding: 3rem 0;
+    transition: all 1s ease;
+    height: calc(100vh - 98px);
+    width: 70vw;
+    font-size: 1.8rem;
+    justify-content: space-between;
+    align-items: center;
+    animation-name: menu-move;
+    animation-duration: 500ms;
 
+    nav {
+      flex-direction: column;
+      margin: 0 0 3rem 0;
+    }
+  
     .main-nav__item {
       padding: 0.6rem 1.6rem;
     } 
   }
-
-
-
-
-  .logo {
-    padding-left: 0;
-  }
-
 }

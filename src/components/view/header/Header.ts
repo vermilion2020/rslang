@@ -86,6 +86,14 @@ class Header implements Page {
   }
 
   renderAuthForm() {
+    // const nav = <HTMLElement>document.querySelector('#main-nav');
+    // const wrapperMenu = <HTMLElement>document.querySelector('.wrapper-burger');
+    // if (window.innerWidth < 1000) {
+    //   wrapperMenu.classList.add('hidden');
+    //   nav.classList.add('hidden');
+    // } 
+
+
     this.popupContainer.innerHTML = '';
     this.popupContainer.classList.remove('hidden');
     this.overlay.classList.remove('hidden');
@@ -131,8 +139,13 @@ class Header implements Page {
     const logoutButton = <HTMLElement>headerContainer.querySelector('#log-out');
     const burger = <HTMLElement>document.querySelector('.burger');
     const nav = <HTMLElement>document.querySelector('#main-nav');
+
+    // правки по меню
+    const wrapperMenu = <HTMLElement>document.querySelector('.wrapper-burger');
+
     const overlay = <HTMLElement>document.querySelector('#overlay');
     const toggleMenu = () => {
+      wrapperMenu.classList.toggle('hidden');
       nav.classList.toggle('hidden');
       overlay.classList.toggle('hidden');
     }
