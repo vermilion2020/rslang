@@ -451,6 +451,23 @@ button[data-unit="7"]:disabled {
   }
 }
 
+@media screen and (max-width: 730px) {
+  .wrapper-paging {
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+    .wrapper-linc {
+      margin-left: 0;
+     }
+    a {
+      order: 1;
+    }
+    .paging {
+      order: 2;
+    }
+  }
+}
+
 @media screen and (max-width: 600px) {
 
   .wrapper-btn {
@@ -487,7 +504,7 @@ button[data-unit="7"]:disabled {
 
   .wrapper-paging {
     flex-direction: column;
-    align-items: end;
+    align-items: start;
     gap: 15px;
     a {
       order: 1;
