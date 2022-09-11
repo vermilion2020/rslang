@@ -1,5 +1,5 @@
 
-@media screen and (max-width: 999px) {
+@media screen and (max-width: 1024px) {
   
   .img-block {
     padding-right: 0;
@@ -86,7 +86,7 @@
 
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 770px) {
 
   .section-cover {
     gap: 0;
@@ -96,8 +96,8 @@
 
   .cover-text {
     .title {
-      font-size: 3.4rem;
-      line-height: 3.4rem;
+      font-size: 2.9rem;
+      line-height: 3rem;
     }
     .icon-star6 {
       bottom: 20%;
@@ -236,6 +236,11 @@
   .wrapper-sec-2, .wrapper-sec-4  {
     padding-top: 68px;
   }
+
+  .icon-bookmark {
+    width: 24px;
+    height: 24px;
+}
 
 }
 
