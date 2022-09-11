@@ -103,15 +103,13 @@ h1 {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  align-items: center;
 }
 
 
-@media screen and (max-width: 1279px) {
-  
 
-}
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 999px) {
 
 
   .header-container {

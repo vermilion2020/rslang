@@ -68,10 +68,15 @@ p {
   position: relative;
   padding-right: 40px;
   padding-bottom: 2rem;
+  // background-image: url('../../../assets/icons/mane-gr.svg');
+  // background-repeat: no-repeat;
+  // background-size: 413px;
+  // width: 400px;
+  // height: 397px;
+  // background-position: center;
 
-  .img-mock {
-    height: 450px;
-    max-width: 100%;
+  .icon-mane-adapt {
+    display: none;
   }
   .icon-star8 {
     height: 250px;

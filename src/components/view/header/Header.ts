@@ -87,13 +87,6 @@ class Header implements Page {
 
   renderAuthForm() {
     // const nav = <HTMLElement>document.querySelector('#main-nav');
-    // const wrapperMenu = <HTMLElement>document.querySelector('.wrapper-burger');
-    // if (window.innerWidth < 1000) {
-    //   wrapperMenu.classList.add('hidden');
-    //   nav.classList.add('hidden');
-    // } 
-
-
     this.popupContainer.innerHTML = '';
     this.popupContainer.classList.remove('hidden');
     this.overlay.classList.remove('hidden');
