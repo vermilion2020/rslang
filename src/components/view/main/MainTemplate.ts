@@ -20,6 +20,7 @@ mainTemplate.innerHTML = `
       <div class="img-block">
         <img class="icon-mane-gr" src="icons/mane-gr.svg" alt="title-img" />
         <img class="icon-mane-adapt" src="icons/mane-adapt.svg" alt="title-img" />
+        <img class="icon-mane-mobile" src="icons/mane-mobile.svg" alt="title-img" />
       </div>
     </div>
   </section>

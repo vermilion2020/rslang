@@ -68,14 +68,11 @@ p {
   position: relative;
   padding-right: 40px;
   padding-bottom: 2rem;
-  // background-image: url('../../../assets/icons/mane-gr.svg');
-  // background-repeat: no-repeat;
-  // background-size: 413px;
-  // width: 400px;
-  // height: 397px;
-  // background-position: center;
 
   .icon-mane-adapt {
+    display: none;
+  }
+  .icon-mane-mobile {
     display: none;
   }
   .icon-star8 {
