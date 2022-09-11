@@ -147,8 +147,39 @@
   background-image: url('../../../assets/images/star-bg.png');
 }
 
-// .section-game {
-//   background-size: 150px;
-//   background-image: url('../../../assets/images/star-bg.png');
-// }
+@media screen and (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 668px) {
+  .cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wrapper-paging {
+    flex-direction: column;
+    align-items: start;
+    a {
+      order: 1;
+    }
+    .paging {
+      order: 2;
+    }
+  }
+
+  .wrapper-sec-word {
+    padding-bottom: 80px;
+  }
+
+}
+
+
 
