@@ -86,6 +86,7 @@ class Header implements Page {
   }
 
   renderAuthForm() {
+    // const nav = <HTMLElement>document.querySelector('#main-nav');
     this.popupContainer.innerHTML = '';
     this.popupContainer.classList.remove('hidden');
     this.overlay.classList.remove('hidden');
@@ -97,12 +98,12 @@ class Header implements Page {
     });
   }
 
-  handleItemClick(e: Event) {
+  async handleItemClick(e: Event) {
     const target = e.target as HTMLLinkElement;
     if (target.tagName === 'A') {
       e.preventDefault();
       const overlay = <HTMLElement>document.querySelector('#overlay');
-      if(!overlay.classList.contains('hidden')) {
+      if (!overlay.classList.contains('hidden')) {
         setMenu();
       }
       const newLocation = target.href;
@@ -110,7 +111,11 @@ class Header implements Page {
       if (!this.state.loggedIn && menuItem?.auth) {
         return;
       }
-      route(e, this.state);
+      await route(e, this.state);
+      if (target.id === '/#/-menu-item') {
+        const teamSection = <HTMLElement>document.querySelector('.sec-4');
+        teamSection.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
     }
   }
 
@@ -127,8 +132,13 @@ class Header implements Page {
     const logoutButton = <HTMLElement>headerContainer.querySelector('#log-out');
     const burger = <HTMLElement>document.querySelector('.burger');
     const nav = <HTMLElement>document.querySelector('#main-nav');
+
+    // правки по меню
+    const wrapperMenu = <HTMLElement>document.querySelector('.wrapper-burger');
+
     const overlay = <HTMLElement>document.querySelector('#overlay');
     const toggleMenu = () => {
+      wrapperMenu.classList.toggle('hidden');
       nav.classList.toggle('hidden');
       overlay.classList.toggle('hidden');
     }

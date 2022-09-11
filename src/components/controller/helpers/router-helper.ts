@@ -23,11 +23,14 @@ export const parseQueryString = () => {
 
 export const setMenu = () => {
   const nav = <HTMLElement>document.querySelector('#main-nav');
+  const wrapperMenu = <HTMLElement>document.querySelector('.wrapper-burger');
   const overlay = <HTMLElement>document.querySelector('#overlay');
   overlay.classList.add('hidden');
-  if (window.innerWidth < 768) {
+  if (window.innerWidth < 1000) {
+    wrapperMenu.classList.add('hidden');
     nav.classList.add('hidden');
   } else {
+    wrapperMenu.classList.remove('hidden');
     nav.classList.remove('hidden');
   }
 }
