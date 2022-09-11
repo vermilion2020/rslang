@@ -73,6 +73,7 @@ class Header implements Page {
   showPopup() {
     this.popupContainer.classList.remove('hidden');
     this.overlay.classList.remove('hidden');
+    document.querySelector('.wrapper-burger')?.classList.add('hidden');
   }
 
   renderRegForm() {
@@ -86,10 +87,8 @@ class Header implements Page {
   }
 
   renderAuthForm() {
-    // const nav = <HTMLElement>document.querySelector('#main-nav');
     this.popupContainer.innerHTML = '';
-    this.popupContainer.classList.remove('hidden');
-    this.overlay.classList.remove('hidden');
+    this.showPopup();
     const authNode = <HTMLElement>authTemplate.content.cloneNode(true);
     this.popupContainer.appendChild(authNode);
     this.popupContainer.querySelector('.popup__cross-button')?.addEventListener('click', (e) => {
@@ -139,10 +138,15 @@ class Header implements Page {
     const overlay = <HTMLElement>document.querySelector('#overlay');
     const toggleMenu = () => {
       wrapperMenu.classList.toggle('hidden');
-      nav.classList.toggle('hidden');
+      nav.classList.remove('hidden');
       overlay.classList.toggle('hidden');
     }
-    overlay.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', () => {
+      const form = document.querySelector('#auth-form');
+      if (!form || form.classList.contains('hidden')) {
+        toggleMenu();
+      }
+    });
     burger.addEventListener('click', toggleMenu);
     [nav, logo].forEach((el) => {
       el.addEventListener('click', (e: Event) => {
