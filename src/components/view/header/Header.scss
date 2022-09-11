@@ -51,11 +51,10 @@ h1 {
 
 .user-name {
   font-family: $rusFont;
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: $bgTColorBlack;
   text-overflow: ellipsis;
   overflow: hidden;
-  // width: 8rem;
   white-space: nowrap;
   text-align: right;
 }
@@ -106,11 +105,7 @@ h1 {
   align-items: center;
 }
 
-
-
-
 @media screen and (max-width: 999px) {
-
 
   .header-container {
     padding: 0.8rem 0;

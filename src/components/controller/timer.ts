@@ -23,7 +23,9 @@ export function timerCard(seconds: number, className: string) {
 
     (<HTMLElement>diagramBox.querySelector('.piece.right')).style.transform = `rotate(${deg}deg)`;
     (<HTMLElement>diagramBox.querySelector('.text b')).innerText = `${seconds}`;
-
+    if (seconds === 0) {
+      return;
+    }
     setTimeout(() => {
       timerCard(seconds - 1, className);
     }, 1000);

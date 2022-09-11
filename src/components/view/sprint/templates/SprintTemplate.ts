@@ -1,4 +1,5 @@
 import { randomResult } from '../../../controller/helpers/sprint-helper';
+import { gameTime } from '../../../model/constants';
 import { GameWordData } from '../../../model/types/words';
 
 const timerNode = (seconds: number, visible: string) => `
@@ -46,7 +47,7 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
     <div class="sprint-container unit-${unit}-container">
       <div class="card-sprint" id="card-sprint" data-word="${word.id}" data-result="${result}">
         <p id="score">0</p>
-        <span id="start-countdown" class="hidden">59</span>
+        <span id="start-countdown" class="hidden">${gameTime}</span>
         <p class="success-count">+<span id="success-count">10</span> очков за правильный ответ</p>
         <div class="point-multiplier">
           <div class="circle" data-value="1"></div>
@@ -61,7 +62,7 @@ export const sprintCardTemplate = (word: GameWordData): HTMLTemplateElement => {
           <button class="decision_button decision_button__true" data-value="1">Верно</button>
         </div>
       </div>
-      ${timerNode(59, ' card-diagram')}
+      ${timerNode(gameTime, ' card-diagram')}
     </div>`;
   return sprintCard;
 };
