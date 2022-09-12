@@ -89,6 +89,7 @@ class AudioChallenge implements Page {
     this.container.append(gameNode);
 
     if (this.state.audio.source === 'textbook' || this.state.audio.source === 'dictionary') {
+      this.state.audio.source = '';
       this.unit = this.state.audio.unit;
       this.page = this.state.audio.page;
       await this.renderGame();
