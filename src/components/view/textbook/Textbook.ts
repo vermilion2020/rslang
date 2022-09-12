@@ -158,6 +158,13 @@ class Textbook implements Page {
       const elem = <HTMLElement>document.querySelector(el);
       elem.addEventListener('click', handleClick);
     });
+
+    const scrollTop = () => {
+      const header = <HTMLElement>document.getElementById('header-container');
+      header.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    };
+    const arrowTop = <HTMLElement>document.querySelector('.btn-top');
+    arrowTop.addEventListener('click', scrollTop);
   }
 }
 
