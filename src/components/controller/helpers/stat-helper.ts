@@ -37,7 +37,7 @@ export const createMonthChartData = async (userId: string, token: string) => {
   const easyWordsData: DateChartData[] = [];
   const keysEasy = Object.keys(easyWordsObj);
   keysEasy.forEach((k) => {
-    easyWordsData.push({ date: Date.parse(k), value: newWordsObj[k] });
+    easyWordsData.push({ date: Date.parse(k), value: easyWordsObj[k] });
   });
 
   return { newWordsData, easyWordsData };

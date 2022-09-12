@@ -139,6 +139,7 @@ export const handleRegistration = async (state: PagesState) => {
       if (response.status === 200) {
         const responseData = <SignInResponse>response.data;
         newState = { ...updateStateOnAuth(newState, responseData) };
+        window.location.reload();
       }
     }
   } catch (e) {

@@ -68,7 +68,8 @@ class AudioChallenge implements Page {
       const { key } = e;
       const keyNum = Number.parseInt(key, 10);
       const btnStart = document.querySelector('.btn-start');
-      if (units.includes(keyNum) && btnStart) {
+      const authForm = document.querySelector('#auth-form');
+      if (units.includes(keyNum) && btnStart && !authForm) {
         this.unit = await unitSelect(e);
       } else if (key === 'Enter' && btnStart) {
         const selected = <HTMLElement>document.querySelector('.select-container');
