@@ -27,10 +27,8 @@ class Header implements Page {
       e.preventDefault();
       const target = e.target as HTMLElement;
       if (target.id === 'reg-button') {
-        this.currentForm = 'reg';
         this.renderRegForm();
       } else if (target.id === 'back-button') {
-        this.currentForm = 'auth';
         this.renderAuthForm();
       } else if (target.id === 'registration') {
         this.state = await handleRegistration(this.state);
@@ -81,6 +79,7 @@ class Header implements Page {
   }
 
   renderRegForm() {
+    this.currentForm = 'reg';
     this.popupContainer.innerHTML = '';
     const regNode = <HTMLElement>registrationTemplate.content.cloneNode(true);
     this.popupContainer.appendChild(regNode);
@@ -92,6 +91,7 @@ class Header implements Page {
 
   renderAuthForm() {
     this.popupContainer.innerHTML = '';
+    this.currentForm = 'auth';
     this.showPopup();
     const authNode = <HTMLElement>authTemplate.content.cloneNode(true);
     this.popupContainer.appendChild(authNode);
