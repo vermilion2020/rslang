@@ -67,6 +67,7 @@ class Header implements Page {
 
   clearPopup() {
     this.popupContainer.classList.add('hidden');
+    this.popupContainer.innerHTML = '';
     this.overlay.classList.add('hidden');
   }
 
@@ -145,9 +146,16 @@ class Header implements Page {
       overlay.classList.toggle('hidden');
     }
     overlay.addEventListener('click', () => {
-      const form = document.querySelector('#auth-form');
-      if (!form || form.classList.contains('hidden')) {
-        toggleMenu();
+      const authForm = document.querySelector('#auth-form');
+      const audioForm = document.querySelector('#popup-audio');
+      if (!authForm || authForm.classList.contains('hidden')) {
+        overlay.classList.add('hidden');
+        if(window.innerWidth < 1000) {
+          document.querySelector('.wrapper-burger')?.classList.add('hidden');
+        }
+        if(audioForm) {
+          audioForm.classList.add('hidden');
+        }
       }
     });
     burger.addEventListener('click', toggleMenu);
