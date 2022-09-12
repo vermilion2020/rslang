@@ -208,6 +208,13 @@ class Dictionary implements Page {
       currentGame.scrollIntoView({ block: 'center', behavior: 'smooth' });
     };
     btnToGame.addEventListener('click', scrollToGame);
+
+    const scrollTop = () => {
+      const header = <HTMLElement>document.getElementById('header-container');
+      header.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    };
+    const arrowTop = <HTMLElement>document.querySelector('.btn-top');
+    arrowTop.addEventListener('click', scrollTop);
   }
 
   playAudio(e: Event) {
