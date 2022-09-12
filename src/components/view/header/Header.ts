@@ -73,7 +73,10 @@ class Header implements Page {
   showPopup() {
     this.popupContainer.classList.remove('hidden');
     this.overlay.classList.remove('hidden');
-    document.querySelector('.wrapper-burger')?.classList.add('hidden');
+    const burger = document.querySelector('.burger');
+    if(window.innerWidth < 1000) {
+      document.querySelector('.wrapper-burger')?.classList.add('hidden');
+    }
   }
 
   renderRegForm() {
