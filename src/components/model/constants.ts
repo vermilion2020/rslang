@@ -8,6 +8,7 @@ export const minScorePerWord = 10;
 export const scoreStep = 4;
 export const successSound = 'files/correct_sound.mp3';
 export const failedSound = 'files/incorrect_sound.mp3';
+export const gameTime = 20;
 
 // audio game
 export const countAttempts = 20;

@@ -22,7 +22,7 @@ export const sprintResultsTemplate = (
   sprintResult.innerHTML = `
     <div class="sprint-container unit-${unit}-container">
       <div class="results-sprint" id="results-sprint">
-        <h1 class="heading-h1">Результаты игры</h1>
+        <h2 class="heading-h1">Результаты игры</h2>
         <h3 class="heading-h3">Вы набрали ${score} очков</h3>
         <hr>
         <div class="result-scroll">

@@ -166,7 +166,8 @@ $svgs-path: '../../../../assets/icons/';
 }
 
 .select-word.button {
-  border: 2px solid $bgTColorBlack;
+  border: 1px solid $bgTColorBlack;
+  outline: 1px solid $bgTColorBlack;
 }
 
 .select-word:disabled,

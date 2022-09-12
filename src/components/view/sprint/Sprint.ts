@@ -4,7 +4,7 @@ import './scss/Timer.scss';
 import { Page, PagesState } from '../../model/types/page';
 import startTimer, { timerCard } from '../../controller/timer';
 import {
-  apiBaseUrl, countPages, failedSound, successSound,
+  apiBaseUrl, countPages, failedSound, gameTime, successSound,
 } from '../../model/constants';
 import { CheckedWord, GameWordData, WordData } from '../../model/types/words';
 import {
@@ -202,8 +202,8 @@ class Sprint implements Page {
     this.container.innerHTML = '';
     this.container.append(sprintCardNode);
     const cardContainer = <HTMLElement>document.querySelector('#card-sprint');
-    timerCard(59, 'card-diagram');
-    await startTimer(58, async () => {
+    timerCard(gameTime, 'card-diagram');
+    await startTimer(gameTime, async () => {
       await this.renderResults();
     });
     cardContainer.addEventListener('click', async (e: Event) => {
