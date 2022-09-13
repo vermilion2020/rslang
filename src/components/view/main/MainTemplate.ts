@@ -7,16 +7,20 @@ mainTemplate.innerHTML = `
       <p class="title">Изучай английский<br>с помощью игр
       </p>
       <p class="desc">С RS Lang ты сможешь изучать английский легко, используя только самые простые и эффективные инструменты, занимаясь не больше часа в день.</p>
-      <svg class="icon-star4">
-        <use xlink:href="./icons/sprite-mainpage.svg#star4"></use>
-      </svg>
-      <svg class="icon-star6">
-        <use xlink:href="./icons/sprite-mainpage.svg#star6"></use>
-      </svg>
+      <div class="main-star-icons">
+        <svg class="icon-star4">
+          <use xlink:href="./icons/sprite-mainpage.svg#star4"></use>
+        </svg>
+        <svg class="icon-star6">
+          <use xlink:href="./icons/sprite-mainpage.svg#star6"></use>
+        </svg>
+      </div>
    </div>
     <div class="cover-img">
       <div class="img-block">
         <img class="icon-mane-gr" src="icons/mane-gr.svg" alt="title-img" />
+        <img class="icon-mane-adapt" src="icons/mane-adapt.svg" alt="title-img" />
+        <img class="icon-mane-mobile" src="icons/mane-mobile.svg" alt="title-img" />
       </div>
     </div>
   </section>

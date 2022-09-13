@@ -51,8 +51,8 @@ p {
     width: 100%;
   }
   .icon-star4 {
-    width: 110px;
-    height: 110px;
+    width: 81px;
+    height: 81px;
     margin-top: 50px;
   }
   .icon-star6 {
@@ -69,9 +69,11 @@ p {
   padding-right: 40px;
   padding-bottom: 2rem;
 
-  .img-mock {
-    height: 450px;
-    max-width: 100%;
+  .icon-mane-adapt {
+    display: none;
+  }
+  .icon-mane-mobile {
+    display: none;
   }
   .icon-star8 {
     height: 250px;
@@ -338,9 +340,9 @@ hr {
   padding-top: 55px;
 }
 
-@media screen and (max-width: 950px) {
-  .icon-mane-gr {
-    width: 83%;
-  }
-
+.main-star-icons {
+  display: flex;
+  justify-content: space-evenly;
 }
+
+@import './MainAdaptive.scss';

@@ -32,3 +32,21 @@
     padding: 0.8rem;
   }
 }
+
+@media screen and (max-width: 767px) {
+
+  .main-page-audio .wrapper {
+    width: 75vw;
+    max-width: 800px;
+    margin-top: 3vh;
+    padding: 0;
+  }
+
+  .game-wrapper .visualisation {
+    max-height: 220px;
+  }
+
+  .block-btn__next {
+    margin-top: 0.5rem;
+  }
+}

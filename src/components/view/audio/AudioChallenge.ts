@@ -68,7 +68,8 @@ class AudioChallenge implements Page {
       const { key } = e;
       const keyNum = Number.parseInt(key, 10);
       const btnStart = document.querySelector('.btn-start');
-      if (units.includes(keyNum) && btnStart) {
+      const authForm = document.querySelector('#auth-form');
+      if (units.includes(keyNum) && btnStart && !authForm) {
         this.unit = await unitSelect(e);
       } else if (key === 'Enter' && btnStart) {
         const selected = <HTMLElement>document.querySelector('.select-container');
@@ -88,6 +89,7 @@ class AudioChallenge implements Page {
     this.container.append(gameNode);
 
     if (this.state.audio.source === 'textbook' || this.state.audio.source === 'dictionary') {
+      this.state.audio.source = '';
       this.unit = this.state.audio.unit;
       this.page = this.state.audio.page;
       await this.renderGame();
@@ -149,6 +151,7 @@ class AudioChallenge implements Page {
   };
 
   setInitialValues() {
+    console.log(this.checkedWords); 
     this.maxSuccess = 0;
     this.successInRope = 0;
     this.successTotal = 0;
@@ -221,8 +224,7 @@ class AudioChallenge implements Page {
     if (target.classList.contains('btn-next')) {
       this.updateCard();
     } else if (target.classList.contains('btn-dont-know') && this.currentWord) {
-      disableDecisionButtons();
-      showCorrectAnswer(this.currentWord, false, -1, this.correct);
+      await this.handleDecision(false, -1);
     } else if (target.classList.contains('voice-ico__block') && this.currentWord) {
       playWordAudio(this.currentWord.audio);
     } else if (target.classList.contains('select-word')) {
@@ -237,6 +239,7 @@ class AudioChallenge implements Page {
     const btnNext = document.querySelector('.btn-next');
     const btnDontKnow = document.querySelector('.btn-dont-know');
     const selectButtons = document.querySelectorAll('.select-word');
+    const voiceIco = document.querySelector('.voice-ico__block');
     if (answers.includes(keyNum) && selectButtons[0] && !selectButtons[0].getAttribute('disabled')) {
       const { result, decision } = this.getDecisionValue(e, container);
       await this.handleDecision(result, decision);
@@ -250,7 +253,12 @@ class AudioChallenge implements Page {
       && this.currentWord
     ) {
       await this.handleDecision(false, -1);
-    }
+    } else if (
+      key === ' '
+      && voiceIco 
+      && this.currentWord) {
+        playWordAudio(this.currentWord.audio);
+      }
   };
 
   async renderGame() {
@@ -303,6 +311,7 @@ class AudioChallenge implements Page {
       );
     }
     renderAudioResultPop(successWords, failedWords, this.successTotal);
+    this.checkedWords = [];
   }
 }
 

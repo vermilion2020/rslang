@@ -134,6 +134,8 @@ $icons-path: '../../../../assets/images/png/';
 .footer-result {
   display: flex;
   justify-content: space-around;
+  padding-top: 0.5rem;
+  border-top: 1px solid $bgTColorGrey;
 
   .result-exit {
     padding: 10px 15px;
@@ -272,4 +274,32 @@ $icons-path: '../../../../assets/images/png/';
   color: $bgTColorWhite;
   background: $falseColorGames;
   border-radius: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+
+  .popupAudio,
+  .popup-audio {
+    width: 85vw;
+    right: calc(50% - 42.5vw);
+    max-height: 700px;
+    height: 85vh;
+    top: calc(50% - 42vh);
+  }
+
+  .popupAudio .wrapper {
+    height: 82vh;
+  }
+
+  .menu-buttons {
+    flex-direction: column;
+  }
+
+  .transcription {
+    display: none;
+  }
+
+  .result-item {
+    flex-wrap: wrap;
+  }
 }

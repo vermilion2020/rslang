@@ -3,6 +3,7 @@ import { GameWordData } from '../../model/types/words';
 
 export const unitSelect = async (e: Event | KeyboardEvent) => {
   const target = <HTMLElement>e.target;
+  document.querySelector('.btn-start')?.removeAttribute('disabled');
   let unitId = 0;
   if ('key' in e) {
     unitId = Number.parseInt(e.key, 10);

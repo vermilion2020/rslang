@@ -21,6 +21,27 @@ export const parseQueryString = () => {
   return { queryStr, pageName };
 };
 
+export const setMenu = () => {
+  const nav = <HTMLElement>document.querySelector('#main-nav');
+  const wrapperMenu = <HTMLElement>document.querySelector('.wrapper-burger');
+  const overlay = <HTMLElement>document.querySelector('#overlay');
+  const authForm = document.querySelector('#auth-form');
+  const audioForm = document.querySelector('#popup-audio');
+  overlay.classList.add('hidden');
+  if (authForm) {
+    authForm.classList.add('hidden');
+    authForm.innerHTML = '';
+  }
+  audioForm?.classList.add('hidden');
+  if (window.innerWidth < 1000) {
+    wrapperMenu.classList.add('hidden');
+    nav.classList.add('hidden');
+  } else {
+    wrapperMenu.classList.remove('hidden');
+    nav.classList.remove('hidden');
+  }
+}
+
 export const rewriteUrl = () => {
   const { hash } = window.location;
   const gameStarted = window.localStorage.getItem('gameStarted');

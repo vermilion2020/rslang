@@ -33,7 +33,6 @@
   grid-gap: 20px;
   height: 250px;
   grid-template-columns: 30% 1fr;
-  // grid-template-columns: 1fr 1fr;
 }
 
 .diction-meta {
@@ -262,4 +261,64 @@ input {
 .linc-to-game.linc-block {
   pointer-events: none;
   color: rgb(38, 38, 38);
+}
+
+.diction-desc {
+  .block-en {
+    padding-right: 3.5rem;
+    padding-left: 1rem;
+  }
+
+  .block-ru {
+    padding-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .section-dic {
+    padding: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 723px) {
+  .wrapper-paging {
+
+
+    .wrapper-linc {
+      margin-left: 0;
+   }
+}
+}
+
+
+@media screen and (max-width: 680px) {
+  .dictionary-card {
+    grid-template-columns: 1fr;
+  }
+
+  .dictionary-card {
+    height: 100%;
+    grid-gap: 0;
+  }
+
+  .diction-meta {
+    height: 23rem;
+    .diction-meta-photo {
+      border-radius: 15px 15px 0 0;
+    }
+  }
+
+  .diction-desc.loggedin {
+    padding-left: 1rem;
+  }
+
+  .wrapper-difficulty {
+    margin-top: 1rem;
+}
+
+  .diction-desc.loggedin .sec-btn-diction {
+    display: flex;
+    flex-direction: column;
+  }
+
 }
