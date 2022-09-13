@@ -441,6 +441,7 @@ button[data-unit="7"]:disabled {
     border: 1px solid $bgTColorBlack;
     background-repeat: no-repeat;
     background-position: center;
+    z-index: 10;
     &:hover {
       background-color: $colorBtnHov;
       cursor: pointer;

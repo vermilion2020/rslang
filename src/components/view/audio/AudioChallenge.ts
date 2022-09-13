@@ -151,6 +151,7 @@ class AudioChallenge implements Page {
   };
 
   setInitialValues() {
+    console.log(this.checkedWords); 
     this.maxSuccess = 0;
     this.successInRope = 0;
     this.successTotal = 0;
@@ -310,6 +311,7 @@ class AudioChallenge implements Page {
       );
     }
     renderAudioResultPop(successWords, failedWords, this.successTotal);
+    this.checkedWords = [];
   }
 }
 
