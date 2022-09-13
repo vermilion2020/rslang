@@ -147,7 +147,11 @@ export const playTemplate = (unit: number, page: number, chapter: string, status
   playPart.innerHTML = `
   <section class="section-game ${learnChapter}" id="section-game">
     <div class="wrapper-game">
-      <p class="title-sec">Игры</p>
+      <div class="wrapper-arrow-top">
+        <div class="title-sec">Игры</div>
+        <div class="btn-top"></div>
+      </div>
+
       <p class="desc">${chapterDesc}</p>
       <div class="wrapper-btn">
         <div class="wrapper-sprint">

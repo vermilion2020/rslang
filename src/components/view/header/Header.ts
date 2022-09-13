@@ -27,10 +27,8 @@ class Header implements Page {
       e.preventDefault();
       const target = e.target as HTMLElement;
       if (target.id === 'reg-button') {
-        this.currentForm = 'reg';
         this.renderRegForm();
       } else if (target.id === 'back-button') {
-        this.currentForm = 'auth';
         this.renderAuthForm();
       } else if (target.id === 'registration') {
         this.state = await handleRegistration(this.state);
@@ -67,16 +65,21 @@ class Header implements Page {
 
   clearPopup() {
     this.popupContainer.classList.add('hidden');
+    this.popupContainer.innerHTML = '';
     this.overlay.classList.add('hidden');
   }
 
   showPopup() {
     this.popupContainer.classList.remove('hidden');
     this.overlay.classList.remove('hidden');
-    document.querySelector('.wrapper-burger')?.classList.add('hidden');
+    const burger = document.querySelector('.burger');
+    if(window.innerWidth < 1000) {
+      document.querySelector('.wrapper-burger')?.classList.add('hidden');
+    }
   }
 
   renderRegForm() {
+    this.currentForm = 'reg';
     this.popupContainer.innerHTML = '';
     const regNode = <HTMLElement>registrationTemplate.content.cloneNode(true);
     this.popupContainer.appendChild(regNode);
@@ -88,6 +91,7 @@ class Header implements Page {
 
   renderAuthForm() {
     this.popupContainer.innerHTML = '';
+    this.currentForm = 'auth';
     this.showPopup();
     const authNode = <HTMLElement>authTemplate.content.cloneNode(true);
     this.popupContainer.appendChild(authNode);
@@ -142,9 +146,16 @@ class Header implements Page {
       overlay.classList.toggle('hidden');
     }
     overlay.addEventListener('click', () => {
-      const form = document.querySelector('#auth-form');
-      if (!form || form.classList.contains('hidden')) {
-        toggleMenu();
+      const authForm = document.querySelector('#auth-form');
+      const audioForm = document.querySelector('#popup-audio');
+      if (!authForm || authForm.classList.contains('hidden')) {
+        overlay.classList.add('hidden');
+        if(window.innerWidth < 1000) {
+          document.querySelector('.wrapper-burger')?.classList.add('hidden');
+        }
+        if(audioForm) {
+          audioForm.classList.add('hidden');
+        }
       }
     });
     burger.addEventListener('click', toggleMenu);

@@ -68,7 +68,8 @@ class AudioChallenge implements Page {
       const { key } = e;
       const keyNum = Number.parseInt(key, 10);
       const btnStart = document.querySelector('.btn-start');
-      if (units.includes(keyNum) && btnStart) {
+      const authForm = document.querySelector('#auth-form');
+      if (units.includes(keyNum) && btnStart && !authForm) {
         this.unit = await unitSelect(e);
       } else if (key === 'Enter' && btnStart) {
         const selected = <HTMLElement>document.querySelector('.select-container');
@@ -88,6 +89,7 @@ class AudioChallenge implements Page {
     this.container.append(gameNode);
 
     if (this.state.audio.source === 'textbook' || this.state.audio.source === 'dictionary') {
+      this.state.audio.source = '';
       this.unit = this.state.audio.unit;
       this.page = this.state.audio.page;
       await this.renderGame();
@@ -149,6 +151,7 @@ class AudioChallenge implements Page {
   };
 
   setInitialValues() {
+    console.log(this.checkedWords); 
     this.maxSuccess = 0;
     this.successInRope = 0;
     this.successTotal = 0;
@@ -308,6 +311,7 @@ class AudioChallenge implements Page {
       );
     }
     renderAudioResultPop(successWords, failedWords, this.successTotal);
+    this.checkedWords = [];
   }
 }
 
