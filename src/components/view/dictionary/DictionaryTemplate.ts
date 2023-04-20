@@ -1,3 +1,4 @@
+import { apiBaseUrl } from '../../model/constants';
 import { WordData } from '../../model/types/words';
 
 export const sectionWords = (currentUnit: number, statusPage:boolean): Record<string, HTMLElement> => {
@@ -18,7 +19,7 @@ export const sectionWords = (currentUnit: number, statusPage:boolean): Record<st
 export const drawCard = (wordData: WordData, loggedIn: boolean): string => {
   const card = `<div class="dictionary-card" id="${wordData.id}">
   <div class="diction-meta">
-    <img class="diction-meta-photo" src="https://rslang-learn-words.herokuapp.com/${wordData.image}">
+    <img class="diction-meta-photo" src="${apiBaseUrl}/${wordData.image}">
   </div>
   
   <div class="diction-desc ${loggedIn ? 'loggedin' : ''}">
